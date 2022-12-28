@@ -1,0 +1,25 @@
+zwaveManufacturer:
+  - id: "000C/4447/3036"
+    deviceLabel: HomeSeer WD200+ Dimmer
+    manufacturerId: 0x000C
+    productType: 0x4447
+    productId: 0x3036
+    deviceProfileName: homeseer-wd200
+  - id: "000C/4447/3035"
+    deviceLabel: HomeSeer WS200+ Switch
+    manufacturerId: 0x000C
+    productType: 0x4447
+    productId: 0x3035
+    deviceProfileName: homeseer-ws200
+  - id: "000C/4447/3034"
+    deviceLabel: HomeSeer WD100+ Dimmer
+    manufacturerId: 0x000C
+    productType: 0x4447
+    productId: 0x3034
+    deviceProfileName: homeseer-wd100
+  - id: "000C/0203/0001"
+    deviceLabel: HomeSeer FC200+ Fan Controller
+    manufacturerId: 0x000C
+    productType: 0x0203
+    productId: 0x0001
+    deviceProfileName: homeseer-fc200
