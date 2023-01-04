@@ -45,6 +45,10 @@ local map_key_attribute_to_capability = {
   [CentralScene.key_attributes.KEY_PRESSED_5_TIMES] = {
     [0x01] = capabilities.button.button.up_5x(),
     [0x02] = capabilities.button.button.down_5x()
+  },
+  [CentralScene.key_attributes.KEY_HELD_DOWN] = {
+    [0x01] = capabilities.button.button.up_hold(),
+    [0x02] = capabilities.button.button.down_hold()
   }
 }
 
@@ -54,6 +58,7 @@ local function central_scene_notification_handler(driver, device, cmd)
     local event_map = map_key_attribute_to_capability[cmd.args.key_attributes]
     local event = event_map and event_map[cmd.args.scene_number]
     if event ~= nil then
+      event.state_change = true
       device:emit_event_for_endpoint(cmd.src_channel, event)
     end
   end
