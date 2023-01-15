@@ -1,0 +1,7 @@
+zwaveManufacturer:
+  - id: "HomeSeer/Fan/FC200"
+    deviceLabel: HomeSeer FC200+ Fan Controller
+    manufacturerId: 0x000C
+    productType: 0x0203
+    productId: 0x0001
+    deviceProfileName: homeseer-fc200
