@@ -1,3 +1,4 @@
+-- https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf
 name: homeseer-wd200
 components:
   - id: main
@@ -11,4 +12,219 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Light
+      - name: Switch
+preferences:
+  - name: "ledIndicator"
+    title: "LED Indicator"
+    description: "Turn LED indicator on..."
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "When Off"
+        1: "When On"
+      default: 0
+  - name: "invertSwitch"
+    title: "Invert Switch"
+    description: "Inverts the switch"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "minimumDimLevel"
+    title: "Minimum Dim Level"
+    description: "Sets the lowest dimming threshold (Added in firmware 5.14)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "No minimum dim value"
+        1: "6.5%"
+        2: "8%"
+        3: "9%"
+        4: "10%"
+        5: "11%"
+        6: "12%"
+        7: "13%"
+        8: "14%"
+        9: "15%"
+        10: "16%"
+        11: "17%"
+        12: "18%"
+        13: "19%"
+        14: "20%"
+      default: 0
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
+    description: "Enables/Disables Central Scene (Added in firmware 5.12"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Enabled, controls load with delay. Enables Multi-tap"
+        1: "Disabled, controls load instantly. Disables Multi-tap"
+      default: 0
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z Wave"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "rampRate"
+    title: "Ramp Rate"
+    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "operatingMode"
+    title: "Operating Mode"
+    description: "Set mode of operation"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Normal mode (load status)"
+        1: "Status mode (custom status)"
+      default: 0
+  - name: "ledNormalColor"
+    title: "Normal Mode: LED Color"
+    description: "Set LED Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor"
+    title: "Status Mode - LED Color"
+    description: "Set LED Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor2"
+    title: "Status Mode - LED-2 Color"
+    description: "Set LED-2 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor3"
+    title: "Status Mode - LED-3 Color"
+    description: "Set LED-3 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor4"
+    title: "Status Mode - LED-4 Color"
+    description: "Set LED-4 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor5"
+    title: "Status Mode - LED-5 Color"
+    description: "Set LED-5 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor6"
+    title: "Status Mode - LED-6 Color"
+    description: "Set LED-6 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor7"
+    title: "Status Mode - LED-7 Color"
+    description: "Set LED-7 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledBlinkFrequency"
+    title: "LED Status Blink Frequency"
+    description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
