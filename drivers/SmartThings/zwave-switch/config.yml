@@ -1,4 +1,4 @@
-name: "HomeSeer Z-Wave Switch"
+name: "HomeSeer Z-Wave Switches"
 packageKey: "homeseer-zwave-switches"
 permissions:
   zwave: {}
