@@ -1,4 +1,4 @@
--- https://homeseer.com/wp-content/uploads/2020/09/HS-WS100-Manual-v7.pdf
+# https://homeseer.com/wp-content/uploads/2020/09/HS-WS100-Manual-v7.pdf
 name: homeseer-ws100
 components:
   - id: main
@@ -10,8 +10,15 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: Light
 preferences:
+  - name: "invertSwitch"
+    title: "Invert Switch"
+    description: "Inverts the switch"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -23,10 +30,3 @@ preferences:
         1: "When On"
         2: "Never"
       default: 0
-  - name: "invertSwitch"
-    title: "Invert Switch"
-    description: "Inverts the switch"
-    required: true
-    preferenceType: boolean
-    definition:
-      default: false

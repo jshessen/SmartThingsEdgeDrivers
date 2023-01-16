@@ -18,7 +18,7 @@ local devices = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
       product_types = 0x4447,
-      product_ids = {0x3033,0x3034,0x3035,0x3036}
+      product_ids = 0x3033
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1},
@@ -29,13 +29,13 @@ local devices = {
       -- 0 = Top of Paddle turns load ON (DEFAULT)
       -- 1 = Bottom of Paddle turns load ON
     }
-  }
+  },
   -- https://homeseer.com/wp-content/uploads/2020/09/HS-WD100-Manual-7.pdf
   HOMESEER_WD100 = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
       product_types = 0x4447,
-      product_ids = {0x3034}
+      product_ids = 0x3034
     },
     PARAMETERS = {
       invertSwitch = {parameter_number = 4, size = 1}, 
@@ -60,7 +60,7 @@ local devices = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
       product_types = 0x4447,
-      product_ids = {0x3035}
+      product_ids = 0x3035
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1},
@@ -97,7 +97,7 @@ local devices = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
       product_types = 0x4447,
-      product_ids = {0x3036}
+      product_ids = 0x3036
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1},
@@ -144,7 +144,7 @@ local devices = {
       -- Sets the dimmer Blink frequency for All LEDs in Status mode
       -- Possible values: 0, 1-255
       -- 0=No blink (DEFAULT), 1=100ms ON then 100ms OFF
-      ledBlinkControl = {parameter_number = 31, size = 1},
+      -- ledBlinkControl = {parameter_number = 31, size = 1},
       -- Sets LED(s) 1-7 to Blink in Status mode
       -- Bitmask defines specific LEDs to enable for blinking:
       -- Note: this decimal value is derived from a hex code calculation based on the following:

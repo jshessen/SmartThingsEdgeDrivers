@@ -1,4 +1,4 @@
--- https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf
+# https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf
 name: homeseer-wd200
 components:
   - id: main
@@ -7,17 +7,20 @@ components:
         version: 1
       - id: switchLevel
         version: 1
-        config:
-          values:
-            - key: "level.value"
-              range: [1, 100]
       - id: button
         version: 1
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: Light
 preferences:
+  - name: "invertSwitch"
+    title: "Invert Switch"
+    description: "Inverts the switch"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -28,13 +31,6 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
-  - name: "invertSwitch"
-    title: "Invert Switch"
-    description: "Inverts the switch"
-    required: true
-    preferenceType: boolean
-    definition:
-      default: false
   - name: "minimumDimLevel"
     title: "Minimum Dim Level"
     description: "Sets the lowest dimming threshold (Added in firmware 5.14)"
@@ -58,16 +54,6 @@ preferences:
         13: "19%"
         14: "20%"
       default: 0
-  - name: "centralSceneControl"
-    title: "Central Scene Control"
-    description: "Enables/Disables Central Scene (Added in firmware 5.12"
-    required: false
-    preferenceType: enumeration
-    definition:
-      options:
-        0: "Enabled, controls load with delay. Enables Multi-tap"
-        1: "Disabled, controls load instantly. Disables Multi-tap"
-      default: 0
   - name: "rampRateZWave"
     title: "Ramp Rate Z Wave"
     description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
@@ -86,6 +72,16 @@ preferences:
       minimum: 1
       maximum: 255
       default: 3
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
+    description: "Enables/Disables Central Scene (Added in firmware 5.12"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Control load with delay, + Multi-Tap"
+        1: "Control load instantly, - Multi-Tap"
+      default: 0
   - name: "operatingMode"
     title: "Operating Mode"
     description: "Set mode of operation"
@@ -117,7 +113,7 @@ preferences:
     required: false
     preferenceType: enumeration
     definition:
-      options:
+      options: &led_color_options
         0: "Off"
         7: "White"
         1: "Red"
@@ -133,7 +129,7 @@ preferences:
     required: false
     preferenceType: enumeration
     definition:
-      options:
+      options: &led_color_options
         0: "Off"
         7: "White"
         1: "Red"
