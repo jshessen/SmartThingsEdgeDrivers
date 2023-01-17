@@ -180,7 +180,7 @@ preferences:
     title: "LED Status Blink Frequency"
     description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
     required: false
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 255
@@ -200,7 +200,7 @@ preferences:
   - name: "ledBrightness"
     title: "Sets LED indicator brightness"
     required: false
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 6
