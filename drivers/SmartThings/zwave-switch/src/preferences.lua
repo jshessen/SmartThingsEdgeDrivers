@@ -50,7 +50,7 @@ local devices = {
       dimmingSpeed = {parameter_number = 9, size = 1},
       -- Possible values: 1-99
       -- 1=highest resolution (slowest dimming) (DEFAULT)
-      rampRate = {parameter_number = 10, size = 2},
+      rampRate = {parameter_number = 10, size = 2}
       -- Possible values: 1-255
       -- 1=10 milliseconds (DEFAULT=3)
     }
@@ -86,7 +86,7 @@ local devices = {
       -- Possible values: 0-7
       -- 0=Off (DEFAULT)
       -- 1=Red, 2=Green, 3=Blue, 4=Magenta, 5=Yellow, 6=Cyan, 7=White
-      ledBlinkFrequency = {parameter_number = 31, size = 1},
+      ledBlinkFrequency = {parameter_number = 31, size = 1}
       -- Sets the dimmer Blink frequency for All LEDs in Status mode
       -- Possible values: 0, 1-255
       -- 0=No blink (DEFAULT), 1=100ms ON then 100ms OFF
@@ -140,7 +140,7 @@ local devices = {
       ledStatusColor5 = {parameter_number = 25, size = 1},
       ledStatusColor6 = {parameter_number = 26, size = 1},
       ledStatusColor7 = {parameter_number = 27, size = 1},
-      ledBlinkFrequency = {parameter_number = 30, size = 1},
+      ledBlinkFrequency = {parameter_number = 30, size = 1}
       -- Sets the dimmer Blink frequency for All LEDs in Status mode
       -- Possible values: 0, 1-255
       -- 0=No blink (DEFAULT), 1=100ms ON then 100ms OFF

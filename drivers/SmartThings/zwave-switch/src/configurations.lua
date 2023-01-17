@@ -24,7 +24,6 @@ local devices = {
       invertSwitch = {parameter_number = 4, size = 1, configuration_value = 0}
     }
   },
-  -- https://homeseer.com/wp-content/uploads/2020/09/HS-WD100-Manual-7.pdf
   HOMESEER_WD100 = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
@@ -39,7 +38,6 @@ local devices = {
       rampRate = {parameter_number = 10, size = 2, configuration_value = 3},
     }
   },
-  -- https://homeseer.com/wp-content/uploads/2019/11/HS-WS200-Manual-v8a.pdf
   HOMESEER_WS200 = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
@@ -56,7 +54,6 @@ local devices = {
       ledBlinkFrequency = {parameter_number = 31, size = 1, configuration_value = 0},
     }
   },
-  -- https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf
   HOMESEER_WD200 = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
