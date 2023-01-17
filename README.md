@@ -15,6 +15,8 @@ At the moment, these drivers are very much in **beta** and additional feature an
 - [HS-WD100+ Z-Wave Wall Dimmer](https://homeseer.com/wp-content/uploads/2020/09/HS-WD100-Manual-7.pdf)
 - [HS-WS200+ Z-Wave Wall Switch](https://homeseer.com/wp-content/uploads/2019/11/HS-WS200-Manual-v8a.pdf)
 - [HS-WD200+ Z-Wave Wall Dimmer](https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf)
+- [ZLink ZL-WS-100 Z-Wave Wall Switch](https://cdn.shopify.com/s/files/1/0067/9814/7669/files/ZL-WS-100_Users_Guide.pdf)
+- [ZLink ZL-WD-100 Z-Wave Wall Dimmer](https://cdn.shopify.com/s/files/1/0067/9814/7669/files/ZL-WD-100_Users_Guide_480fe582-aca4-4693-8ae6-5f1b0ee74072.pdf)
 
 ### Category: Fan (not released)
 - [HS-FC200+ Z-Wave Plus Fan Controller](https://homeseer.com/wp-content/uploads/2020/09/HS-FC200-Manual-4.pdf)

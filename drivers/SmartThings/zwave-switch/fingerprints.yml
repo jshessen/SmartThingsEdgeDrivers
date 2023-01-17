@@ -1,37 +1,49 @@
 zwaveManufacturer:
   - id: "HomeSeer/Switch/WS100"
     deviceLabel: HomeSeer WS100 Switch
-    manufacturerId: {0x000C, 0x0315}
+    manufacturerId: 0x000C
     productType: 0x4447
     productId: 0x3033
     deviceProfileName: homeseer-ws100
   - id: "HomeSeer/Dimmer/WD100"
     deviceLabel: HomeSeer WD100+ Dimmer
-    manufacturerId: {0x000C, 0x0315}
+    manufacturerId: 0x000C
     productType: 0x4447
     productId: 0x3034
     deviceProfileName: homeseer-wd100
   - id: "HomeSeer/Switch/WS200"
     deviceLabel: HomeSeer WS200+ Switch
-    manufacturerId: {0x000C, 0x0315}
+    manufacturerId: 0x000C
     productType: 0x4447
     productId: 0x3035
     deviceProfileName: homeseer-ws200
   - id: "HomeSeer/Dimmer/WD200"
     deviceLabel: HomeSeer WD200+ Dimmer
-    manufacturerId: {0x000C, 0x0315}
+    manufacturerId: 0x000C
     productType: 0x4447
     productId: 0x3036
     deviceProfileName: homeseer-wd200
   - id: "HomeSeer/Dimmer/WX300S"
     deviceLabel: HomeSeer WX300 Switch
-    manufacturerId: {0x000C, 0x0315}
+    manufacturerId: 0x000C
     productType: 0x4447
     productId: 0x4036
     deviceProfileName: homeseer-wx300s
   - id: "HomeSeer/Dimmer/WX300D"
     deviceLabel: HomeSeer WX300 Dimmer
-    manufacturerId: {0x000C, 0x0315}
+    manufacturerId: 0x000C
     productType: 0x4447
     productId: 0x4037
     deviceProfileName: homeseer-wx300d
+  - id: "ZLink/Switch/WS100"
+    deviceLabel: ZLink ZL-WS-100 Switch
+    manufacturerId: 0x0315
+    productType: 0x4447
+    productId: 0x3033
+    deviceProfileName: homeseer-ws100
+  - id: "HomeSeer/Dimmer/WD100"
+    deviceLabel: ZLink ZL-WD-100 Dimmer
+    manufacturerId: 0x0315
+    productType: 0x4447
+    productId: 0x3034
+    deviceProfileName: homeseer-wd100

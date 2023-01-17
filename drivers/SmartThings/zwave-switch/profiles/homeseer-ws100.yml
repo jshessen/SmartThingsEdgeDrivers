@@ -1,9 +1,5 @@
 # https://homeseer.com/wp-content/uploads/2020/09/HS-WS100-Manual-v7.pdf
 name: homeseer-ws100
-status: "DEVELOPMENT"
-owner:
-  ownerType: "USER"
-  owner: "jshessen"
 components:
   - id: main
     capabilities:
