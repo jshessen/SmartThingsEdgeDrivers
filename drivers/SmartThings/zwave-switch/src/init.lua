@@ -101,9 +101,8 @@ local driver_template = {
   supported_capabilities = {
     capabilities.switch,
     capabilities.switchLevel,
-    capabilities.colorControl,
+    capabilities.refresh,
     capabilities.button,
-    capabilities.zwMultichannel
   },
   sub_drivers = {
     require("homeseer-switches"),
