@@ -18,6 +18,3 @@ At the moment, these drivers are very much in **beta** and additional feature an
 
 ### Category: Fan (not released)
 - [HS-FC200+ Z-Wave Plus Fan Controller](https://homeseer.com/wp-content/uploads/2020/09/HS-FC200-Manual-4.pdf)
-=======
-Channel Invite:
-https://bestow-regional.api.smartthings.com/invite/Kr2z1gQn3ZMA
