@@ -131,6 +131,12 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
   {mfr = 0x000C, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Dimmer
   {mfr = 0x000C, prod = 0x4447, model = 0x4036}, -- HomeSeer WX300 Switch
   {mfr = 0x000C, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Dimmer
+  {mfr = 0x0315, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Dimmer - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x3035}, -- HomeSeer WS200 Switch - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Dimmer - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x4036}, -- HomeSeer WX300 Switch - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Dimmer - ZWaveProducts.com
 }
 --
 --?????????????????????????????????????????????????????????????????

@@ -15,7 +15,7 @@
 local devices = {
   HOMESEER_WS100 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3033
     },
@@ -26,7 +26,7 @@ local devices = {
   },
   HOMESEER_WD100 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3034
     },
@@ -40,7 +40,7 @@ local devices = {
   },
   HOMESEER_WS200 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3035
     },
@@ -56,7 +56,7 @@ local devices = {
   },
   HOMESEER_WD200 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3036
     },
@@ -82,7 +82,7 @@ local devices = {
   },
   HOMESEER_WX300 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = {0x3036,0x3037}
     },

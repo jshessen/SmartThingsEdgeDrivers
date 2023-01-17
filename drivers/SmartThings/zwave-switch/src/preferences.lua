@@ -16,7 +16,7 @@ local devices = {
   -- https://homeseer.com/wp-content/uploads/2020/09/HS-WS100-Manual-v7.pdf
   HOMESEER_WS100 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3033
     },
@@ -33,7 +33,7 @@ local devices = {
   -- https://homeseer.com/wp-content/uploads/2020/09/HS-WD100-Manual-7.pdf
   HOMESEER_WD100 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3034
     },
@@ -58,7 +58,7 @@ local devices = {
   -- https://homeseer.com/wp-content/uploads/2019/11/HS-WS200-Manual-v8a.pdf
   HOMESEER_WS200 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3035
     },
@@ -95,7 +95,7 @@ local devices = {
   -- https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf
   HOMESEER_WD200 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = 0x3036
     },
@@ -155,7 +155,7 @@ local devices = {
   -- https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
   HOMESEER_WX300 = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
+      mfrs = {0x000C, 0x0315},
       product_types = 0x4447,
       product_ids = {0x3036,0x3037}
     },
