@@ -7,12 +7,16 @@ components:
         version: 1
       - id: switchLevel
         version: 1
+        config:
+          values:
+            - key: "level.value"
+              range: [1, 100]
       - id: button
         version: 1
       - id: refresh
         version: 1
     categories:
-      - name: Light
+      - name: Switch
 preferences:
   - name: "invertSwitch"
     title: "Invert Switch"
@@ -21,26 +25,8 @@ preferences:
     preferenceType: boolean
     definition:
       default: false
-  - name: "dimmingSpeedZWave"
-    title: "Dimming Speed Z Wave"
-    description: "How fast the light turns on when you adjust the switch remotely. 1=highest resolution (slowest dimming)"
-    required: true
-    preferenceType: number
-    definition:
-      minimum: 1
-      maximum: 99
-      default: 1
-  - name: "rampRateZWave"
-    title: "Ramp Rate Z Wave"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
-    required: true
-    preferenceType: number
-    definition:
-      minimum: 1
-      maximum: 255
-      default: 3
   - name: "dimmingSpeed"
-    title: "Dimming Speed"
+    title: "Dimming Speed (local)"
     description: "How fast the light turns on when you hold the switch in seconds. 1=highest resolution (slowest dimming)"
     required: true
     preferenceType: number
@@ -49,8 +35,26 @@ preferences:
       maximum: 99
       default: 1
   - name: "rampRate"
-    title: "Ramp Rate"
+    title: "Ramp Rate (local)"
     description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "dimmingSpeedZWave"
+    title: "Dimming Speed Z-Wave (remote)"
+    description: "How fast the light turns on when you adjust the switch remotely. 1=highest resolution (slowest dimming)"
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 1
+      maximum: 99
+      default: 1
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z-Wave (remote)"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
     required: true
     preferenceType: number
     definition:

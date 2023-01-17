@@ -10,7 +10,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Light
+      - name: Switch
 preferences:
   - name: "invertSwitch"
     title: "Invert Switch"

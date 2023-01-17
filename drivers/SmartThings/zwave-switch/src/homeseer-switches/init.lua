@@ -1,3 +1,4 @@
+--&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 -- Author: ryanjmulder
 --
 -- Copyright 2022 SmartThings
@@ -13,35 +14,135 @@
 -- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
+-- 
+--&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
+
+
+--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-- Required Libraries
+--
+local st_device = require "st.device"
 local capabilities = require "st.capabilities"
---- @type st.zwave.CommandClass
-local cc = require "st.zwave.CommandClass"
---- @type st.utils
 local utils = require "st.utils"
---- @type st.zwave.CommandClass.Basic
-local Basic = (require "st.zwave.CommandClass.Basic")({ version = 1 })
---- @type st.zwave.CommandClass.Configuration
-local Configuration = (require "st.zwave.CommandClass.Configuration")({ version = 1 })
---- @type st.zwave.CommandClass.Meter
-local Meter = (require "st.zwave.CommandClass.Meter")({ version = 3 })
---- @type st.zwave.CommandClass.SwitchBinary
-local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({ version = 2 })
+local constants = require "st.zwave.constants"
 
+local cc = require "st.zwave.CommandClass"
+-- Switch
+local Basic = (require "st.zwave.CommandClass.Basic")({ version = 1, strict = true })
+local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({ version = 2, strict = true })
+local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ version = 4 })
+-- Button
+local CentralScene = (require "st.zwave.CommandClass.CentralScene")({ version = 1 })
+-- Misc
+
+--
+--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+--?????????????????????????????????????????????????????????????????
+-- Variables/Constants
+--
+local LAST_SEQ_NUMBER = "last_sequence_number"
+local BUTTON_VALUES = {
+  "up_hold", "down_hold", "held",
+  "up", "up_2x", "up_3x", "up_4x", "up_5x",
+  "down", "down_2x", "down_3x", "down_4x", "down_5x",
+  "pushed", "pushed_2x", "pushed_3x", "pushed_4x", "pushed_5x",
+  "double"
+}
+--- Map Attributes to Capabilities
+local map_key_attribute_to_capability = {
+  [CentralScene.key_attributes.KEY_PRESSED_1_TIME] = {
+    [0x01] = {
+      capabilities.button.button.up(),
+      capabilities.button.button.pushed()
+    },
+    [0x02] = {
+      capabilities.button.button.down(),
+      capabilities.button.button.pushed()
+    }
+  },
+  [CentralScene.key_attributes.KEY_PRESSED_2_TIMES] = {
+    [0x01] = {
+      capabilities.button.button.up_2x(),
+      capabilities.button.button.pushed_2x(),
+      capabilities.button.button.double()
+    },
+    [0x02] = {
+      capabilities.button.button.down_2x(),
+      capabilities.button.button.pushed_2x(),
+      capabilities.button.button.double()
+    }
+  },
+  [CentralScene.key_attributes.KEY_PRESSED_3_TIMES] = {
+    [0x01] = {
+      capabilities.button.button.up_3x(),
+      capabilities.button.button.pushed_3x()
+    },
+    [0x02] = {
+      capabilities.button.button.down_3x(),
+      capabilities.button.button.pushed_3x()
+    }
+  },
+  [CentralScene.key_attributes.KEY_PRESSED_4_TIMES] = {
+    [0x01] = {
+      capabilities.button.button.up_4x(),
+      capabilities.button.button.pushed_4x()
+    },
+    [0x02] = {
+      capabilities.button.button.down_4x(),
+      capabilities.button.button.pushed_4x()
+    }
+  },
+  [CentralScene.key_attributes.KEY_PRESSED_5_TIMES] = {
+    -- Up/Down
+    [0x01] = {
+      capabilities.button.button.up_5x(),
+      capabilities.button.button.pushed_5x()
+    },
+    [0x02] = {
+      capabilities.button.button.down_5x(),
+      capabilities.button.button.pushed_5x()
+    }
+  },
+  [CentralScene.key_attributes.KEY_HELD_DOWN] = {
+    -- Up/Down
+    [0x01] = {
+      capabilities.button.button.up_hold(),
+      capabilities.button.button.held()
+    },
+    [0x02] = {
+      capabilities.button.button.down_hold(),
+      capabilities.button.button.held()
+    }
+  },
+  [CentralScene.key_attributes.KEY_RELEASED] = {
+    [0x01] = {capabilities.button.button.held()},
+    [0x02] = {capabilities.button.button.held()}
+  }
+}
+--- Map HomeSeer Fingerprints
 local HOMESEER_SWITCH_FINGERPRINTS = {
   {mfr = 0x000C, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch
   {mfr = 0x000C, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Switch
   {mfr = 0x000C, prod = 0x4447, model = 0x3035}, -- HomeSeer WS200 Switch
   {mfr = 0x000C, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Switch
 }
+--
+--?????????????????????????????????????????????????????????????????
 
 
---- Determine whether the passed device is Aeon smart strip
----
---- @param driver Driver driver instance
---- @param device Device device isntance
---- @return boolean true if the device proper, else false
-local function can_handle_aeon_smart_strip(opts, driver, device, ...)
+
+--#################################################################
+-- Section: Functions
+--
+--#######################################################
+--- Function: can_handle_homeseer_switches()
+--- Determine whether the passed device is HomeSeer switch
+--
+local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       return true
@@ -49,68 +150,147 @@ local function can_handle_aeon_smart_strip(opts, driver, device, ...)
   end
   return false
 end
+--
+--#######################################################
 
-local function central_scene_notification_handler(self, device, cmd)
-  local map_key_attribute_to_capability = {
-    [CentralScene.key_attributes.KEY_PRESSED_1_TIME] = {
-      [0x01] = capabilities.button.button.up(),
-      [0x02] = capabilities.button.button.down()
-    },
-    [CentralScene.key_attributes.KEY_PRESSED_2_TIMES] = {
-      [0x01] = capabilities.button.button.up_2x(),
-      [0x02] = capabilities.button.button.down_2x()
-    },
-    [CentralScene.key_attributes.KEY_PRESSED_3_TIMES] = {
-      [0x01] = capabilities.button.button.up_3x(),
-      [0x02] = capabilities.button.button.down_3x()
-    },
-    [CentralScene.key_attributes.KEY_PRESSED_4_TIMES] = {
-      [0x01] = capabilities.button.button.up_4x(),
-      [0x02] = capabilities.button.button.down_4x()
-    },
-    [CentralScene.key_attributes.KEY_PRESSED_5_TIMES] = {
-      [0x01] = capabilities.button.button.up_5x(),
-      [0x02] = capabilities.button.button.down_5x()
-    },
-    [CentralScene.key_attributes.KEY_HELD_DOWN] = {
-      [0x01] = capabilities.button.button.up_hold(),
-      [0x02] = capabilities.button.button.down_hold()
-    }
+--#######################################################
+--- Function: do_referesh()
+--- Determine whether the passed device is HomeSeer switch
+-- 
+local function do_refresh(driver, device, cmd)
+  local component = cmd and cmd.component and cmd.component or "main"
 
-  local event = map_key_attribute_to_capability[cmd.args.key_attributes]
-  local button_number = 0
-  if cmd.args.key_attributes == 0 or cmd.args.key_attributes == 1 or cmd.args.key_attributes == 2 then
-    button_number = cmd.args.scene_number
-  elseif cmd.args.key_attributes == 3 then
-    button_number = cmd.args.scene_number + 2
-  elseif cmd.args.key_attributes == 4 then
-    button_number = cmd.args.scene_number + 4
-  end
-  local component = device.profile.components["button" .. button_number]
-  
-  if component ~= nil then
-    device:emit_component_event(component, event({state_change = true}))
+  if device:supports_capability(capabilities.switchLevel) then
+    device:send_to_component(SwitchMultilevel:Get({}), component)
+    device:send(Version:Get({}))
+  elseif device:supports_capability(capabilities.switch) then
+    device:send_to_component(SwitchBinary:Get({}), component)
   end
 end
+--
+--#######################################################
+
+--#######################################################
+--- Function: switch_set_on_off()
+--- Handles "on/off" functionality
+--
+local function switch_set_on_off_handler(value)
+  return function(driver, device, command)
+    local get, set
+
+    if device:supports_capability(capabilities.switchLevel) then
+      set = SwitchMultilevel:Set({ value = value, duration = constants.DEFAULT_DIMMING_DURATION })
+      get = SwitchMultilevel:Get({})
+    elseif device:supports_capability(capabilities.switch) then
+      set = SwitchBinary:Set({ target_value = value, duration = 0 })
+      get = SwitchBinary:Get({})
+    end
+
+    local query_device = function()
+      device:send_to_component(get, command.component)
+    end
+
+    device:send_to_component(set, command.component)
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
+  end
+end
+--
+--#######################################################
+
+--#######################################################
+--- Function: dimmer_event()
+--- Handles "dimmer" functionality
+--
+local function dimmer_event(driver, device, cmd)
+  local level = cmd.args.value and cmd.args.value or cmd.args.target_value
+
+  device:emit_event(level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off())
+
+  level = utils.clamp_value(level, 0, 100)
+  device:emit_event(level >= 99 and capabilities.switchLevel.level(100) or capabilities.switchLevel.level(level))
+end
+--
+--#######################################################
+
+--#######################################################
+--- Function: switch_multilevel_stop_level_change_handler()
+--- Handles "on/off" functionality
+--
+local function switch_multilevel_stop_level_change_handler(driver, device, cmd)
+  device:emit_event(capabilities.switch.switch.on())
+  device:send(SwitchMultilevel:Get({}))
+end
+--
+--#######################################################
+
+--#######################################################
+--- Function: central_scene_notification_handler
+--- Handles "Scene" functionality
+--
+local function central_scene_notification_handler(driver, device, cmd)
+  if (cmd.args.key_attributes == 0x01) then
+    log.error("Button Value 'released' is not supported by SmartThings")
+    return
+  end
+  
+  if device:get_field(LAST_SEQ_NUMBER) ~= cmd.args.sequence_number then
+    device:set_field(LAST_SEQ_NUMBER, cmd.args.sequence_number)
+    local event_map = map_key_attribute_to_capability[cmd.args.key_attributes]
+    local event = event_map and event_map[cmd.args.scene_number]
+    for _, e in ipairs(event) do
+      if e ~= nil then
+        device:emit_event_for_endpoint(cmd.src_channel, e)
+      end
+    end
+  end
+end
+--
+--#######################################################
+--
+--#################################################################
 
 
 
-local driver_template = {
-  supported_capabilities = {
-    capabilities.switch,
-    capabilities.switchLevel,
-    capabilities.fanSpeed,
-    capabilities.refresh,
-    capabilities.button
-  },
+--/////////////////////////////////////////////////////////////////
+-- Section: Driver
+--
+--///////////////////////////////////////////////////////
+local homeseer_switches = {
+  NAME = "HomeSeer Z-Wave Switches",
   zwave_handlers = {
+    --- Switch
+    [cc.BASIC] = {
+      [Basic.SET] = dimmer_event,
+    },
+    --- Dimmer
+    [cc.SWITCH_MULTILEVEL] = {
+      [SwitchMultilevel.SET] = dimmer_event,
+      [SwitchMultilevel.REPORT] = dimmer_event,
+      [SwitchMultilevel.STOP_LEVEL_CHANGE] = switch_multilevel_stop_level_change_handler
+    },
+    --- Button
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = central_scene_notification_handler
+    },
+  },
+  capability_handlers = {
+    [capabilities.refresh.ID] = {
+      [capabilities.refresh.commands.refresh.NAME] = do_refresh
+    },
+    [capabilities.switch.ID] = {
+      [capabilities.switch.switch.on.NAME] = switch_set_on_off_handler(SwitchBinary.value.ON_ENABLE),
+      [capabilities.switch.switch.off.NAME] = switch_set_on_off_handler(SwitchBinary.value.OFF_DISABLE)
     }
   },
-  NAME = "homeseer zwave",
+  lifecycle_handlers = {
+    init = device_init,
+    added = device_added
+  },
+  can_handle = can_handle_homeseer_switches
 }
+--
+--///////////////////////////////////////////////////////
 
-defaults.register_for_default_handlers(driver_template, driver_template.supported_capabilities)
-local homeseer_switch = ZwaveDriver("homeseer-zwave-switch", driver_template)
-homeseer_switch:run()
+return homeseer_switches
+--
+--/////////////////////////////////////////////////////////////////

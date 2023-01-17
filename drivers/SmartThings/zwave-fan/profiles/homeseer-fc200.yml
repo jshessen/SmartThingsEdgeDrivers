@@ -9,8 +9,6 @@ components:
         version: 1
       - id: fanSpeed
         version: 1
-      - id: button
-        version: 1
       - id: refresh
         version: 1
     categories:

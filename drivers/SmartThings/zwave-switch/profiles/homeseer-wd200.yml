@@ -7,12 +7,16 @@ components:
         version: 1
       - id: switchLevel
         version: 1
+        config:
+          values:
+            - key: "level.value"
+              range: [1, 100]
       - id: button
         version: 1
       - id: refresh
         version: 1
     categories:
-      - name: Light
+      - name: Switch
 preferences:
   - name: "invertSwitch"
     title: "Invert Switch"
@@ -20,7 +24,7 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: false
+      default: true
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -54,18 +58,18 @@ preferences:
         13: "19%"
         14: "20%"
       default: 0
-  - name: "rampRateZWave"
-    title: "Ramp Rate Z Wave"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+  - name: "rampRate"
+    title: "Ramp Rate (local)"
+    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
     required: true
     preferenceType: number
     definition:
       minimum: 1
       maximum: 255
       default: 3
-  - name: "rampRate"
-    title: "Ramp Rate"
-    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z-Wave (remote)"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
     required: true
     preferenceType: number
     definition:
@@ -74,7 +78,7 @@ preferences:
       default: 3
   - name: "centralSceneControl"
     title: "Central Scene Control"
-    description: "Enables/Disables Central Scene (Added in firmware 5.12"
+    description: "Enable/Disable Central Scene (Added in firmware 5.12"
     required: false
     preferenceType: enumeration
     definition:
@@ -107,9 +111,9 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
-  - name: "ledStatusColor"
+  - name: "ledStatusColor1"
     title: "Status Mode - LED Color"
-    description: "Set LED Color"
+    description: "Set LED-1 (bottom) Color"
     required: false
     preferenceType: enumeration
     definition:
@@ -204,7 +208,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor7"
-    title: "Status Mode - LED-7 Color"
+    title: "Status Mode - LED-7 (top) Color"
     description: "Set LED-7 Color"
     required: false
     preferenceType: enumeration
