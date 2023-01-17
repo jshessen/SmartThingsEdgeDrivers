@@ -39,7 +39,7 @@ preferences:
     title: "Dim Level On"
     description: "Sets Default Dim Value when turned ON via paddle press"
     required: false
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 99
@@ -48,7 +48,7 @@ preferences:
     title: "Minimum Dim Level"
     description: "Sets the lowest dimming threshold"
     required: false
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 1
       maximum: 14
@@ -60,7 +60,7 @@ preferences:
     title: "Ramp Rate (local)"
     description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
     required: true
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 90
@@ -69,7 +69,7 @@ preferences:
     title: "Ramp Rate Z-Wave (remote)"
     description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
     required: true
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 90
@@ -225,7 +225,7 @@ preferences:
     title: "LED Status Blink Frequency"
     description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
     required: false
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 255
@@ -245,7 +245,7 @@ preferences:
   - name: "ledBrightness"
     title: "Sets LED indicator brightness"
     required: false
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 6

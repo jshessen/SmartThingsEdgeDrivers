@@ -62,7 +62,7 @@ preferences:
     title: "Ramp Rate (local)"
     description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
     required: true
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 1
       maximum: 255
@@ -71,7 +71,7 @@ preferences:
     title: "Ramp Rate Z-Wave (remote)"
     description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
     required: true
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 1
       maximum: 255
@@ -227,7 +227,7 @@ preferences:
     title: "LED Status Blink Frequency"
     description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
     required: false
-    preferenceType: number
+    preferenceType: integer
     definition:
       minimum: 0
       maximum: 255
