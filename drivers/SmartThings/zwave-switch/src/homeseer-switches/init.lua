@@ -126,9 +126,11 @@ local map_key_attribute_to_capability = {
 --- Map HomeSeer Fingerprints
 local HOMESEER_SWITCH_FINGERPRINTS = {
   {mfr = 0x000C, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch
-  {mfr = 0x000C, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Switch
+  {mfr = 0x000C, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Dimmer
   {mfr = 0x000C, prod = 0x4447, model = 0x3035}, -- HomeSeer WS200 Switch
-  {mfr = 0x000C, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Switch
+  {mfr = 0x000C, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Dimmer
+  {mfr = 0x000C, prod = 0x4447, model = 0x4036}, -- HomeSeer WX300 Switch
+  {mfr = 0x000C, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Dimmer
 }
 --
 --?????????????????????????????????????????????????????????????????
