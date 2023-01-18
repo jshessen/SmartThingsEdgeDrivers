@@ -101,8 +101,19 @@ local driver_template = {
   supported_capabilities = {
     capabilities.switch,
     capabilities.switchLevel,
-    capabilities.refresh,
+    capabilities.battery,
+    capabilities.energyMeter,
+    capabilities.powerMeter,
+    capabilities.colorControl,
     capabilities.button,
+    capabilities.temperatureMeasurement,
+    capabilities.relativeHumidityMeasurement,
+    capabilities.illuminanceMeasurement,
+    capabilities.contactSensor,
+    capabilities.motionSensor,
+    capabilities.smokeDetector,
+    capabilities.waterSensor,
+    capabilities.zwMultichannel
   },
   sub_drivers = {
     require("homeseer-switches"),
