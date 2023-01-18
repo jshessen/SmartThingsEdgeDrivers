@@ -12,7 +12,7 @@ components:
     categories:
       - name: Switch
 preferences:
-  - name: "invertSwitch"
+  - name: "reverse"
     title: "Invert Switch"
     description: "Inverts the switch"
     required: true

@@ -25,7 +25,7 @@ local devices = {
       -- 0 = Indicator OFF when load is ON (DEFAULT)
       -- 1 = Indicator ON when load is ON
       -- 2 = Indicator Always OFF
-      invertSwitch = {parameter_number = 4, size = 1}
+      reverse = {parameter_number = 4, size = 1}
       -- 0 = Top of Paddle turns load ON (DEFAULT)
       -- 1 = Bottom of Paddle turns load ON
     }
@@ -38,7 +38,7 @@ local devices = {
       product_ids = 0x3034
     },
     PARAMETERS = {
-      invertSwitch = {parameter_number = 4, size = 1}, 
+      reverse = {parameter_number = 4, size = 1}, 
       -- 0 = Top of Paddle turns load ON (DEFAULT)
       -- 1 = Bottom of Paddle turns load ON
       dimmingSpeedZWave = {parameter_number = 7, size = 1},
@@ -66,7 +66,7 @@ local devices = {
       ledIndicator = {parameter_number = 3, size = 1},
       -- 0 = Indicator ON when load is OFF
       -- 1 = Indicator OFF when load is OFF (DEFAULT)
-      invertSwitch = {parameter_number = 4, size = 1},
+      reverse = {parameter_number = 4, size = 1},
       -- 0 = Top of Paddle turns load ON (DEFAULT)
       -- 1 = Bottom of Paddle turns load ON
       centralSceneConrol = {parameter = 6, size = 1},
@@ -103,7 +103,7 @@ local devices = {
       ledIndicator = {parameter_number = 3, size = 1},
       -- 0 = Indicator ON when load is OFF
       -- 1 = Indicator OFF when load is OFF (DEFAULT)
-      invertSwitch = {parameter_number = 4, size = 1},
+      reverse = {parameter_number = 4, size = 1},
       -- 0 = Top of Paddle turns load ON (DEFAULT)
       -- 1 = Bottom of Paddle turns load ON
       minimumDimLevel = {parameter_number = 5, size = 1},
@@ -163,7 +163,7 @@ local devices = {
       ledIndicator = {parameter_number = 3, size = 1},
       -- 0 = Indicator ON when load is OFF
       -- 1 = Indicator OFF when load is OFF (DEFAULT)
-      invertSwitch = {parameter_number = 4, size = 1},
+      reverse = {parameter_number = 4, size = 1},
       -- 0 = Top of Paddle turns load ON (DEFAULT)
       -- 1 = Bottom of Paddle turns load ON
       minimumDimLevel = {parameter_number = 5, size = 1},
