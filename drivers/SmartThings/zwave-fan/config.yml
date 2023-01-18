@@ -1,4 +1,4 @@
 name: "HomeSeer Z-Wave Fan Controller"
-packageKey: "homeseer-zwave-fan-test"
+packageKey: "homeseer-zwave-fan"
 permissions:
   zwave: {}
