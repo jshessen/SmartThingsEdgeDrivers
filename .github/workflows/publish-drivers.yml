@@ -1,19 +1,28 @@
 name: publish-drivers
 
-on: [push, pull_request]
-  branches:
-    - main
-    - beta
-  paths:
-    - "drivers/**.yaml"
-    - "drivers/**.yml"
-    - "drivers/**.lua"
+on:
+  push:
+    branches:
+      - main
+      - beta
+    paths:
+      - "drivers/**.yaml"
+      - "drivers/**.yml"
+      - "drivers/**.lua"
+  pull_request:
+    branches:
+      - main
+      - beta
+    paths:
+      - "drivers/**.yaml"
+      - "drivers/**.yml"
+      - "drivers/**.lua"
 
 jobs:
   paths-filter:
     runs-on: ubuntu-latest
     # Required permissions
-    permission:
+    permissions:
       pull-requests: read
     # Set job outputs to values from filter step
     outputs:
