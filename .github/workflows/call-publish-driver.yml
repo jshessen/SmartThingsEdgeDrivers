@@ -1,0 +1,47 @@
+name: call-publish-driver
+
+on:
+  workflow_call:
+    inputs:
+      driver:
+        description: "Folder name of the driver"
+        required: true
+        type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
+  workflow_dispatch:
+    inputs:
+      driver:
+        description: "Folder name of the driver"
+        required: true
+        type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - name: load smartthings-cli from cache
+        uses: actions/cache@v3
+        id: stcli
+        with:
+          path: smartthings
+          key: stcli-latest
+      - name: download smartthings-cli
+        if: steps.stcli.outputs.cache-hit != 'true'
+        run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
+      - name: publish
+        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
+        env:
+          SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
