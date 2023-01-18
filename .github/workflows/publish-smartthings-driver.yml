@@ -1,4 +1,4 @@
-name: call-publish-driver
+name: publish-smartthings-driver
 
 on:
   workflow_call:
