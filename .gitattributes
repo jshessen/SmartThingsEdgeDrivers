@@ -1,1 +1,2 @@
 drivers/SmartThings/zwave-switch/config.yml merge=ours
+drivers/SmartThings/zwave-fan/config.yml merge=ours
