@@ -16,7 +16,7 @@ local devices = {
   HOMESEER_FC200 = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
-      product_types: 0x0203
+      product_types: 0x0203,
       product_ids: 0x0001
     },
     PARAMETERS = {
