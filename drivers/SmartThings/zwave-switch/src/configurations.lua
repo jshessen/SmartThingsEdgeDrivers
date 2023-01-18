@@ -21,7 +21,7 @@ local devices = {
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1, configuration_value = 0},
-      invertSwitch = {parameter_number = 4, size = 1, configuration_value = 0}
+      reverse = {parameter_number = 4, size = 1, configuration_value = 0}
     }
   },
   HOMESEER_WD100 = {
@@ -31,7 +31,7 @@ local devices = {
       product_ids = 0x3034
     },
     PARAMETERS = {
-      invertSwitch = {parameter_number = 4, size = 1, configuration_value = 0}, 
+      reverse = {parameter_number = 4, size = 1, configuration_value = 0}, 
       dimmingSpeedZWave = {parameter_number = 7, size = 1, configuration_value = 1},
       rampRateZWave = {parameter_number = 8, size = 2, configuration_value = 3},
       dimmingSpeed = {parameter_number = 9, size = 1, configuration_value = 1},
@@ -46,7 +46,7 @@ local devices = {
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1, configuration_value = 0},
-      invertSwitch = {parameter_number = 4, size = 1, configuration_value = 0},
+      reverse = {parameter_number = 4, size = 1, configuration_value = 0},
       centralSceneConrol = {parameter = 6, size = 1, configuration_value = 0},
       operatingMode = {parameter_number = 13, size = 1, configuration_value = 0},
       ledNormalColor = {parameter_number = 14, size = 1, configuration_value = 0},
@@ -62,7 +62,7 @@ local devices = {
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1, configuration_value = 1},
-      invertSwitch = {parameter_number = 4, size = 1, configuration_value = 0},
+      reverse = {parameter_number = 4, size = 1, configuration_value = 0},
       minimumDimLevel = {parameter_number = 5, size = 1, configuration_value = 0},
       centralSceneConrol = {parameter = 6, size = 1, configuration_value = 0},
       rampRateZWave = {parameter_number = 11, size = 1, configuration_value = 3},
@@ -88,7 +88,7 @@ local devices = {
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1, configuration_value = 1},
-      invertSwitch = {parameter_number = 4, size = 1, configuration_value = 0},
+      reverse = {parameter_number = 4, size = 1, configuration_value = 0},
       minimumDimLevel = {parameter_number = 5, size = 1, configuration_value = 1},
       centralSceneConrol = {parameter = 6, size = 1, configuration_value = 0},
       rampRateZWave = {parameter_number = 11, size = 1, configuration_value = 3},
