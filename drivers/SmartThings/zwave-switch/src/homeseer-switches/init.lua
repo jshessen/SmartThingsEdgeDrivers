@@ -131,12 +131,8 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
   {mfr = 0x000C, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Dimmer
   {mfr = 0x000C, prod = 0x4447, model = 0x4036}, -- HomeSeer WX300 Switch
   {mfr = 0x000C, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Dimmer
-  {mfr = 0x0315, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch - ZWaveProducts.com
-  {mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Dimmer - ZWaveProducts.com
-  {mfr = 0x0315, prod = 0x4447, model = 0x3035}, -- HomeSeer WS200 Switch - ZWaveProducts.com
-  {mfr = 0x0315, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Dimmer - ZWaveProducts.com
-  {mfr = 0x0315, prod = 0x4447, model = 0x4036}, -- HomeSeer WX300 Switch - ZWaveProducts.com
-  {mfr = 0x0315, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Dimmer - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x3033}, -- ZLink ZL-WS-100 Switch - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- ZLink ZL-WD-100 Dimmer - ZWaveProducts.com
 }
 --
 --?????????????????????????????????????????????????????????????????
@@ -170,7 +166,6 @@ local function do_refresh(driver, device, cmd)
 
   if device:supports_capability(capabilities.switchLevel) then
     device:send_to_component(SwitchMultilevel:Get({}), component)
-    device:send(Version:Get({}))
   elseif device:supports_capability(capabilities.switch) then
     device:send_to_component(SwitchBinary:Get({}), component)
   end
