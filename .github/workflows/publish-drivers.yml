@@ -1,0 +1,57 @@
+name: publish-drivers
+
+on: [push, pull_request]
+  branches:
+    - main
+    - beta
+  paths:
+    - "drivers/**.yaml"
+    - "drivers/**.yml"
+    - "drivers/**.lua"
+
+jobs:
+  paths-filter:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permission:
+      pull-requests: read
+    # Set job outputs to values from filter step
+    outputs:
+      zwave-switch: ${{ steps.filter.outputs.zwave-switch }}
+      zwave-fan: ${{ steps.filter.outputs.zwave-fan }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          zwave-switch:
+            - 'drivers/**/zwave-switch/**'
+          zwave-fan:
+            - 'drivers/**/zwave-fan/**'
+    # run only if 'workflows' files were changed
+    - name: workflow tests
+      if: steps.filter.outputs.workflows == 'true'
+      run: echo "Workflow file"
+
+    # run only if not 'workflows' files were changed
+    - name: not workflow tests
+      if: steps.filter.outputs.workflows != 'true'
+      run: echo "NOT workflow file"
+
+  zwave-switch:
+    needs: paths-filter
+    if: ${{ needs.paths-filter.outputs.zwave-switch == 'true' }}
+    uses: ./.github/workflows/call-publish-driver.yaml
+    with:
+      driver: drivers/SmartThings/zwave-switch
+      environment: ${{ github.head_ref || github.ref_name }}
+    secrets: inherit
+  zwave-fan:
+    needs: paths-filter
+    if: ${{ needs.paths-filter.outputs.zwave-fan == 'true' }}
+    uses: ./.github/workflows/call-publish-driver.yaml
+    with:
+      driver: drivers/SmartThings/zwave-fan
+      environment: ${{ github.head_ref || github.ref_name }}
+    secrets: inherit
