@@ -51,7 +51,7 @@ jobs:
   zwave-switch:
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.zwave-switch == 'true' }}
-    uses: ./.github/workflows/cpublish-smartthings-driver.yml
+    uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: drivers/SmartThings/zwave-switch
       environment: ${{ github.head_ref || github.ref_name }}
