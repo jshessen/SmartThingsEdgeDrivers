@@ -29,7 +29,7 @@ jobs:
       zwave-switch: ${{ steps.filter.outputs.zwave-switch }}
       zwave-fan: ${{ steps.filter.outputs.zwave-fan }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: dorny/paths-filter@v2
       id: filter
       with:
