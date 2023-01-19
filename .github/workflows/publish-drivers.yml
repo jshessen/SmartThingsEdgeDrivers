@@ -38,15 +38,6 @@ jobs:
             - 'drivers/**/zwave-switch/**'
           zwave-fan:
             - 'drivers/**/zwave-fan/**'
-    # run only if 'workflows' files were changed
-    - name: workflow tests
-      if: steps.filter.outputs.workflows == 'true'
-      run: echo "Workflow file"
-
-    # run only if not 'workflows' files were changed
-    - name: not workflow tests
-      if: steps.filter.outputs.workflows != 'true'
-      run: echo "NOT workflow file"
 
   zwave-switch:
     needs: paths-filter
