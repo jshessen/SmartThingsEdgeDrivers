@@ -1,0 +1,6 @@
+name: "HomeSeer Z-Wave Switches - beta"
+packageKey: "homeseer-zwave-switches.{{ env.ENVIRONMENT }}"
+description: "This driver extends the basic zwave-switch to include additional vendor parameters"
+vendorSupportInformation: 'This driver require a documented device to ework properly.<br /><br /><a href=https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last">SmartThings Community discussion</a><br /><br /><a href="https://github.com/jshessen/SmartThingsEdgeDrivers/blob/main/README.md">GitHub Repository</a>'
+permissions:
+  zwave: {}
