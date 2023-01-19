@@ -49,6 +49,8 @@ jobs:
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
+    permissions:
+      id-token: write # Enable OIDC
     concurrency:
       group: ${{ format('{0}-{1}-{2}', inputs.environment, github.workflow, github.job) }}
     steps:

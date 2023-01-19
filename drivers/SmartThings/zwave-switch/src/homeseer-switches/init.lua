@@ -152,7 +152,7 @@ local map_key_attribute_to_capability = {
 local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(fingerprint)
+      log.info(fingerprint.model)
       return true
     end
   end
