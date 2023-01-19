@@ -48,6 +48,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
+      - uses: chainguard-dev/actions/setup-gitsign@main
       - name: update config.yml
         uses: varunsridharan/action-dynamic-readme@main
         with:
