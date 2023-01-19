@@ -46,6 +46,8 @@ jobs:
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
+    concurrency:
+      group: ${{ format('{0}-{1}', github.workflow, github.job) }}
     steps:
       - uses: actions/checkout@v3
       - uses: chainguard-dev/actions/setup-gitsign@main
