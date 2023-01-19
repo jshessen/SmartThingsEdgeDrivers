@@ -35,15 +35,6 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
-  - name: "dimOnLevel"
-    title: "Dim Level On"
-    description: "Sets Default Dim Value when turned ON via paddle press"
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 99
-      default: 0
   - name: "minimumDimLevel"
     title: "Minimum Dim Level"
     description: "Sets the lowest dimming threshold"
@@ -233,32 +224,6 @@ preferences:
   - name: "wireMode"
     title: "Wire Mode Includes Neutrual (3-wire)"
     required: true
-    preferenceType: boolean
-    definition:
-      default: false
-  - name: "startupMode"
-    title: "LEDs indicate switch/dimmer on start"
-    required: true
-    preferenceType: boolean
-    definition:
-      default: true
-  - name: "ledBrightness"
-    title: "Sets LED indicator brightness"
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 6
-      default: 3
-  - name: "toggleMode"
-    title: "Either paddle turns load on/off"
-    required: false
-    preferenceType: boolean
-    definition:
-      default: false
-  - name: "relayLoadControl"
-    title: "Load is controlled with paddle"
-    required: false
     preferenceType: boolean
     definition:
       default: false

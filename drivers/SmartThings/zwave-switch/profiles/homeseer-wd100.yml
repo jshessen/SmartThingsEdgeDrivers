@@ -1,4 +1,4 @@
-# https://homeseer.com/wp-content/uploads/2020/09/HS-WD100-Manual-7.pdf
+# https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd100+
 name: homeseer-wd100
 components:
   - id: main

@@ -21,7 +21,7 @@ local devices = {
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1, configuration_value = 1},
-      invertSwitch = {parameter_number = 4, size = 1, configuration_value = 0},
+      reverse = {parameter_number = 4, size = 1, configuration_value = 0},
       operatingMode = {parameter_number = 13, size = 1, configuration_value = 0},
       ledNormalColor = {parameter_number = 14, size = 1, configuration_value = 0},
       ledStatusColor = {parameter_number = 21, size = 1, configuration_value = 0},
