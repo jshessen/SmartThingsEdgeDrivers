@@ -51,7 +51,7 @@ jobs:
         env:
           CATEGORY: ${{ inputs.category }}
           ENVIRONMENT: ${{ inputs.environment }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
   publish:
     needs: modify-config
     runs-on: ubuntu-latest
