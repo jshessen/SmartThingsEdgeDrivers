@@ -25,6 +25,24 @@ on:
         default: beta
 
 jobs:
+  modify-config:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+    steps:
+      - name: update config.yml
+        uses: varunsridharan/action-dynamic-readme@main
+        with:
+          files: |
+            ./.github/workflows/config-TEMPLATE.yml=${{ inputs.driver }}/config.yaml
+          committer_name: github-actions[bot]
+          committer_email: github-actions[bot]@users.noreply.github.com
+          commit_message: "docs: update template file"
+        env:
+          CATEGORY: ${{ inputs.category }}
+          ENVIRONMENT: ${{ inputs.environment }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
@@ -32,6 +50,11 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/workflows/deploy-config-template.yml
+          with:
+        driver: drivers/SmartThings/zwave-switch
+        category: Switches
+        environment: ${{ github.head_ref || github.ref_name }}
       - name: load smartthings-cli from cache
         uses: actions/cache@v3
         id: stcli
