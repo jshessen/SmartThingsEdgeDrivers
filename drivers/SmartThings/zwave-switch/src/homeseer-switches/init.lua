@@ -182,7 +182,8 @@ end
 --- Adjust profile definition based upon reported firmware version
 -- 
 local function version_report_handler(driver, device, cmd)
-  if (cmd.args.firmware_0_version > 7 or (cmd.args.firmware_0_version == 1 and cmd.args.firmware_0_sub_version > 4)) and
+  log.info(fingerprint)
+  if (cmd.args.firmware_0_version > 7 or (cmd.args.firmware_0_version == 9 and cmd.args.firmware_0_sub_version > 4)) and
       device:get_field(PROFILE_CHANGED) ~= true then
     local new_profile = "zooz-zen-30-dimmer-relay-new"
     device:try_update_metadata({ profile = new_profile })
