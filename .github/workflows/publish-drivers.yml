@@ -45,8 +45,9 @@ jobs:
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: drivers/SmartThings/zwave-switch
-      name: HomeSeer Z-Wave Switches${{ contains($GITHUB_REF,'beta') && '(beta)' || '' }}
-      pkgkey: homeseer-zwave-switches${{ contains($GITHUB_REF,'beta') && '-beta' || '' }}
+      name: HomeSeer Z-Wave Switches
+      pkgkey: homeseer-zwave-switches
+      environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
   zwave-fan:
     needs: paths-filter
@@ -54,6 +55,7 @@ jobs:
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: drivers/SmartThings/zwave-fan
-      name: HomeSeer Z-Wave Fan Controller${{ contains($GITHUB_REF,'beta') && '(beta)' || '' }}
-      pkgkey: homeseer-zwave-fan${{ contains($GITHUB_REF,'beta') && '-beta' || '' }}
+      name: HomeSeer Z-Wave Fan Controller
+      pkgkey: homeseer-zwave-fan
+      environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
