@@ -58,8 +58,9 @@ jobs:
           committer_email: github-actions[bot]@users.noreply.github.com
           commit_message: "docs: update template file"
         env:
-          LABEL: ${{ inputs.environment == 'beta' && ${{ inputs.label }} (${{ inputs.environment }} ) || ${{ inputs.label }} }}
-          PKG_KEY: ${{ inputs.environment == 'beta' && inputs.pkgkey-inputs.environment || inputs.label }}
+          LABEL: ${{ inputs.label }}
+          PKG_KEY: ${{ inputs.pkgkey }}
+          ENVIRONMENT: ${{ inputs.environment == 'beta' && '-beta' || '' }}
           GITHUB_TOKEN: ${{ github.token }}
   publish:
     needs: modify-config
