@@ -7,8 +7,12 @@ on:
         description: "Folder name of the driver"
         required: true
         type: string
-      category:
-        description: "Home Seer Z-Wave <CATEGORY> used in config.yml"
+      label:
+        description: "name in config.yml"
+        required: true
+        type: string
+      pkgkey:
+        description: packageKey in config.yml
         required: true
         type: string
       environment:
@@ -22,8 +26,12 @@ on:
         description: "Folder name of the driver"
         required: true
         type: string
-      category:
-        description: "Home Seer Z-Wave <CATEGORY> used in config.yml"
+      label:
+        description: "name in config.yml"
+        required: true
+        type: string
+      pkgkey:
+        description: packageKey in config.yml
         required: true
         type: string
       environment:
@@ -49,8 +57,8 @@ jobs:
           committer_email: github-actions[bot]@users.noreply.github.com
           commit_message: "docs: update template file"
         env:
-          CATEGORY: ${{ inputs.category }}
-          ENVIRONMENT: ${{ inputs.environment }}
+          LABEL: ${{ inputs.label }}
+          PKG_KEY: ${{ inputs.pkgkey }}
           GITHUB_TOKEN: ${{ github.token }}
   publish:
     needs: modify-config
