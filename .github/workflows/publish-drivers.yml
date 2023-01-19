@@ -38,22 +38,14 @@ jobs:
             - 'drivers/**/zwave-switch/**'
           zwave-fan:
             - 'drivers/**/zwave-fan/**'
-    # run only if 'workflows' files were changed
-    - name: workflow tests
-      if: steps.filter.outputs.workflows == 'true'
-      run: echo "Workflow file"
-
-    # run only if not 'workflows' files were changed
-    - name: not workflow tests
-      if: steps.filter.outputs.workflows != 'true'
-      run: echo "NOT workflow file"
-
-  zwave-switch:
+ 
+ zwave-switch:
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.zwave-switch == 'true' }}
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: drivers/SmartThings/zwave-switch
+      category: Switches
       environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
   zwave-fan:
@@ -62,5 +54,6 @@ jobs:
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: drivers/SmartThings/zwave-fan
+      category: Fan Controller
       environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
