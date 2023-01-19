@@ -7,6 +7,10 @@ on:
         description: "Folder name of the driver"
         required: true
         type: string
+      category:
+        description: "Home Seer Z-Wave <CATEGORY> used in config.yml"
+        required: true
+        type: string
       environment:
         description: Environment
         required: true
@@ -16,6 +20,10 @@ on:
     inputs:
       driver:
         description: "Folder name of the driver"
+        required: true
+        type: string
+      category:
+        description: "Home Seer Z-Wave <CATEGORY> used in config.yml"
         required: true
         type: string
       environment:
