@@ -24,7 +24,7 @@ local devices = {
       ledIndicator = {parameter_number = 3, size = 1},
       -- 0 = Indicator ON when load is OFF
       -- 1 = Indicator OFF when load is OFF (DEFAULT)
-      invertSwitch = {parameter_number = 4, size = 1},
+      reverse = {parameter_number = 4, size = 1},
       -- 0 = Top of Paddle turns load ON (DEFAULT)
       -- 1 = Bottom of Paddle turns load ON
       operatingMode = {parameter_number = 13, size = 1},

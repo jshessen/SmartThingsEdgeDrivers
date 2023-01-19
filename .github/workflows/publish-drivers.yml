@@ -38,6 +38,7 @@ jobs:
             - 'drivers/**/zwave-switch/**'
           zwave-fan:
             - 'drivers/**/zwave-fan/**'
+
   zwave-switch:
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.zwave-switch == 'true' }}

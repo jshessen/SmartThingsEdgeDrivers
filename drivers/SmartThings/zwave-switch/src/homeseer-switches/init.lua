@@ -1,5 +1,5 @@
 --&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
--- Author: ryanjmulder
+-- Author: Jeff Hessenflow (jshessen)
 --
 -- Copyright 2022 SmartThings
 --
@@ -35,6 +35,7 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ ve
 -- Button
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({ version = 1 })
 -- Misc
+local Version = (require "st.zwave.CommandClass.Version")({ version = 2 })
 
 --
 --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,6 +45,7 @@ local CentralScene = (require "st.zwave.CommandClass.CentralScene")({ version = 
 --?????????????????????????????????????????????????????????????????
 -- Variables/Constants
 --
+local PROFILE_CHANGED = "profile_changed"
 local LAST_SEQ_NUMBER = "last_sequence_number"
 local BUTTON_VALUES = {
   "up_hold", "down_hold", "held",
@@ -149,6 +151,7 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
 local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
+      log.info(fingerprint)
       return true
     end
   end
@@ -166,8 +169,25 @@ local function do_refresh(driver, device, cmd)
 
   if device:supports_capability(capabilities.switchLevel) then
     device:send_to_component(SwitchMultilevel:Get({}), component)
+    device:send(Version:Get({}))
   elseif device:supports_capability(capabilities.switch) then
     device:send_to_component(SwitchBinary:Get({}), component)
+  end
+end
+--
+--#######################################################
+
+--#######################################################
+--- Function: version_report_handler()
+--- Adjust profile definition based upon reported firmware version
+-- 
+local function version_report_handler(driver, device, cmd)
+  log.info(fingerprint)
+  if (cmd.args.firmware_0_version > 7 or (cmd.args.firmware_0_version == 9 and cmd.args.firmware_0_sub_version > 4)) and
+      device:get_field(PROFILE_CHANGED) ~= true then
+    local new_profile = "zooz-zen-30-dimmer-relay-new"
+    device:try_update_metadata({ profile = new_profile })
+    device:set_field(PROFILE_CHANGED, true, { persist = true })
   end
 end
 --
@@ -275,6 +295,10 @@ local homeseer_switches = {
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = central_scene_notification_handler
     },
+    --- Return firmware version
+    [cc.VERSION] = {
+      [Version.REPORT] = version_report_handler
+    }
   },
   capability_handlers = {
     [capabilities.refresh.ID] = {

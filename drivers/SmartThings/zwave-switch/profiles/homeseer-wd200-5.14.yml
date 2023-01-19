@@ -1,5 +1,5 @@
-#https://homeseer.com/wp-content/uploads/2020/09/HS-FC200-Manual-4.pdf
-name: homeseer-fc200
+# https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd200+
+name: homeseer-wd200-5.14
 components:
   - id: main
     capabilities:
@@ -7,12 +7,16 @@ components:
         version: 1
       - id: switchLevel
         version: 1
-      - id: fanSpeed
+        config:
+          values:
+            - key: "level.value"
+              range: [1, 100]
+      - id: button
         version: 1
       - id: refresh
         version: 1
     categories:
-      - name: Fan
+      - name: Switch
 preferences:
   - name: "reverse"
     title: "Invert Switch"
@@ -20,7 +24,7 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: false
+      default: true
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -30,17 +34,48 @@ preferences:
       options:
         0: "When Off"
         1: "When On"
-      default: 1
-  - name: "fanType"
-    title: "Fan Type"
-    description: "Set Fan Type"
+      default: 0
+  - name: "minimumDimLevel"
+    title: "Minimum Dim Level"
+    description: "Sets the lowest dimming threshold (Added in firmware 5.14)"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "3-speed"
-        1: "4-speed"
+        0: "No minimum dim value"
+        1: "6.5%"
+        2: "8%"
+        3: "9%"
+        4: "10%"
+        5: "11%"
+        6: "12%"
+        7: "13%"
+        8: "14%"
+        9: "15%"
+        10: "16%"
+        11: "17%"
+        12: "18%"
+        13: "19%"
+        14: "20%"
       default: 0
+  - name: "rampRate"
+    title: "Ramp Rate (local)"
+    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z-Wave (remote)"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
   - name: "operatingMode"
     title: "Operating Mode"
     description: "Set mode of operation"
@@ -66,9 +101,9 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
-  - name: "ledStatusColor"
+  - name: "ledStatusColor1"
     title: "Status Mode - LED Color"
-    description: "Set LED Color"
+    description: "Set LED-1 (bottom) Color"
     required: false
     preferenceType: enumeration
     definition:
@@ -130,6 +165,54 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusColor5"
+    title: "Status Mode - LED-5 Color"
+    description: "Set LED-5 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor6"
+    title: "Status Mode - LED-6 Color"
+    description: "Set LED-6 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
+  - name: "ledStatusColor7"
+    title: "Status Mode - LED-7 (top) Color"
+    description: "Set LED-7 Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        7: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
   - name: "ledBlinkFrequency"
     title: "LED Status Blink Frequency"
     description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
@@ -138,4 +221,14 @@ preferences:
     definition:
       minimum: 0
       maximum: 255
+      default: 0
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
+    description: "Enable/Disable Central Scene"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Control load with delay, + Multi-Tap"
+        1: "Control load instantly, - Multi-Tap"
       default: 0

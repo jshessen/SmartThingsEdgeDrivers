@@ -44,7 +44,7 @@ jobs:
         uses: varunsridharan/action-dynamic-readme@main
         with:
           files: |
-            ./.github/workflows/config-TEMPLATE.yml=${{ inputs.driver }}/config.yaml
+            ./.github/templates/config-TEMPLATE.yml=${{ inputs.driver }}/config.yml
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
           commit_message: "docs: update template file"
@@ -53,6 +53,7 @@ jobs:
           ENVIRONMENT: ${{ inputs.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish:
+    needs: modify-config
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:

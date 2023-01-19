@@ -30,7 +30,7 @@ local devices = {
       -- 1 = Bottom of Paddle turns load ON
     }
   },
-  -- https://homeseer.com/wp-content/uploads/2020/09/HS-WD100-Manual-7.pdf
+  -- https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd100+
   HOMESEER_WD100 = {
     MATCHING_MATRIX = {
       mfrs = {0x000C, 0x0315},
@@ -55,7 +55,7 @@ local devices = {
       -- 1=10 milliseconds (DEFAULT=3)
     }
   },
-  -- https://homeseer.com/wp-content/uploads/2019/11/HS-WS200-Manual-v8a.pdf
+  -- https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+
   HOMESEER_WS200 = {
     MATCHING_MATRIX = {
       mfrs = {0x000C, 0x0315},
@@ -92,7 +92,7 @@ local devices = {
       -- 0=No blink (DEFAULT), 1=100ms ON then 100ms OFF
     }
   },
-  -- https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf
+  -- https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd200+
   HOMESEER_WD200 = {
     MATCHING_MATRIX = {
       mfrs = {0x000C, 0x0315},

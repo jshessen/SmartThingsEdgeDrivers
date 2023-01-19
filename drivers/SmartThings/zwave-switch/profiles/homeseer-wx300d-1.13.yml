@@ -1,5 +1,5 @@
-# https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd200+
-name: homeseer-wd200
+# https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
+name: homeseer-wx300d-1.13
 components:
   - id: main
     capabilities:
@@ -35,14 +35,35 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
+  - name: "dimOnLevel"
+    title: "Dim Level On"
+    description: "Sets Default Dim Value when turned ON via paddle press"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 99
+      default: 0
+  - name: "minimumDimLevel"
+    title: "Minimum Dim Level"
+    description: "Sets the lowest dimming threshold"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 14
+      default: 1
+      #options:
+      #  1: "16%"
+      #  14: "25%"
   - name: "rampRate"
     title: "Ramp Rate (local)"
     description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
     required: true
     preferenceType: integer
     definition:
-      minimum: 1
-      maximum: 255
+      minimum: 0
+      maximum: 90
       default: 3
   - name: "rampRateZWave"
     title: "Ramp Rate Z-Wave (remote)"
@@ -50,9 +71,19 @@ preferences:
     required: true
     preferenceType: integer
     definition:
-      minimum: 1
-      maximum: 255
+      minimum: 0
+      maximum: 90
       default: 3
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
+    description: "Enable/Disable Central Scene"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Control load with delay, + Multi-Tap"
+        1: "Control load instantly, - Multi-Tap"
+      default: 0
   - name: "operatingMode"
     title: "Operating Mode"
     description: "Set mode of operation"
@@ -79,7 +110,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor1"
-    title: "Status Mode - LED Color"
+    title: "Status Mode - LED-1 Color"
     description: "Set LED-1 (bottom) Color"
     required: false
     preferenceType: enumeration
@@ -198,4 +229,36 @@ preferences:
     definition:
       minimum: 0
       maximum: 255
-      default: 0
+      default: 5
+  - name: "wireMode"
+    title: "Wire Mode Includes Neutrual (3-wire)"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "startupMode"
+    title: "LEDs indicate switch/dimmer on start"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: "ledBrightness"
+    title: "Sets LED indicator brightness"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 6
+      default: 3
+  - name: "toggleMode"
+    title: "Either paddle turns load on/off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "relayLoadControl"
+    title: "Load is controlled with paddle"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
