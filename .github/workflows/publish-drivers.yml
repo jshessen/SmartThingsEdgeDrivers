@@ -38,8 +38,7 @@ jobs:
             - 'drivers/**/zwave-switch/**'
           zwave-fan:
             - 'drivers/**/zwave-fan/**'
- 
- zwave-switch:
+  zwave-switch:
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.zwave-switch == 'true' }}
     uses: ./.github/workflows/publish-smartthings-driver.yml
