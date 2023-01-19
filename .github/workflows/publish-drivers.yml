@@ -47,7 +47,7 @@ jobs:
       driver: drivers/SmartThings/zwave-switch
       label: HomeSeer Z-Wave Switches
       pkgkey: homeseer-zwave-switches
-      environment: ${{ github.head_ref || github.ref_name }}
+      environment: ${{ github.base_ref || github.ref_name }}
     secrets: inherit
   zwave-fan:
     needs: paths-filter
@@ -57,5 +57,5 @@ jobs:
       driver: drivers/SmartThings/zwave-fan
       label: HomeSeer Z-Wave Fan Controller
       pkgkey: homeseer-zwave-fan
-      environment: ${{ github.head_ref || github.ref_name }}
+      environment: ${{ github.base_ref || github.ref_name }}
     secrets: inherit
