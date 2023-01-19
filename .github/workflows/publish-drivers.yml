@@ -54,6 +54,7 @@ jobs:
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: drivers/SmartThings/zwave-switch
+      category: Switches
       environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
   zwave-fan:
@@ -62,5 +63,6 @@ jobs:
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: drivers/SmartThings/zwave-fan
+      categor: Fan Controller
       environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
