@@ -1,0 +1,84 @@
+name: publish-smartthings-driver
+
+on:
+  workflow_call:
+    inputs:
+      driver:
+        description: "Folder name of the driver"
+        required: true
+        type: string
+      label:
+        description: "name in config.yml"
+        required: true
+        type: string
+      pkgkey:
+        description: packageKey in config.yml
+        required: true
+        type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
+  workflow_dispatch:
+    inputs:
+      driver:
+        description: "Folder name of the driver"
+        required: true
+        type: string
+      label:
+        description: "name in config.yml"
+        required: true
+        type: string
+      pkgkey:
+        description: packageKey in config.yml
+        required: true
+        type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
+
+jobs:
+  modify-config:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - uses: chainguard-dev/actions/setup-gitsign@main
+      - name: update config.yml
+        uses: varunsridharan/action-dynamic-readme@main
+        with:
+          files: |
+            ./templates/config-TEMPLATE.yml=${{ inputs.driver }}/config.yml
+          committer_name: github-actions[bot]
+          committer_email: github-actions[bot]@users.noreply.github.com
+          commit_message: "docs: update template file"
+        env:
+          LABEL: ${{ inputs.environment == 'beta' && ${{ inputs.label }} (${{ inputs.environment }} ) || ${{ inputs.label }} }}
+          PKG_KEY: ${{ inputs.environment == 'beta' && ${{ inputs.pkgkey }}-${{ inputs.environment }} || ${{ inputs.pkgkey }} }}
+          GITHUB_TOKEN: ${{ github.token }}
+  publish:
+    needs: modify-config
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - name: load smartthings-cli from cache
+        uses: actions/cache@v3
+        id: stcli
+        with:
+          path: smartthings
+          key: stcli-latest
+      - name: download smartthings-cli
+        if: steps.stcli.outputs.cache-hit != 'true'
+        run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
+      - name: publish
+        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
+        env:
+          SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
