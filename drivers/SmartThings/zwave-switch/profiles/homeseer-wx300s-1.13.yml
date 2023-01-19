@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
-name: homeseer-wx300s
+name: homeseer-wx300s-1.13
 components:
   - id: main
     capabilities:

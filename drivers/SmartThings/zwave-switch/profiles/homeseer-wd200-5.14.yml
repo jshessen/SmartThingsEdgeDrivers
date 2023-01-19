@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd200+
-name: homeseer-wd200
+name: homeseer-wd200-5.14
 components:
   - id: main
     capabilities:

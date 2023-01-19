@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+
-name: homeseer-ws200
+name: homeseer-ws200-5.12
 components:
   - id: main
     capabilities:
