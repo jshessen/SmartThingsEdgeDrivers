@@ -40,16 +40,25 @@ on:
         type: string
         default: beta
 
+concurrency:
+  group: ${{ format('{0}-{1}', inputs.environment, github.workflow }}
+
 jobs:
   modify-config:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
+    concurrency:
+      group: ${{ format('{0}-{1}-{2}', inputs.environment, github.workflow, github.job) }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: chainguard-dev/actions/setup-gitsign@main
-      - name: update config.yml
+      - name: "Fetching Repository Contents"
+        uses: actions/checkout@v3
+       
+      - name: "Enable Signed Commits"
+        uses: chainguard-dev/actions/setup-gitsign@main
+
+      - name: "Update config.yml"
         uses: varunsridharan/action-dynamic-readme@main
         with:
           files: |
@@ -63,23 +72,28 @@ jobs:
           ENVIRONMENT: ${{ inputs.environment == 'beta' && '-beta' || '' }}
           GITHUB_TOKEN: ${{ github.token }}
   publish:
+    name: "Publish Driver"
     needs: modify-config
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
-      - name: load smartthings-cli from cache
+      - name: "Fetching Repository Contents"
+        uses: actions/checkout@v3
+
+      - name: "Load smartthings-cli From Cache"
         uses: actions/cache@v3
         id: stcli
         with:
           path: smartthings
           key: stcli-latest
-      - name: download smartthings-cli
+
+      - name: "Download smartthings-cli"
         if: steps.stcli.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
-      - name: publish
+
+      - name: "Publish - edge:drivers:package"
         run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
