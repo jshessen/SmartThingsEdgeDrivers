@@ -44,7 +44,7 @@ jobs:
         uses: varunsridharan/action-dynamic-readme@main
         with:
           files: |
-            \.github/templates/config-TEMPLATE.yml=${{ inputs.driver }}/config.yml
+            ./templates/config-TEMPLATE.yml=${{ inputs.driver }}/config.yml
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
           commit_message: "docs: update template file"
