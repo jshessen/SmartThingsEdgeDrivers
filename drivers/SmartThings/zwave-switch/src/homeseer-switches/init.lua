@@ -26,6 +26,7 @@ local st_device = require "st.device"
 local capabilities = require "st.capabilities"
 local utils = require "st.utils"
 local constants = require "st.zwave.constants"
+local log = require "log"
 
 local cc = require "st.zwave.CommandClass"
 -- Switch
@@ -53,6 +54,17 @@ local BUTTON_VALUES = {
   "down", "down_2x", "down_3x", "down_4x", "down_5x",
   "pushed", "pushed_2x", "pushed_3x", "pushed_4x", "pushed_5x",
   "double"
+}
+--- Map HomeSeer Fingerprints
+local HOMESEER_SWITCH_FINGERPRINTS = {
+  {mfr = 0x000C, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch
+  {mfr = 0x000C, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Dimmer
+  {mfr = 0x000C, prod = 0x4447, model = 0x3035}, -- HomeSeer WS200 Switch
+  {mfr = 0x000C, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Dimmer
+  {mfr = 0x000C, prod = 0x4447, model = 0x4036}, -- HomeSeer WX300 Switch
+  {mfr = 0x000C, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Dimmer
+  {mfr = 0x0315, prod = 0x4447, model = 0x3033}, -- ZLink ZL-WS-100 Switch - ZWaveProducts.com
+  {mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- ZLink ZL-WD-100 Dimmer - ZWaveProducts.com
 }
 --- Map Attributes to Capabilities
 local map_key_attribute_to_capability = {
@@ -124,17 +136,6 @@ local map_key_attribute_to_capability = {
     [0x01] = {capabilities.button.button.held()},
     [0x02] = {capabilities.button.button.held()}
   }
-}
---- Map HomeSeer Fingerprints
-local HOMESEER_SWITCH_FINGERPRINTS = {
-  {mfr = 0x000C, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch
-  {mfr = 0x000C, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Dimmer
-  {mfr = 0x000C, prod = 0x4447, model = 0x3035}, -- HomeSeer WS200 Switch
-  {mfr = 0x000C, prod = 0x4447, model = 0x3036}, -- HomeSeer WD200 Dimmer
-  {mfr = 0x000C, prod = 0x4447, model = 0x4036}, -- HomeSeer WX300 Switch
-  {mfr = 0x000C, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Dimmer
-  {mfr = 0x0315, prod = 0x4447, model = 0x3033}, -- ZLink ZL-WS-100 Switch - ZWaveProducts.com
-  {mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- ZLink ZL-WD-100 Dimmer - ZWaveProducts.com
 }
 --
 --?????????????????????????????????????????????????????????????????
