@@ -41,7 +41,7 @@ on:
         default: beta
 
 concurrency:
-      group: ${{ format('{0}-{1}', inputs.environment, github.workflow }}
+  group: ${{ format('{0}-{1}', inputs.environment, github.workflow }}
 
 jobs:
   modify-config:
