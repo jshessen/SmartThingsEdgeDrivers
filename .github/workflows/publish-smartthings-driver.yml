@@ -64,7 +64,7 @@ jobs:
           LABEL: ${{ inputs.label }}
           PKG_KEY: ${{ inputs.pkgkey }}
           ENV: ${{ inputs.environment }}
-          GITHUB: ${{ github.server_url/github.repository }}
+          GITHUB: ${{ github.server_url }}/${{ github.repository }}
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
 
       - name: "Import GPG Key"
