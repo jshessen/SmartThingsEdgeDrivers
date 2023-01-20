@@ -55,6 +55,9 @@ jobs:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
        
+      - name: "Setup Git User"
+        uses: fregante/setup-git-user@v1
+
       - name: "Update config.yml"
         uses: edgardleal/mustache-template-action@v1.0.4
         with:
@@ -75,16 +78,11 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           git_user_signingkey: true
           git_commit_gpgsign: true
-          git_committer_name: github-actions[bot]
-          git_committer_email: github-actions-bot@users.noreply.github.com
       
       - name: "git commmit"
-        uses: EndBug/add-and-commit@v9
+        uses: - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           message: "Apply config.yml changes"
-          committer_name: github-actions[bot]
-          committer_email: github-actions-bot@users.noreply.github.com
-          #pull: '--rebase --autostash ...'
   publish:
     name: "Publish Driver"
     needs: modify-config
