@@ -64,10 +64,9 @@ jobs:
 
       - name: "Load config.yml from Cache"
         uses: actions/cache@v3
-        id: config
         with:
           path: ${{ inputs.driver }}/config.yml
-          key: ${{ inputs.pkgkey-inputs.environment }}
+          key: ${{ inputs.pkgkey }}-${{inputs.environment }}
           
       - name: "Generate config.yml using Handlebars Template"
         if: steps.${{ inputs.pkgkey-inputs.environment }}.outputs.cache-hit != 'true'
@@ -93,10 +92,9 @@ jobs:
         
       - name: "Load config.yml from Cache"
         uses: actions/cache@v3
-        id: config
         with:
           path: ${{ inputs.driver }}/config.yml
-          key: ${{ inputs.pkgkey-inputs.environment }}
+          key: ${{ inputs.pkgkey }}-${{inputs.environment }}
 
       - name: "Load smartthings-cli From Cache"
         uses: actions/cache@v3
