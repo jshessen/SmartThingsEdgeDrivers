@@ -49,32 +49,39 @@ jobs:
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
-    permissions:
-      id-token: write # Enable OIDC
-      contents: write
-      pull-requests: write
     concurrency:
       group: ${{ format('{0}-{1}-{2}', inputs.environment, github.workflow, github.job) }}
     steps:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
        
-      - name: "Enable Signed Commits"
-        uses: chainguard-dev/actions/setup-gitsign@main
-
       - name: "Update config.yml"
-        uses: varunsridharan/action-dynamic-readme@main
+        uses: edgardleal/mustache-template-action@v1.0.0
+        env:
         with:
-          files: |
-            ./templates/config-TEMPLATE.yml=${{ inputs.driver }}/config.yml
-          committer_name: github-actions[bot]
-          committer_email: github-actions[bot]@users.noreply.github.com
-          commit_message: "docs: update template file"
+          input: templates/config-TEMPLATE.yml
+          output: ${{ inputs.driver }}/config.yml
         env:
           LABEL: ${{ inputs.label }}
           PKG_KEY: ${{ inputs.pkgkey }}
-          ENVIRONMENT: ${{ inputs.environment == 'beta' && '-beta' || '' }}
-          GITHUB_TOKEN: ${{ github.token }}
+          ENV: ${{ inputs.environment }}
+          GITHUB: ${{ github.server_ur/github.repository }}
+          COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
+
+      - name: "Import GPG Key"
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+          git_committer_name: github-actions[bot]
+          git_committer_email: github-actions[bot]@users.noreply.github.com
+      
+      - name: "git commmit"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply config.yml changes
   publish:
     name: "Publish Driver"
     needs: modify-config
