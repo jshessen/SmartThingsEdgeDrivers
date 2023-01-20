@@ -40,37 +40,45 @@ on:
         type: string
         default: beta
 
-concurrency:
-  group: ${{ format('{0}-{1}', inputs.environment, github.workflow) }}
-
 jobs:
   modify-config:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
-    concurrency:
-      group: ${{ format('{0}-{1}-{2}', inputs.environment, github.workflow, github.job) }}
     steps:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
        
-      - name: "Enable Signed Commits"
-        uses: chainguard-dev/actions/setup-gitsign@main
+      - name: "Define 'main' Branch Environment Variables"
+        if: ${{ inputs.environment == 'main' }}
+        run: |
+          echo "LABEL=${{ inputs.label }}" >> $GITHUB_ENV  
+          echo "PKG_KEY=${{ inputs.pkgkey }}" >> $GITHUB_ENV
+        
+      - name: "Define Branch Environment Variables"
+        if: ${{ inputs.environment == 'beta' }}
+        run: |
+          echo "LABEL=${{ inputs.label }} (beta)" >> $GITHUB_ENV  
+          echo "PKG_KEY=${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
 
-      - name: "Update config.yml"
-        uses: varunsridharan/action-dynamic-readme@main
+      - name: "Load config.yml from Cache"
+        id: cache-config
+        uses: actions/cache@v3
         with:
-          files: |
-            ./templates/config-TEMPLATE.yml=${{ inputs.driver }}/config.yml
-          committer_name: github-actions[bot]
-          committer_email: github-actions[bot]@users.noreply.github.com
-          commit_message: "docs: update template file"
+          path: "${{ inputs.driver }}/config.yml"
+          key: ${{ inputs.pkgkey }}-${{inputs.environment }}
+          
+      - name: "Generate config.yml using Handlebars Template"
+        if: steps.cache-config.outputs.cache-hit != 'true'
+        uses: pedrolamas/handlebars-action@v2.1.0
+        with:
+          files: 'templates/config.yml.template'
+          output-filename: "${{ inputs.driver }}/config.yml"
         env:
-          LABEL: ${{ inputs.label }}
-          PKG_KEY: ${{ inputs.pkgkey }}
-          ENVIRONMENT: ${{ inputs.environment == 'beta' && '-beta' || '' }}
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB: "${{ github.server_url }}/${{ github.repository }}"
+          COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
+
   publish:
     name: "Publish Driver"
     needs: modify-config
@@ -81,10 +89,17 @@ jobs:
     steps:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
+        
+      - name: "Load config.yml from Cache"
+        id: cache-config
+        uses: actions/cache@v3
+        with:
+          path: "${{ inputs.driver }}/config.yml"
+          key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
 
       - name: "Load smartthings-cli From Cache"
-        uses: actions/cache@v3
         id: stcli
+        uses: actions/cache@v3        
         with:
           path: smartthings
           key: stcli-latest
