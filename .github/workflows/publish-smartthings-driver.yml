@@ -67,10 +67,10 @@ jobs:
         id: config.yml
         with:
           path: ${{ inputs.driver }}/config.yml
-          key: ${{ PKG_KEY }}
+          key: ${{ inputs.pkgkey-inputs.environment }}
           
       - name: "Generate config.yml using Handlebars Template"
-        if: steps.${{ PKG_KEY }}.outputs.cache-hit != 'true'
+        if: steps.${{ inputs.pkgkey-inputs.environment }}.outputs.cache-hit != 'true'
         uses: pedrolamas/handlebars-action@v2.1.0
         with:
           files: 'templates/config.yml.template'
@@ -96,7 +96,7 @@ jobs:
         id: config.yml
         with:
           path: ${{ inputs.driver }}/config.yml
-          key: ${{ PKG_KEY }}
+          key: ${{ inputs.pkgkey-inputs.environment }}
 
       - name: "Load smartthings-cli From Cache"
         uses: actions/cache@v3
