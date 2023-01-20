@@ -63,13 +63,14 @@ jobs:
           echo "PKG_KEY=${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
 
       - name: "Load config.yml from Cache"
+        id: cache-config
         uses: actions/cache@v3
         with:
           path: "${{ inputs.driver }}/config.yml"
           key: ${{ inputs.pkgkey }}-${{inputs.environment }}
           
       - name: "Generate config.yml using Handlebars Template"
-        if: steps.${{ inputs.pkgkey }}-${{ inputs.environment }}.outputs.cache-hit != 'true'
+        if: steps.cache-config.outputs.cache-hit != 'true'
         uses: pedrolamas/handlebars-action@v2.1.0
         with:
           files: 'templates/config.yml.template'
@@ -90,14 +91,15 @@ jobs:
         uses: actions/checkout@v3
         
       - name: "Load config.yml from Cache"
+        id: cache-config
         uses: actions/cache@v3
         with:
           path: "${{ inputs.driver }}/config.yml"
           key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
 
       - name: "Load smartthings-cli From Cache"
-        uses: actions/cache@v3
         id: stcli
+        uses: actions/cache@v3        
         with:
           path: smartthings
           key: stcli-latest
