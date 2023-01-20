@@ -60,6 +60,7 @@ jobs:
         with:
           input: templates/config-TEMPLATE.yml
           output: ${{ inputs.driver }}/config.yml
+          debug: true
         env:
           LABEL: ${{ inputs.label }}
           PKG_KEY: ${{ inputs.pkgkey }}
