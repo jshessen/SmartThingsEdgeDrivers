@@ -1,5 +1,5 @@
-name: "{{LABEL}}"
-packageKey: "{{PKG_KEY}}"
+name: "{{ LABEL }} (beta)"
+packageKey: "{{PKG_KEY}}-beta"
 description: "This driver extends the basic zwave functionality to include additional vendor specific parameters"
 vendorSupportInformation: >-
    'This driver require a documented device to work properly.<br /><br />

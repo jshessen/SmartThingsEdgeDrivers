@@ -62,13 +62,8 @@ jobs:
           output: ${{ inputs.driver }}/config.yml
           debug: true
         env:
-          if: inputs.environment == 'main'
           LABEL: "${{ inputs.label }}"
           PKG_KEY: "${{ inputs.pkgkey }}"
-          if: inputs.environment == 'beta'
-          LABEL: "${{ inputs.label }} (beta)"
-          PKG_KEY: "${{ inputs.pkgkey }}-beta"
-
           ENV: ${{ inputs.environment }}
           GITHUB: ${{ github.server_url }}/${{ github.repository }}
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
