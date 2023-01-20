@@ -56,7 +56,7 @@ jobs:
         uses: actions/checkout@v3
        
       - name: "Update config.yml"
-        uses: edgardleal/mustache-template-action@v1.0.0
+        uses: edgardleal/mustache-template-action@v1.0.4
         with:
           input: templates/config-TEMPLATE.yml
           output: ${{ inputs.driver }}/config.yml
