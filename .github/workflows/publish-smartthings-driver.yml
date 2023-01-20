@@ -57,18 +57,27 @@ jobs:
        
       - name: "Setup Git User"
         uses: fregante/setup-git-user@v1
+        
+      - name: "Define 'main' Branch Environment Variables"
+        if: ${{ inputs.environment == 'main' }}
+        run: |
+        echo "LABEL=${{ inputs.LABEL }}" >> $GITHUB_ENV  
+        echo "PKG_KEY: "${{ inputs.pkgkey }}" >> $GITHUB_ENV
+        
+      - name: "Define Branch Environment Variables"
+        if: ${{ inputs.environment == 'main' }}
+        run: |
+        echo "LABEL=${{ inputs.LABEL }} (beta)" >> $GITHUB_ENV  
+        echo "PKG_KEY: "${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
 
-      - name: "Update config.yml"
-        uses: edgardleal/mustache-template-action@v1.0.4
+      - name: "Generate config.yml using Handlebars Template"
+        uses: pedrolamas/handlebars-action@v2.1.0
         with:
-          input: templates/config-TEMPLATE.yml
-          output: ${{ inputs.driver }}/config.yml
-          debug: true
+          files: 'templates/config.yml.template'
+          output-filename: '${{ inputs.driver }}/config.yml'
         env:
-          LABEL: "${{ inputs.label }}"
-          PKG_KEY: "${{ inputs.pkgkey }}"
-          ENV: ${{ inputs.environment }}
-          GITHUB: ${{ github.server_url }}/${{ github.repository }}
+          ENV: "${{ inputs.environment }}"
+          GITHUB: "${{ github.server_url }}/${{ github.repository }}"
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
 
 #      - name: "Import GPG Key"
@@ -82,7 +91,7 @@ jobs:
       - name: "git commmit"
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          message: "Apply config.yml changes"
+          commit_message: "Apply config.yml changes"
   publish:
     name: "Publish Driver"
     needs: modify-config
