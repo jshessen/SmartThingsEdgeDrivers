@@ -1,5 +1,5 @@
-name: "{{#if eq(ENV, 'beta')}}{{ LABEL}} (beta){{else}}{{LABEL}}{{/if}}"
-packageKey: "{{#if eq(ENV, 'beta')}}{{PKG_KEY}}-beta{{else}}{{PKG_KEY}}{{/if}}""
+name: {{#if eq(ENV, 'beta')}}"{{LABEL}} (beta)"{{else}}"{{LABEL}}"{{/if}}
+packageKey: {{#if eq(ENV, 'beta')}}"{{PKG_KEY}}-beta"{{else}}{{PKG_KEY}}{{/if}}""
 description: "This driver extends the basic zwave functionality to include additional vendor specific parameters"
 vendorSupportInformation: >-
    'This driver require a documented device to work properly.<br /><br />
