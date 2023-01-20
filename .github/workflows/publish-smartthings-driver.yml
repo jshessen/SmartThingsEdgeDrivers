@@ -100,9 +100,6 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - name: "Fetching Repository Contents"
-        uses: actions/checkout@v3
-
       - name: "Load smartthings-cli From Cache"
         uses: actions/cache@v3
         id: stcli
