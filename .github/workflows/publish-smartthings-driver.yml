@@ -71,16 +71,16 @@ jobs:
           GITHUB: ${{ github.server_url }}/${{ github.repository }}
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
 
-      - name: "Import GPG Key"
-        uses: crazy-max/ghaction-import-gpg@v5
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          git_user_signingkey: true
-          git_commit_gpgsign: true
+#      - name: "Import GPG Key"
+#        uses: crazy-max/ghaction-import-gpg@v5
+#        with:
+#          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+#          passphrase: ${{ secrets.PASSPHRASE }}
+#          git_user_signingkey: true
+#          git_commit_gpgsign: true
       
       - name: "git commmit"
-        uses: - uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           message: "Apply config.yml changes"
   publish:
