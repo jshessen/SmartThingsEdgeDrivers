@@ -64,7 +64,7 @@ jobs:
 
       - name: "Load config.yml from Cache"
         uses: actions/cache@v3
-        id: config.yml
+        id: config
         with:
           path: ${{ inputs.driver }}/config.yml
           key: ${{ inputs.pkgkey-inputs.environment }}
@@ -93,7 +93,7 @@ jobs:
         
       - name: "Load config.yml from Cache"
         uses: actions/cache@v3
-        id: config.yml
+        id: config
         with:
           path: ${{ inputs.driver }}/config.yml
           key: ${{ inputs.pkgkey-inputs.environment }}
