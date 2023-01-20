@@ -57,7 +57,6 @@ jobs:
        
       - name: "Update config.yml"
         uses: edgardleal/mustache-template-action@v1.0.0
-        env:
         with:
           input: templates/config-TEMPLATE.yml
           output: ${{ inputs.driver }}/config.yml
