@@ -79,9 +79,12 @@ jobs:
           git_committer_email: github-actions-bot@users.noreply.github.com
       
       - name: "git commmit"
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: EndBug/add-and-commit@v9
         with:
-          commit_message: "Apply config.yml changes"
+          message: "Apply config.yml changes"
+          committer_name: github-actions[bot]
+          commit_email: github-actions-bot@users.noreply.github.com
+          #pull: '--rebase --autostash ...'
   publish:
     name: "Publish Driver"
     needs: modify-config
