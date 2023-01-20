@@ -83,7 +83,7 @@ jobs:
         with:
           message: "Apply config.yml changes"
           committer_name: github-actions[bot]
-          commit_email: github-actions-bot@users.noreply.github.com
+          committer_email: github-actions-bot@users.noreply.github.com
           #pull: '--rebase --autostash ...'
   publish:
     name: "Publish Driver"
