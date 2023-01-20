@@ -4,6 +4,6 @@ description: "This driver extends the basic zwave functionality to include addit
 vendorSupportInformation: >-
    'This driver require a documented device to work properly.<br /><br />
     <a href="{{ env.COMMUNITY_LINK }}">SmartThings Community discussion</a><br /><br />
-    <a href="{{ env. GITHUB }}/blob/main/README.md">GitHub Repository</a>'
+    <a href="{{ env.GITHUB }}/blob/main/README.md">GitHub Repository</a>'
 permissions:
   zwave: {}
