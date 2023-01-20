@@ -61,14 +61,14 @@ jobs:
       - name: "Define 'main' Branch Environment Variables"
         if: ${{ inputs.environment == 'main' }}
         run: |
-        echo "LABEL=${{ inputs.LABEL }}" >> $GITHUB_ENV  
-        echo "PKG_KEY: "${{ inputs.pkgkey }}" >> $GITHUB_ENV
+          echo "LABEL=${{ inputs.label }}" >> $GITHUB_ENV  
+          echo "PKG_KEY=${{ inputs.pkgkey }}" >> $GITHUB_ENV
         
       - name: "Define Branch Environment Variables"
         if: ${{ inputs.environment == 'main' }}
         run: |
-        echo "LABEL=${{ inputs.LABEL }} (beta)" >> $GITHUB_ENV  
-        echo "PKG_KEY: "${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
+          echo "LABEL=${{ inputs.label }} (beta)" >> $GITHUB_ENV  
+          echo "PKG_KEY=${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
 
       - name: "Generate config.yml using Handlebars Template"
         uses: pedrolamas/handlebars-action@v2.1.0
