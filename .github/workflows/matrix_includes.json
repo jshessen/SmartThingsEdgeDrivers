@@ -1,0 +1,15 @@
+{
+    "drivers": [
+	{
+        "driver": "zwave-switch",
+        "path": "drivers/SmartThings",
+        "label": "HomeSeer Z-Wave Switches",
+        "pkgkey": "homeseer-zwave-switches"
+    },
+	{
+        "driver": "zwave-fan",
+        "path": "drivers/SmartThings",
+        "label":"HomeSeer Z-Wave Fan Controller",
+        "pkgkey":"homeseer-zwave-fan"
+    }]
+}

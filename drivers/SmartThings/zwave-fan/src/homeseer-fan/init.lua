@@ -56,8 +56,8 @@ local HOMESEER_FAN_FINGERPRINTS = {
 --- Function: can_handle_homeseer_switches()
 --- Determine whether the passed device is HomeSeer device
 --
-local function can_handle_fan_4_speed(opts, driver, device, ...)
-  for _, fingerprint in ipairs(FAN_4_SPEED_FINGERPRINTS) do
+local function can_handle_homeseer_switches(opts, driver, device, ...)
+  for _, fingerprint in ipairs(HOMESEER_FAN_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       return true
     end
@@ -171,7 +171,7 @@ local homeseer_fans = {
     }
   },
   NAME = "Z-Wave fan 4 speed",
-  can_handle = can_handle_fan_4_speed,
+  can_handle = can_handle_homeseer_switches,
 }
 --
 --///////////////////////////////////////////////////////
