@@ -4,6 +4,10 @@ on:
   workflow_call:
     inputs:
       driver:
+        description: "SmartThings driver name"
+        required: true
+        type: string
+      path:
         description: "Folder name of the driver"
         required: true
         type: string
@@ -66,7 +70,7 @@ jobs:
         id: cache-config
         uses: actions/cache@v3
         with:
-          path: "${{ inputs.driver }}/config.yml"
+          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
           key: ${{ inputs.pkgkey }}-${{inputs.environment }}
           
       - name: "Generate config.yml using Handlebars Template"
@@ -74,7 +78,7 @@ jobs:
         uses: pedrolamas/handlebars-action@v2.1.0
         with:
           files: 'templates/config.yml.template'
-          output-filename: "${{ inputs.driver }}/config.yml"
+          output-filename: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
         env:
           GITHUB: "${{ github.server_url }}/${{ github.repository }}"
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
@@ -94,7 +98,7 @@ jobs:
         id: cache-config
         uses: actions/cache@v3
         with:
-          path: "${{ inputs.driver }}/config.yml"
+          path: "$${{ inputs.path }}/{{ inputs.driver }}/config.yml"
           key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
 
       - name: "Load smartthings-cli From Cache"
@@ -109,6 +113,6 @@ jobs:
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
 
       - name: "Publish - edge:drivers:package"
-        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
+        run: ./smartthings edge:drivers:package ${{ inputs.path }}/${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}

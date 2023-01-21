@@ -67,6 +67,7 @@ jobs:
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
       driver: ${{ matrix.driver }}
+      path: ${{ matrix.path }}
       label: ${{ matrix.label }}
       pkgkey: ${{ matrix.pkgkey }}
       environment: ${{ github.base_ref || github.ref_name }}
