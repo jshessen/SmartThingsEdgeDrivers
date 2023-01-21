@@ -152,7 +152,6 @@ local map_key_attribute_to_capability = {
 local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(fingerprint.model)
       return true
     end
   end
@@ -183,7 +182,6 @@ end
 --- Adjust profile definition based upon reported firmware version
 -- 
 local function version_report_handler(driver, device, cmd)
-  log.info(fingerprint)
   if (cmd.args.firmware_0_version > 7 or (cmd.args.firmware_0_version == 9 and cmd.args.firmware_0_sub_version > 4)) and
       device:get_field(PROFILE_CHANGED) ~= true then
     local new_profile = "zooz-zen-30-dimmer-relay-new"
