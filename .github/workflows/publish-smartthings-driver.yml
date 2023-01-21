@@ -73,7 +73,7 @@ jobs:
         if: steps.cache-config.outputs.cache-hit != 'true'
         uses: pedrolamas/handlebars-action@v2.1.0
         with:
-          files: 'templates/config.yml.template'
+          files: './.github/workflows/templates/config.yml.template'
           output-filename: "${{ inputs.driver }}/config.yml"
         env:
           GITHUB: "${{ github.server_url }}/${{ github.repository }}"
