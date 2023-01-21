@@ -19,43 +19,55 @@ on:
       - "drivers/**.lua"
 
 jobs:
-  paths-filter:
+  # Job to run change detection
+  parse-changes:
+    name: "Parse Push/Pull Changes"
     runs-on: ubuntu-latest
     # Required permissions
     permissions:
       pull-requests: read
-    # Set job outputs to values from filter step
+    # Set matched filters as job 'drivers' output variable
     outputs:
-      zwave-switch: ${{ steps.filter.outputs.zwave-switch }}
-      zwave-fan: ${{ steps.filter.outputs.zwave-fan }}
+      drivers: ${{ steps.filter.outputs.changes }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          zwave-switch:
-            - 'drivers/**/zwave-switch/**'
-          zwave-fan:
-            - 'drivers/**/zwave-fan/**'
+      - name: "Fetching Repository Contents"
+        uses: actions/checkout@v3
+        id: checkout
+      - name: "Filter Paths"
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            zwave-switch: 'drivers/**/zwave-switch/**'
+            zwave-fan: 'drivers/**/zwave-fan/**'
 
-  zwave-switch:
-    needs: paths-filter
-    if: ${{ needs.paths-filter.outputs.zwave-switch == 'true' }}
+  matrix-prep:
+    if: needs.parse-changes.outputs.drivers != '[]'
+    name: "Read/Parse Strategy Matrix"
+    needs: parse-changes
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: "Fetching Repository Contents"
+        uses: actions/checkout@v3
+        id: checkout
+      - name: "Parse inputFile"
+        uses: JoshuaTheMiller/conditional-build-matrix@main
+        id: set-matrix
+        with:
+          filter: 'drivers[?contains(`${{ needs.parse-changes.outputs.drivers }}`, driver)]'
+
+  publish-drivers:
+    if: needs.matrix-prep.outputs.matrix != '[]'
+    name: "Publish Driver(s)"
+    needs: matrix-prep
+    strategy:
+      matrix: ${{ fromJson(needs.matrix-prep.outputs.matrix) }}
     uses: ./.github/workflows/publish-smartthings-driver.yml
     with:
-      driver: drivers/SmartThings/zwave-switch
-      label: HomeSeer Z-Wave Switches
-      pkgkey: homeseer-zwave-switches
-      environment: ${{ github.base_ref || github.ref_name }}
-    secrets: inherit
-  zwave-fan:
-    needs: paths-filter
-    if: ${{ needs.paths-filter.outputs.zwave-fan == 'true' }}
-    uses: ./.github/workflows/publish-smartthings-driver.yml
-    with:
-      driver: drivers/SmartThings/zwave-fan
-      label: HomeSeer Z-Wave Fan Controller
-      pkgkey: homeseer-zwave-fan
+      driver: ${{ matrix.driver }}
+      label: ${{ matrix.label }}
+      pkgkey: ${{ matrix.pkgkey }}
       environment: ${{ github.base_ref || github.ref_name }}
     secrets: inherit
