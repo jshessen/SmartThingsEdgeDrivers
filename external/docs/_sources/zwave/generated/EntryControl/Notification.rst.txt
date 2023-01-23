@@ -1,0 +1,6 @@
+Notification
+============
+
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.Notification
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.NotificationV1
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.NotificationV1Args

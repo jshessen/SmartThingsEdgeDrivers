@@ -1,0 +1,6 @@
+Move To Position Get
+====================
+
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionGet
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionGetV1
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionGetV1Args

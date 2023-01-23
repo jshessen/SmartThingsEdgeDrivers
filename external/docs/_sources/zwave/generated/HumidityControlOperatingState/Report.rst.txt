@@ -1,0 +1,6 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlOperatingState.Report
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlOperatingState.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlOperatingState.ReportV1Args

@@ -1,0 +1,6 @@
+Event Supported Report
+======================
+
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.EventSupportedReport
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.EventSupportedReportV1
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.EventSupportedReportV1Args

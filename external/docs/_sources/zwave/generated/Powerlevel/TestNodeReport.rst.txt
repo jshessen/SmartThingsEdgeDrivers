@@ -1,0 +1,6 @@
+Test Node Report
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeReport
+.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeReportV1
+.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeReportV1Args

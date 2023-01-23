@@ -1,0 +1,9 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.Report
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.ReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.ReportV2
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.ReportV2Args
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.ReportV2ArgsIndicatorObjects

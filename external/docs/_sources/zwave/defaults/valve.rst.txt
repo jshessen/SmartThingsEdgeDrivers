@@ -1,0 +1,4 @@
+Valve
+=====
+
+.. lua:autoclass:: st.zwave.defaults.valve

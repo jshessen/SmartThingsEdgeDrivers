@@ -1,0 +1,27 @@
+DehumidificationControl
+=======================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl
+
+DehumidificationControl Attributes
+++++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.RelativeHumidity
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.DehumidificationCooling
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.RHDehumidificationSetpoint
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.RelativeHumidityMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.DehumidificationLockout
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.DehumidificationHysteresis
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.DehumidificationMaxCool
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.DehumidificationControl.RelativeHumidityDisplay
+
+DehumidificationControl Commands
+++++++++++++++++++++++++++++++++
+

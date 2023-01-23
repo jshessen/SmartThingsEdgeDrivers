@@ -1,0 +1,4 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.WindowCovering.parameter_id

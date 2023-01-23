@@ -1,0 +1,5 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.device_id_data_format
+.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.device_id_type

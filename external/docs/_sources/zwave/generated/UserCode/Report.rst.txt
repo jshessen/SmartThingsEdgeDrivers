@@ -1,0 +1,6 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.Report
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.ReportV1Args

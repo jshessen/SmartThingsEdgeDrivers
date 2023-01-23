@@ -1,0 +1,16 @@
+Association
+===========
+
+.. toctree::
+   :maxdepth: 2
+
+   Association/Set
+   Association/Get
+   Association/Report
+   Association/Remove
+   Association/GroupingsGet
+   Association/GroupingsReport
+   Association/SpecificGroupGet
+   Association/SpecificGroupReport
+
+.. lua:autoclass:: st.zwave.CommandClass.Association

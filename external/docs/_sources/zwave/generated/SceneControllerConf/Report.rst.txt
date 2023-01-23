@@ -1,0 +1,6 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.SceneControllerConf.Report
+.. lua:autoclass:: st.zwave.CommandClass.SceneControllerConf.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.SceneControllerConf.ReportV1Args

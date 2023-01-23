@@ -1,0 +1,72 @@
+Matter Interaction Response Handlers
+====================================
+
+``InteractionResponseHandler`` is the base class for all other handler types. When dispatching a received ``InteractionResponse`` from
+a device, the ``MatterDriver``\s dispatcher will dispatch each ``InteractionResponseInfoBlock`` into a handler
+based on the info blocks cluster interaction path.
+
+Attribute Report Handlers
++++++++++++++++++++++++++
+
+These specifically handle attribute reports generated from the devices subscription, or a read interaction request.
+The ``MatterDriver`` dispatcher will not dispatch attribute reports unless the status on the
+``InteractionResponseInfoBlock`` is ``SUCCESS``.
+
+.. lua:function:: attribute_report_handler(driver, device, rb, response)
+
+    Handle a single attribute report data block sent from the device
+
+    :param driver: the driver context
+    :type driver: Driver
+    :param device: the device reporting the attribute
+    :type device: st.matter.Device
+    :param rb: the response block object table
+    :type rb: st.matter.interaction_model.InteractionResponseInfoBlock
+    :param response: the full Interaction response message this attribute was a part of
+    :type response: st.matter.interaction_model.InteractionResponse
+
+
+Event Report Handlers
++++++++++++++++++++++
+
+These handle event reports generated from the devices subscription, or a read interaction request.
+The ``MatterDriver`` dispatcher will not dispatch event reports unless the status on the
+``InteractionResponseInfoBlock`` is ``SUCCESS``. Event reports received from a read interaction
+response may have already been processed by the driver. This would happen if the event being read is
+also included in the device's subscription. The handler has no way to distinguish between an event
+report from a read interaction or a report from the devices subscription, so it is advisable to not
+read and subscribe to the same event in a driver.
+
+.. lua:function:: event_report_handler(driver, device, rb, response)
+
+    Handle a single event report data block sent from the device
+
+    :param driver: the driver context
+    :type driver: Driver
+    :param device: the device reporting the event
+    :type device: st.matter.Device
+    :param rb: the response block object table that contains the event data
+    :type rb: st.matter.interaction_model.InteractionResponseInfoBlock
+    :param response: the full Interaction response message this event was a part of
+    :type response: st.matter.interaction_model.InteractionResponse
+
+
+Command Response Handlers
++++++++++++++++++++++++++
+
+These handle command responses generated from the device as part of an invoke interaction.
+The ``MatterDriver`` dispatcher will dispatch command response blocks regardless of the status on the
+``InteractionResponseInfoBlock`` .
+
+.. lua:function:: cmd_response_handler(driver, device, rb, response)
+
+    Handle a single command response sent from the device
+
+    :param driver: the driver context
+    :type driver: Driver
+    :param device: the device reporting the event
+    :type device: st.matter.Device
+    :param rb: the response block object table that contains the command path and command data
+    :type rb: st.matter.interaction_model.InteractionResponseInfoBlock
+    :param response: the full Interaction response message this command response was a part of
+    :type response: st.matter.interaction_model.InteractionResponse

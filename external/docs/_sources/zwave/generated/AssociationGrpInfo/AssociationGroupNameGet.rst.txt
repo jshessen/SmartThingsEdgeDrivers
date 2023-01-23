@@ -1,0 +1,6 @@
+Association Group Name Get
+==========================
+
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupNameGet
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupNameGetV1
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupNameGetV1Args

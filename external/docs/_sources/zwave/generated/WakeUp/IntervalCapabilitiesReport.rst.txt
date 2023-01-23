@@ -1,0 +1,8 @@
+Interval Capabilities Report
+============================
+
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalCapabilitiesReport
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalCapabilitiesReportV2
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalCapabilitiesReportV2Args
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalCapabilitiesReportV3
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalCapabilitiesReportV3Args

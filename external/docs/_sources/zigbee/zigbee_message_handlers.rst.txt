@@ -1,0 +1,280 @@
+Zigbee Driver RX message handlers
+=================================
+These are handlers that can be used to handle any incoming :lua:class:`ZigbeeMessageRx <st.zigbee.ZigbeeMessageRx>`.  In
+general, there are 4 common types of handlers that can be simply defined and automatically handled by the driver
+infrastructure.  These are:
+
+
+#. ZCL attribute value handlers
+#. ZCL global command handlers
+#. ZCL cluster specific command handlers
+#. ZDO handlers.
+
+
+A further description of each is provided below.
+
+In order for one of these message handlers to be registered, the driver will provide a table with the registrations
+included in it.  There are also included a number of default handlers that can be registered based on a list of
+capabilities.  This can be done using:
+
+.. code-block:: lua
+
+    local defaults = require "st.zigbee.defaults"
+    defaults.register_for_default_handlers(driver_template, { capabilities.switch, capabilities.switchLevel })
+
+
+These defaults can be overridden explicitly, never registered, or left as-is
+and expanded by registering additional handlers.  The following is an example of additional handlers added in a driver:
+
+.. code-block:: lua
+
+    local generate_event_from_zone_status = function(driver, device, zone_status)
+      capabilities.emit_event(device, driver.capability_socket, (zone_status:is_alarm1_set() or zone_status:is_alarm2_set()) and capabilities.WaterSensor.water.wet() or capabilities.WaterSensor.water.dry())
+    end
+
+    local ias_zone_status_attr_handler = function(driver, device, attr_val)
+      generate_event_from_zone_status(driver, device, ZoneStatus(attr_val.value))
+    end
+
+    local ias_zone_status_change_handler = function(driver, device, zigbee_message)
+      generate_event_from_zone_status(driver, device, zigbee_message.body.zone_status)
+    end
+
+    handlers = {
+      global = {},
+      cluster = {
+        [IASZone.ID] = {
+          [IASZone.commands.server.ZoneStatusChangeNotification.ID] = ias_zone_status_change_handler
+        }
+      },
+      attr = {
+        [IASZone.ID] = {
+          [IASZone.attributes.ZoneStatus.ID] = ias_zone_status_attr_handler
+        }
+      },
+      zdo = {}
+    }
+
+    -- This handlers table could then be used with the zigbee driver utils to register/build a driver
+
+Here we are adding one cluster specific handler and one attribute handler.  Both are for handling zone
+status values.  You can see the :doc:`defaults <defaults>` doc for additional information on what defaults are
+available and how they are used.
+
+
+ZCL attribute value handler
++++++++++++++++++++++++++++
+
+The following is a prototype definition of an attribute handler:
+
+.. lua:function:: zcl_attribute_value_handler(driver, device, attr_val, zb_rx)
+
+    Handle an attribute value sent from the device (either via a read attribute response or a report attribute global
+    message).
+
+    :param driver: the driver context
+    :type driver: Driver
+    :param device: the device reporting the attribute
+    :type device: Device
+    :param attr_val: the attribute value
+    :type attr_val: st.zigbee.DataType
+    :param zb_rx: the full Zigbee message this value is being extracted from
+    :type zb_rx: st.zigbee.ZigbeeMessageRx
+
+If this handler type is registered, it will be nested as follows:
+"attr"->cluster_id->attribute_id->handler, that is, it is named as an "attr" handler, then it is associated with a
+specific cluster and attribute.  When either a
+:lua:class:`read attribute response <st.zigbee.zcl.ReadAttributeResponse>` or
+:lua:class:`report attribute <st.zigbee.zcl.ReportAttribute>` message is received matching the cluster and attribute, that
+value will be passed into the handler function on receipt.  Note that a read attribute response value will only call the
+handler if the status was success.
+
+Below is an example. By default this is registered for cluster `0x0006`
+(On Off cluster) attribute `0x0000` (On Off attribute) if the "Switch" capability is listed as supported.
+
+.. code-block:: lua
+
+    local OnOff = (require "st.zigbee.zcl.clusters").OnOff
+    local capabilities = require "st.capabilities"
+
+    --- Default handler for on off attribute on the on off cluster
+    ---
+    --- This converts the boolean value from true -> Switch.switch.on and false to Switch.switch.off.
+    ---
+    --- @param driver Driver The current driver running containing necessary context for execution
+    --- @param device ZigbeeDevice The device this message was received from containing identifying information
+    --- @param value Boolean the value of the On Off cluster On Off attribute
+    local on_off_attr_handler = function (driver, device, value)
+      local attr = capabilities.switch.switch
+      device:emit_event(value.value and attr.on() or attr.off())
+    end
+
+    local zigbee_handlers = {
+        attr = {
+          [OnOff.ID] = {
+            [OnOff.attributes.OnOff.ID] = on_off_attr_handler
+          }
+        }
+      }
+
+
+ZCL global command handler
++++++++++++++++++++++++++++
+
+Below is a prototype function defining a global command handler:
+
+.. lua:function:: zcl_global_command_handler(driver, device, zb_rx)
+
+    Handle a ZCL message using a global command.
+
+    :param driver: the driver context
+    :type driver: Driver
+    :param device: the device reporting the attribute
+    :type device: Device
+    :param zb_rx: the Zigbee message received
+    :type zb_rx: st.zigbee.ZigbeeMessageRx
+
+
+If this handler type is registered it will be nested as follows:
+"global"->cluster_id->command_id->handler, that is, it is named as a "global" handler, then it is associated with a
+specific cluster and command.  When a message is received matching the cluster and command, and the frame
+control cluster specific flag is false, the entire parsed :lua:class:`ZigbeeMessageRx <st.zigbee.ZigbeeMessageRx>` will
+be passed into the handler.
+
+Below is an example of a method that will handle any read or report
+attribute message on the SmartThings-specific acceleration cluster `0xFC04`.  This is done as a global command handler
+instead of an attribute handler because we expect to receive and want to act on multiple attribute reports in a single
+message, not a single attribute value.
+
+.. code-block:: lua
+
+    local zcl_commands = require "st.zigbee.zcl.global_commands"
+    local capabilities = require "st.capabilities"
+
+    --- Handler for SmartThings multi sensor threeAxis acceleration events
+    ---
+    --- This is a report attribute message handler and if there are values present for each of the x y and z axis
+    --- accelerations a threeAxis event will be generated
+    ---
+    --- @param driver Driver The current driver running containing necessary context for execution
+    --- @param device st.zigbee.Device The device this message was received from containing identifying information
+    --- @param zbrx st.zigbee.ZigbeeMessageRx the message that matched the cluster and command
+    local function three_axis_report_handler(driver, device, zbrx)
+      local x, y, z
+      for i,v in ipairs(zbrx.body.zcl_body.attr_records) do
+        if (v.attr_id.value == 0x0012) then
+          x = v.data.value
+        elseif (v.attr_id.value == 0x0013) then
+          y = v.data.value
+        elseif (v.attr_id.value == 0x0014) then
+          z = v.data.value
+        end
+      end
+      if x ~= nil and y ~= nil and z ~= nil then
+        device:emit_event(capabilities.threeAxis.threeAxis({value ={x, y, z}}))
+      end
+    end
+
+    local zigbee_handlers = {
+        global = {
+          [0xFC02] = {
+            [zcl_commands.ReportAttribute.ID] = three_axis_report_handler
+          }
+        }
+      }
+
+
+ZCL cluster command handler
++++++++++++++++++++++++++++
+
+Below is a prototype defining the ZCL cluster command handler:
+
+.. lua:function:: zcl_cluster_command_handler(driver, device, zb_rx)
+
+    Handle a ZCL message using a cluster specific command.
+
+    :param driver: the driver context
+    :type driver: Driver
+    :param device: the device reporting the attribute
+    :type device: Device
+    :param zb_rx: the Zigbee message received
+    :type zb_rx: st.zigbee.ZigbeeMessageRx
+
+
+If this handler type is registered it will be nested as follows:
+"cluster"->cluster_id->command_id->handler, that is, it is named as an "cluster" handler, then it is associated with a
+specific cluster and command.  When either a message is received matching the cluster and command, and the frame
+control cluster specific flag is true, the entire parsed :lua:class:`ZigbeeMessageRx <st.zigbee.ZigbeeMessageRx>` will
+be passed into the handler.
+
+A common example for a driver would be handling the Zone Status Change Notification command on the IAS Zone cluster.
+That is a cluster specific command that will need handling on devices that use it.  However, a default handler is not
+included because that message does not map to a single event type but is instead device-specific.  Below is an example
+of one such handler for a moisture sensor:
+
+.. code-block:: lua
+
+    local IASZone = (require "st.zigbee.zcl.clusters").IASZone
+    local capabilities = require "st.capabilities"
+
+    --- Handler for the cluster specific command ZoneStatusChangeNotification on the IASZone
+    ---
+    --- @param driver Driver The current driver running containing necessary context for execution
+    --- @param device ZigbeeDevice The device this message was received from containing identifying information
+    --- @param zb_rx ZigbeeMessageRx the Zigbee message received
+    local ias_zone_status_change_handler = function(driver, device, zb_rx)
+      local zone_status = zb_rx.body.zcl_body.zone_status
+      device:emit_event(
+          (zone_status:is_alarm1_set() or zone_status:is_alarm2_set()) and
+              capabilities.waterSensor.water.wet() or
+              capabilities.waterSensor.water.dry()
+      )
+    end
+
+    local zigbee_handlers = {
+            cluster = {
+              [IASZone.ID] = {
+                [IASZone.commands.server.ZoneStatusChangeNotification.ID] = ias_zone_status_change_handler
+              }
+            }
+        }
+
+
+ZDO command handler
++++++++++++++++++++
+
+
+Below is a prototype function defining a zdo handler:
+
+.. lua:function:: zdo_handler(driver, device, zb_rx)
+
+    Handle a ZCL message using a global command.
+
+    :param driver: the driver context
+    :type driver: Driver
+    :param device: the device reporting the attribute
+    :type device: st.zigbee.Device
+    :param zb_rx: the Zigbee message received
+    :type zb_rx: st.zigbee.ZigbeeMessageRx
+
+If this handler type is registered it will be nested as follows:
+"zdo"->cluster_id->handler, that is, it is named as an "zdo" handler, then it is associated with a
+specific cluster.  When  a message is received matching the cluster and profile (zdo) the entire parsed
+:lua:class:`ZigbeeMessageRx <st.zigbee.ZigbeeMessageRx>` will be passed into the handler.  One potential example of this
+is to look at some devices binding table to find group membership.  Here is an example:
+
+.. code-block:: lua
+
+    local function zdo_binding_table_handler(driver, device, zb_rx)
+      for _, binding_table in pairs(zb_rx.body.zdo_body.binding_table_entries) do
+        if binding_table.dest_addr_mode.value == binding_table.DEST_ADDR_MODE_SHORT then
+          -- Do something with the group membership
+        end
+      end
+    end
+
+    local zigbee_handlers = {
+      zdo = {
+        [mgmt_bind_resp.MGMT_BIND_RESPONSE] = zdo_binding_table_handler
+      }
+    }

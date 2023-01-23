@@ -1,0 +1,31 @@
+AnalogInput
+===========
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput
+
+AnalogInput Attributes
+++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.Description
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.MaxPresentValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.MinPresentValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.OutOfService
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.PresentValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.Reliability
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.Resolution
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.StatusFlags
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.EngineeringUnits
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.AnalogInput.ApplicationType
+
+AnalogInput Commands
+++++++++++++++++++++
+

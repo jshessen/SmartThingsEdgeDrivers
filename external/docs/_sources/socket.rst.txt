@@ -1,0 +1,35 @@
+Socket
+------
+
+The socket library implements (most of) the `LuaSocket
+<http://w3.impa.br/~diego/software/luasocket/reference.html>`_ API.
+
+On our platform, we treat all sockets as non-blocking sockets. This means
+you should expect any socket methods to return ``nil, "timeout"``. To duplicate blocking
+socket behavior, you can utilize ``socket.select``. See the example below.
+
+.. code-block:: lua
+
+    local socket = require "socket"
+    local tcp_client = socket.tcp()
+    local ip, port = "0.0.0.0", 80
+    local res, err = tcp_client:connect(ip, port)
+    if err == "timeout" then
+        -- The second argument here is the "sender" position
+        socket.select({}, {tcp_client})
+        res, err = tcp_client:connect(ip, port)
+    end
+    assert(res, err)
+    assert(tcp_client:send("hello world!")
+    local reply, err = tcp_client:receive()
+    if err == "timeout" then
+        -- the first argument here is the "receiver" position
+        socket.select({tcp_client})
+        reply, err = tcp_client:receive()
+    end
+    print(reply)
+
+In almost all cases it is preferable to use the :doc:`cosock.socket` APIs
+provided instead of anything provided by this module.
+
+.. lua:automodule:: socket

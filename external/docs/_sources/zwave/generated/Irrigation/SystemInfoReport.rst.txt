@@ -1,0 +1,6 @@
+System Info Report
+==================
+
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemInfoReport
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemInfoReportV1
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemInfoReportV1Args

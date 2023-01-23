@@ -1,0 +1,6 @@
+Notification
+============
+
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.Notification
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.NotificationV1
+.. lua:autoclass:: st.zwave.CommandClass.WakeUp.NotificationV1Args

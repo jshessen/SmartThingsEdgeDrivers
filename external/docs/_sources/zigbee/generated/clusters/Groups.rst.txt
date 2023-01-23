@@ -1,0 +1,33 @@
+Groups
+======
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups
+
+Groups Attributes
++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.NameSupport
+
+Groups Commands
++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.AddGroupResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.ViewGroupResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.GetGroupMembershipResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.RemoveGroupResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.AddGroup
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.ViewGroup
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.GetGroupMembership
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.RemoveGroup
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.RemoveAllGroups
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Groups.AddGroupIfIdentifying
+

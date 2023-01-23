@@ -1,0 +1,4 @@
+AttributeReportingStatus
+========================
+
+.. lua:autoclass:: st.zigbee.zcl.types.AttributeReportingStatus

@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.WindowCovering.Get
+.. lua:autoclass:: st.zwave.CommandClass.WindowCovering.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.WindowCovering.GetV1Args

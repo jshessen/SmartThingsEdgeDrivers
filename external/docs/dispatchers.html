@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dispatchers &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Buffer" href="buf.html" />
+    <link rel="prev" title="Datastore" href="datastore.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datastore.html">Datastore</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dispatchers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#default-handlers">default_handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispatcher-filter">dispatcher_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#child-dispatchers">child_dispatchers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-fields">Additional Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zigbeemessagedispatcher">ZigbeeMessageDispatcher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zwavedispatcher">ZwaveDispatcher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capabilitycommanddispatcher">CapabilityCommandDispatcher</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+      <li>Dispatchers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dispatchers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dispatchers">
+<h1>Dispatchers<a class="headerlink" href="#dispatchers" title="Permalink to this headline"></a></h1>
+<p>Dispatchers are a structure that was built primarily to support the subdriver structures (described in
+<span class="xref std std-doc">drivers</span>) but can be used to handle any hierarchical message dispatching.  That is there
+will be a single root dispatcher which may have many generations of descendants.  Each descendant represents a more
+specific restriction on whether a message can be handled (i.e. all ancestors must have had their <code class="docutils literal notranslate"><span class="pre">filter</span></code> pass the message
+through).  Once this hierarchical structure is built, a message can be passed to the root dispatcher and it will
+recursively check descendants and pass the message to the most restrictive handler (i.e. the greatest descendant depth
+that can handle it).  More discussion on how this works will happen below in the section on filters. In general, each
+dispatcher contains 3 core components, as well as some additional, less impactful elements.  The sections below will
+describe these in more detail.</p>
+<section id="default-handlers">
+<h2>default_handlers<a class="headerlink" href="#default-handlers" title="Permalink to this headline"></a></h2>
+<p>The purpose of <code class="docutils literal notranslate"><span class="pre">default_handlers</span></code> is to provide the logic to handle messages at a given level of the
+hierarchy.</p>
+<p>All handlers should be of the signature <code class="docutils literal notranslate"><span class="pre">handler(driver,</span> <span class="pre">device,</span> <span class="pre">...)</span></code> where the
+varargs are specific to the type of event the dispatcher is handling, but should be homogenous.  For example,
+these could be the <code class="docutils literal notranslate"><span class="pre">capability_handlers</span></code> defined in the <span class="xref std std-doc">Drivers</span> document.  The specific structure of
+these handlers is up to the type of message being handled, and the logic to find which default handler matches a given
+message is unimplemented in the base class and is one of the pieces of logic that must be implemented by a child class
+by implementing the function <code class="docutils literal notranslate"><span class="pre">find_default_handlers(driver,</span> <span class="pre">device,</span> <span class="pre">...)</span></code> that will return a flat list of all default
+handlers that match.</p>
+<p>There are 2 special fields that can be included in the default_handlers table.</p>
+<dl class="simple">
+<dt>error</dt><dd><p>This will be a handler that will be called when any of the handlers in this or any child dispatcher raise an error
+while processing a message.  The same arguments will be passed into this handler as were passed to the original
+handler.</p>
+</dd>
+<dt>fallback</dt><dd><p>This handler will be called any time dispatch is called with a message/event with no handler being found for it.
+Note that if you set this on child dispatchers, it won’t be called as a part of any message passed to the root
+dispatcher because the child dispatcher can_handle will be <code class="docutils literal notranslate"><span class="pre">false</span></code> without any matching handler.</p>
+</dd>
+</dl>
+</section>
+<section id="dispatcher-filter">
+<h2>dispatcher_filter<a class="headerlink" href="#dispatcher-filter" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">dispatcher_filter</span></code> is used to test if a message could potentially be handled by this dispatcher or its
+descendants.  Note that this does not need to check for the existence of a matching default handler as that is handled
+in a different step.  Instead, this will typically test some aspect of the device the message came from to
+determine if this level of the hierarchy is appropriate to handle it.  In practice this is most commonly used to test
+the manufacturer or model (or both) of the specific device to handle any behavior unique to the individual device.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dispatcher_filters</span></code> are implicitly chained through descendants.  That is, if a grandchild
+of the root dispatcher is determined to be the correct handler for a message, it means that that message was passed
+through the filters of all of its ancestors.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root_dispatcher</span> <span class="p">(</span><span class="nb">all</span> <span class="n">messages</span> <span class="k">pass</span> <span class="nb">filter</span><span class="p">)</span>
+    <span class="n">child_1</span> <span class="p">(</span><span class="nb">filter</span> <span class="n">device</span> <span class="n">manufacturer</span> <span class="o">=</span> <span class="s2">&quot;man one&quot;</span><span class="p">)</span>
+        <span class="n">grandchild_1</span> <span class="p">(</span><span class="nb">filter</span> <span class="n">device</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;model one&quot;</span><span class="p">)</span>
+        <span class="n">grandchild_2</span> <span class="p">(</span><span class="nb">filter</span> <span class="n">device</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;model two&quot;</span><span class="p">)</span>
+    <span class="n">child_2</span> <span class="p">(</span><span class="nb">filter</span> <span class="n">device</span> <span class="n">manufacturer</span> <span class="o">=</span> <span class="s2">&quot;man two&quot;</span><span class="p">)</span>
+        <span class="n">grandchild_3</span> <span class="p">(</span><span class="nb">filter</span> <span class="n">device</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;model one&quot;</span><span class="p">)</span>
+        <span class="n">grandchild_4</span> <span class="p">(</span><span class="nb">filter</span> <span class="n">device</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;model two&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the above example we can see a nested structure representing our dispatcher filter functions.  Note the duplicate
+filter functions present within the structure with different ancestors.</p>
+<p>Below is a table showing which of the above dispatchers would handle a message received from a given device
+(assuming there are matching default handlers at each level):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 76%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Device</p></th>
+<th class="head"><p>dispatcher</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Device(manufacturer = “man one”, model = “model two”)</p></td>
+<td><p>grandchild_2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Device(manufacturer = “man two”, model = “model two”)</p></td>
+<td><p>grandchild_4</p></td>
+</tr>
+<tr class="row-even"><td><p>Device(manufacturer = “man one”, model = “other”)</p></td>
+<td><p>child_1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Device(manufacturer = “my man”, model = “model two”)</p></td>
+<td><p>root_dispatcher</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="child-dispatchers">
+<h2>child_dispatchers<a class="headerlink" href="#child-dispatchers" title="Permalink to this headline"></a></h2>
+<p>Each dispatcher can have any number of child dispatchers. These are
+functionally identical at each level. The only difference is when they will be called to handle a message.  Where the
+root dispatcher will be called upon to handle every message that a driver receives, the children will only be called if
+their filter function matches, as well as the filter of all of their ancestors.</p>
+</section>
+<section id="additional-fields">
+<h2>Additional Fields<a class="headerlink" href="#additional-fields" title="Permalink to this headline"></a></h2>
+<p>In addition to the 3 core components described above that drive most of the functionality of dispatchers,
+there are a number of other components that have additional usages.</p>
+<dl class="simple">
+<dt>name</dt><dd><p>This is a human-readable name for what this dispatcher represents (e.g. “Manufacturer One”); used primarily in logging</p>
+</dd>
+<dt>dispatcher_class_name</dt><dd><p>A human-readable name describing the class of messages this is meant to handle (e.g. “capability command
+dispatcher”); used primarily in logging</p>
+</dd>
+</dl>
+<p>In addition there are a number of methods used for getting strings representing the dispatcher that can be used for
+logging to help understand the structure.  These will be documented in the class docs below.</p>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="MessageDispatcher">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">MessageDispatcher</span></span><a class="headerlink" href="#MessageDispatcher" title="Permalink to this definition"></a></dt>
+<dd><p>The MessageDispatcher class can be used to construct a hierarchical structure for handling
+a message of some sort.  Message dispatchers contain sets of <cite>default_handlers</cite> with
+implmentation-specific structure.  Each MessageDispatcher can contain any number of
+<cite>child_dispatchers</cite>, which are themselves MessageDispatchers.  Each message dispatcher must
+implement a <cite>can_handle</cite> method which will recurse to return true if the dispatcher or one of
+its children can handle the message.  The class also has a <cite>dispatch</cite> function that will find
+handlers for the message.  If a child dispatcher says it can handle it, it will be forwarded
+there.  If multiple children at a given recursion level report they can handle a message, all
+children will receive the message.  If no child reports it can handle a message, it will be
+sent to a default handler at the current level, if any exists.</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="MessageDispatcher.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#MessageDispatcher.name" title="Permalink to this definition"></a></dt>
+<dd><p>A logging string to describe this recursion level of the dispatcher</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="MessageDispatcher.child_dispatchers">
+<span class="sig-name descname"><span class="pre">child_dispatchers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">list[MessageDispatcher]</span><a class="headerlink" href="#MessageDispatcher.child_dispatchers" title="Permalink to this definition"></a></dt>
+<dd><p>those below this message dispatcher in the hierarchy</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="MessageDispatcher.default_handlers">
+<span class="sig-name descname"><span class="pre">default_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#MessageDispatcher.default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>implementation-specific structure containing the default handlers</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="MessageDispatcher.dispatcher_class_name">
+<span class="sig-name descname"><span class="pre">dispatcher_class_name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#MessageDispatcher.dispatcher_class_name" title="Permalink to this definition"></a></dt>
+<dd><p>The dispatcher type</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="MessageDispatcher.error_handler">
+<span class="sig-name descname"><span class="pre">error_handler</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">function</span><a class="headerlink" href="#MessageDispatcher.error_handler" title="Permalink to this definition"></a></dt>
+<dd><p>(driver, device, vararg) A function that will be called if any of the matching handlers raises an error during execution</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="MessageDispatcher.fallback_handler">
+<span class="sig-name descname"><span class="pre">fallback_handler</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">function</span><a class="headerlink" href="#MessageDispatcher.fallback_handler" title="Permalink to this definition"></a></dt>
+<dd><p>(driver, device, vararg) A function that will be called if no matching handler is found when dispatch is called</p>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="MessageDispatcher.init">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cls</span></em>, <em class="sig-param"><span class="pre">name</span></em>, <em class="sig-param"><span class="pre">dispatcher_filter</span></em>, <em class="sig-param"><span class="pre">default_handlers</span></em>, <em class="sig-param"><span class="pre">dispatcher_class_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize a MessageDispatcher.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> (<span><a class="reference internal" href="#MessageDispatcher" title="MessageDispatcher"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">MessageDispatcher</span></code></a></span>) – the class we are initing (probably a child class)</p></li>
+<li><p><strong>name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the name of this dispatcher</p></li>
+<li><p><strong>dispatcher_filter</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span>) – a can_handle function for this MessageDispatcher (in addition to normal child/default matching)</p></li>
+<li><p><strong>default_handlers</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – implementation specific structure of default handlers</p></li>
+<li><p><strong>dispatcher_class_name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the class name for logging purposes</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.register_child_dispatcher">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">register_child_dispatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dispatcher</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.register_child_dispatcher" title="Permalink to this definition"></a></dt>
+<dd><p>Add a child to this dispatcher.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dispatcher</strong> (<span><a class="reference internal" href="#MessageDispatcher" title="MessageDispatcher"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">MessageDispatcher</span></code></a></span>) – the child dispatcher to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.find_default_handlers">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">find_default_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.find_default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a flat list of default handlers that can handle the message.</p>
+<p>This is virtual on this base class, and must be implemented by inheritors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device the message came from/is for</p></li>
+<li><p><strong>vararg</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – MessageDispatcher child implementation specific args</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a flat list of the default handlers that can handle this message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[function]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.find_child_dispatchers">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">find_child_dispatchers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.find_child_dispatchers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a flat list of all the child dispatchers whose can_handle returned true for this message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device the message came from/is for</p></li>
+<li><p><strong>vararg</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – MessageDispatcher child implementation specific args</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the flat list of child dispatchers that can handle this message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[MessageDispatcher]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.can_handle">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">can_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.can_handle" title="Permalink to this definition"></a></dt>
+<dd><p>Return true if this MessageDispatcher can handle the message.</p>
+<p>A message can be handled if either
+A) a child dispatcher reports it can handle the message or
+B) self.dispatcher_filter returns true and a default handler will work for this message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device the message came from/is for</p></li>
+<li><p><strong>vararg</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – MessageDispatcher child implementation specific args</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the the message can be handled by this dispatcher, false if it cannot</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.get_dispatcher_path">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_dispatcher_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.get_dispatcher_path" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string showing the hierarchy through which the dispatcher recursed to arrive at this level.</p>
+<p>This provides useful trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>something of the form “root -&gt; parent -&gt; me” using the name of each dispatcher</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.dispatch">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.dispatch" title="Permalink to this definition"></a></dt>
+<dd><p>Find a handler for this message and execute it.</p>
+<p>This will either execute child dispatchers or default handlers, but never both.  It will,
+however, execute any number of handlers of the given class that match.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device the message came from/is for</p></li>
+<li><p><strong>vararg</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – MessageDispatcher child implementation specific args</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">indent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Return a multiline string representation of the dispatcher structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>indent</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the indent for visually distinguishable representation of the dispatcher hierarchy</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the string representation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="MessageDispatcher.pretty_print_default_handlers">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">pretty_print_default_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">indent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#MessageDispatcher.pretty_print_default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a multiline string representation of the dispatcher’s default handlers.</p>
+<p>This is virtual on this base class, and must be implemented by inheritors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>indent</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the indent for visually distinguishable representation of the dispatcher hierarchy</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the string representation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="zigbeemessagedispatcher">
+<h2>ZigbeeMessageDispatcher<a class="headerlink" href="#zigbeemessagedispatcher" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="ZigbeeMessageDispatcher">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ZigbeeMessageDispatcher</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#MessageDispatcher" title="MessageDispatcher"><span class="pre">MessageDispatcher</span></a><a class="headerlink" href="#ZigbeeMessageDispatcher" title="Permalink to this definition"></a></dt>
+<dd><p>This inherits from the MessageDispatcher and is intended to handle ZigbeeMessageRx
+messages</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeMessageDispatcher.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#ZigbeeMessageDispatcher.name" title="Permalink to this definition"></a></dt>
+<dd><p>A name of this level of dispatcher used for logging</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeMessageDispatcher.child_dispatchers">
+<span class="sig-name descname"><span class="pre">child_dispatchers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">list[ZigbeeMessageDispatcher]</span><a class="headerlink" href="#ZigbeeMessageDispatcher.child_dispatchers" title="Permalink to this definition"></a></dt>
+<dd><p>those below this handler in the hierarchy</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeMessageDispatcher.default_handlers">
+<span class="sig-name descname"><span class="pre">default_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#ZigbeeMessageDispatcher.default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>The <cite>handlers</cite> structure from the ZigbeeDriver</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeMessageDispatcher.dispatcher_class_name">
+<span class="sig-name descname"><span class="pre">dispatcher_class_name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#ZigbeeMessageDispatcher.dispatcher_class_name" title="Permalink to this definition"></a></dt>
+<dd><p>“ZigbeeMessageDispatcher”</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="ZigbeeMessageDispatcher.find_default_handlers">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">find_default_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ZigbeeMessageDispatcher.find_default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a flat list of default handlers that can handle the message</p>
+<p>These will be one of the <cite>attr</cite>, <cite>global</cite>, <cite>cluster</cite>, or <cite>zdo</cite> message handlers defined
+on the driver or sub drivers. However, the <cite>attr</cite> handlers will be wrapped to allow them
+to be called with the same structure as the other handler types.  E.g.
+<cite>hander(driver, device, zb_rx)</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device the message came from/is for</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="zigbee/messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – The received Zigbee message to handle</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a flat list of the default handlers that can handle this message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[function]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="zwavedispatcher">
+<h2>ZwaveDispatcher<a class="headerlink" href="#zwavedispatcher" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.Dispatcher">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.Dispatcher</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#MessageDispatcher" title="MessageDispatcher"><span class="pre">MessageDispatcher</span></a><a class="headerlink" href="#st.zwave.Dispatcher" title="Permalink to this definition"></a></dt>
+<dd><p>This inherits from the MessageDispatcher and handles Z-Wave commands.</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.Dispatcher.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zwave.Dispatcher.name" title="Permalink to this definition"></a></dt>
+<dd><p>A logging string to describe this recursion level of the dispatcher</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.Dispatcher.child_dispatchers">
+<span class="sig-name descname"><span class="pre">child_dispatchers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">list[st.zwave.Dispatcher]</span><a class="headerlink" href="#st.zwave.Dispatcher.child_dispatchers" title="Permalink to this definition"></a></dt>
+<dd><p>those below this recursion level in the hierarchy</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.Dispatcher.default_handlers">
+<span class="sig-name descname"><span class="pre">default_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.zwave.Dispatcher.default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>The <cite>zwave_handlers</cite> structure from the Driver</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.Dispatcher.dispatcher_class_name">
+<span class="sig-name descname"><span class="pre">dispatcher_class_name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zwave.Dispatcher.dispatcher_class_name" title="Permalink to this definition"></a></dt>
+<dd><p>“ZwaveDispatcher”</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Dispatcher.find_default_handlers">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">find_default_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">cmd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Dispatcher.find_default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a flat list of default handlers that can handle this Z-Wave command.</p>
+<p>Handlers’ interfaces are of the form of those enclosed in the <cite>zwave_handlers</cite> table of the base driver, <cite>function(driver, device, cmd)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="zwave/driver.html#st.zwave.Driver" title="st.zwave.Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Driver</span></code></a></span>) – </p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="zwave/device.html#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a></span>) – </p></li>
+<li><p><strong>cmd</strong> (<span><a class="reference internal" href="zwave/command.html#st.zwave.Command" title="st.zwave.Command"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Command</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a flat list of the default callbacks that can handle this message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[function]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zwave.Dispatcher.pretty_print_default_handlers">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">pretty_print_default_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">indent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Dispatcher.pretty_print_default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a multiline string representation of the dispatcher’s default handlers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#st.zwave.Dispatcher" title="st.zwave.Dispatcher"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Dispatcher</span></code></a></span>) – </p></li>
+<li><p><strong>indent</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the indent for visually distinguishable representation of the dispatcher hierarchy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the string representation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="capabilitycommanddispatcher">
+<h2>CapabilityCommandDispatcher<a class="headerlink" href="#capabilitycommanddispatcher" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="CapabilityCommandDispatcher">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">CapabilityCommandDispatcher</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#MessageDispatcher" title="MessageDispatcher"><span class="pre">MessageDispatcher</span></a><a class="headerlink" href="#CapabilityCommandDispatcher" title="Permalink to this definition"></a></dt>
+<dd><p>This inherits from the MessageDispatcher and is intended to handle capabiltiy commands</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="CapabilityCommandDispatcher.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#CapabilityCommandDispatcher.name" title="Permalink to this definition"></a></dt>
+<dd><p>A name of this level of dispatcher used for logging</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="CapabilityCommandDispatcher.child_dispatchers">
+<span class="sig-name descname"><span class="pre">child_dispatchers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">list[CapabilityCommandDispatcher]</span><a class="headerlink" href="#CapabilityCommandDispatcher.child_dispatchers" title="Permalink to this definition"></a></dt>
+<dd><p>those below this handler in the hierarchy</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="CapabilityCommandDispatcher.default_handlers">
+<span class="sig-name descname"><span class="pre">default_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#CapabilityCommandDispatcher.default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>The <cite>capability_handlers</cite> structure from the Driver</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="CapabilityCommandDispatcher.dispatcher_class_name">
+<span class="sig-name descname"><span class="pre">dispatcher_class_name</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#CapabilityCommandDispatcher.dispatcher_class_name" title="Permalink to this definition"></a></dt>
+<dd><p>“CapabilityCommandDispatcher”</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="CapabilityCommandDispatcher.find_default_handlers">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">find_default_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">cap_command</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CapabilityCommandDispatcher.find_default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a flat list of default handlers that can handle this capability command</p>
+<p>These will be of the form of the <cite>capability_handlers</cite> on a driver  E.g.
+<cite>hander(driver, device, cap_command)</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device the message came from/is for</p></li>
+<li><p><strong>cap_command</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">CapabilityCommand</span></code></span>) – The capability command table</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a flat list of the default handlers that can handle this message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[function]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="CapabilityCommandDispatcher.pretty_print_default_handlers">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">pretty_print_default_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">indent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CapabilityCommandDispatcher.pretty_print_default_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Return a multiline string representation of the dispatchers default handlers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#CapabilityCommandDispatcher" title="CapabilityCommandDispatcher"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">CapabilityCommandDispatcher</span></code></a></span>) – </p></li>
+<li><p><strong>indent</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the indent level to allow for the hierarchy to be visually distinguishable</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the string representation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="datastore.html" class="btn btn-neutral float-left" title="Datastore" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="buf.html" class="btn btn-neutral float-right" title="Buffer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+Start Level Change
+==================
+
+.. lua:autoclass:: st.zwave.CommandClass.WindowCovering.StartLevelChange
+.. lua:autoclass:: st.zwave.CommandClass.WindowCovering.StartLevelChangeV1
+.. lua:autoclass:: st.zwave.CommandClass.WindowCovering.StartLevelChangeV1Args

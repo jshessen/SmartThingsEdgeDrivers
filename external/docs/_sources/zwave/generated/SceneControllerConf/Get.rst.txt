@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.SceneControllerConf.Get
+.. lua:autoclass:: st.zwave.CommandClass.SceneControllerConf.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.SceneControllerConf.GetV1Args

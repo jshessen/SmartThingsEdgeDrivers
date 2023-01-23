@@ -1,0 +1,6 @@
+Operation Set
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationSet
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationSetV1
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationSetV1Args

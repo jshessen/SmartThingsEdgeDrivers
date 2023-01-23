@@ -1,0 +1,9 @@
+Application Capability
+======================
+
+.. toctree::
+   :maxdepth: 2
+
+   ApplicationCapability/CommandCommandClassNotSupported
+
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationCapability

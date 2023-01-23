@@ -1,0 +1,4 @@
+Mold Health Concern
+===================
+
+.. lua:autoclass:: st.zwave.defaults.moldHealthConcern

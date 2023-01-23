@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thermostat Operating State &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Three Axis" href="threeAxis.html" />
+    <link rel="prev" title="Thermostat Mode" href="thermostatMode.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../zwave.html">Z-Wave Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../driver.html">Z-Wave Driver Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../device.html">Z-Wave Device Class</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../defaults.html">Z-Wave Capability Defaults</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="alarm.html">Alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atmosphericPressureMeasurement.html">Atmospheric Pressure Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="battery.html">Battery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bodyMassIndexMeasurement.html">Body Mass Index Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bodyWeightMeasurement.html">Body Weight Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="button.html">Button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="carbonDioxideMeasurement.html">Carbon Dioxide Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="carbonMonoxideDetector.html">Carbon Monoxide Detector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="carbonMonoxideMeasurement.html">Carbon Monoxide Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="chime.html">Chime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="colorControl.html">Color Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="colorTemperature.html">Color Temperature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="contactSensor.html">Contact Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dewPoint.html">Dew Point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doorControl.html">Door Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dustSensor.html">Dust Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="energyMeter.html">Energy Meter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fineDustSensor.html">Fine Dust Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="formaldehydeMeasurement.html">Formaldehyde Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="illuminanceMeasurement.html">Illuminance Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lock.html">Lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lockCodes.html">Lock Codes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="moldHealthConcern.html">Mold Health Concern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="motionSensor.html">Motion Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pestControl.html">Pest Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="powerMeter.html">Power Meter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="relativeHumidityMeasurement.html">Relative Humidity Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="smokeDetector.html">Smoke Detector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="switch.html">Switch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="switchLevel.html">Switch Level</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamperAlert.html">Tamper Alert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="temperatureAlarm.html">Temperature Alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="temperatureMeasurement.html">Temperature Measurement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thermostatCoolingSetpoint.html">Thermostat Cooling Setpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thermostatFanMode.html">Thermostat Fan Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thermostatHeatingSetpoint.html">Thermostat Heating Setpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thermostatMode.html">Thermostat Mode</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Thermostat Operating State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="threeAxis.html">Three Axis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ultravioletIndex.html">Ultraviolet Index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="valve.html">Valve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="veryFineDustSensor.html">Very Fine Dust Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="waterSensor.html">Water Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="windowShade.html">Window Shade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="windowShadeLevel.html">Window Shade Level</a></li>
+<li class="toctree-l4"><a class="reference internal" href="windowShadePreset.html">Window Shade Preset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#default-handler-internals">Default Handler Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#zwave-handlers">zwave_handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#capability-handlers">capability_handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../command.html">Z-Wave Command Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated.html">Z-Wave Command Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../zwave.html">Z-Wave Libraries</a> &raquo;</li>
+          <li><a href="../defaults.html">Z-Wave Capability Defaults</a> &raquo;</li>
+      <li>Thermostat Operating State</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/zwave/defaults/thermostatOperatingState.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="thermostat-operating-state">
+<h1>Thermostat Operating State<a class="headerlink" href="#thermostat-operating-state" title="Permalink to this headline"></a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.defaults.thermostatOperatingState">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.defaults.thermostatOperatingState</span></span><a class="headerlink" href="#st.zwave.defaults.thermostatOperatingState" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.defaults.thermostatOperatingState.zwave_handlers">
+<span class="sig-name descname"><span class="pre">zwave_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.zwave.defaults.thermostatOperatingState.zwave_handlers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.defaults.thermostatOperatingState.get_refresh_commands">
+<span class="sig-name descname"><span class="pre">get_refresh_commands</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">function</span><a class="headerlink" href="#st.zwave.defaults.thermostatOperatingState.get_refresh_commands" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thermostatMode.html" class="btn btn-neutral float-left" title="Thermostat Mode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="threeAxis.html" class="btn btn-neutral float-right" title="Three Axis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

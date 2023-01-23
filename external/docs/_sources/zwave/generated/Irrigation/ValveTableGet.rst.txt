@@ -1,0 +1,6 @@
+Valve Table Get
+===============
+
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveTableGet
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveTableGetV1
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveTableGetV1Args

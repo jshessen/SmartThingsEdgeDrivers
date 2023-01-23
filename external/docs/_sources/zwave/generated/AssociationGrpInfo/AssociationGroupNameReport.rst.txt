@@ -1,0 +1,6 @@
+Association Group Name Report
+=============================
+
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupNameReport
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupNameReportV1
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupNameReportV1Args

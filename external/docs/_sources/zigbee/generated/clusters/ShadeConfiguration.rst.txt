@@ -1,0 +1,26 @@
+ShadeConfiguration
+==================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ShadeConfiguration
+
+ShadeConfiguration Attributes
++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ShadeConfiguration.PhysicalClosedLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ShadeConfiguration.MotorStepSize
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ShadeConfiguration.Status
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ShadeConfiguration.ClosedLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ShadeConfiguration.Mode
+
+ShadeConfiguration Commands
++++++++++++++++++++++++++++
+
+ShadeConfiguration Types
+++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ShadeConfiguration.types.Direction
+

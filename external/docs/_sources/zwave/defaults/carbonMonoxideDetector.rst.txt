@@ -1,0 +1,4 @@
+Carbon Monoxide Detector
+========================
+
+.. lua:autoclass:: st.zwave.defaults.carbonMonoxideDetector

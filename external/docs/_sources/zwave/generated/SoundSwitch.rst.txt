@@ -1,0 +1,18 @@
+Sound Switch
+============
+
+.. toctree::
+   :maxdepth: 2
+
+   SoundSwitch/TonesNumberGet
+   SoundSwitch/TonesNumberReport
+   SoundSwitch/ToneInfoGet
+   SoundSwitch/ToneInfoReport
+   SoundSwitch/ConfigurationSet
+   SoundSwitch/ConfigurationGet
+   SoundSwitch/ConfigurationReport
+   SoundSwitch/TonePlaySet
+   SoundSwitch/TonePlayGet
+   SoundSwitch/TonePlayReport
+
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch

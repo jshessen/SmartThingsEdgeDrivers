@@ -1,0 +1,64 @@
+Level
+=====
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level
+
+Level Attributes
+++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.CurrentLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.RemainingTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MinLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MaxLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.CurrentFrequency
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MinFrequency
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MaxFrequency
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.OnOffTransitionTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.OnLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.OnTransitionTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.OffTransitionTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.DefaultMoveRate
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.Options
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.StartUpCurrentLevel
+
+Level Commands
+++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MoveToLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.Move
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.Step
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.Stop
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MoveToLevelWithOnOff
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MoveWithOnOff
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.StepWithOnOff
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.StopWithOnOff
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.MoveToClosestFrequency
+
+Level Types
++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.types.LevelOptions
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Level.types.MoveStepMode
+

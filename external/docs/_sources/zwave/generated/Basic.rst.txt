@@ -1,0 +1,11 @@
+Basic
+=====
+
+.. toctree::
+   :maxdepth: 2
+
+   Basic/Set
+   Basic/Get
+   Basic/Report
+
+.. lua:autoclass:: st.zwave.CommandClass.Basic

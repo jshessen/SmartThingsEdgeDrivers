@@ -1,0 +1,4 @@
+Color Temperature
+=================
+
+.. lua:autoclass:: st.matter.defaults.colorTemperature

@@ -1,0 +1,6 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.Report
+.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.ReportV1Args

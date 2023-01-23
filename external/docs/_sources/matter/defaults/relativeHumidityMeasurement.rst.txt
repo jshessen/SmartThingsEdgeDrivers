@@ -1,0 +1,4 @@
+Relative Humidity Measurement
+=============================
+
+.. lua:autoclass:: st.matter.defaults.relativeHumidityMeasurement

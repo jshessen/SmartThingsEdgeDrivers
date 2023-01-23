@@ -1,0 +1,6 @@
+Supported Get Scale
+===================
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedGetScale
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedGetScaleV5
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedGetScaleV5Args

@@ -1,0 +1,15 @@
+Sensor Multilevel
+=================
+
+.. toctree::
+   :maxdepth: 2
+
+   SensorMultilevel/Get
+   SensorMultilevel/Report
+   SensorMultilevel/SupportedGetSensor
+   SensorMultilevel/SupportedSensorReport
+   SensorMultilevel/SupportedGetScale
+   SensorMultilevel/SupportedScaleReport
+   SensorMultilevel/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel

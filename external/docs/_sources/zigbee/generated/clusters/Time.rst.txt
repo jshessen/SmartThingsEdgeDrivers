@@ -1,0 +1,31 @@
+Time
+====
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time
+
+Time Attributes
++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.Time
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.TimeStatus
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.TimeZone
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.DstStart
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.DstEnd
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.DstShift
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.StandardTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.LocalTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.LastSetTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Time.ValidUntilTime
+
+Time Commands
++++++++++++++
+

@@ -1,0 +1,217 @@
+Zigbee Driver Structures
+========================
+
+A ZigbeeDriver is an extension of the :lua:class:`Driver <Driver>` and contains some more specific structures that are
+only applicable to a Zigbee device.
+
+.. _zigbee_handlers:
+
+zigbee_handlers
++++++++++++++++
+
+The ``zigbee_handlers`` are the most common additional field you will be adding to the driver template used to build
+your driver.  The ``zigbee_handlers`` structure is used to register message handlers for any message coming from the
+device that you may need to convert to a SmartThings capability event, or use as state to manage the continued execution
+of the device.  Detailed information on the types of handlers as well as the structure of the table can be found
+on the :doc:`RX message handlers <zigbee_message_handlers>` page.
+
+There are some additional caveats to take into account when setting these up in your driver.  First is the interaction
+between ``zigbee_handlers`` you define in your driver template, and handlers defined in
+:doc:`default Zigbee behavior <defaults>` that you pull in using the ``defaults.register_for_default_handlers``
+call.  The handlers you provide directly in your driver template will take precedence over any default behavior that
+would be present.  More concretely, if you provide a handler for the OnOff attribute of the OnOff cluster in your driver
+template, but then call to register defaults for the switch capability (which also provides a handler for that cluster
+and attribute); your handler would be the one called with the message.  In this way you can
+choose to only override the specific handlers in which your device strays from the standard behavior.
+
+Another note is that each registered "handler" can be either a function, or a list of functions.  If you provide a list
+EACH function in that list will be called with the same message.
+
+Example
+~~~~~~~
+
+Below is an example creating a simple set of ``zigbee_handlers`` for a Zigbee switch that supports switch and level
+(:ref:`cluster_configurations <cluster_configurations>`, default handlers, and ``capability_handlers`` omitted for
+example simplicity).
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local ZigbeeDriver = require "st.zigbee"
+    local clusters = require "st.zigbee.zcl.clusters"
+    local OnOff = clusters.OnOff
+    local Level = clusters.Level
+
+    local function on_off_attr_handler(driver, device, value)
+      local attr = capabilities.switch.switch
+      device:emit_event(value.value and attr.on() or attr.off())
+    end
+
+    local function level_attr_handler(driver, device, value)
+      device:emit_event(capabilities.switchLevel.level(math.floor((value.value / 254.0 * 100) + 0.5)))
+    end
+
+    local zigbee_switch_driver_template = {
+      supported_capabilities = {
+        capabilities.switch,
+        capabilities.switchLevel,
+      },
+      zigbee_handlers = {
+        global = {},
+        cluster = {},
+        attr = {
+          [OnOff.ID] = {
+            [OnOff.attributes.OnOff.ID] = on_off_attr_handler
+          },
+          [Level.ID] = {
+            [Level.attributes.CurrentLevel.ID] = level_attr_handler
+          }
+        }
+      }
+    }
+
+    local zigbee_bulb = ZigbeeDriver("zigbee-switch", zigbee_bulb_driver_template)
+    zigbee_bulb:run()
+
+In addition there are 2 extra keys that can be added to the `zigbee_handlers` table. The ``fallback`` and ``error`` fields
+can be set to be used as the special handlers for the :ref:`Dispatchers <dispatchers>` to be handlers that get called
+in the case of no other matching handler or an error is encountered respectively.
+
+
+.. _cluster_configurations:
+
+cluster_configurations
+++++++++++++++++++++++
+
+The ``cluster_configurations`` are another ZigbeeDriver template option that maps pretty closely to the
+:lua:class:`ConfigureReporting <config_reporting.ConfigureReporting>` Zigbee command.  These configurations are used to
+drive how we configure a device newly joined to the hub to inform us of changes in state.  See the class
+:lua:class:`AttributeConfiguration` for exactly what components go into each record.  There are 2 use cases for these
+configurations and they can be controlled using the two optional fields ``configurable`` and ``monitored``.
+
+These configurations should be grouped into lists, under the key of the capability ID they are associated with.  This is
+used in terms of registering defaults, if you define a set of configurations on your driver under a given capability,
+the corresponding defaults will not be included even if you call to register them.
+
+Cluster configurations are not supported in sub-drivers.
+
+Configured Attribute
+~~~~~~~~~~~~~~~~~~~~
+
+An ``AttributeConfiguration`` that has ``configurable`` set to true (which is the default if it is not explicitly set),
+will result in a :lua:class:`ConfigureReporting <st.zigbee.zcl.ConfigureReporting>` command being sent to the device
+when ``ZigbeeDevice:configure`` is called (by default hooked up to the capability command ``configuration.configure``).
+This means that if the device supports reporting, it will send an
+:lua:class:`ReportAttribute <st.zigbee.zcl.ReportAttribute>` command to the hub when the corresponding attribute
+changes according the the other paramaters.
+
+An ``AttributeConfiguration`` that has this field set to false will not send the commands to configure reporting.  One
+common example of this would be a ZLL device as the ZLL profile does not support reporting.
+
+Monitored Attribute
+~~~~~~~~~~~~~~~~~~~
+
+An ``AttributeConfiguration`` that has ``monitored`` set to true (which is the default if it is not explicitly set),
+will enroll that attribute to be tracked by the driver.  What this means is that each time that attribute is reported,
+or we receive a :lua:class:`read attribute response <st.zigbee.zcl.ReadAttributeResponse>` the driver will
+keep a timestamp.  Then, periodically (on a 30 second interval) all monitored attributes will be checked, and if any of
+those attributes hasn't reported in 1.5x the ``maximum_interval`` a
+:lua:class:`ReadAttribute <st.zigbee.zcl.ReadAttribute>` command will be sent to try to refresh the attribute value,
+and will continue to be sent every 1.5x the ``maximum_interval`` until it is heard from again.  For most Zigbee devices
+behaving well, these read attribute commands will never need to be sent, but if network congestions causes a missed
+report, this can keep us from being out of date for too long.  The most common use case for this is again ZLL devices
+which, if changed out of band (e.g. a physical switch is turned off then on), we will not know about until we poll.
+
+Example
+~~~~~~~
+
+Below is an example creating a simple set of ``attribute_configurations`` for a Zigbee switch that supports switch
+and level (:ref:`zigbee_handlers <zigbee_handlers>`, default handlers, and ``capability_handlers`` omitted for
+example simplicity).
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local ZigbeeDriver = require "st.zigbee"
+    local clusters = require "st.zigbee.zcl.clusters"
+    local OnOff = clusters.OnOff
+    local Level = clusters.Level
+    local data_types = require "st.zigbee.data_types"
+
+    local zigbee_switch_driver_template = {
+      supported_capabilities = {
+        capabilities.switch,
+        capabilities.switchLevel,
+      },
+        cluster_configurations = {
+          [capabilities.switch.ID] = {
+            {
+                cluster = zcl_clusters.OnOff.ID,
+                attribute = zcl_clusters.OnOff.attributes.OnOff.ID,
+                minimum_interval = 0,
+                maximum_interval = 300,
+                data_type = data_types.Boolean
+            }
+          },
+          [capabilities.switchLevel.ID] = {
+            {
+              cluster = zcl_clusters.Level.ID,
+              attribute = zcl_clusters.Level.attributes.CurrentLevel.ID,
+              minimum_interval = 1,
+              maximum_interval = 3600,
+              data_type = data_types.Uint8,
+              reportable_change = 1
+            }
+          }
+        }
+    }
+
+    local zigbee_bulb = ZigbeeDriver("zigbee-switch", zigbee_bulb_driver_template)
+    zigbee_bulb:run()
+
+
+.. _additional_zcl_profiles:
+
+additional_zcl_profiles
++++++++++++++++++++++++
+
+By default when we receive a Zigbee message we will deserialize it into the ZigbeeMessageRx structure, which makes
+interacting with the messages more straightforward.  It is also based on these structures that the
+:ref:`zigbee_handlers <zigbee_handlers>` are dispatched to.  During that deserialization, messages with the HA (0x0104),
+and ZLL (0xC05E) profile IDs will be deserialized in the ZCL format (with a zcl_header and zcl_body within the body
+structure), and messages with the ZDO profile (0x0000) will be deserialized with the ZDO body format (a zdo_header and
+zdo_body).  All other profiles will be deserialized as a GenericBody as we don't assume the structure will match either
+of the above.  This also means that any GenericBody message won't be able to use the normal zigbee_handlers structure as
+we require ZCL header information to route them.  If a device uses a custom profile, but still uses ZCL for the messages,
+you can specify that in the driver template using the `additional_zcl_profiles` field with the following format:
+
+.. code-block:: lua
+
+   local custom_profile_id_1 = 0xDEAD
+   local custom_profile_id_2 = 0xBEEF
+
+    local zigbee_driver_template = {
+      -- All the other fields needed for your driver
+      additional_zcl_profiles = {
+        [custom_profile_id_1] = true,
+        [custom_profile_id_2] = true,
+      }
+    }
+
+
+When these are specified those messages will attempt to deserialize the zcl_header and body and use the normal
+`zigbee_handler` format.
+
+
+ZigbeeDriver Class Documentation
+++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: ZigbeeDriver
+
+
+.. _attribute_configuration:
+
+Attribute Configuration Documentation
++++++++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.AttributeConfiguration

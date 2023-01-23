@@ -1,0 +1,134 @@
+PowerConfiguration
+==================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration
+
+PowerConfiguration Attributes
++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.MainsVoltage
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.MainsFrequency
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.MainsAlarmMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.MainsVoltageMinThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.MainsVoltageMaxThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.MainsVoltageDwellTripPoint
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryVoltage
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryPercentageRemaining
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryManufacturer
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatterySize
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryAHrRating
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryQuantity
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryRatedVoltage
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryAlarmMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryVoltageMinThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryVoltageThreshold1
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryVoltageThreshold2
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryVoltageThreshold3
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryPercentageMinThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryPercentageThreshold1
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryPercentageThreshold2
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryPercentageThreshold3
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.BatteryAlarmState
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2Voltage
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2PercentageRemaining
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2Manufacturer
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2Size
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2AHrRating
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2Quantity
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2RatedVoltage
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2AlarmMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2VoltageMinThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2VoltageThreshold1
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2VoltageThreshold2
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2VoltageThreshold3
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2PercentageMinThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2PercentageThreshold1
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2PercentageThreshold2
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2PercentageThreshold3
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery2AlarmState
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3Voltage
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3PercentageRemaining
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3Manufacturer
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3Size
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3AHrRating
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3Quantity
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3RatedVoltage
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3AlarmMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3VoltageMinThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3VoltageThreshold1
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3VoltageThreshold2
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3VoltageThreshold3
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3PercentageMinThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3PercentageThreshold1
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3PercentageThreshold2
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3PercentageThreshold3
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.Battery3AlarmState
+
+PowerConfiguration Commands
++++++++++++++++++++++++++++
+
+PowerConfiguration Types
+++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.types.BatterySize
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.types.BatteryAlarmMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PowerConfiguration.types.BatteryAlarmState
+

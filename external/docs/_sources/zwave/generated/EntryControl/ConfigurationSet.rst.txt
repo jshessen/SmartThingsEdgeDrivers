@@ -1,0 +1,6 @@
+Configuration Set
+=================
+
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationSet
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationSetV1
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationSetV1Args

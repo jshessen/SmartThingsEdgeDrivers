@@ -1,0 +1,4 @@
+Three Axis
+==========
+
+.. lua:autoclass:: st.zwave.defaults.threeAxis

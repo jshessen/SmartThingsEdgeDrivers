@@ -1,0 +1,13 @@
+Hrv Status
+==========
+
+.. toctree::
+   :maxdepth: 2
+
+   HrvStatus/Get
+   HrvStatus/Report
+   HrvStatus/SupportedGet
+   HrvStatus/SupportedReport
+   HrvStatus/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus

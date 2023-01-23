@@ -1,0 +1,6 @@
+Valve Run
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveRun
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveRunV1
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveRunV1Args

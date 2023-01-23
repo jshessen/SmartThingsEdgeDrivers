@@ -1,0 +1,72 @@
+OTAUpgrade
+==========
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade
+
+OTAUpgrade Attributes
++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.UpgradeServerID
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.FileOffset
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.CurrentFileVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.CurrentZigBeeStackVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.DownloadedFileVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.DownloadedZigBeeStackVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ImageUpgradeStatus
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ManufacturerID
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ImageTypeID
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.MinimumBlockPeriod
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ImageStamp
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.UpgradeActivationPolicy
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.UpgradeTimeoutPolicy
+
+OTAUpgrade Commands
++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ImageNotify
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.QueryNextImageResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ImageBlockResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.UpgradeEndResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.QueryDeviceSpecificFileResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.QueryNextImageRequest
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ImageBlockRequest
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.ImagePageRequest
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.UpgradeEndRequest
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.QueryDeviceSpecificFileRequest
+
+OTAUpgrade Types
+++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.types.ImageTypeId
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.types.ImageTypeIdDeviceSpecific
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.types.PayloadType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.types.FieldControl
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.types.FieldControl
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OTAUpgrade.types.FieldControl
+

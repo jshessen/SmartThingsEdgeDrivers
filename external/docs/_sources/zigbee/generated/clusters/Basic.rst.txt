@@ -1,0 +1,55 @@
+Basic
+=====
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic
+
+Basic Attributes
+++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ZCLVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ApplicationVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.StackVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.HWVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ManufacturerName
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ModelIdentifier
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.DateCode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.PowerSource
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.GenericDeviceClass
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.GenericDeviceType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ProductCode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ProductURL
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ManufacturerVersionDetails
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.SerialNumber
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ProductLabel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.LocationDescription
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.PhysicalEnvironment
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.DeviceEnabled
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.AlarmMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.DisableLocalConfig
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.SWBuildID
+
+Basic Commands
+++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Basic.ResetToFactoryDefaults
+

@@ -1,0 +1,6 @@
+Start Level Change
+==================
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleMultilevel.StartLevelChange
+.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleMultilevel.StartLevelChangeV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleMultilevel.StartLevelChangeV1Args

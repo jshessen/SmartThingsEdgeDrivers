@@ -1,0 +1,19 @@
+CarbonMonoxide
+==============
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.CarbonMonoxide
+
+CarbonMonoxide Attributes
++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.CarbonMonoxide.MeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.CarbonMonoxide.MinMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.CarbonMonoxide.MaxMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.CarbonMonoxide.Tolerance
+
+CarbonMonoxide Commands
++++++++++++++++++++++++
+

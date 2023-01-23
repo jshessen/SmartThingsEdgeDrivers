@@ -1,0 +1,6 @@
+Description Report
+==================
+
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.DescriptionReport
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.DescriptionReportV4
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.DescriptionReportV4Args

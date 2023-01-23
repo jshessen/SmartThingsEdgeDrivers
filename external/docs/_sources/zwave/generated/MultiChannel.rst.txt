@@ -1,0 +1,20 @@
+Multi Channel
+=============
+
+.. toctree::
+   :maxdepth: 2
+
+   MultiChannel/MultiInstanceGet
+   MultiChannel/MultiInstanceReport
+   MultiChannel/MultiInstanceCmdEncap
+   MultiChannel/EndPointGet
+   MultiChannel/EndPointReport
+   MultiChannel/CapabilityGet
+   MultiChannel/CapabilityReport
+   MultiChannel/EndPointFind
+   MultiChannel/EndPointFindReport
+   MultiChannel/CmdEncap
+   MultiChannel/AggregatedMembersGet
+   MultiChannel/AggregatedMembersReport
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel

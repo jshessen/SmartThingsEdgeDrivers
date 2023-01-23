@@ -1,0 +1,6 @@
+Offset Set
+==========
+
+.. lua:autoclass:: st.zwave.CommandClass.Time.OffsetSet
+.. lua:autoclass:: st.zwave.CommandClass.Time.OffsetSetV2
+.. lua:autoclass:: st.zwave.CommandClass.Time.OffsetSetV2Args

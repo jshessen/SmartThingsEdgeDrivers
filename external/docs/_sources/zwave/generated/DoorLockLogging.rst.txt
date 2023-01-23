@@ -1,0 +1,12 @@
+Door Lock Logging
+=================
+
+.. toctree::
+   :maxdepth: 2
+
+   DoorLockLogging/RecordsSupportedGet
+   DoorLockLogging/RecordsSupportedReport
+   DoorLockLogging/RecordGet
+   DoorLockLogging/RecordReport
+
+.. lua:autoclass:: st.zwave.CommandClass.DoorLockLogging
