@@ -43,3 +43,6 @@ luac.out
 .buildpath
 .project
 .settings/
+
+# VSCode
+.vscode
