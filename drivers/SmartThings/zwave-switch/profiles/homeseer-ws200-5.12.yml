@@ -13,6 +13,10 @@ components:
         version: 1
     categories:
       - name: Switch
+  - id: LED
+    capabilities:
+    - id: switch
+      version: 1
 preferences:
   - name: "reverse"
     title: "Invert Switch"

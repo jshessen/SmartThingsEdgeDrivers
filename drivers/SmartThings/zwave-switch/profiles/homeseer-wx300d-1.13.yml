@@ -19,6 +19,34 @@ components:
         version: 1
     categories:
       - name: Switch
+  - id: LED-1
+    capabilities:
+    - id: switch
+      version: 1
+  - id: LED-2
+    capabilities:
+    - id: switch
+      version: 1
+  - id: LED-3
+    capabilities:
+    - id: switch
+      version: 1
+  - id: LED-4
+    capabilities:
+    - id: switch
+      version: 1
+  - id: LED-5
+    capabilities:
+    - id: switch
+      version: 1
+  - id: LED-6
+    capabilities:
+    - id: switch
+      version: 1
+  - id: LED-7
+    capabilities:
+    - id: switch
+      version: 1
 preferences:
   - name: "reverse"
     title: "Invert Switch"

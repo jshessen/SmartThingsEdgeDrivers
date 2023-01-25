@@ -46,6 +46,8 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 --- Button
 --- @type CentralScene
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
+--- @type Configurations
+local configsMap = require "configurations"
 
 --- Misc
 --- @type Version
@@ -461,6 +463,31 @@ end
 
 --- #######################################################
 
+--- @function added_handler --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
+local function added_handler(self, device)
+  -- Refresh the device
+  device:refresh()
+  -- Get the device parameters from configsMap
+  local configs = configsMap.get_device_parameters(device)
+  -- Check if configs are available
+  if configs then
+    -- Loop through the device components
+    for _, comp in pairs(device.profile.components) do
+      -- Check if the device supports the button capability by id
+      if device:supports_capability_by_id(capabilities.button.ID, comp.id) then
+        -- Assign number_of_buttons based on comp.id
+        local number_of_buttons = comp.id == "main" and configs.number_of_buttons or 1
+        -- Emit an event for the numberOfButtons capability with the value and visibility set
+        device:emit_component_event(comp, capabilities.button.numberOfButtons({ value=number_of_buttons }, { visibility = { displayed = false } }))
+        -- Emit an event for the supportedButtonValues capability with the configs.supported_button_values and visibility set
+        device:emit_component_event(comp, capabilities.button.supportedButtonValues(BUTTON_VALUES, { visibility = { displayed = false } }))
+      end
+    end
+  end
+end
+
 --- #######################################################
 
 --- #################################################################
@@ -509,7 +536,7 @@ local homeseer_switches = {
   },
   lifecycle_handlers = {
     --init = device_init,
-    --added = device_added
+    added = added_handler
   }
 }
 
