@@ -46,7 +46,7 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 --- Button
 --- @type CentralScene
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
---- @type Configurations
+--- @type Configuration
 local configsMap = require "configurations"
 
 --- Misc
@@ -213,18 +213,22 @@ end
 --- @param cmd (table) Input command value
 --- @return (nil)
 local function dimmer_event(driver, device, cmd)
-    local level = cmd.args.value and cmd.args.value or cmd.args.target_value
-    if level > 0 then
-        device:emit_event(capabilities.switch.switch.on())
-    else
-        device:emit_event(capabilities.switch.switch.off())
-    end
+  local level = cmd.args.value and cmd.args.value or cmd.args.target_value
+  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+  --- Switch/Dimmer functionality
+  if cmd.src_channel == 0 then
+    device:emit_event_for_endpoint(cmd.src_channel, event)
+
     level = utils.clamp_value(level, 0, 100)
     if level >= 99 then
-        device:emit_event(capabilities.switchLevel.level(100))
+      device:emit_event_for_endpoint(cmd.src_channel, capabilities.switchLevel.level(100))
     else
-        device:emit_event(capabilities.switchLevel.level(level))
+      device:emit_event_for_endpoint(cmd.src_channel, capabilities.switchLevel.level(level))
     end
+  --- LED Switch functionality
+  else
+      device:emit_event_for_endpoint(cmd.src_channel, event)
+  end
 end
 
 --- #######################################################
@@ -413,7 +417,7 @@ end
 --- @param device (st.Device) The device object
 --- @param cmd (table) Input command value
 --- @return (nil)
-local function checkForFirmwareUpdate_handler(driver, device, cmd)
+local function updateFirmware_handler(driver, device, cmd)
     --- Check if the device supports Firmware capability
     if (device:supports_capability(capabilities.firmwareUpdate)) then
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
@@ -535,7 +539,9 @@ local homeseer_switches = {
     }
   },
   lifecycle_handlers = {
-    --init = device_init,
+    init = device_init,
+    infoChanged = info_changed,
+    doConfigure = do_configure,
     added = added_handler
   }
 }
