@@ -555,6 +555,7 @@ local homeseer_switches = {
   can_handle = can_handle_homeseer_switches,
   supported_capabilities = {
     firmware,
+    capabilities.refresh,
   },
   zwave_handlers = {
     --- Switch
@@ -606,6 +607,7 @@ local homeseer_switches = {
 
 --- ///////////////////////////////////////////////////////
 
+defaults.register_for_default_handlers(driver_template, driver_template.supported_capabilities)
 return homeseer_switches
 
 --- /////////////////////////////////////////////////////////////////
