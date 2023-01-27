@@ -116,7 +116,7 @@ preferences:
     required: false
     preferenceType: enumeration
     definition:
-      options: &led_color_options
+      options:
         0: "Off"
         7: "White"
         1: "Red"
