@@ -55,11 +55,16 @@ local configsMap = require "configurations"
 --- Misc
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 2})
-local firmware = capabilities["homeseer.firmwareVersion"]
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 --- ?????????????????????????????????????????????????????????????????
 --- Variables/Constants
+
+--- @local
+local custom_capabilities = {}
+custom_capabilities.firmwareVersion = {}
+custom_capabilities.firmwareVersion.name = "firmwareVersion"
+custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name]
 
 --- @local
 local PROFILE_CHANGED = "profile_changed"
@@ -305,8 +310,6 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 local function version_report_handler(driver, device, command)
-  
-  device:emit_event(firmware.version({ value = command.args.firmware_version .. '.' .. command.args.firmware_sub_version }))
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if fingerprint.id == "HomeSeer/Dimmer/WD200" then
@@ -553,10 +556,6 @@ end
 local homeseer_switches = {
   NAME = "HomeSeer Z-Wave Switches",
   can_handle = can_handle_homeseer_switches,
-  supported_capabilities = {
-    firmware,
-    capabilities.refresh,
-  },
   zwave_handlers = {
     --- Switch
     [cc.BASIC] = {
@@ -607,7 +606,6 @@ local homeseer_switches = {
 
 --- ///////////////////////////////////////////////////////
 
-defaults.register_for_default_handlers(driver_template, driver_template.supported_capabilities)
 return homeseer_switches
 
 --- /////////////////////////////////////////////////////////////////

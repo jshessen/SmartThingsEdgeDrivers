@@ -9,8 +9,6 @@ components:
         version: 1
       - id: refresh
         version: 1
-      - id: homeseer.firmwareVersion
-        version: 1
       - id: firmwareUpdate
         version: 1
     categories:
