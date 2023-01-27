@@ -39,11 +39,11 @@ zwaveManufacturer:
     deviceLabel: ZLink ZL-WS-100 Switch
     manufacturerId: 0x0315
     productType: 0x4447
-    productId: 0x3033
+    productId: 0x3034
     deviceProfileName: homeseer-ws100
   - id: "ZLink/Dimmer/WD100"
     deviceLabel: ZLink ZL-WD-100 Dimmer
     manufacturerId: 0x0315
     productType: 0x4447
-    productId: 0x3034
+    productId: 0x3033
     deviceProfileName: homeseer-wd100
