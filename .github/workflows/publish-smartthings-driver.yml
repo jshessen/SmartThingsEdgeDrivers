@@ -102,7 +102,7 @@ jobs:
         id: cache-config
         uses: actions/cache@v3
         with:
-          path: "$${{ inputs.path }}/{{ inputs.driver }}/config.yml"
+          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
           key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
 
       - name: "Load smartthings-cli From Cache"
