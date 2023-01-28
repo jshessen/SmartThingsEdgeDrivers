@@ -44,5 +44,5 @@ luac.out
 .project
 .settings/
 
-# VSCode
+# VS Code Workspace
 .vscode
