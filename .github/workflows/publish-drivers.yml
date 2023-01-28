@@ -18,6 +18,10 @@ on:
       - "drivers/**.yml"
       - "drivers/**.lua"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Job to run change detection
   parse-changes:
