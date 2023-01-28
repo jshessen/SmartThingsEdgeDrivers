@@ -1,0 +1,86 @@
+# https://docs.homeseer.com/products/sensors/hs-fls100+/hs-fls100+-user-guide
+name: homeseer-fls100
+components:
+- id: main
+  capabilities:
+  - id: motionSensor
+    version: 1
+  - id: switch
+    version: 1
+  - id: illuminanceMeasurement
+    version: 1
+  - id: temperatureMeasurement
+    version: 1
+  - id: refresh
+    version: 1
+  categories:
+  - name: MotionSensor
+preferences:
+  - name: "motionSensitivityLevel"
+    title: "Motion Sensitivity"
+    description: "Adjust Motion Sensitivity"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+       	0: "low level, approx. 6m distance"
+        1: "mid level, approx. 10m distance"
+        2: "high level, approx. 20m distance"
+      default: 0
+  - name: "onTime"
+    title: "Switch 'On Time'"
+    description: "Determines how long floodlights stay on after motion sensed. [8-720 seconds]"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 8
+      maximum: 720
+      default: 180
+  - name: "notificationReport"
+    title: "Notification Report"
+    description: "Enable Notification Report on Motion"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: "loadControlSensors"
+    title: "Load Control - Z-Wave"
+    description: "Include Sensors to control load"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: "loadControlSensorsMotion"
+    title: "Load Control - Sensors/Lux"
+    description: "Include Motion Sensor to control load"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "temperatureOffset"
+    title: "Temperature Offset"
+    description: "Allows adjustment of temperature sensor [offset range : -10.0°C ~ +10.0°C]"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: -10 # 0x9c = 156
+      maximum: 10  # 0x64 = 100
+      default: 0   # 0x00 = 0
+  - name: "luxThreshold"
+    title: "Lux Sensor Threshold"
+    description: "Lux value used to allow motion to control load. [10-900]"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 900
+      default: 50
+  - name: "sensorReportInterval"
+    title: "Sensor Report Interval"
+    description: "Determines how frequently Lux and Temperature values are reported. [1-1440 minutes]"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 1440
+      default: 10
