@@ -23,7 +23,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-       	0: "low level, approx. 6m distance"
+        0: "low level, approx. 6m distance"
         1: "mid level, approx. 10m distance"
         2: "high level, approx. 20m distance"
       default: 0
