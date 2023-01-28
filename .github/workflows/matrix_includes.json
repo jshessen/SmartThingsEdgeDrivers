@@ -11,5 +11,11 @@
         "path": "drivers/SmartThings",
         "label":"HomeSeer Z-Wave Fan Controller",
         "pkgkey":"homeseer-zwave-fan"
+    },
+	{
+        "driver": "zwave-sensor",
+        "path": "drivers/SmartThings",
+        "label":"HomeSeer Z-Wave FloodLight Sensor",
+        "pkgkey":"homeseer-floodlight-sensor"
     }]
 }

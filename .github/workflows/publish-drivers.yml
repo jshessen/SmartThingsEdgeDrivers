@@ -40,6 +40,7 @@ jobs:
           filters: |
             zwave-switch: 'drivers/**/zwave-switch/**'
             zwave-fan: 'drivers/**/zwave-fan/**'
+            zwave-sensor: 'drivers/**/zwave-sensor/**'
 
   matrix-prep:
     if: needs.parse-changes.outputs.drivers != '[]'
