@@ -1,0 +1,4 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState.operating_state

@@ -1,0 +1,16 @@
+Notification
+============
+
+.. toctree::
+   :maxdepth: 2
+
+   Notification/EventSupportedGet
+   Notification/EventSupportedReport
+   Notification/Get
+   Notification/Report
+   Notification/Set
+   Notification/SupportedGet
+   Notification/SupportedReport
+   Notification/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.Notification

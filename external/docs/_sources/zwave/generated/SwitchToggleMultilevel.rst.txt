@@ -1,0 +1,14 @@
+Switch Toggle Multilevel
+========================
+
+.. toctree::
+   :maxdepth: 2
+
+   SwitchToggleMultilevel/Set
+   SwitchToggleMultilevel/Get
+   SwitchToggleMultilevel/Report
+   SwitchToggleMultilevel/StartLevelChange
+   SwitchToggleMultilevel/StopLevelChange
+   SwitchToggleMultilevel/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleMultilevel

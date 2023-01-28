@@ -1,0 +1,19 @@
+WindSpeedMeasurement
+====================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.WindSpeedMeasurement
+
+WindSpeedMeasurement Attributes
++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.WindSpeedMeasurement.MeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.WindSpeedMeasurement.MinMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.WindSpeedMeasurement.MaxMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.WindSpeedMeasurement.Tolerance
+
+WindSpeedMeasurement Commands
++++++++++++++++++++++++++++++
+

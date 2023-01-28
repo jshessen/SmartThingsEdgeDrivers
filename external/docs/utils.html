@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utils &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Integration Tests" href="integration_tests.html" />
+    <link rel="prev" title="Log" href="log.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log.html">Log</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+      <li>Utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utils">
+<h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline"></a></h1>
+<p>The st.utils library contains miscellaneous Lua helper functions.</p>
+<span class="target" id="module-st.utils"></span><dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.get_print_safe_string">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">get_print_safe_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.get_print_safe_string" title="Permalink to this definition"></a></dt>
+<dd><p>Print binary string as ascii hex</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>str</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ascii hex string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.stringify_table">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">stringify_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">val</span></em>, <em class="sig-param"><span class="pre">name</span></em>, <em class="sig-param"><span class="pre">multi_line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.stringify_table" title="Permalink to this definition"></a></dt>
+<dd><p>Convert value to string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>val</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – Value to stringify</p></li>
+<li><p><strong>name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Print a name along with value [Optional]</p></li>
+<li><p><strong>multi_line</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span>) – use newlines to provide a more easily human readable string [Optional]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.merge">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">target_table</span></em>, <em class="sig-param"><span class="pre">template</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.merge" title="Permalink to this definition"></a></dt>
+<dd><p>Recursively merge all fields of template not already present in target_table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_table</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – table into which to merge template</p></li>
+<li><p><strong>template</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – table to merge into target_table</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>target_table</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.update">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">target_table</span></em>, <em class="sig-param"><span class="pre">template</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.update" title="Permalink to this definition"></a></dt>
+<dd><p>Recursively update all fields of target_table that are common and present in template.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_table</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – table in which to update common fields from template</p></li>
+<li><p><strong>template</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – table from which to update common fields in target_table</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>target_table</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.clamp_value">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">clamp_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">val</span></em>, <em class="sig-param"><span class="pre">min</span></em>, <em class="sig-param"><span class="pre">max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.clamp_value" title="Permalink to this definition"></a></dt>
+<dd><p>Force a value to fall between a min and max</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>val</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the value to be clamped</p></li>
+<li><p><strong>min</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the minimum value to be returned</p></li>
+<li><p><strong>max</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the maximum value to be returned</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.round">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">round</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.round" title="Permalink to this definition"></a></dt>
+<dd><p>Round a number to the nearest integer (.5 rounds up)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the value to be rounded</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the rounded value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.serialize_int">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">serialize_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">value</span></em>, <em class="sig-param"><span class="pre">width</span></em>, <em class="sig-param"><span class="pre">signed</span></em>, <em class="sig-param"><span class="pre">little_endian</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.serialize_int" title="Permalink to this definition"></a></dt>
+<dd><p>Serialize an integer into a bytestring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – value to write</p></li>
+<li><p><strong>width</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – integer width in bytes</p></li>
+<li><p><strong>signed</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span>) – true if signed, false if unsigned</p></li>
+<li><p><strong>little_endian</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span>) – true if little endian, false if big endian</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>serialized integer as byte string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.deserialize_int">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">deserialize_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em>, <em class="sig-param"><span class="pre">width</span></em>, <em class="sig-param"><span class="pre">signed</span></em>, <em class="sig-param"><span class="pre">little_endian</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.deserialize_int" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize an integer from the passed string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – bytestring from which to deserialize an integer</p></li>
+<li><p><strong>width</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – integer width in bytes</p></li>
+<li><p><strong>signed</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span>) – true if signed, false if unsigned</p></li>
+<li><p><strong>little_endian</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span>) – true if little endian, false if big endian</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>deserialized integer</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.hsv_to_rgb">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">hsv_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">hue</span></em>, <em class="sig-param"><span class="pre">saturation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.hsv_to_rgb" title="Permalink to this definition"></a></dt>
+<dd><p>Converts Hue/Saturation to Red/Green/Blue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hue</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – hue in range [0,1]</p></li>
+<li><p><strong>saturation</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – saturation in range[0,1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>equivalent red, green, blue with each color in range [0,1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">number</span> <span class="pre">or</span> <span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.rgb_to_hsv">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">rgb_to_hsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">red</span></em>, <em class="sig-param"><span class="pre">green</span></em>, <em class="sig-param"><span class="pre">blue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.rgb_to_hsv" title="Permalink to this definition"></a></dt>
+<dd><p>Converts Red/Green/Blue to Hue/Saturation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>red</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – red in range [0,1]</p></li>
+<li><p><strong>green</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – green in range [0,1]</p></li>
+<li><p><strong>blue</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – blue in range [0,1]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>equivalent hue, saturation, level with each value in range [0,1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">number</span> <span class="pre">or</span> <span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.xy_to_rgb">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">xy_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">y</span></em>, <em class="sig-param"><span class="pre">Y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.xy_to_rgb" title="Permalink to this definition"></a></dt>
+<dd><p>Convert from x/y/Y to Red/Green/Blue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – x axis non-negative value</p></li>
+<li><p><strong>y</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – y axis non-negative value</p></li>
+<li><p><strong>Y</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – Y tristimulus value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.rgb_to_xy">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">rgb_to_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">red</span></em>, <em class="sig-param"><span class="pre">green</span></em>, <em class="sig-param"><span class="pre">blue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.rgb_to_xy" title="Permalink to this definition"></a></dt>
+<dd><p>Convert from Red/Green/Blue to x/y/Y</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>red</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – red in range [0,1]</p></li>
+<li><p><strong>green</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – green in range [0,1]</p></li>
+<li><p><strong>blue</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – blue in range [0,1]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.safe_hsv_to_xy">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">safe_hsv_to_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">hue</span></em>, <em class="sig-param"><span class="pre">saturation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.safe_hsv_to_xy" title="Permalink to this definition"></a></dt>
+<dd><p>Safe convert from Hue/Saturation to x/y/Y</p>
+<p>If hue or saturation is missing 0 is applied</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hue</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – red in range [0,100]%</p></li>
+<li><p><strong>saturation</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – green in range [0,100]%</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.safe_xy_to_hsv">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">safe_xy_to_hsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">y</span></em>, <em class="sig-param"><span class="pre">Y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.safe_xy_to_hsv" title="Permalink to this definition"></a></dt>
+<dd><p>Convert from x/y/Y to Hue/Saturation</p>
+<p>If every value is missing then [x, y, Y] = [0, 0, 1]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – red in range [0x0000, 0xFFFF]</p></li>
+<li><p><strong>y</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – green in range [0x0000, 0xFFFF]</p></li>
+<li><p><strong>Y</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – blue in range [0x0000, 0xFFFF]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.hsl_to_rgb">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">hsl_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">hue</span></em>, <em class="sig-param"><span class="pre">saturation</span></em>, <em class="sig-param"><span class="pre">lightness</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.hsl_to_rgb" title="Permalink to this definition"></a></dt>
+<dd><p>Convert from Hue/Saturation/Lightness to Red/Green/Blue</p>
+<p>If lightness is missing, default to 50%.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hue</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – hue in the range [0,100]%</p></li>
+<li><p><strong>saturation</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – saturation in the range [0,100]%</p></li>
+<li><p><strong>lightness</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – lightness in the range [0,100]%, or nil</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.rgb_to_hsl">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">rgb_to_hsl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">red</span></em>, <em class="sig-param"><span class="pre">green</span></em>, <em class="sig-param"><span class="pre">blue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.rgb_to_hsl" title="Permalink to this definition"></a></dt>
+<dd><p>Convert from red, green, blue to hue, saturation, lightness.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>red</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – red component in the range [0,255]</p></li>
+<li><p><strong>green</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – green component in the range [0,255]</p></li>
+<li><p><strong>blue</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – blue component in the range [0,255]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>equivalent hue, saturation, lightness vector with each component in the range [0,100]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">number</span> <span class="pre">or</span> <span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.c_to_f">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">c_to_f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">celsius</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.c_to_f" title="Permalink to this definition"></a></dt>
+<dd><p>Convert celsius to fahrenheit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>celsius</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – temperature in celsius</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>integer fahrenheit value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.f_to_c">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">f_to_c</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fahrenheit</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.f_to_c" title="Permalink to this definition"></a></dt>
+<dd><p>Convert fahrenheit to celsius.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fahrenheit</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – temperature in fahrenheit</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>integer celsius value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.deep_copy">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">deep_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.deep_copy" title="Permalink to this definition"></a></dt>
+<dd><p>Copy a table and all it’s values recursively</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the table to copy</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the copied table</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.rsort">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">rsort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tbl</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.rsort" title="Permalink to this definition"></a></dt>
+<dd><p>Reverse-sort the passed table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tbl</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – (in/out) table to be reverse sorted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>reverse-sorted table</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.pairs_by_key">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">pairs_by_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">t</span></em>, <em class="sig-param"><span class="pre">f</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.pairs_by_key" title="Permalink to this definition"></a></dt>
+<dd><p>Table iterator for traversal by ordered keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – over which to iterate</p></li>
+<li><p><strong>f</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span>) – optional key comparison function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>table iterator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.rkeys">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">rkeys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.rkeys" title="Permalink to this definition"></a></dt>
+<dd><p>Table iterator for traversal by reverse-sorted keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – over which to iterate</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>table iterator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.fkeys">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">fkeys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.fkeys" title="Permalink to this definition"></a></dt>
+<dd><p>Table iterator for traversal by forward-sorted keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – over which to iterate</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>table iterator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.pairs_by_value">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">pairs_by_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">t</span></em>, <em class="sig-param"><span class="pre">f</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.pairs_by_value" title="Permalink to this definition"></a></dt>
+<dd><p>Table iterator for traversal by ordered values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – over which to iterate</p></li>
+<li><p><strong>f</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">value</span></code></span>) – required value comparison function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>table iterator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.rvalues">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">rvalues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.rvalues" title="Permalink to this definition"></a></dt>
+<dd><p>Table iterator for traversal by reverse-sorted values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – over which to iterate</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>table iterator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.fvalues">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">fvalues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.fvalues" title="Permalink to this definition"></a></dt>
+<dd><p>Table iterator for traversal by forward-sorted values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – over which to iterate</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>table iterator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.camel_case">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">camel_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.camel_case" title="Permalink to this definition"></a></dt>
+<dd><p>Convert the passed string to camelCase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>str</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – string to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>camelCase version of the string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.pascal_case">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">pascal_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.pascal_case" title="Permalink to this definition"></a></dt>
+<dd><p>Convert the passed string to PascalCase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>str</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – string to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>PascalCase version of the string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.snake_case">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">snake_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.snake_case" title="Permalink to this definition"></a></dt>
+<dd><p>Convert the passed string to snake_case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>str</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – string to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>snake_case version of the string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.screaming_snake_case">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">screaming_snake_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.screaming_snake_case" title="Permalink to this definition"></a></dt>
+<dd><p>Convert the passed string to SCREAMING_SNAKE_CASE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>str</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – string to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>SCREAMING_SNAKE_CASE version of the string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.verify_type">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">verify_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">value</span></em>, <em class="sig-param"><span class="pre">v_type</span></em>, <em class="sig-param"><span class="pre">arg_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.verify_type" title="Permalink to this definition"></a></dt>
+<dd><p>Throw an error if the provided value isn’t of the provided type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – The value to check the type of</p></li>
+<li><p><strong>v_type</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the expected value of <cite>type(value)</cite></p></li>
+<li><p><strong>arg_name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">or</span> <span class="pre">nil</span></code></span>) – If present, used in generated error message</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.table_size">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">table_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.table_size" title="Permalink to this definition"></a></dt>
+<dd><p>Return number of elements stored in a table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – The table which length needs to be calculated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Count of elements in table</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.generate_uuid_v4">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">generate_uuid_v4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.generate_uuid_v4" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a version 4 uuid as a string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.bitify">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">bitify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">byte_string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.bitify" title="Permalink to this definition"></a></dt>
+<dd><p>Turn a byte string into an array of bits with the most significant bit of each byte listed first</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>byte_string</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the byte string to convert to bits</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of bits representing the byte string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[number]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.bit_list_to_int">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">bit_list_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bit_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.bit_list_to_int" title="Permalink to this definition"></a></dt>
+<dd><p>Turn an array of bits into a number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bit_list</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[number]</span></code></span>) – An array of bits (1 or 0)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the numeric value of the bit_list</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.bit_list_to_byte_str">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">bit_list_to_byte_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bit_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.bit_list_to_byte_str" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a bit list to a byte string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bit_list</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[number]</span></code></span>) – An array of bits (1 or 0) must be a length multiple of bytes</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the byte list of the bit array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.mole_per_cubic_meter_to_ppm">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">mole_per_cubic_meter_to_ppm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.mole_per_cubic_meter_to_ppm" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a gas concentration given in moles per cubic meter [mol/m3] to value in part per million [ppm]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – Concentration of gas [mol/m3]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Concentration of gas [ppm]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.log_func_wrapper">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">log_func_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">func</span></em>, <em class="sig-param"><span class="pre">func_name</span></em>, <em class="sig-param"><span class="pre">log_level</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.log_func_wrapper" title="Permalink to this definition"></a></dt>
+<dd><p>Wrap a function that will log all calls to the function along with the arguments</p>
+<p>This will take a function and return a function that will perform the same actions as the passed in function but
+also log every call to the function along with the arguments passed in.  Arguments will be expanded to readable
+strings when possible, but will be truncated to 25 characters except when logged at the LOG_LEVEL_TRACE level
+when full arguments will be logged regardless of length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span>) – the function to be wrapped</p></li>
+<li><p><strong>func_name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the name of the function to include in the logs</p></li>
+<li><p><strong>log_level</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the level you want the function logging to print at, defaults to LOG_LEVEL_DEBUG</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new function that will perform the same behavior, but also log calls</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="st.utils.backoff_builder">
+<em class="property"> </em><span class="sig-prename descclassname"><span class="pre">st.utils.</span></span><span class="sig-name descname"><span class="pre">backoff_builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">max</span></em>, <em class="sig-param"><span class="pre">inc</span></em>, <em class="sig-param"><span class="pre">rand</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.utils.backoff_builder" title="Permalink to this definition"></a></dt>
+<dd><p>Build an exponential backoff time value generator (function)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the maximum wait interval (not including <cite>rand factor</cite>)</p></li>
+<li><p><strong>inc</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the rate at which to exponentially back off</p></li>
+<li><p><strong>rand</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – a randomization range of (-rand, rand) to be added to each interval</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the backoff generator that will return a new value each time it is called.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="log.html" class="btn btn-neutral float-left" title="Log" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integration_tests.html" class="btn btn-neutral float-right" title="Integration Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

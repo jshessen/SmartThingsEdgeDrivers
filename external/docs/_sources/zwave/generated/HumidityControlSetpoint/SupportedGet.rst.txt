@@ -1,0 +1,6 @@
+Supported Get
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedGet
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedGetV1
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedGetV1Args

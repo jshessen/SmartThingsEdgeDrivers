@@ -1,0 +1,6 @@
+Application Rejected Request
+============================
+
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationStatus.ApplicationRejectedRequest
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationStatus.ApplicationRejectedRequestV1
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationStatus.ApplicationRejectedRequestV1Args

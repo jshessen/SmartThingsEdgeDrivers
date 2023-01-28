@@ -1,0 +1,6 @@
+Name Report
+===========
+
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.NameReport
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.NameReportV3
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.NameReportV3Args

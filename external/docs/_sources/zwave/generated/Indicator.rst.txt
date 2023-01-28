@@ -1,0 +1,16 @@
+Indicator
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   Indicator/Set
+   Indicator/Get
+   Indicator/Report
+   Indicator/SupportedGet
+   Indicator/SupportedReport
+   Indicator/DescriptionGet
+   Indicator/DescriptionReport
+   Indicator/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.Indicator

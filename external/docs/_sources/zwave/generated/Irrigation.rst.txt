@@ -1,0 +1,27 @@
+Irrigation
+==========
+
+.. toctree::
+   :maxdepth: 2
+
+   Irrigation/SystemInfoGet
+   Irrigation/SystemInfoReport
+   Irrigation/SystemStatusGet
+   Irrigation/SystemStatusReport
+   Irrigation/SystemConfigSet
+   Irrigation/SystemConfigGet
+   Irrigation/SystemConfigReport
+   Irrigation/ValveInfoGet
+   Irrigation/ValveInfoReport
+   Irrigation/ValveConfigSet
+   Irrigation/ValveConfigGet
+   Irrigation/ValveConfigReport
+   Irrigation/ValveRun
+   Irrigation/ValveTableSet
+   Irrigation/ValveTableGet
+   Irrigation/ValveTableReport
+   Irrigation/ValveTableRun
+   Irrigation/SystemShutoff
+   Irrigation/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation

@@ -1,0 +1,14 @@
+Switch All
+==========
+
+.. toctree::
+   :maxdepth: 2
+
+   SwitchAll/Set
+   SwitchAll/Get
+   SwitchAll/Report
+   SwitchAll/On
+   SwitchAll/Off
+   SwitchAll/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchAll

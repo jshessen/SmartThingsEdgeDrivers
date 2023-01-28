@@ -1,0 +1,6 @@
+Supported Report
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.SupportedReport
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.SupportedReportV1
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.SupportedReportV1Args

@@ -1,0 +1,6 @@
+Timeout Report
+==============
+
+.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutReport
+.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutReportV2
+.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutReportV2Args

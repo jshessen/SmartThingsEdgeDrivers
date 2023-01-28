@@ -1,0 +1,4 @@
+IasZoneType
+===========
+
+.. lua:autoclass:: st.zigbee.zcl.types.IasZoneType

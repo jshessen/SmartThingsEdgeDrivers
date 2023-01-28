@@ -1,0 +1,43 @@
+BallastConfiguration
+====================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration
+
+BallastConfiguration Attributes
++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.PhysicalMinLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.PhysicalMaxLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.BallastStatus
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.MinLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.MaxLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.PowerOnLevel
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.PowerOnFadeTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.IntrinsicBallastFactor
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.BallastFactorAdjustment
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.LampQuantity
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.LampType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.LampManufacturer
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.LampRatedHours
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.LampBurnHours
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.LampAlarmMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BallastConfiguration.LampBurnHoursTripPoint
+
+BallastConfiguration Commands
++++++++++++++++++++++++++++++
+

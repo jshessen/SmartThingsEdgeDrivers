@@ -1,0 +1,49 @@
+FanControl
+================================
+
+Attributes
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.FanControl.FanMode
+
+.. lua:autoclass:: st.matter.clusters.FanControl.FanModeSequence
+
+.. lua:autoclass:: st.matter.clusters.FanControl.PercentSetting
+
+.. lua:autoclass:: st.matter.clusters.FanControl.PercentCurrent
+
+.. lua:autoclass:: st.matter.clusters.FanControl.SpeedMax
+
+.. lua:autoclass:: st.matter.clusters.FanControl.SpeedSetting
+
+.. lua:autoclass:: st.matter.clusters.FanControl.SpeedCurrent
+
+.. lua:autoclass:: st.matter.clusters.FanControl.RockSupport
+
+.. lua:autoclass:: st.matter.clusters.FanControl.RockSetting
+
+.. lua:autoclass:: st.matter.clusters.FanControl.WindSupport
+
+.. lua:autoclass:: st.matter.clusters.FanControl.WindSetting
+
+.. lua:autoclass:: st.matter.clusters.FanControl.AcceptedCommandList
+
+.. lua:autoclass:: st.matter.clusters.FanControl.AttributeList
+Bitmap types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.FanControl.types.FanControlFeature
+
+.. lua:autoclass:: st.matter.clusters.FanControl.types.RockSupportMask
+
+.. lua:autoclass:: st.matter.clusters.FanControl.types.WindSettingMask
+
+.. lua:autoclass:: st.matter.clusters.FanControl.types.WindSupportMask
+
+Enum types
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.FanControl.types.FanModeSequenceType
+
+.. lua:autoclass:: st.matter.clusters.FanControl.types.FanModeType
+

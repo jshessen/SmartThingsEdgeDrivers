@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generated Clusters &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Basic" href="clusters/Basic.html" />
+    <link rel="prev" title="Generated Zigbee Code" href="../generated.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zigbee_message_handlers.html">Zigbee Driver RX message handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../defaults.html">Zigbee Driver Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zcl/zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zcl/zcl_clusters.html">ZCL Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../generated.html">Generated Zigbee Code</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Generated Clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="types.html">Generated Shared Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../zigbee.html">Zigbee Libraries</a> &raquo;</li>
+          <li><a href="../generated.html">Generated Zigbee Code</a> &raquo;</li>
+      <li>Generated Clusters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/zigbee/generated/clusters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="generated-clusters">
+<h1>Generated Clusters<a class="headerlink" href="#generated-clusters" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Basic.html">Basic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Basic.html#basic-attributes">Basic Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Basic.html#basic-commands">Basic Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/PowerConfiguration.html">PowerConfiguration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PowerConfiguration.html#powerconfiguration-attributes">PowerConfiguration Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PowerConfiguration.html#powerconfiguration-commands">PowerConfiguration Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PowerConfiguration.html#powerconfiguration-types">PowerConfiguration Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/DeviceTemperatureConfiguration.html">DeviceTemperatureConfiguration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/DeviceTemperatureConfiguration.html#devicetemperatureconfiguration-attributes">DeviceTemperatureConfiguration Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/DeviceTemperatureConfiguration.html#devicetemperatureconfiguration-commands">DeviceTemperatureConfiguration Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Identify.html">Identify</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Identify.html#identify-attributes">Identify Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Identify.html#identify-commands">Identify Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Identify.html#identify-types">Identify Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Groups.html">Groups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Groups.html#groups-attributes">Groups Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Groups.html#groups-commands">Groups Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Scenes.html#scenes-attributes">Scenes Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Scenes.html#scenes-commands">Scenes Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Scenes.html#scenes-types">Scenes Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/OnOff.html">OnOff</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OnOff.html#onoff-attributes">OnOff Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OnOff.html#onoff-commands">OnOff Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OnOff.html#onoff-types">OnOff Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Level.html">Level</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Level.html#level-attributes">Level Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Level.html#level-commands">Level Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Level.html#level-types">Level Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Alarms.html">Alarms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Alarms.html#alarms-attributes">Alarms Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Alarms.html#alarms-commands">Alarms Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Time.html">Time</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Time.html#time-attributes">Time Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Time.html#time-commands">Time Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/AnalogInput.html">AnalogInput</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/AnalogInput.html#analoginput-attributes">AnalogInput Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/AnalogInput.html#analoginput-commands">AnalogInput Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/AnalogOutput.html">AnalogOutput</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/AnalogOutput.html#analogoutput-attributes">AnalogOutput Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/AnalogOutput.html#analogoutput-commands">AnalogOutput Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/BasicInput.html">BasicInput</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/BasicInput.html#basicinput-attributes">BasicInput Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/BasicInput.html#basicinput-commands">BasicInput Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Commissioning.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Commissioning.html#commissioning-attributes">Commissioning Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Commissioning.html#commissioning-commands">Commissioning Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Commissioning.html#commissioning-types">Commissioning Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/OTAUpgrade.html">OTAUpgrade</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OTAUpgrade.html#otaupgrade-attributes">OTAUpgrade Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OTAUpgrade.html#otaupgrade-commands">OTAUpgrade Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OTAUpgrade.html#otaupgrade-types">OTAUpgrade Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/PollControl.html">PollControl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PollControl.html#pollcontrol-attributes">PollControl Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PollControl.html#pollcontrol-commands">PollControl Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/ShadeConfiguration.html">ShadeConfiguration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ShadeConfiguration.html#shadeconfiguration-attributes">ShadeConfiguration Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ShadeConfiguration.html#shadeconfiguration-commands">ShadeConfiguration Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ShadeConfiguration.html#shadeconfiguration-types">ShadeConfiguration Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/DoorLock.html">DoorLock</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/DoorLock.html#doorlock-attributes">DoorLock Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/DoorLock.html#doorlock-commands">DoorLock Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/DoorLock.html#doorlock-types">DoorLock Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/WindowCovering.html">WindowCovering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/WindowCovering.html#windowcovering-attributes">WindowCovering Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/WindowCovering.html#windowcovering-commands">WindowCovering Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/BarrierControl.html">BarrierControl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/BarrierControl.html#barriercontrol-attributes">BarrierControl Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/BarrierControl.html#barriercontrol-commands">BarrierControl Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/PumpConfigurationAndControl.html">PumpConfigurationAndControl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PumpConfigurationAndControl.html#pumpconfigurationandcontrol-attributes">PumpConfigurationAndControl Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PumpConfigurationAndControl.html#pumpconfigurationandcontrol-commands">PumpConfigurationAndControl Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PumpConfigurationAndControl.html#pumpconfigurationandcontrol-types">PumpConfigurationAndControl Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Thermostat.html">Thermostat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Thermostat.html#thermostat-attributes">Thermostat Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Thermostat.html#thermostat-commands">Thermostat Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Thermostat.html#thermostat-types">Thermostat Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/FanControl.html">FanControl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/FanControl.html#fancontrol-attributes">FanControl Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/FanControl.html#fancontrol-commands">FanControl Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/DehumidificationControl.html">DehumidificationControl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/DehumidificationControl.html#dehumidificationcontrol-attributes">DehumidificationControl Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/DehumidificationControl.html#dehumidificationcontrol-commands">DehumidificationControl Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/ThermostatUserInterfaceConfiguration.html">ThermostatUserInterfaceConfiguration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ThermostatUserInterfaceConfiguration.html#thermostatuserinterfaceconfiguration-attributes">ThermostatUserInterfaceConfiguration Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ThermostatUserInterfaceConfiguration.html#thermostatuserinterfaceconfiguration-commands">ThermostatUserInterfaceConfiguration Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/ColorControl.html">ColorControl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ColorControl.html#colorcontrol-attributes">ColorControl Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ColorControl.html#colorcontrol-commands">ColorControl Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ColorControl.html#colorcontrol-types">ColorControl Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/BallastConfiguration.html">BallastConfiguration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/BallastConfiguration.html#ballastconfiguration-attributes">BallastConfiguration Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/BallastConfiguration.html#ballastconfiguration-commands">BallastConfiguration Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/IlluminanceMeasurement.html">IlluminanceMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IlluminanceMeasurement.html#illuminancemeasurement-attributes">IlluminanceMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IlluminanceMeasurement.html#illuminancemeasurement-commands">IlluminanceMeasurement Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/IlluminanceLevelSensing.html">IlluminanceLevelSensing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IlluminanceLevelSensing.html#illuminancelevelsensing-attributes">IlluminanceLevelSensing Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IlluminanceLevelSensing.html#illuminancelevelsensing-commands">IlluminanceLevelSensing Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/TemperatureMeasurement.html">TemperatureMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/TemperatureMeasurement.html#temperaturemeasurement-attributes">TemperatureMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/TemperatureMeasurement.html#temperaturemeasurement-commands">TemperatureMeasurement Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/PressureMeasurement.html">PressureMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PressureMeasurement.html#pressuremeasurement-attributes">PressureMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PressureMeasurement.html#pressuremeasurement-commands">PressureMeasurement Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/FlowMeasurement.html">FlowMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/FlowMeasurement.html#flowmeasurement-attributes">FlowMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/FlowMeasurement.html#flowmeasurement-commands">FlowMeasurement Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/RelativeHumidity.html">RelativeHumidity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/RelativeHumidity.html#relativehumidity-attributes">RelativeHumidity Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/RelativeHumidity.html#relativehumidity-commands">RelativeHumidity Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/OccupancySensing.html">OccupancySensing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OccupancySensing.html#occupancysensing-attributes">OccupancySensing Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/OccupancySensing.html#occupancysensing-commands">OccupancySensing Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/PhMeasurement.html">PhMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PhMeasurement.html#phmeasurement-attributes">PhMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/PhMeasurement.html#phmeasurement-commands">PhMeasurement Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/ElectricalConductivityMeasurement.html">ElectricalConductivityMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ElectricalConductivityMeasurement.html#electricalconductivitymeasurement-attributes">ElectricalConductivityMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ElectricalConductivityMeasurement.html#electricalconductivitymeasurement-commands">ElectricalConductivityMeasurement Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/WindSpeedMeasurement.html">WindSpeedMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/WindSpeedMeasurement.html#windspeedmeasurement-attributes">WindSpeedMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/WindSpeedMeasurement.html#windspeedmeasurement-commands">WindSpeedMeasurement Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/CarbonMonoxide.html">CarbonMonoxide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/CarbonMonoxide.html#carbonmonoxide-attributes">CarbonMonoxide Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/CarbonMonoxide.html#carbonmonoxide-commands">CarbonMonoxide Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/IASZone.html">IASZone</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASZone.html#iaszone-attributes">IASZone Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASZone.html#iaszone-commands">IASZone Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASZone.html#iaszone-types">IASZone Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/IASACE.html">IASACE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASACE.html#iasace-attributes">IASACE Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASACE.html#iasace-commands">IASACE Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASACE.html#iasace-types">IASACE Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/IASWD.html">IASWD</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASWD.html#iaswd-attributes">IASWD Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASWD.html#iaswd-commands">IASWD Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/IASWD.html#iaswd-types">IASWD Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/SimpleMetering.html">SimpleMetering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/SimpleMetering.html#simplemetering-attributes">SimpleMetering Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/SimpleMetering.html#simplemetering-commands">SimpleMetering Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/ApplianceEventsAlerts.html">ApplianceEventsAlerts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ApplianceEventsAlerts.html#applianceeventsalerts-attributes">ApplianceEventsAlerts Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ApplianceEventsAlerts.html#applianceeventsalerts-commands">ApplianceEventsAlerts Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ApplianceEventsAlerts.html#applianceeventsalerts-types">ApplianceEventsAlerts Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/ElectricalMeasurement.html">ElectricalMeasurement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ElectricalMeasurement.html#electricalmeasurement-attributes">ElectricalMeasurement Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ElectricalMeasurement.html#electricalmeasurement-commands">ElectricalMeasurement Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/ElectricalMeasurement.html#electricalmeasurement-types">ElectricalMeasurement Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/Diagnostics.html">Diagnostics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Diagnostics.html#diagnostics-attributes">Diagnostics Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/Diagnostics.html#diagnostics-commands">Diagnostics Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clusters/TouchlinkCommissioning.html">TouchlinkCommissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clusters/TouchlinkCommissioning.html#touchlinkcommissioning-attributes">TouchlinkCommissioning Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/TouchlinkCommissioning.html#touchlinkcommissioning-commands">TouchlinkCommissioning Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters/TouchlinkCommissioning.html#touchlinkcommissioning-types">TouchlinkCommissioning Types</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../generated.html" class="btn btn-neutral float-left" title="Generated Zigbee Code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clusters/Basic.html" class="btn btn-neutral float-right" title="Basic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

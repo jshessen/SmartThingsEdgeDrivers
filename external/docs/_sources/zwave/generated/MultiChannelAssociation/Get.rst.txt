@@ -1,0 +1,4 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.Get

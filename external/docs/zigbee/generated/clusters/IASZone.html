@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IASZone &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="IASACE" href="IASACE.html" />
+    <link rel="prev" title="CarbonMonoxide" href="CarbonMonoxide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zigbee_message_handlers.html">Zigbee Driver RX message handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../defaults.html">Zigbee Driver Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_clusters.html">ZCL Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../generated.html">Generated Zigbee Code</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../clusters.html">Generated Clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types.html">Generated Shared Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../../zigbee.html">Zigbee Libraries</a> &raquo;</li>
+          <li><a href="../../generated.html">Generated Zigbee Code</a> &raquo;</li>
+          <li><a href="../clusters.html">Generated Clusters</a> &raquo;</li>
+      <li>IASZone</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/zigbee/generated/clusters/IASZone.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="iaszone">
+<h1>IASZone<a class="headerlink" href="#iaszone" title="Permalink to this headline"></a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0500 the ID of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“IASZone” the name of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.attributes">
+<span class="sig-name descname"><span class="pre">attributes</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.IASZoneServerAttributes</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.IASZoneClientAttributes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.attributes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.IASZoneServerCommands</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.IASZoneClientCommands</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.commands" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.IASZoneTypes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.get_attribute_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_attribute_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">attr_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.get_attribute_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find an attribute by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attr_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.get_server_command_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_server_command_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">command_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.get_server_command_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find a server command by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.get_client_command_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_client_command_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">command_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.get_client_command_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find a client command by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="iaszone-attributes">
+<h2>IASZone Attributes<a class="headerlink" href="#iaszone-attributes" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.ZoneState</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0000 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ZoneState” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Enum8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.NOT_ENROLLED">
+<span class="sig-name descname"><span class="pre">NOT_ENROLLED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.NOT_ENROLLED" title="Permalink to this definition"></a></dt>
+<dd><p>0</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.ENROLLED">
+<span class="sig-name descname"><span class="pre">ENROLLED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.ENROLLED" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.augment_type" title="Permalink to this definition"></a></dt>
+<dd><p>Add additional functionality to the base type object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the base data type object to add functionality to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Enum8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the ZoneState(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Enum8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneState.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneState.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.ZoneType</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0001 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ZoneType” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.types.IasZoneType</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../types/IasZoneType.html#st.zigbee.zcl.types.IasZoneType" title="st.zigbee.zcl.types.IasZoneType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneType</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../types/IasZoneType.html#st.zigbee.zcl.types.IasZoneType" title="st.zigbee.zcl.types.IasZoneType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneType</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a IasZoneType object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the ZoneType(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a IasZoneType</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../types/IasZoneType.html#st.zigbee.zcl.types.IasZoneType" title="st.zigbee.zcl.types.IasZoneType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneType</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../types/IasZoneType.html#st.zigbee.zcl.types.IasZoneType" title="st.zigbee.zcl.types.IasZoneType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneType</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneType.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneType.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.ZoneStatus</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0002 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ZoneStatus” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.types.IasZoneStatus</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../types/IasZoneStatus.html#st.zigbee.zcl.types.IasZoneStatus" title="st.zigbee.zcl.types.IasZoneStatus"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneStatus</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../types/IasZoneStatus.html#st.zigbee.zcl.types.IasZoneStatus" title="st.zigbee.zcl.types.IasZoneStatus"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneStatus</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a IasZoneStatus object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the ZoneStatus(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a IasZoneStatus</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../types/IasZoneStatus.html#st.zigbee.zcl.types.IasZoneStatus" title="st.zigbee.zcl.types.IasZoneStatus"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneStatus</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../types/IasZoneStatus.html#st.zigbee.zcl.types.IasZoneStatus" title="st.zigbee.zcl.types.IasZoneStatus"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.types.IasZoneStatus</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatus.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatus.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.IASCIEAddress</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0010 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“IASCIEAddress” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.IeeeAddress</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.IeeeAddress" title="st.zigbee.data_types.IeeeAddress"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IeeeAddress</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.IeeeAddress" title="st.zigbee.data_types.IeeeAddress"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IeeeAddress</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a IeeeAddress object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the IASCIEAddress(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a IeeeAddress</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.IeeeAddress" title="st.zigbee.data_types.IeeeAddress"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IeeeAddress</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.IeeeAddress" title="st.zigbee.data_types.IeeeAddress"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IeeeAddress</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.IASCIEAddress.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.IASCIEAddress.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.ZoneID</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0011 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ZoneID” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the ZoneID(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneID.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneID.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0012 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“NumberOfZoneSensitivityLevelsSupported” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the NumberOfZoneSensitivityLevelsSupported(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.NumberOfZoneSensitivityLevelsSupported.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0013 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“CurrentZoneSensitivityLevel” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the CurrentZoneSensitivityLevel(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.CurrentZoneSensitivityLevel.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="iaszone-commands">
+<h2>IASZone Commands<a class="headerlink" href="#iaszone-commands" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x00 the ID of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ZoneStatusChangeNotification” the name of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.zone_status">
+<span class="sig-name descname"><span class="pre">zone_status</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.IasZoneStatus</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.zone_status" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.extended_status">
+<span class="sig-name descname"><span class="pre">extended_status</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Bitmap8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.extended_status" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.zone_id">
+<span class="sig-name descname"><span class="pre">zone_id</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.zone_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.delay">
+<span class="sig-name descname"><span class="pre">delay</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.delay" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.get_fields">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.get_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">buf</span></code></span>) – the bytes of the command body</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZoneStatusChangeNotification</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.set_field_names">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.set_field_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.build_test_rx">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">build_test_rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zone_status</span></em>, <em class="sig-param"><span class="pre">extended_status</span></em>, <em class="sig-param"><span class="pre">zone_id</span></em>, <em class="sig-param"><span class="pre">delay</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.build_test_rx" title="Permalink to this definition"></a></dt>
+<dd><p>Build a version of this message as if it came from the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build the message from</p></li>
+<li><p><strong>zone_status</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IasZoneStatus</span></code></span>) – </p></li>
+<li><p><strong>extended_status</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap8" title="st.zigbee.data_types.Bitmap8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap8</span></code></a></span>) – </p></li>
+<li><p><strong>zone_id</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+<li><p><strong>delay</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full Zigbee message containing this command body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.init">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zone_status</span></em>, <em class="sig-param"><span class="pre">extended_status</span></em>, <em class="sig-param"><span class="pre">zone_id</span></em>, <em class="sig-param"><span class="pre">delay</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the ZoneStatusChangeNotification command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZoneStatusChangeNotification</span></code></span>) – the template class for this command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build this message to</p></li>
+<li><p><strong>zone_status</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IasZoneStatus</span></code></span>) – </p></li>
+<li><p><strong>extended_status</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap8" title="st.zigbee.data_types.Bitmap8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap8</span></code></a></span>) – </p></li>
+<li><p><strong>zone_id</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+<li><p><strong>delay</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the full command addressed to the device</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneStatusChangeNotification.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x01 the ID of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ZoneEnrollRequest” the name of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.zone_type">
+<span class="sig-name descname"><span class="pre">zone_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.IasZoneType</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.zone_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.manufacturer_code">
+<span class="sig-name descname"><span class="pre">manufacturer_code</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.manufacturer_code" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.get_fields">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.get_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">buf</span></code></span>) – the bytes of the command body</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZoneEnrollRequest</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.set_field_names">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.set_field_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.build_test_rx">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">build_test_rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zone_type</span></em>, <em class="sig-param"><span class="pre">manufacturer_code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.build_test_rx" title="Permalink to this definition"></a></dt>
+<dd><p>Build a version of this message as if it came from the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build the message from</p></li>
+<li><p><strong>zone_type</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IasZoneType</span></code></span>) – </p></li>
+<li><p><strong>manufacturer_code</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full Zigbee message containing this command body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.init">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zone_type</span></em>, <em class="sig-param"><span class="pre">manufacturer_code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the ZoneEnrollRequest command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZoneEnrollRequest</span></code></span>) – the template class for this command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build this message to</p></li>
+<li><p><strong>zone_type</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.IasZoneType</span></code></span>) – </p></li>
+<li><p><strong>manufacturer_code</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the full command addressed to the device</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollRequest.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x00 the ID of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ZoneEnrollResponse” the name of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.enroll_response_code">
+<span class="sig-name descname"><span class="pre">enroll_response_code</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.enroll_response_code" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.zone_id">
+<span class="sig-name descname"><span class="pre">zone_id</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.zone_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.get_fields">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.get_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">buf</span></code></span>) – the bytes of the command body</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZoneEnrollResponse</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.set_field_names">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.set_field_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.build_test_rx">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">build_test_rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">enroll_response_code</span></em>, <em class="sig-param"><span class="pre">zone_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.build_test_rx" title="Permalink to this definition"></a></dt>
+<dd><p>Build a version of this message as if it came from the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build the message from</p></li>
+<li><p><strong>enroll_response_code</strong> (<span><a class="reference internal" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode" title="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode</span></code></a></span>) – </p></li>
+<li><p><strong>zone_id</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full Zigbee message containing this command body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.init">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">enroll_response_code</span></em>, <em class="sig-param"><span class="pre">zone_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the ZoneEnrollResponse command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZoneEnrollResponse</span></code></span>) – the template class for this command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build this message to</p></li>
+<li><p><strong>enroll_response_code</strong> (<span><a class="reference internal" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode" title="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode</span></code></a></span>) – </p></li>
+<li><p><strong>zone_id</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the full command addressed to the device</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.ZoneEnrollResponse.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x01 the ID of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“InitiateNormalOperationMode” the name of this command</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.get_fields">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.get_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">buf</span></code></span>) – the bytes of the command body</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">InitiateNormalOperationMode</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.set_field_names">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.set_field_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.build_test_rx">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">build_test_rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.build_test_rx" title="Permalink to this definition"></a></dt>
+<dd><p>Build a version of this message as if it came from the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build the message from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full Zigbee message containing this command body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.init">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the InitiateNormalOperationMode command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">InitiateNormalOperationMode</span></code></span>) – the template class for this command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build this message to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the full command addressed to the device</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateNormalOperationMode.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.InitiateTestMode</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x02 the ID of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“InitiateTestMode” the name of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.test_mode_duration">
+<span class="sig-name descname"><span class="pre">test_mode_duration</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.test_mode_duration" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.current_zone_sensitivity_level">
+<span class="sig-name descname"><span class="pre">current_zone_sensitivity_level</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.current_zone_sensitivity_level" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.get_fields">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.get_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">buf</span></code></span>) – the bytes of the command body</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">InitiateTestMode</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.set_field_names">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.set_field_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.build_test_rx">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">build_test_rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">test_mode_duration</span></em>, <em class="sig-param"><span class="pre">current_zone_sensitivity_level</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.build_test_rx" title="Permalink to this definition"></a></dt>
+<dd><p>Build a version of this message as if it came from the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build the message from</p></li>
+<li><p><strong>test_mode_duration</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+<li><p><strong>current_zone_sensitivity_level</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full Zigbee message containing this command body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.init">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">test_mode_duration</span></em>, <em class="sig-param"><span class="pre">current_zone_sensitivity_level</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the InitiateTestMode command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">InitiateTestMode</span></code></span>) – the template class for this command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build this message to</p></li>
+<li><p><strong>test_mode_duration</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+<li><p><strong>current_zone_sensitivity_level</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the full command addressed to the device</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.InitiateTestMode.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.InitiateTestMode.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="iaszone-types">
+<h2>IASZone Types<a class="headerlink" href="#iaszone-types" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><span class="pre">st.zigbee.data_types.Enum8</span></a><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.SUCCESS">
+<span class="sig-name descname"><span class="pre">SUCCESS</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.SUCCESS" title="Permalink to this definition"></a></dt>
+<dd><p>0</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.NOT_SUPPORTED">
+<span class="sig-name descname"><span class="pre">NOT_SUPPORTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.NOT_SUPPORTED" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.NO_ENROLL_PERMIT">
+<span class="sig-name descname"><span class="pre">NO_ENROLL_PERMIT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.NO_ENROLL_PERMIT" title="Permalink to this definition"></a></dt>
+<dd><p>2</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.TOO_MANY_ZONES">
+<span class="sig-name descname"><span class="pre">TOO_MANY_ZONES</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.IASZone.types.EnrollResponseCode.TOO_MANY_ZONES" title="Permalink to this definition"></a></dt>
+<dd><p>3</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CarbonMonoxide.html" class="btn btn-neutral float-left" title="CarbonMonoxide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="IASACE.html" class="btn btn-neutral float-right" title="IASACE" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

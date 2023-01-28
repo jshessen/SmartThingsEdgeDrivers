@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FanControl &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="DehumidificationControl" href="DehumidificationControl.html" />
+    <link rel="prev" title="Thermostat" href="Thermostat.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zigbee_message_handlers.html">Zigbee Driver RX message handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../defaults.html">Zigbee Driver Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_clusters.html">ZCL Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../generated.html">Generated Zigbee Code</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../clusters.html">Generated Clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types.html">Generated Shared Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../../zigbee.html">Zigbee Libraries</a> &raquo;</li>
+          <li><a href="../../generated.html">Generated Zigbee Code</a> &raquo;</li>
+          <li><a href="../clusters.html">Generated Clusters</a> &raquo;</li>
+      <li>FanControl</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/zigbee/generated/clusters/FanControl.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fancontrol">
+<h1>FanControl<a class="headerlink" href="#fancontrol" title="Permalink to this headline"></a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.FanControl</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0202 the ID of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“FanControl” the name of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.attributes">
+<span class="sig-name descname"><span class="pre">attributes</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.FanControlServerAttributes</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.FanControlClientAttributes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.attributes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.FanControlServerCommands</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.FanControlClientCommands</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.commands" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.FanControlTypes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.get_attribute_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_attribute_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">attr_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.get_attribute_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find an attribute by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attr_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.get_server_command_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_server_command_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">command_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.get_server_command_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find a server command by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.get_client_command_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_client_command_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">command_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.get_client_command_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find a client command by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="fancontrol-attributes">
+<h2>FanControl Attributes<a class="headerlink" href="#fancontrol-attributes" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.FanControl.FanMode</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0000 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“FanMode” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Enum8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.OFF">
+<span class="sig-name descname"><span class="pre">OFF</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.OFF" title="Permalink to this definition"></a></dt>
+<dd><p>0</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.LOW">
+<span class="sig-name descname"><span class="pre">LOW</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.LOW" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.MEDIUM">
+<span class="sig-name descname"><span class="pre">MEDIUM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.MEDIUM" title="Permalink to this definition"></a></dt>
+<dd><p>2</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.HIGH">
+<span class="sig-name descname"><span class="pre">HIGH</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.HIGH" title="Permalink to this definition"></a></dt>
+<dd><p>3</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.ON">
+<span class="sig-name descname"><span class="pre">ON</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.ON" title="Permalink to this definition"></a></dt>
+<dd><p>4</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.AUTO">
+<span class="sig-name descname"><span class="pre">AUTO</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.AUTO" title="Permalink to this definition"></a></dt>
+<dd><p>5</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.SMART">
+<span class="sig-name descname"><span class="pre">SMART</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.SMART" title="Permalink to this definition"></a></dt>
+<dd><p>6</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.augment_type" title="Permalink to this definition"></a></dt>
+<dd><p>Add additional functionality to the base type object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the base data type object to add functionality to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Enum8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the FanMode(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Enum8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanMode.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanMode.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.FanControl.FanModeSequence</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0001 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“FanModeSequence” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Enum8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_MED_HIGH">
+<span class="sig-name descname"><span class="pre">LOW_MED_HIGH</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_MED_HIGH" title="Permalink to this definition"></a></dt>
+<dd><p>0</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_HIGH">
+<span class="sig-name descname"><span class="pre">LOW_HIGH</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_HIGH" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_MED_HIGH_AUTO">
+<span class="sig-name descname"><span class="pre">LOW_MED_HIGH_AUTO</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_MED_HIGH_AUTO" title="Permalink to this definition"></a></dt>
+<dd><p>2</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_HIGH_AUTO">
+<span class="sig-name descname"><span class="pre">LOW_HIGH_AUTO</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.LOW_HIGH_AUTO" title="Permalink to this definition"></a></dt>
+<dd><p>3</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.ON_AUTO">
+<span class="sig-name descname"><span class="pre">ON_AUTO</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.ON_AUTO" title="Permalink to this definition"></a></dt>
+<dd><p>4</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.augment_type" title="Permalink to this definition"></a></dt>
+<dd><p>Add additional functionality to the base type object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the base data type object to add functionality to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Enum8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the FanModeSequence(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Enum8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.FanControl.FanModeSequence.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.FanControl.FanModeSequence.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="fancontrol-commands">
+<h2>FanControl Commands<a class="headerlink" href="#fancontrol-commands" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Thermostat.html" class="btn btn-neutral float-left" title="Thermostat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DehumidificationControl.html" class="btn btn-neutral float-right" title="DehumidificationControl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

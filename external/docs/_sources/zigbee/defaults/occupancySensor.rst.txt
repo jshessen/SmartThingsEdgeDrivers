@@ -1,0 +1,4 @@
+Occupancy Sensor
+================
+
+.. lua:autoclass:: st.zigbee.defaults.occupancySensor

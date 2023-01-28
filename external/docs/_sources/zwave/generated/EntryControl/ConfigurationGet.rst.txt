@@ -1,0 +1,6 @@
+Configuration Get
+=================
+
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationGet
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationGetV1
+.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationGetV1Args

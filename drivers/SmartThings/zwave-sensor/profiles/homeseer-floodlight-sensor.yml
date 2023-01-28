@@ -1,20 +1,20 @@
 # https://docs.homeseer.com/products/sensors/hs-fls100+/hs-fls100+-user-guide
-name: homeseer-fls100
+name: homeseer-floodlight-sensor
 components:
-- id: main
-  capabilities:
-  - id: motionSensor
-    version: 1
-  - id: switch
-    version: 1
-  - id: illuminanceMeasurement
-    version: 1
-  - id: temperatureMeasurement
-    version: 1
-  - id: refresh
-    version: 1
-  categories:
-  - name: MotionSensor
+  - id: main
+    capabilities:
+    - id: motionSensor
+      version: 1
+    - id: switch
+      version: 1
+    - id: illuminanceMeasurement
+      version: 1
+    - id: temperatureMeasurement
+      version: 1
+    - id: refresh
+      version: 1
+    categories:
+    - name: MotionSensor
 preferences:
   - name: "motionSensitivityLevel"
     title: "Motion Sensitivity"

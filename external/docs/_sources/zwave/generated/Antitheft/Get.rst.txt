@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.Antitheft.Get
+.. lua:autoclass:: st.zwave.CommandClass.Antitheft.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.Antitheft.GetV1Args

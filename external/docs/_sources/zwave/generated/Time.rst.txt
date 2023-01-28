@@ -1,0 +1,15 @@
+Time
+====
+
+.. toctree::
+   :maxdepth: 2
+
+   Time/Get
+   Time/Report
+   Time/DateGet
+   Time/DateReport
+   Time/OffsetSet
+   Time/OffsetGet
+   Time/OffsetReport
+
+.. lua:autoclass:: st.zwave.CommandClass.Time

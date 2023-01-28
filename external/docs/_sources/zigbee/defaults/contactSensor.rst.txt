@@ -1,0 +1,6 @@
+Contact Sensor
+==============
+
+.. lua:autoclass:: st.zigbee.defaults.contactSensor.IASZoneConfiguration
+
+.. lua:autoclass:: st.zigbee.defaults.contactSensor

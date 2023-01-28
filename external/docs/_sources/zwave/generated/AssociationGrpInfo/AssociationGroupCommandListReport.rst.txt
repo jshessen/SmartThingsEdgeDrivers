@@ -1,0 +1,6 @@
+Association Group Command List Report
+=====================================
+
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupCommandListReport
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupCommandListReportV1
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupCommandListReportV1Args

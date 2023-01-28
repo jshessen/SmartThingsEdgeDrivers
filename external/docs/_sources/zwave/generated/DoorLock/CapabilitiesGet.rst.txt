@@ -1,0 +1,6 @@
+Capabilities Get
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.CapabilitiesGet
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.CapabilitiesGetV4
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.CapabilitiesGetV4Args

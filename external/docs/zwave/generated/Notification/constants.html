@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constants &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Powerlevel" href="../Powerlevel.html" />
+    <link rel="prev" title="Supported Report" href="SupportedReport.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../zwave.html">Z-Wave Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../driver.html">Z-Wave Driver Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../device.html">Z-Wave Device Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../defaults.html">Z-Wave Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../command.html">Z-Wave Command Object</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../generated.html">Z-Wave Command Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../Alarm.html">Alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Antitheft.html">Antitheft</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ApplicationCapability.html">Application Capability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ApplicationStatus.html">Application Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Association.html">Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../AssociationCommandConfiguration.html">Association Command Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../AssociationGrpInfo.html">Association Grp Info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../BarrierOperator.html">Barrier Operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Basic.html">Basic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../BasicWindowCovering.html">Basic Window Covering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Battery.html">Battery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CentralScene.html">Central Scene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Clock.html">Clock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Configuration.html">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../DoorLock.html">Door Lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../DoorLockLogging.html">Door Lock Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../EnergyProduction.html">Energy Production</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../EntryControl.html">Entry Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Hail.html">Hail</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../HrvControl.html">Hrv Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../HrvStatus.html">Hrv Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../HumidityControlMode.html">Humidity Control Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../HumidityControlOperatingState.html">Humidity Control Operating State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../HumidityControlSetpoint.html">Humidity Control Setpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Indicator.html">Indicator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Irrigation.html">Irrigation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ManufacturerProprietary.html">Manufacturer Proprietary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ManufacturerSpecific.html">Manufacturer Specific</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Meter.html">Meter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../MtpWindowCovering.html">Mtp Window Covering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../MultiChannel.html">Multi Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../MultiChannelAssociation.html">Multi Channel Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../MultiInstance.html">Multi Instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../MultiInstanceAssociation.html">Multi Instance Association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../NoOperation.html">No Operation</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../Notification.html">Notification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Powerlevel.html">Powerlevel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Protection.html">Protection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../RateTblConfig.html">Rate Tbl Config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../RateTblMonitor.html">Rate Tbl Monitor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SceneActivation.html">Scene Activation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SceneActuatorConf.html">Scene Actuator Conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SceneControllerConf.html">Scene Controller Conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Schedule.html">Schedule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SensorAlarm.html">Sensor Alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SensorBinary.html">Sensor Binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SensorMultilevel.html">Sensor Multilevel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SilenceAlarm.html">Silence Alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SoundSwitch.html">Sound Switch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SwitchAll.html">Switch All</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SwitchBinary.html">Switch Binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SwitchColor.html">Switch Color</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SwitchMultilevel.html">Switch Multilevel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SwitchToggleBinary.html">Switch Toggle Binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../SwitchToggleMultilevel.html">Switch Toggle Multilevel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ThermostatFanMode.html">Thermostat Fan Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ThermostatFanState.html">Thermostat Fan State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ThermostatMode.html">Thermostat Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ThermostatOperatingState.html">Thermostat Operating State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ThermostatSetback.html">Thermostat Setback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ThermostatSetpoint.html">Thermostat Setpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Time.html">Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../TimeParameters.html">Time Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../UserCode.html">User Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Version.html">Version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../WakeUp.html">Wake Up</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../WindowCovering.html">Window Covering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ZwaveplusInfo.html">Zwaveplus Info</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../../zwave.html">Z-Wave Libraries</a> &raquo;</li>
+          <li><a href="../../generated.html">Z-Wave Command Classes</a> &raquo;</li>
+          <li><a href="../Notification.html">Notification</a> &raquo;</li>
+      <li>Constants</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/zwave/generated/Notification/constants.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="constants">
+<h1>Constants<a class="headerlink" href="#constants" title="Permalink to this headline"></a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_status">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.notification_status</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_status" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_status.OFF">
+<span class="sig-name descname"><span class="pre">OFF</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_status.OFF" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_status.NO_PENDING_NOTIFICATIONS">
+<span class="sig-name descname"><span class="pre">NO_PENDING_NOTIFICATIONS</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_status.NO_PENDING_NOTIFICATIONS" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_status.ON">
+<span class="sig-name descname"><span class="pre">ON</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_status.ON" title="Permalink to this definition"></a></dt>
+<dd><p>0xFF</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.notification_type</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.SMOKE">
+<span class="sig-name descname"><span class="pre">SMOKE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.SMOKE" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.CO">
+<span class="sig-name descname"><span class="pre">CO</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.CO" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.CO2">
+<span class="sig-name descname"><span class="pre">CO2</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.CO2" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.HEAT">
+<span class="sig-name descname"><span class="pre">HEAT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.HEAT" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.WATER">
+<span class="sig-name descname"><span class="pre">WATER</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.WATER" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.ACCESS_CONTROL">
+<span class="sig-name descname"><span class="pre">ACCESS_CONTROL</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.ACCESS_CONTROL" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.HOME_SECURITY">
+<span class="sig-name descname"><span class="pre">HOME_SECURITY</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.HOME_SECURITY" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.POWER_MANAGEMENT">
+<span class="sig-name descname"><span class="pre">POWER_MANAGEMENT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.POWER_MANAGEMENT" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.SYSTEM">
+<span class="sig-name descname"><span class="pre">SYSTEM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.SYSTEM" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.EMERGENCY">
+<span class="sig-name descname"><span class="pre">EMERGENCY</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.EMERGENCY" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.CLOCK">
+<span class="sig-name descname"><span class="pre">CLOCK</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.CLOCK" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.APPLIANCE">
+<span class="sig-name descname"><span class="pre">APPLIANCE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.APPLIANCE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.HOME_HEALTH">
+<span class="sig-name descname"><span class="pre">HOME_HEALTH</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.HOME_HEALTH" title="Permalink to this definition"></a></dt>
+<dd><p>0x0D</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.SIREN">
+<span class="sig-name descname"><span class="pre">SIREN</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.SIREN" title="Permalink to this definition"></a></dt>
+<dd><p>0x0E</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.WATER_VALVE">
+<span class="sig-name descname"><span class="pre">WATER_VALVE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.WATER_VALVE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0F</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.WEATHER_ALARM">
+<span class="sig-name descname"><span class="pre">WEATHER_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.WEATHER_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x10</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.IRRIGATION">
+<span class="sig-name descname"><span class="pre">IRRIGATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.IRRIGATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x11</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.GAS_ALARM">
+<span class="sig-name descname"><span class="pre">GAS_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.GAS_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x12</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.PEST_CONTROL">
+<span class="sig-name descname"><span class="pre">PEST_CONTROL</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.PEST_CONTROL" title="Permalink to this definition"></a></dt>
+<dd><p>0x13</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.LIGHT_SENSOR">
+<span class="sig-name descname"><span class="pre">LIGHT_SENSOR</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.LIGHT_SENSOR" title="Permalink to this definition"></a></dt>
+<dd><p>0x14</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.WATER_QUALITY_MONITORING">
+<span class="sig-name descname"><span class="pre">WATER_QUALITY_MONITORING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.WATER_QUALITY_MONITORING" title="Permalink to this definition"></a></dt>
+<dd><p>0x15</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.HOME_MONITORING">
+<span class="sig-name descname"><span class="pre">HOME_MONITORING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.HOME_MONITORING" title="Permalink to this definition"></a></dt>
+<dd><p>0x16</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.notification_type.FIRST">
+<span class="sig-name descname"><span class="pre">FIRST</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.notification_type.FIRST" title="Permalink to this definition"></a></dt>
+<dd><p>0xFF</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.access_control">
+<span class="sig-name descname"><span class="pre">access_control</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_access_control</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.access_control" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.appliance">
+<span class="sig-name descname"><span class="pre">appliance</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_appliance</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.appliance" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.clock">
+<span class="sig-name descname"><span class="pre">clock</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_clock</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.clock" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.co">
+<span class="sig-name descname"><span class="pre">co</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_co</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.co" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.co2">
+<span class="sig-name descname"><span class="pre">co2</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_co2</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.co2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.emergency">
+<span class="sig-name descname"><span class="pre">emergency</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_emergency</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.emergency" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.gas_alarm">
+<span class="sig-name descname"><span class="pre">gas_alarm</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_gas_alarm</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.gas_alarm" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.heat">
+<span class="sig-name descname"><span class="pre">heat</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_heat</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.heat" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.home_health">
+<span class="sig-name descname"><span class="pre">home_health</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_home_health</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.home_health" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.home_monitoring">
+<span class="sig-name descname"><span class="pre">home_monitoring</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_home_monitoring</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.home_monitoring" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.home_security">
+<span class="sig-name descname"><span class="pre">home_security</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_home_security</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.home_security" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.irrigation">
+<span class="sig-name descname"><span class="pre">irrigation</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_irrigation</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.irrigation" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.light_sensor">
+<span class="sig-name descname"><span class="pre">light_sensor</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_light_sensor</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.light_sensor" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.pest_control">
+<span class="sig-name descname"><span class="pre">pest_control</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_pest_control</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.pest_control" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.power_management">
+<span class="sig-name descname"><span class="pre">power_management</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_power_management</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.power_management" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.siren">
+<span class="sig-name descname"><span class="pre">siren</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_siren</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.siren" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.smoke">
+<span class="sig-name descname"><span class="pre">smoke</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_smoke</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.smoke" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.system">
+<span class="sig-name descname"><span class="pre">system</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_system</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.system" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.water">
+<span class="sig-name descname"><span class="pre">water</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_water</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.water" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.water_quality_monitoring">
+<span class="sig-name descname"><span class="pre">water_quality_monitoring</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_water_quality_monitoring</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.water_quality_monitoring" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.water_valve">
+<span class="sig-name descname"><span class="pre">water_valve</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_water_valve</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.water_valve" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event.weather_alarm">
+<span class="sig-name descname"><span class="pre">weather_alarm</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zwave.CommandClass.event_weather_alarm</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event.weather_alarm" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_access_control</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.MANUAL_LOCK_OPERATION">
+<span class="sig-name descname"><span class="pre">MANUAL_LOCK_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.MANUAL_LOCK_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.MANUAL_UNLOCK_OPERATION">
+<span class="sig-name descname"><span class="pre">MANUAL_UNLOCK_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.MANUAL_UNLOCK_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.RF_LOCK_OPERATION">
+<span class="sig-name descname"><span class="pre">RF_LOCK_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.RF_LOCK_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.RF_UNLOCK_OPERATION">
+<span class="sig-name descname"><span class="pre">RF_UNLOCK_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.RF_UNLOCK_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.KEYPAD_LOCK_OPERATION">
+<span class="sig-name descname"><span class="pre">KEYPAD_LOCK_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.KEYPAD_LOCK_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.KEYPAD_UNLOCK_OPERATION">
+<span class="sig-name descname"><span class="pre">KEYPAD_UNLOCK_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.KEYPAD_UNLOCK_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.MANUAL_NOT_FULLY_LOCKED_OPERATION">
+<span class="sig-name descname"><span class="pre">MANUAL_NOT_FULLY_LOCKED_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.MANUAL_NOT_FULLY_LOCKED_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.RF_NOT_FULLY_LOCKED_OPERATION">
+<span class="sig-name descname"><span class="pre">RF_NOT_FULLY_LOCKED_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.RF_NOT_FULLY_LOCKED_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.AUTO_LOCK_LOCKED_OPERATION">
+<span class="sig-name descname"><span class="pre">AUTO_LOCK_LOCKED_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.AUTO_LOCK_LOCKED_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.AUTO_LOCK_NOT_FULLY_LOCKED_OPERATION">
+<span class="sig-name descname"><span class="pre">AUTO_LOCK_NOT_FULLY_LOCKED_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.AUTO_LOCK_NOT_FULLY_LOCKED_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.LOCK_JAMMED">
+<span class="sig-name descname"><span class="pre">LOCK_JAMMED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.LOCK_JAMMED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.ALL_USER_CODES_DELETED">
+<span class="sig-name descname"><span class="pre">ALL_USER_CODES_DELETED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.ALL_USER_CODES_DELETED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.SINGLE_USER_CODE_DELETED">
+<span class="sig-name descname"><span class="pre">SINGLE_USER_CODE_DELETED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.SINGLE_USER_CODE_DELETED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0D</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.NEW_USER_CODE_ADDED">
+<span class="sig-name descname"><span class="pre">NEW_USER_CODE_ADDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.NEW_USER_CODE_ADDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0E</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.NEW_USER_CODE_NOT_ADDED_DUE_TO_DUPLICATE_CODE">
+<span class="sig-name descname"><span class="pre">NEW_USER_CODE_NOT_ADDED_DUE_TO_DUPLICATE_CODE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.NEW_USER_CODE_NOT_ADDED_DUE_TO_DUPLICATE_CODE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0F</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.KEYPAD_TEMPORARY_DISABLED">
+<span class="sig-name descname"><span class="pre">KEYPAD_TEMPORARY_DISABLED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.KEYPAD_TEMPORARY_DISABLED" title="Permalink to this definition"></a></dt>
+<dd><p>0x10</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.KEYPAD_BUSY">
+<span class="sig-name descname"><span class="pre">KEYPAD_BUSY</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.KEYPAD_BUSY" title="Permalink to this definition"></a></dt>
+<dd><p>0x11</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.NEW_PROGRAM_CODE_ENTERED_UNIQUE_CODE_FOR_LOCK_CONFIGURATION">
+<span class="sig-name descname"><span class="pre">NEW_PROGRAM_CODE_ENTERED_UNIQUE_CODE_FOR_LOCK_CONFIGURATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.NEW_PROGRAM_CODE_ENTERED_UNIQUE_CODE_FOR_LOCK_CONFIGURATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x12</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.MANUALLY_ENTER_USER_ACCESS_CODE_EXCEEDS_CODE_LIMIT">
+<span class="sig-name descname"><span class="pre">MANUALLY_ENTER_USER_ACCESS_CODE_EXCEEDS_CODE_LIMIT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.MANUALLY_ENTER_USER_ACCESS_CODE_EXCEEDS_CODE_LIMIT" title="Permalink to this definition"></a></dt>
+<dd><p>0x13</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.UNLOCK_BY_RF_WITH_INVALID_USER_CODE">
+<span class="sig-name descname"><span class="pre">UNLOCK_BY_RF_WITH_INVALID_USER_CODE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.UNLOCK_BY_RF_WITH_INVALID_USER_CODE" title="Permalink to this definition"></a></dt>
+<dd><p>0x14</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.LOCKED_BY_RF_WITH_INVALID_USER_CODE">
+<span class="sig-name descname"><span class="pre">LOCKED_BY_RF_WITH_INVALID_USER_CODE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.LOCKED_BY_RF_WITH_INVALID_USER_CODE" title="Permalink to this definition"></a></dt>
+<dd><p>0x15</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_IS_OPEN">
+<span class="sig-name descname"><span class="pre">WINDOW_DOOR_IS_OPEN</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_IS_OPEN" title="Permalink to this definition"></a></dt>
+<dd><p>0x16</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_IS_CLOSED">
+<span class="sig-name descname"><span class="pre">WINDOW_DOOR_IS_CLOSED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_IS_CLOSED" title="Permalink to this definition"></a></dt>
+<dd><p>0x17</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_HANDLE_IS_OPEN">
+<span class="sig-name descname"><span class="pre">WINDOW_DOOR_HANDLE_IS_OPEN</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_HANDLE_IS_OPEN" title="Permalink to this definition"></a></dt>
+<dd><p>0x18</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_HANDLE_IS_CLOSED">
+<span class="sig-name descname"><span class="pre">WINDOW_DOOR_HANDLE_IS_CLOSED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.WINDOW_DOOR_HANDLE_IS_CLOSED" title="Permalink to this definition"></a></dt>
+<dd><p>0x19</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.MESSAGING_USER_CODE_ENTERED_VIA_KEYPAD">
+<span class="sig-name descname"><span class="pre">MESSAGING_USER_CODE_ENTERED_VIA_KEYPAD</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.MESSAGING_USER_CODE_ENTERED_VIA_KEYPAD" title="Permalink to this definition"></a></dt>
+<dd><p>0x20</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_PERFORMING_INITIALIZATION_PROCESS">
+<span class="sig-name descname"><span class="pre">BARRIER_PERFORMING_INITIALIZATION_PROCESS</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_PERFORMING_INITIALIZATION_PROCESS" title="Permalink to this definition"></a></dt>
+<dd><p>0x40</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_OPERATION_OPEN_CLOSE_FORCE_HAS_BEEN_EXCEEDED">
+<span class="sig-name descname"><span class="pre">BARRIER_OPERATION_OPEN_CLOSE_FORCE_HAS_BEEN_EXCEEDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_OPERATION_OPEN_CLOSE_FORCE_HAS_BEEN_EXCEEDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x41</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_MOTOR_HAS_EXCEEDED_MANUFACTURERS_OPERATIONAL_TIME_LIMIT">
+<span class="sig-name descname"><span class="pre">BARRIER_MOTOR_HAS_EXCEEDED_MANUFACTURERS_OPERATIONAL_TIME_LIMIT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_MOTOR_HAS_EXCEEDED_MANUFACTURERS_OPERATIONAL_TIME_LIMIT" title="Permalink to this definition"></a></dt>
+<dd><p>0x42</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_OPERATION_HAS_EXCEEDED_PHYSICAL_MECHANICAL_LIMITS">
+<span class="sig-name descname"><span class="pre">BARRIER_OPERATION_HAS_EXCEEDED_PHYSICAL_MECHANICAL_LIMITS</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_OPERATION_HAS_EXCEEDED_PHYSICAL_MECHANICAL_LIMITS" title="Permalink to this definition"></a></dt>
+<dd><p>0x43</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_UNABLE_TO_PERFORM_REQUESTED_OPERATION_DUE_TO_UL_REQUIREMENTS">
+<span class="sig-name descname"><span class="pre">BARRIER_UNABLE_TO_PERFORM_REQUESTED_OPERATION_DUE_TO_UL_REQUIREMENTS</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_UNABLE_TO_PERFORM_REQUESTED_OPERATION_DUE_TO_UL_REQUIREMENTS" title="Permalink to this definition"></a></dt>
+<dd><p>0x44</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_UNATTENDED_OPERATION_HAS_BEEN_DISABLED_PER_UL_REQUIREMENTS">
+<span class="sig-name descname"><span class="pre">BARRIER_UNATTENDED_OPERATION_HAS_BEEN_DISABLED_PER_UL_REQUIREMENTS</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_UNATTENDED_OPERATION_HAS_BEEN_DISABLED_PER_UL_REQUIREMENTS" title="Permalink to this definition"></a></dt>
+<dd><p>0x45</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_FAILED_TO_PERFORM_REQUESTED_OPERATION_DEVICE_MALFUNCTION">
+<span class="sig-name descname"><span class="pre">BARRIER_FAILED_TO_PERFORM_REQUESTED_OPERATION_DEVICE_MALFUNCTION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_FAILED_TO_PERFORM_REQUESTED_OPERATION_DEVICE_MALFUNCTION" title="Permalink to this definition"></a></dt>
+<dd><p>0x46</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_VACATION_MODE">
+<span class="sig-name descname"><span class="pre">BARRIER_VACATION_MODE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_VACATION_MODE" title="Permalink to this definition"></a></dt>
+<dd><p>0x47</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_SAFETY_BEAM_OBSTACLE">
+<span class="sig-name descname"><span class="pre">BARRIER_SAFETY_BEAM_OBSTACLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_SAFETY_BEAM_OBSTACLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x48</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_SENSOR_NOT_DETECTED_SUPERVISORY_ERROR">
+<span class="sig-name descname"><span class="pre">BARRIER_SENSOR_NOT_DETECTED_SUPERVISORY_ERROR</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_SENSOR_NOT_DETECTED_SUPERVISORY_ERROR" title="Permalink to this definition"></a></dt>
+<dd><p>0x49</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_SENSOR_LOW_BATTERY_WARNING">
+<span class="sig-name descname"><span class="pre">BARRIER_SENSOR_LOW_BATTERY_WARNING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_SENSOR_LOW_BATTERY_WARNING" title="Permalink to this definition"></a></dt>
+<dd><p>0x4A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_DETECTED_SHORT_IN_WALL_STATION_WIRES">
+<span class="sig-name descname"><span class="pre">BARRIER_DETECTED_SHORT_IN_WALL_STATION_WIRES</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_DETECTED_SHORT_IN_WALL_STATION_WIRES" title="Permalink to this definition"></a></dt>
+<dd><p>0x4B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.BARRIER_ASSOCIATED_WITH_NON_Z_WAVE_REMOTE_CONTROL">
+<span class="sig-name descname"><span class="pre">BARRIER_ASSOCIATED_WITH_NON_Z_WAVE_REMOTE_CONTROL</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.BARRIER_ASSOCIATED_WITH_NON_Z_WAVE_REMOTE_CONTROL" title="Permalink to this definition"></a></dt>
+<dd><p>0x4C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_access_control.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_access_control.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_appliance</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.PROGRAM_STARTED">
+<span class="sig-name descname"><span class="pre">PROGRAM_STARTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.PROGRAM_STARTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.PROGRAM_IN_PROGRESS">
+<span class="sig-name descname"><span class="pre">PROGRAM_IN_PROGRESS</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.PROGRAM_IN_PROGRESS" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.PROGRAM_COMPLETED">
+<span class="sig-name descname"><span class="pre">PROGRAM_COMPLETED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.PROGRAM_COMPLETED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.REPLACE_MAIN_FILTER">
+<span class="sig-name descname"><span class="pre">REPLACE_MAIN_FILTER</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.REPLACE_MAIN_FILTER" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.FAILURE_TO_SET_TARGET_TEMPERATURE">
+<span class="sig-name descname"><span class="pre">FAILURE_TO_SET_TARGET_TEMPERATURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.FAILURE_TO_SET_TARGET_TEMPERATURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.SUPPLYING_WATER">
+<span class="sig-name descname"><span class="pre">SUPPLYING_WATER</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.SUPPLYING_WATER" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.WATER_SUPPLY_FAILURE">
+<span class="sig-name descname"><span class="pre">WATER_SUPPLY_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.WATER_SUPPLY_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.BOILING">
+<span class="sig-name descname"><span class="pre">BOILING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.BOILING" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.BOILING_FAILURE">
+<span class="sig-name descname"><span class="pre">BOILING_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.BOILING_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.WASHING">
+<span class="sig-name descname"><span class="pre">WASHING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.WASHING" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.WASHING_FAILURE">
+<span class="sig-name descname"><span class="pre">WASHING_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.WASHING_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.RINSING">
+<span class="sig-name descname"><span class="pre">RINSING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.RINSING" title="Permalink to this definition"></a></dt>
+<dd><p>0x0C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.RINSING_FAILURE">
+<span class="sig-name descname"><span class="pre">RINSING_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.RINSING_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0D</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.DRAINING">
+<span class="sig-name descname"><span class="pre">DRAINING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.DRAINING" title="Permalink to this definition"></a></dt>
+<dd><p>0x0E</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.DRAINING_FAILURE">
+<span class="sig-name descname"><span class="pre">DRAINING_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.DRAINING_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0F</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.SPINNING">
+<span class="sig-name descname"><span class="pre">SPINNING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.SPINNING" title="Permalink to this definition"></a></dt>
+<dd><p>0x10</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.SPINNING_FAILURE">
+<span class="sig-name descname"><span class="pre">SPINNING_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.SPINNING_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x11</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.DRYING">
+<span class="sig-name descname"><span class="pre">DRYING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.DRYING" title="Permalink to this definition"></a></dt>
+<dd><p>0x12</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.DRYING_FAILURE">
+<span class="sig-name descname"><span class="pre">DRYING_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.DRYING_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x13</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.FAN_FAILURE">
+<span class="sig-name descname"><span class="pre">FAN_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.FAN_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x14</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.COMPRESSOR_FAILURE">
+<span class="sig-name descname"><span class="pre">COMPRESSOR_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.COMPRESSOR_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x15</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_appliance.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_appliance.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_clock">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_clock</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_clock" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_clock.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_clock.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_clock.WAKE_UP_ALERT">
+<span class="sig-name descname"><span class="pre">WAKE_UP_ALERT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_clock.WAKE_UP_ALERT" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_clock.TIMER_ENDED">
+<span class="sig-name descname"><span class="pre">TIMER_ENDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_clock.TIMER_ENDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_clock.TIME_REMAINING">
+<span class="sig-name descname"><span class="pre">TIME_REMAINING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_clock.TIME_REMAINING" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_clock.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_clock.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_co</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.CARBON_MONOXIDE_DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">CARBON_MONOXIDE_DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.CARBON_MONOXIDE_DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.CARBON_MONOXIDE_DETECTED">
+<span class="sig-name descname"><span class="pre">CARBON_MONOXIDE_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.CARBON_MONOXIDE_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.CARBON_MONOXIDE_TEST">
+<span class="sig-name descname"><span class="pre">CARBON_MONOXIDE_TEST</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.CARBON_MONOXIDE_TEST" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.REPLACEMENT_REQUIRED">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.REPLACEMENT_REQUIRED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.REPLACEMENT_REQUIRED_END_OF_LIFE">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED_END_OF_LIFE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.REPLACEMENT_REQUIRED_END_OF_LIFE" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.ALARM_SILENCED">
+<span class="sig-name descname"><span class="pre">ALARM_SILENCED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.ALARM_SILENCED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION">
+<span class="sig-name descname"><span class="pre">MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_co2</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.CARBON_DIOXIDE_DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">CARBON_DIOXIDE_DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.CARBON_DIOXIDE_DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.CARBON_DIOXIDE_DETECTED">
+<span class="sig-name descname"><span class="pre">CARBON_DIOXIDE_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.CARBON_DIOXIDE_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.CARBON_DIOXIDE_TEST">
+<span class="sig-name descname"><span class="pre">CARBON_DIOXIDE_TEST</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.CARBON_DIOXIDE_TEST" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.REPLACEMENT_REQUIRED">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.REPLACEMENT_REQUIRED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.REPLACEMENT_REQUIRED_END_OF_LIFE">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED_END_OF_LIFE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.REPLACEMENT_REQUIRED_END_OF_LIFE" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.ALARM_SILENCED">
+<span class="sig-name descname"><span class="pre">ALARM_SILENCED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.ALARM_SILENCED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION">
+<span class="sig-name descname"><span class="pre">MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_co2.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_co2.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_emergency">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_emergency</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_emergency" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_emergency.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_emergency.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_emergency.CONTACT_POLICE">
+<span class="sig-name descname"><span class="pre">CONTACT_POLICE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_emergency.CONTACT_POLICE" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_emergency.CONTACT_FIRE_SERVICE">
+<span class="sig-name descname"><span class="pre">CONTACT_FIRE_SERVICE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_emergency.CONTACT_FIRE_SERVICE" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_emergency.CONTACT_MEDICAL_SERVICE">
+<span class="sig-name descname"><span class="pre">CONTACT_MEDICAL_SERVICE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_emergency.CONTACT_MEDICAL_SERVICE" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_emergency.PANIC_ALERT">
+<span class="sig-name descname"><span class="pre">PANIC_ALERT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_emergency.PANIC_ALERT" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_emergency.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_emergency.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_gas_alarm</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.COMBUSTIBLE_GAS_DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">COMBUSTIBLE_GAS_DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.COMBUSTIBLE_GAS_DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.COMBUSTIBLE_GAS_DETECTED">
+<span class="sig-name descname"><span class="pre">COMBUSTIBLE_GAS_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.COMBUSTIBLE_GAS_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.TOXIC_GAS_DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">TOXIC_GAS_DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.TOXIC_GAS_DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.TOXIC_GAS_DETECTED">
+<span class="sig-name descname"><span class="pre">TOXIC_GAS_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.TOXIC_GAS_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.TEST">
+<span class="sig-name descname"><span class="pre">TEST</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.TEST" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.REPLACEMENT_REQUIRED">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.REPLACEMENT_REQUIRED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_gas_alarm.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_gas_alarm.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_heat</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.OVERDETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">OVERDETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.OVERDETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.OVERDETECTED">
+<span class="sig-name descname"><span class="pre">OVERDETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.OVERDETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_RISE_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">RAPID_TEMPERATURE_RISE_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_RISE_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_RISE">
+<span class="sig-name descname"><span class="pre">RAPID_TEMPERATURE_RISE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_RISE" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.UNDER_DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">UNDER_DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.UNDER_DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.UNDER_DETECTED">
+<span class="sig-name descname"><span class="pre">UNDER_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.UNDER_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.ALARM_TEST">
+<span class="sig-name descname"><span class="pre">ALARM_TEST</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.ALARM_TEST" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.REPLACEMENT_REQUIRED_END_OF_LIFE">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED_END_OF_LIFE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.REPLACEMENT_REQUIRED_END_OF_LIFE" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.ALARM_SILENCED">
+<span class="sig-name descname"><span class="pre">ALARM_SILENCED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.ALARM_SILENCED" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.MAINTENANCE_REQUIRED_DUST_IN_DEVICE">
+<span class="sig-name descname"><span class="pre">MAINTENANCE_REQUIRED_DUST_IN_DEVICE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.MAINTENANCE_REQUIRED_DUST_IN_DEVICE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION">
+<span class="sig-name descname"><span class="pre">MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_FALL_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">RAPID_TEMPERATURE_FALL_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_FALL_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_FALL">
+<span class="sig-name descname"><span class="pre">RAPID_TEMPERATURE_FALL</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.RAPID_TEMPERATURE_FALL" title="Permalink to this definition"></a></dt>
+<dd><p>0x0D</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_heat.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_heat.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_home_health</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.LEAVING_BED">
+<span class="sig-name descname"><span class="pre">LEAVING_BED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.LEAVING_BED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.SITTING_ON_BED">
+<span class="sig-name descname"><span class="pre">SITTING_ON_BED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.SITTING_ON_BED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.LYING_ON_BED">
+<span class="sig-name descname"><span class="pre">LYING_ON_BED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.LYING_ON_BED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.POSTURE_CHANGED">
+<span class="sig-name descname"><span class="pre">POSTURE_CHANGED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.POSTURE_CHANGED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.SITTING_ON_BED_EDGE">
+<span class="sig-name descname"><span class="pre">SITTING_ON_BED_EDGE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.SITTING_ON_BED_EDGE" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.VOLATILE_ORGANIC_COMPOUND_LEVEL">
+<span class="sig-name descname"><span class="pre">VOLATILE_ORGANIC_COMPOUND_LEVEL</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.VOLATILE_ORGANIC_COMPOUND_LEVEL" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.SLEEP_APNEA_DETECTED">
+<span class="sig-name descname"><span class="pre">SLEEP_APNEA_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.SLEEP_APNEA_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_0_DETECTED_DREAMING_REM">
+<span class="sig-name descname"><span class="pre">SLEEP_STAGE_0_DETECTED_DREAMING_REM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_0_DETECTED_DREAMING_REM" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_1_DETECTED_LIGHT_SLEEP_NON_REM_1">
+<span class="sig-name descname"><span class="pre">SLEEP_STAGE_1_DETECTED_LIGHT_SLEEP_NON_REM_1</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_1_DETECTED_LIGHT_SLEEP_NON_REM_1" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_2_DETECTED_MEDIUM_SLEEP_NON_REM_2">
+<span class="sig-name descname"><span class="pre">SLEEP_STAGE_2_DETECTED_MEDIUM_SLEEP_NON_REM_2</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_2_DETECTED_MEDIUM_SLEEP_NON_REM_2" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_3_DETECTED_DEEP_SLEEP_NON_REM_3">
+<span class="sig-name descname"><span class="pre">SLEEP_STAGE_3_DETECTED_DEEP_SLEEP_NON_REM_3</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.SLEEP_STAGE_3_DETECTED_DEEP_SLEEP_NON_REM_3" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_health.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_health.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_monitoring">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_home_monitoring</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_monitoring" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_monitoring.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_monitoring.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_monitoring.HOME_OCCUPIED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">HOME_OCCUPIED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_monitoring.HOME_OCCUPIED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_monitoring.HOME_OCCUPIED">
+<span class="sig-name descname"><span class="pre">HOME_OCCUPIED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_monitoring.HOME_OCCUPIED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_home_security</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.INTRUSION_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">INTRUSION_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.INTRUSION_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.INTRUSION">
+<span class="sig-name descname"><span class="pre">INTRUSION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.INTRUSION" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.TAMPERING_PRODUCT_COVER_REMOVED">
+<span class="sig-name descname"><span class="pre">TAMPERING_PRODUCT_COVER_REMOVED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.TAMPERING_PRODUCT_COVER_REMOVED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.TAMPERING_INVALID_CODE">
+<span class="sig-name descname"><span class="pre">TAMPERING_INVALID_CODE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.TAMPERING_INVALID_CODE" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.GLASS_BREAKAGE_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">GLASS_BREAKAGE_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.GLASS_BREAKAGE_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.GLASS_BREAKAGE">
+<span class="sig-name descname"><span class="pre">GLASS_BREAKAGE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.GLASS_BREAKAGE" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.MOTION_DETECTION_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">MOTION_DETECTION_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.MOTION_DETECTION_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.MOTION_DETECTION">
+<span class="sig-name descname"><span class="pre">MOTION_DETECTION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.MOTION_DETECTION" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.TAMPERING_PRODUCT_MOVED">
+<span class="sig-name descname"><span class="pre">TAMPERING_PRODUCT_MOVED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.TAMPERING_PRODUCT_MOVED" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.IMPACT_DETECTED">
+<span class="sig-name descname"><span class="pre">IMPACT_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.IMPACT_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.MAGNETIC_FIELD_INTERFERENCE_DETECTED">
+<span class="sig-name descname"><span class="pre">MAGNETIC_FIELD_INTERFERENCE_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.MAGNETIC_FIELD_INTERFERENCE_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_home_security.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_home_security.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_irrigation</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation.SCHEDULE_STARTED">
+<span class="sig-name descname"><span class="pre">SCHEDULE_STARTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation.SCHEDULE_STARTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation.SCHEDULE_FINISHED">
+<span class="sig-name descname"><span class="pre">SCHEDULE_FINISHED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation.SCHEDULE_FINISHED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation.VALVE_TABLE_RUN_STARTED">
+<span class="sig-name descname"><span class="pre">VALVE_TABLE_RUN_STARTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation.VALVE_TABLE_RUN_STARTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation.VALVE_TABLE_RUN_FINISHED">
+<span class="sig-name descname"><span class="pre">VALVE_TABLE_RUN_FINISHED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation.VALVE_TABLE_RUN_FINISHED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation.DEVICE_IS_NOT_CONFIGURED">
+<span class="sig-name descname"><span class="pre">DEVICE_IS_NOT_CONFIGURED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation.DEVICE_IS_NOT_CONFIGURED" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_irrigation.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_irrigation.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_light_sensor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_light_sensor</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_light_sensor" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_light_sensor.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_light_sensor.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_light_sensor.LIGHT_DETECTED">
+<span class="sig-name descname"><span class="pre">LIGHT_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_light_sensor.LIGHT_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_light_sensor.LIGHT_COLOR_TRANSITION_DETECTED">
+<span class="sig-name descname"><span class="pre">LIGHT_COLOR_TRANSITION_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_light_sensor.LIGHT_COLOR_TRANSITION_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_pest_control</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.TRAP_ARMED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">TRAP_ARMED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.TRAP_ARMED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.TRAP_ARMED">
+<span class="sig-name descname"><span class="pre">TRAP_ARMED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.TRAP_ARMED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.TRAP_RE_ARM_REQUIRED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">TRAP_RE_ARM_REQUIRED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.TRAP_RE_ARM_REQUIRED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.TRAP_RE_ARM_REQUIRED">
+<span class="sig-name descname"><span class="pre">TRAP_RE_ARM_REQUIRED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.TRAP_RE_ARM_REQUIRED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.PEST_DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">PEST_DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.PEST_DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.PEST_DETECTED">
+<span class="sig-name descname"><span class="pre">PEST_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.PEST_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.PEST_EXTERMINATED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">PEST_EXTERMINATED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.PEST_EXTERMINATED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.PEST_EXTERMINATED">
+<span class="sig-name descname"><span class="pre">PEST_EXTERMINATED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.PEST_EXTERMINATED" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_pest_control.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_pest_control.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_power_management</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.POWER_HAS_BEEN_APPLIED">
+<span class="sig-name descname"><span class="pre">POWER_HAS_BEEN_APPLIED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.POWER_HAS_BEEN_APPLIED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.AC_MAINS_DISCONNECTED">
+<span class="sig-name descname"><span class="pre">AC_MAINS_DISCONNECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.AC_MAINS_DISCONNECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.AC_MAINS_RE_CONNECTED">
+<span class="sig-name descname"><span class="pre">AC_MAINS_RE_CONNECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.AC_MAINS_RE_CONNECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.SURGE_DETECTED">
+<span class="sig-name descname"><span class="pre">SURGE_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.SURGE_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.VOLTAGE_DROP_DRIFT">
+<span class="sig-name descname"><span class="pre">VOLTAGE_DROP_DRIFT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.VOLTAGE_DROP_DRIFT" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.OVER_CURRENT_DETECTED">
+<span class="sig-name descname"><span class="pre">OVER_CURRENT_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.OVER_CURRENT_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.OVER_VOLTAGE_DETECTED">
+<span class="sig-name descname"><span class="pre">OVER_VOLTAGE_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.OVER_VOLTAGE_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.OVER_LOAD_DETECTED">
+<span class="sig-name descname"><span class="pre">OVER_LOAD_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.OVER_LOAD_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.LOAD_ERROR">
+<span class="sig-name descname"><span class="pre">LOAD_ERROR</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.LOAD_ERROR" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.REPLACE_BATTERY_SOON">
+<span class="sig-name descname"><span class="pre">REPLACE_BATTERY_SOON</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.REPLACE_BATTERY_SOON" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.REPLACE_BATTERY_NOW">
+<span class="sig-name descname"><span class="pre">REPLACE_BATTERY_NOW</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.REPLACE_BATTERY_NOW" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.BATTERY_IS_CHARGING">
+<span class="sig-name descname"><span class="pre">BATTERY_IS_CHARGING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.BATTERY_IS_CHARGING" title="Permalink to this definition"></a></dt>
+<dd><p>0x0C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.BATTERY_IS_FULLY_CHARGED">
+<span class="sig-name descname"><span class="pre">BATTERY_IS_FULLY_CHARGED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.BATTERY_IS_FULLY_CHARGED" title="Permalink to this definition"></a></dt>
+<dd><p>0x0D</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.CHARGE_BATTERY_SOON">
+<span class="sig-name descname"><span class="pre">CHARGE_BATTERY_SOON</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.CHARGE_BATTERY_SOON" title="Permalink to this definition"></a></dt>
+<dd><p>0x0E</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.CHARGE_BATTERY_NOW">
+<span class="sig-name descname"><span class="pre">CHARGE_BATTERY_NOW</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.CHARGE_BATTERY_NOW" title="Permalink to this definition"></a></dt>
+<dd><p>0x0F</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.BACK_UP_BATTERY_IS_LOW">
+<span class="sig-name descname"><span class="pre">BACK_UP_BATTERY_IS_LOW</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.BACK_UP_BATTERY_IS_LOW" title="Permalink to this definition"></a></dt>
+<dd><p>0x10</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.BATTERY_FLUID_IS_LOW">
+<span class="sig-name descname"><span class="pre">BATTERY_FLUID_IS_LOW</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.BATTERY_FLUID_IS_LOW" title="Permalink to this definition"></a></dt>
+<dd><p>0x11</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.BACK_UP_BATTERY_DISCONNECTED">
+<span class="sig-name descname"><span class="pre">BACK_UP_BATTERY_DISCONNECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.BACK_UP_BATTERY_DISCONNECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x12</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_power_management.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_power_management.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_siren">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_siren</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_siren" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_siren.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_siren.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_siren.ACTIVE">
+<span class="sig-name descname"><span class="pre">ACTIVE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_siren.ACTIVE" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_siren.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_siren.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_smoke</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.DETECTED">
+<span class="sig-name descname"><span class="pre">DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.ALARM_TEST">
+<span class="sig-name descname"><span class="pre">ALARM_TEST</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.ALARM_TEST" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.REPLACEMENT_REQUIRED">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.REPLACEMENT_REQUIRED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.REPLACEMENT_REQUIRED_END_OF_LIFE">
+<span class="sig-name descname"><span class="pre">REPLACEMENT_REQUIRED_END_OF_LIFE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.REPLACEMENT_REQUIRED_END_OF_LIFE" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.ALARM_SILENCED">
+<span class="sig-name descname"><span class="pre">ALARM_SILENCED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.ALARM_SILENCED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION">
+<span class="sig-name descname"><span class="pre">MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.MAINTENANCE_REQUIRED_PLANNED_PERIODIC_INSPECTION" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.MAINTENANCE_REQUIRED_DUST_IN_DEVICE">
+<span class="sig-name descname"><span class="pre">MAINTENANCE_REQUIRED_DUST_IN_DEVICE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.MAINTENANCE_REQUIRED_DUST_IN_DEVICE" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_smoke.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_smoke.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_system</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.HARDWARE_FAILURE">
+<span class="sig-name descname"><span class="pre">HARDWARE_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.HARDWARE_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.SOFTWARE_FAILURE">
+<span class="sig-name descname"><span class="pre">SOFTWARE_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.SOFTWARE_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.HARDWARE_FAILURE_MANUFACTURER_PROPRIETARY_FAILURE_CODE_PROVIDED">
+<span class="sig-name descname"><span class="pre">HARDWARE_FAILURE_MANUFACTURER_PROPRIETARY_FAILURE_CODE_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.HARDWARE_FAILURE_MANUFACTURER_PROPRIETARY_FAILURE_CODE_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.SOFTWARE_FAILURE_MANUFACTURER_PROPRIETARY_FAILURE_CODE_PROVIDED">
+<span class="sig-name descname"><span class="pre">SOFTWARE_FAILURE_MANUFACTURER_PROPRIETARY_FAILURE_CODE_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.SOFTWARE_FAILURE_MANUFACTURER_PROPRIETARY_FAILURE_CODE_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.HEARTBEAT">
+<span class="sig-name descname"><span class="pre">HEARTBEAT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.HEARTBEAT" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.TAMPERING_PRODUCT_COVER_REMOVED">
+<span class="sig-name descname"><span class="pre">TAMPERING_PRODUCT_COVER_REMOVED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.TAMPERING_PRODUCT_COVER_REMOVED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.EMERGENCY_SHUTOFF">
+<span class="sig-name descname"><span class="pre">EMERGENCY_SHUTOFF</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.EMERGENCY_SHUTOFF" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.DIGITAL_INPUT_HIGH_STATE">
+<span class="sig-name descname"><span class="pre">DIGITAL_INPUT_HIGH_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.DIGITAL_INPUT_HIGH_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.DIGITAL_INPUT_LOW_STATE">
+<span class="sig-name descname"><span class="pre">DIGITAL_INPUT_LOW_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.DIGITAL_INPUT_LOW_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.DIGITAL_INPUT_OPEN">
+<span class="sig-name descname"><span class="pre">DIGITAL_INPUT_OPEN</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.DIGITAL_INPUT_OPEN" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_system.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_system.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_water</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.LEAK_DETECTED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">LEAK_DETECTED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.LEAK_DETECTED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.LEAK_DETECTED">
+<span class="sig-name descname"><span class="pre">LEAK_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.LEAK_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.LEVEL_DROPPED_LOCATION_PROVIDED">
+<span class="sig-name descname"><span class="pre">LEVEL_DROPPED_LOCATION_PROVIDED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.LEVEL_DROPPED_LOCATION_PROVIDED" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.LEVEL_DROPPED">
+<span class="sig-name descname"><span class="pre">LEVEL_DROPPED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.LEVEL_DROPPED" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.REPLACE_FILTER">
+<span class="sig-name descname"><span class="pre">REPLACE_FILTER</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.REPLACE_FILTER" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.FLOW_ALARM">
+<span class="sig-name descname"><span class="pre">FLOW_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.FLOW_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.PRESSURE_ALARM">
+<span class="sig-name descname"><span class="pre">PRESSURE_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.PRESSURE_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.TEMPERATURE_ALARM">
+<span class="sig-name descname"><span class="pre">TEMPERATURE_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.TEMPERATURE_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.LEVEL_ALARM">
+<span class="sig-name descname"><span class="pre">LEVEL_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.LEVEL_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.SUMP_PUMP_ACTIVE">
+<span class="sig-name descname"><span class="pre">SUMP_PUMP_ACTIVE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.SUMP_PUMP_ACTIVE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.SUMP_PUMP_FAILURE">
+<span class="sig-name descname"><span class="pre">SUMP_PUMP_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.SUMP_PUMP_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_water_quality_monitoring</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.CHLORINE_ALARM">
+<span class="sig-name descname"><span class="pre">CHLORINE_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.CHLORINE_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.ACIDITY_PH_ALARM">
+<span class="sig-name descname"><span class="pre">ACIDITY_PH_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.ACIDITY_PH_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_OXIDATION_ALARM">
+<span class="sig-name descname"><span class="pre">WATER_OXIDATION_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_OXIDATION_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.CHLORINE_EMPTY">
+<span class="sig-name descname"><span class="pre">CHLORINE_EMPTY</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.CHLORINE_EMPTY" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.ACIDITY_PH_EMPTY">
+<span class="sig-name descname"><span class="pre">ACIDITY_PH_EMPTY</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.ACIDITY_PH_EMPTY" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATERFLOW_MEASURING_STATION_SHORTAGE_DETECTED">
+<span class="sig-name descname"><span class="pre">WATERFLOW_MEASURING_STATION_SHORTAGE_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATERFLOW_MEASURING_STATION_SHORTAGE_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATERFLOW_CLEAR_WATER_SHORTAGE_DETECTED">
+<span class="sig-name descname"><span class="pre">WATERFLOW_CLEAR_WATER_SHORTAGE_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATERFLOW_CLEAR_WATER_SHORTAGE_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.DISINFECTION_SYSTEM_ERROR_DETECTED">
+<span class="sig-name descname"><span class="pre">DISINFECTION_SYSTEM_ERROR_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.DISINFECTION_SYSTEM_ERROR_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.FILTER_CLEANING_ONGOING">
+<span class="sig-name descname"><span class="pre">FILTER_CLEANING_ONGOING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.FILTER_CLEANING_ONGOING" title="Permalink to this definition"></a></dt>
+<dd><p>0x09</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.HEATING_OPERATION_ONGOING">
+<span class="sig-name descname"><span class="pre">HEATING_OPERATION_ONGOING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.HEATING_OPERATION_ONGOING" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.FILTER_PUMP_OPERATION_ONGOING">
+<span class="sig-name descname"><span class="pre">FILTER_PUMP_OPERATION_ONGOING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.FILTER_PUMP_OPERATION_ONGOING" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.FRESHWATER_OPERATION_ONGOING">
+<span class="sig-name descname"><span class="pre">FRESHWATER_OPERATION_ONGOING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.FRESHWATER_OPERATION_ONGOING" title="Permalink to this definition"></a></dt>
+<dd><p>0x0C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.DRY_PROTECTION_OPERATION_ACTIVE">
+<span class="sig-name descname"><span class="pre">DRY_PROTECTION_OPERATION_ACTIVE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.DRY_PROTECTION_OPERATION_ACTIVE" title="Permalink to this definition"></a></dt>
+<dd><p>0x0D</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_TANK_IS_EMPTY">
+<span class="sig-name descname"><span class="pre">WATER_TANK_IS_EMPTY</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_TANK_IS_EMPTY" title="Permalink to this definition"></a></dt>
+<dd><p>0x0E</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_TANK_LEVEL_IS_UNKNOWN">
+<span class="sig-name descname"><span class="pre">WATER_TANK_LEVEL_IS_UNKNOWN</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_TANK_LEVEL_IS_UNKNOWN" title="Permalink to this definition"></a></dt>
+<dd><p>0x0F</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_TANK_IS_FULL">
+<span class="sig-name descname"><span class="pre">WATER_TANK_IS_FULL</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.WATER_TANK_IS_FULL" title="Permalink to this definition"></a></dt>
+<dd><p>0x10</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_quality_monitoring.COLLECTIVE_DISORDER">
+<span class="sig-name descname"><span class="pre">COLLECTIVE_DISORDER</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_quality_monitoring.COLLECTIVE_DISORDER" title="Permalink to this definition"></a></dt>
+<dd><p>0x11</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_water_valve</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.VALVE_OPERATION">
+<span class="sig-name descname"><span class="pre">VALVE_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.VALVE_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.MASTER_VALVE_OPERATION">
+<span class="sig-name descname"><span class="pre">MASTER_VALVE_OPERATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.MASTER_VALVE_OPERATION" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.VALVE_SHORT_CIRCUIT">
+<span class="sig-name descname"><span class="pre">VALVE_SHORT_CIRCUIT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.VALVE_SHORT_CIRCUIT" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.MASTER_VALVE_SHORT_CIRCUIT">
+<span class="sig-name descname"><span class="pre">MASTER_VALVE_SHORT_CIRCUIT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.MASTER_VALVE_SHORT_CIRCUIT" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.VALVE_CURRENT_ALARM">
+<span class="sig-name descname"><span class="pre">VALVE_CURRENT_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.VALVE_CURRENT_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.MASTER_VALVE_CURRENT_ALARM">
+<span class="sig-name descname"><span class="pre">MASTER_VALVE_CURRENT_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.MASTER_VALVE_CURRENT_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_water_valve.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_water_valve.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_weather_alarm">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.CommandClass.Notification.event_weather_alarm</span></span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_weather_alarm" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_weather_alarm.STATE_IDLE">
+<span class="sig-name descname"><span class="pre">STATE_IDLE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_weather_alarm.STATE_IDLE" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_weather_alarm.RAIN_ALARM">
+<span class="sig-name descname"><span class="pre">RAIN_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_weather_alarm.RAIN_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_weather_alarm.MOISTURE_ALARM">
+<span class="sig-name descname"><span class="pre">MOISTURE_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_weather_alarm.MOISTURE_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_weather_alarm.FREEZE_ALARM">
+<span class="sig-name descname"><span class="pre">FREEZE_ALARM</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_weather_alarm.FREEZE_ALARM" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.CommandClass.Notification.event_weather_alarm.UNKNOWN_EVENT_STATE">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_STATE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zwave.CommandClass.Notification.event_weather_alarm.UNKNOWN_EVENT_STATE" title="Permalink to this definition"></a></dt>
+<dd><p>0xFE</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SupportedReport.html" class="btn btn-neutral float-left" title="Supported Report" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Powerlevel.html" class="btn btn-neutral float-right" title="Powerlevel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+Groupings Get
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.GroupingsGet
+.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.GroupingsGetV1
+.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.GroupingsGetV1Args

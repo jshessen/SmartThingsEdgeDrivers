@@ -1,0 +1,10 @@
+Supported Report
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatMode.SupportedReport
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatMode.SupportedReportV1
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatMode.SupportedReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatMode.SupportedReportV2
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatMode.SupportedReportV2Args
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatMode.SupportedReportV3
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatMode.SupportedReportV3Args

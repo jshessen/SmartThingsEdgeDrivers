@@ -1,0 +1,29 @@
+BasicInput
+==========
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput
+
+BasicInput Attributes
++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.ActiveText
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.Description
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.InactiveText
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.OutOfService
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.Polarity
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.PresentValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.Reliability
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.StatusFlags
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.BasicInput.ApplicationType
+
+BasicInput Commands
++++++++++++++++++++
+

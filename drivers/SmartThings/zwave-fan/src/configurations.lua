@@ -16,8 +16,8 @@ local devices = {
   HOMESEER_FC200 = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
-      product_types: 0x0203,
-      product_ids: 0x0001
+      product_types = 0x0203,
+      product_ids = 0x0001
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1, configuration_value = 1},

@@ -1,0 +1,13 @@
+Sensor Binary
+=============
+
+.. toctree::
+   :maxdepth: 2
+
+   SensorBinary/Get
+   SensorBinary/Report
+   SensorBinary/SupportedGetSensor
+   SensorBinary/SupportedSensorReport
+   SensorBinary/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary

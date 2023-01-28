@@ -1,0 +1,10 @@
+State Report
+============
+
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateReport
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateReportV1
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateReportV1ArgsReports
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateReportV2
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateReportV2Args
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateReportV2ArgsReports

@@ -1,0 +1,4 @@
+Battery
+=============
+
+.. lua:autoclass:: st.matter.defaults.battery

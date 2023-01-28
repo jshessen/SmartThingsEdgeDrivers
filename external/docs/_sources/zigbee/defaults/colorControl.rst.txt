@@ -1,0 +1,4 @@
+Color Control
+=============
+
+.. lua:autoclass:: st.zigbee.defaults.colorControl

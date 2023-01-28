@@ -1,0 +1,6 @@
+Application Busy
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationStatus.ApplicationBusy
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationStatus.ApplicationBusyV1
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationStatus.ApplicationBusyV1Args

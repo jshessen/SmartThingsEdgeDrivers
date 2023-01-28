@@ -1,0 +1,10 @@
+Battery
+=======
+
+Devices using default battery configuration will only have reporting enabled for the PercentageRemaining attribute.
+
+.. lua:autoclass:: st.zigbee.defaults.battery.BatteryVoltageConfiguration
+
+.. lua:autoclass:: st.zigbee.defaults.battery.BatteryPercentageConfiguration
+
+.. lua:autoclass:: st.zigbee.defaults.battery

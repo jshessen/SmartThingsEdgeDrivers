@@ -1,0 +1,6 @@
+Valve
+=====
+
+.. lua:autoclass:: st.zigbee.defaults.valve.OnOffConfiguration
+
+.. lua:autoclass:: st.zigbee.defaults.valve

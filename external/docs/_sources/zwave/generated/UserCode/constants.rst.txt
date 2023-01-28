@@ -1,0 +1,5 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.keypad_mode
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.user_id_status

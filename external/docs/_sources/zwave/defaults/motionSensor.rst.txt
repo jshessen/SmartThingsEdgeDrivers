@@ -1,0 +1,4 @@
+Motion Sensor
+=============
+
+.. lua:autoclass:: st.zwave.defaults.motionSensor

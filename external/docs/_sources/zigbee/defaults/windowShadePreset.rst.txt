@@ -1,0 +1,4 @@
+WindowShadePreset
+=================
+
+.. lua:autoclass:: st.zigbee.defaults.windowShadePreset

@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.Get
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.GetV1Args

@@ -1,0 +1,6 @@
+Off
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.Off
+.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.OffV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.OffV1Args

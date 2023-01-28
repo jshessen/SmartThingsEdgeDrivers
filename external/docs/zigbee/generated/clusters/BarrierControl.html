@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BarrierControl &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PumpConfigurationAndControl" href="PumpConfigurationAndControl.html" />
+    <link rel="prev" title="WindowCovering" href="WindowCovering.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zigbee_message_handlers.html">Zigbee Driver RX message handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../defaults.html">Zigbee Driver Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_clusters.html">ZCL Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../generated.html">Generated Zigbee Code</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../clusters.html">Generated Clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types.html">Generated Shared Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../../zigbee.html">Zigbee Libraries</a> &raquo;</li>
+          <li><a href="../../generated.html">Generated Zigbee Code</a> &raquo;</li>
+          <li><a href="../clusters.html">Generated Clusters</a> &raquo;</li>
+      <li>BarrierControl</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/zigbee/generated/clusters/BarrierControl.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="barriercontrol">
+<h1>BarrierControl<a class="headerlink" href="#barriercontrol" title="Permalink to this headline"></a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0103 the ID of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“BarrierControl” the name of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.attributes">
+<span class="sig-name descname"><span class="pre">attributes</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.BarrierControlServerAttributes</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.BarrierControlClientAttributes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.attributes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.BarrierControlServerCommands</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.BarrierControlClientCommands</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.commands" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.BarrierControlTypes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.get_attribute_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_attribute_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">attr_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.get_attribute_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find an attribute by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attr_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.get_server_command_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_server_command_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">command_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.get_server_command_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find a server command by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.get_client_command_by_id">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_client_command_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">command_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.get_client_command_by_id" title="Permalink to this definition"></a></dt>
+<dd><p>Find a client command by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="barriercontrol-attributes">
+<h2>BarrierControl Attributes<a class="headerlink" href="#barriercontrol-attributes" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.MovingState</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0001 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“MovingState” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Enum8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.STOPPED">
+<span class="sig-name descname"><span class="pre">STOPPED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.STOPPED" title="Permalink to this definition"></a></dt>
+<dd><p>0</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.CLOSING">
+<span class="sig-name descname"><span class="pre">CLOSING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.CLOSING" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.OPENING">
+<span class="sig-name descname"><span class="pre">OPENING</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.OPENING" title="Permalink to this definition"></a></dt>
+<dd><p>2</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.augment_type" title="Permalink to this definition"></a></dt>
+<dd><p>Add additional functionality to the base type object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the base data type object to add functionality to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Enum8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the MovingState(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Enum8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Enum8" title="st.zigbee.data_types.Enum8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Enum8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.MovingState.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.MovingState.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.SafetyStatus</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0002 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“SafetyStatus” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Bitmap16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.REMOTE_LOCKOUT">
+<span class="sig-name descname"><span class="pre">REMOTE_LOCKOUT</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.REMOTE_LOCKOUT" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.TAMPER_DETECTED">
+<span class="sig-name descname"><span class="pre">TAMPER_DETECTED</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.TAMPER_DETECTED" title="Permalink to this definition"></a></dt>
+<dd><p>2</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.FAILED_COMMUNICATION">
+<span class="sig-name descname"><span class="pre">FAILED_COMMUNICATION</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.FAILED_COMMUNICATION" title="Permalink to this definition"></a></dt>
+<dd><p>4</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.POSITION_FAILURE">
+<span class="sig-name descname"><span class="pre">POSITION_FAILURE</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.POSITION_FAILURE" title="Permalink to this definition"></a></dt>
+<dd><p>8</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_remote_lockout_set">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">is_remote_lockout_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_remote_lockout_set" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the value of REMOTE_LOCKOUT is non-zero</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_remote_lockout">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_remote_lockout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_remote_lockout" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bit in the REMOTE_LOCKOUT field to 1</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_remote_lockout">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">unset_remote_lockout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_remote_lockout" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bits in the REMOTE_LOCKOUT field to 0</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_tamper_detected_set">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">is_tamper_detected_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_tamper_detected_set" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the value of TAMPER_DETECTED is non-zero</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_tamper_detected">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_tamper_detected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_tamper_detected" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bit in the TAMPER_DETECTED field to 1</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_tamper_detected">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">unset_tamper_detected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_tamper_detected" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bits in the TAMPER_DETECTED field to 0</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_failed_communication_set">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">is_failed_communication_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_failed_communication_set" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the value of FAILED_COMMUNICATION is non-zero</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_failed_communication">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_failed_communication</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_failed_communication" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bit in the FAILED_COMMUNICATION field to 1</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_failed_communication">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">unset_failed_communication</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_failed_communication" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bits in the FAILED_COMMUNICATION field to 0</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_position_failure_set">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">is_position_failure_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.is_position_failure_set" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the value of POSITION_FAILURE is non-zero</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_position_failure">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_position_failure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_position_failure" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bit in the POSITION_FAILURE field to 1</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_position_failure">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">unset_position_failure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.unset_position_failure" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bits in the POSITION_FAILURE field to 0</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.augment_type" title="Permalink to this definition"></a></dt>
+<dd><p>Add additional functionality to the base type object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap16" title="st.zigbee.data_types.Bitmap16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap16</span></code></a></span>) – the base data type object to add functionality to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap16" title="st.zigbee.data_types.Bitmap16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap16" title="st.zigbee.data_types.Bitmap16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Bitmap16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the SafetyStatus(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Bitmap16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap16" title="st.zigbee.data_types.Bitmap16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.SafetyStatus.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.Capabilities</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0003 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Capabilities” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Bitmap8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.PARTIAL_BARRIER">
+<span class="sig-name descname"><span class="pre">PARTIAL_BARRIER</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.PARTIAL_BARRIER" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.is_partial_barrier_set">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">is_partial_barrier_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.is_partial_barrier_set" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the value of PARTIAL_BARRIER is non-zero</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.set_partial_barrier">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_partial_barrier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.set_partial_barrier" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bit in the PARTIAL_BARRIER field to 1</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.unset_partial_barrier">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">unset_partial_barrier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.unset_partial_barrier" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of the bits in the PARTIAL_BARRIER field to 0</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.augment_type" title="Permalink to this definition"></a></dt>
+<dd><p>Add additional functionality to the base type object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap8" title="st.zigbee.data_types.Bitmap8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap8</span></code></a></span>) – the base data type object to add functionality to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap8" title="st.zigbee.data_types.Bitmap8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap8" title="st.zigbee.data_types.Bitmap8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Bitmap8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the Capabilities(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Bitmap8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Bitmap8" title="st.zigbee.data_types.Bitmap8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Bitmap8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Capabilities.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Capabilities.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.OpenEvents</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0004 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“OpenEvents” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the OpenEvents(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenEvents.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenEvents.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.CloseEvents</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0005 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“CloseEvents” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the CloseEvents(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CloseEvents.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CloseEvents.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0006 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“CommandOpenEvents” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the CommandOpenEvents(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandOpenEvents.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0007 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“CommandCloseEvents” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the CommandCloseEvents(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.CommandCloseEvents.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.OpenPeriod</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0008 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“OpenPeriod” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the OpenPeriod(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.OpenPeriod.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.ClosePeriod</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0009 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ClosePeriod” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the ClosePeriod(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.ClosePeriod.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.BarrierPosition</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x000A the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“BarrierPosition” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint8 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the BarrierPosition(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint8</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.BarrierPosition.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="barriercontrol-commands">
+<h2>BarrierControl Commands<a class="headerlink" href="#barriercontrol-commands" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.GoToPercent</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x00 the ID of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“GoToPercent” the name of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.percent_open">
+<span class="sig-name descname"><span class="pre">percent_open</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint8</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.percent_open" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.get_fields">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.get_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">buf</span></code></span>) – the bytes of the command body</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GoToPercent</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.set_field_names">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.set_field_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.build_test_rx">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">build_test_rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">percent_open</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.build_test_rx" title="Permalink to this definition"></a></dt>
+<dd><p>Build a version of this message as if it came from the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build the message from</p></li>
+<li><p><strong>percent_open</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full Zigbee message containing this command body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.init">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">percent_open</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the GoToPercent command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GoToPercent</span></code></span>) – the template class for this command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build this message to</p></li>
+<li><p><strong>percent_open</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint8" title="st.zigbee.data_types.Uint8"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint8</span></code></a></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the full command addressed to the device</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.GoToPercent.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.GoToPercent.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.BarrierControl.Stop</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x01 the ID of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Stop” the name of this command</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.get_fields">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.get_fields" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">buf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Deserialize this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buf</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">buf</span></code></span>) – the bytes of the command body</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Stop</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.set_field_names">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.set_field_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.build_test_rx">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">build_test_rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.build_test_rx" title="Permalink to this definition"></a></dt>
+<dd><p>Build a version of this message as if it came from the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build the message from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full Zigbee message containing this command body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.init">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the Stop command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Stop</span></code></span>) – the template class for this command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device to build this message to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the full command addressed to the device</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.BarrierControl.Stop.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.BarrierControl.Stop.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="WindowCovering.html" class="btn btn-neutral float-left" title="WindowCovering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PumpConfigurationAndControl.html" class="btn btn-neutral float-right" title="PumpConfigurationAndControl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

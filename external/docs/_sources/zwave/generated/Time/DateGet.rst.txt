@@ -1,0 +1,6 @@
+Date Get
+========
+
+.. lua:autoclass:: st.zwave.CommandClass.Time.DateGet
+.. lua:autoclass:: st.zwave.CommandClass.Time.DateGetV1
+.. lua:autoclass:: st.zwave.CommandClass.Time.DateGetV1Args

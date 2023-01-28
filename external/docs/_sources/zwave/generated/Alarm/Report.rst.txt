@@ -1,0 +1,8 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.Report
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.ReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.ReportV2
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.ReportV2Args

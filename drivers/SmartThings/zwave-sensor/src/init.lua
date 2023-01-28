@@ -124,7 +124,7 @@ local driver_template = {
     require("everspring-motion-light-sensor"),
     require("ezmultipli-multipurpose-sensor"),
     require("fibaro-motion-sensor") ]]
-  --  require("homeseer-floodlight-sensor")
+    require("homeseer-floodlight-sensor")
   },
   lifecycle_handlers = {
     added = added_handler,

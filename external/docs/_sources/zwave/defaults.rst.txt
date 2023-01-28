@@ -1,0 +1,185 @@
+Z-Wave Capability Defaults
+==========================
+
+The Z-Wave Edge Device Driver framework provides a powerful facility for registration of default handler callbacks.  While drivers may explicitly specify :lua:attr:`zwave_handlers <st.zwave.Driver.Template.zwave_handlers>` and :lua:attr:`capability_handlers <st.zwave.Driver.Template.capability_handlers>` (and these always take precedence), drivers may also register for capability-based defaults:
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    --- @type st.zwave.defaults
+    local defaults = require "st.zwave.defaults"
+    --- @type st.zwave.Driver
+    local ZwaveDriver = require "st.zwave.driver"
+
+    local driver_template = {
+      supported_capabilities = {
+        capabilities.switch,
+      },
+    }
+
+    defaults.register_for_default_handlers(driver_template, driver_template.supported_capabilities)
+    --- @type st.zwave.Driver
+    local driver = ZwaveDriver("driver_name", driver_template)
+    driver:run()
+
+This leads to both brevity and maximum code reuse.  It is therefore encouraged to leverage defaults where possible.  The defaults also adhere to the SmartThings capability model, which is an abstraction of device behavior.  For a given capability, a Z-Wave device should be supportable in a particular and consistent manner.  The default handlers provide this consistent capability-to-protocol mapping.
+
+It is not necessary for drivers to directly require default modules.  Rather, the framework dynamically loads the appropriate default modules based upon the capabilities passed to the :lua:meth:`register_for_default_handlers <st.zwave.defaults.register_for_default_handlers>` method.  In the case that no default module is available for a given capability, default registration for the capability is skipped.  At the time of writing (Dec. 16, 2020), the following capabilities have default handler support:
+
+.. toctree::
+   :maxdepth: 2
+
+   defaults/alarm
+   defaults/atmosphericPressureMeasurement
+   defaults/battery
+   defaults/bodyMassIndexMeasurement
+   defaults/bodyWeightMeasurement
+   defaults/button
+   defaults/carbonDioxideMeasurement
+   defaults/carbonMonoxideDetector
+   defaults/carbonMonoxideMeasurement
+   defaults/chime
+   defaults/colorControl
+   defaults/colorTemperature
+   defaults/contactSensor
+   defaults/dewPoint
+   defaults/doorControl
+   defaults/dustSensor
+   defaults/energyMeter
+   defaults/fineDustSensor
+   defaults/formaldehydeMeasurement
+   defaults/illuminanceMeasurement
+   defaults/lock
+   defaults/lockCodes
+   defaults/moldHealthConcern
+   defaults/motionSensor
+   defaults/pestControl
+   defaults/powerMeter
+   defaults/relativeHumidityMeasurement
+   defaults/smokeDetector
+   defaults/switch
+   defaults/switchLevel
+   defaults/tamperAlert
+   defaults/temperatureAlarm
+   defaults/temperatureMeasurement
+   defaults/thermostatCoolingSetpoint
+   defaults/thermostatFanMode
+   defaults/thermostatHeatingSetpoint
+   defaults/thermostatMode
+   defaults/thermostatOperatingState
+   defaults/threeAxis
+   defaults/ultravioletIndex
+   defaults/valve
+   defaults/veryFineDustSensor
+   defaults/waterSensor
+   defaults/windowShade
+   defaults/windowShadeLevel
+   defaults/windowShadePreset
+
+Default Handler Internals
++++++++++++++++++++++++++
+.. _default_handler_internals:
+
+Internally, each capability default module is similar to a Z-Wave driver :lua:class:`template <st.zwave.Driver.Template>`, enclosing both ``zwave_handlers`` and ``capability_handlers``.  Handlers are exported by each default module by enclosing them within the module's contents returned from the ``require`` directive:
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    --- @type st.zwave.CommandClass
+    local cc  = require "st.zwave.CommandClass"
+    --- @type st.zwave.CommandClass.SwitchBinary
+    local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version=2,strict=true})
+
+    --- @class st.zwave.defaults.switch
+    --- @alias switch_defaults
+    --- @field public zwave_handlers table
+    --- @field public capability_handlers table
+    local switch_defaults = {
+      zwave_handlers = {
+        [cc.SWITCH_BINARY] = {
+          [SwitchBinary.REPORT] = zwave_switch_binary_report_handler,
+        },
+      },
+      capability_handlers = {
+        [capabilities.switch.commands.on] = capability_on_handler,
+        [capabilities.switch.commands.off] = capability_off_handler,
+      }
+    }
+
+    return switch_defaults
+
+Defaults are organized under lua_libs/st/zwave/defaults/ and named for their corresponding capability.
+
+zwave_handlers
+++++++++++++++
+
+The ``zwave_handlers`` field defines default modules' mappings for Z-Wave commands received from devices on the network.  Just as within the :lua:class:`st.zwave.Driver <st.zwave.Driver>` class, default module ``zwave_handlers`` typically perform translation to SmartThings Capability events.  Handlers are indexed by [command class][command id] to route dispatch from the framework to the appropriate handler.  However, default handlers for any given Z-Wave command are only registered if no handlers for the particular command are explicitly defined within a driver's :lua:class:`template <st.zwave.Driver.Template>`.  In this way, explicitly defined driver handlers always override default behavior.
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    --- @type st.zwave.CommandClass
+    local cc  = require "st.zwave.CommandClass"
+    --- @type st.zwave.CommandClass.SwitchBinary
+    local SwitchBinary = require "st.zwave.CommandClass.SwitchBinary"
+
+    --- Handle a Z-Wave Command Class Switch Binary report, translate this to
+    --- an equivalent SmartThings Capability event, and emit this to the
+    --- SmartThings infrastructure.
+    ---
+    --- @param driver st.zwave.Driver
+    --- @param device st.zwave.Device
+    --- @param cmd st.zwave.CommandClass.SwitchBinary.Report
+    local function report_handler(driver, device, cmd)
+      if cmd.args.value == SwitchBinary.value.OFF_DISABLE then
+        device:emit_event(capabilities.switch.switch.off())
+      else
+        device:emit_event(capabilities.switch.switch.on())
+      end
+    end
+
+    --- @class st.zwave.defaults.switch
+    --- @alias switch_defaults
+    --- @field public zwave_handlers table
+    local switch_defaults = {
+      zwave_handlers = {
+        [cc.SWITCH_BINARY] = {
+          [SwitchBinary.REPORT] = report_handler,
+        },
+      },
+    }
+
+capability_handlers
++++++++++++++++++++
+
+Symmetrically, the ``capability_handlers`` field defines a default modules' mappings for capability commands received from the SmartThings infrastructure.  These are indexed by capability, and typically perform translation to Z-Wave protocol commands.  As with Z-Wave default handlers, any explicit registration of a capability handler within a Z-Wave driver :lua:class:`template <st.zwave.Driver.Template>` will always take precedence over registrations within default handlers for any given capability command.
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    --- @type st.zwave.CommandClass.SwitchBinary
+    local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({ version = 1 })
+
+    --- Handle a SmartThings switch capability on command, translate to an
+    --- equivalent Z-Wave command, and send this to the device.
+    ---
+    --- @param driver st.zwave.Driver
+    --- @param device st.zwave.Device
+    --- @param command table ST switch-on capability command
+    function on_handler(driver, device, cmd)
+      device:send(SwitchBinary:Set({ value = SwitchBinary.value.ON_ENABLE })
+    end
+
+    --- @class st.zwave.defaults.switch
+    --- @alias switch_defaults
+    --- @field public capability_handlers table
+    local switch_defaults = {
+      capability_handlers = {
+        [capabilities.switch.commands.on] = on_handler,
+      }
+    }
+
+Class Documentation
++++++++++++++++++++
+
+.. lua:autoclass:: st.zwave.defaults

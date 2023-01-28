@@ -1,0 +1,4 @@
+Ultraviolet Index
+=================
+
+.. lua:autoclass:: st.zwave.defaults.ultravioletIndex

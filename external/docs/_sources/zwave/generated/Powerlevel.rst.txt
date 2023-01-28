@@ -1,0 +1,15 @@
+Powerlevel
+==========
+
+.. toctree::
+   :maxdepth: 2
+
+   Powerlevel/Set
+   Powerlevel/Get
+   Powerlevel/Report
+   Powerlevel/TestNodeSet
+   Powerlevel/TestNodeGet
+   Powerlevel/TestNodeReport
+   Powerlevel/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.Powerlevel

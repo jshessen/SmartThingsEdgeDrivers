@@ -1,0 +1,6 @@
+Hail
+====
+
+.. lua:autoclass:: st.zwave.CommandClass.Hail.Hail
+.. lua:autoclass:: st.zwave.CommandClass.Hail.HailV1
+.. lua:autoclass:: st.zwave.CommandClass.Hail.HailV1Args

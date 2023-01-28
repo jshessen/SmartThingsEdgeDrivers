@@ -1,0 +1,6 @@
+Relative Humidity Measurement
+=============================
+
+.. lua:autoclass:: st.zigbee.defaults.relativeHumidityMeasurement.HumidityMeasuredValueConfiguration
+
+.. lua:autoclass:: st.zigbee.defaults.relativeHumidityMeasurement

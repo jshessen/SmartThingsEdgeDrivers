@@ -1,0 +1,16 @@
+Switch Color
+============
+
+.. toctree::
+   :maxdepth: 2
+
+   SwitchColor/SupportedGet
+   SwitchColor/SupportedReport
+   SwitchColor/Get
+   SwitchColor/Report
+   SwitchColor/Set
+   SwitchColor/StartLevelChange
+   SwitchColor/StopLevelChange
+   SwitchColor/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor

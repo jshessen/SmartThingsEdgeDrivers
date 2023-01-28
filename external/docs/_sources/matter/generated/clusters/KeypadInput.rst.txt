@@ -1,0 +1,29 @@
+KeypadInput
+================================
+
+
+.. lua:autoclass:: st.matter.clusters.KeypadInput.AcceptedCommandList
+
+.. lua:autoclass:: st.matter.clusters.KeypadInput.AttributeList
+Client Commands
++++++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.KeypadInput.SendKeyResponse
+
+Server Commands
++++++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.KeypadInput.SendKey
+
+Bitmap types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.KeypadInput.types.KeypadInputFeature
+
+Enum types
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.KeypadInput.types.CecKeyCode
+
+.. lua:autoclass:: st.matter.clusters.KeypadInput.types.KeypadInputStatusEnum
+

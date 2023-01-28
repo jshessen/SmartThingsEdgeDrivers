@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power Meter &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Power Source" href="powerSource.html" />
+    <link rel="prev" title="Occupancy Sensor" href="occupancySensor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zigbee_message_handlers.html">Zigbee Driver RX message handlers</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../defaults.html">Zigbee Driver Capability Defaults</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#handler-functions">Handler Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#zigbee-handlers">zigbee_handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#capability-handlers">capability_handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../defaults.html#attribute-configurations">attribute_configurations</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../defaults.html#existing-defaults">Existing Defaults</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zcl/zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zcl/zcl_clusters.html">ZCL Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated.html">Generated Zigbee Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../zigbee.html">Zigbee Libraries</a> &raquo;</li>
+          <li><a href="../defaults.html">Zigbee Driver Capability Defaults</a> &raquo;</li>
+      <li>Power Meter</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/zigbee/defaults/powerMeter.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="power-meter">
+<h1>Power Meter<a class="headerlink" href="#power-meter" title="Permalink to this headline"></a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.ActivePowerConfiguration">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.defaults.powerMeter.ActivePowerConfiguration</span></span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.ActivePowerConfiguration" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.ActivePowerConfiguration.cluster">
+<span class="sig-name descname"><span class="pre">cluster</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.ActivePowerConfiguration.cluster" title="Permalink to this definition"></a></dt>
+<dd><p>ElectricalMeasurement ID 0x0B04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.ActivePowerConfiguration.attribute">
+<span class="sig-name descname"><span class="pre">attribute</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.ActivePowerConfiguration.attribute" title="Permalink to this definition"></a></dt>
+<dd><p>ActivePower ID 0x050B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.ActivePowerConfiguration.minimum_interval">
+<span class="sig-name descname"><span class="pre">minimum_interval</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.ActivePowerConfiguration.minimum_interval" title="Permalink to this definition"></a></dt>
+<dd><p>1 seconds</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.ActivePowerConfiguration.maximum_interval">
+<span class="sig-name descname"><span class="pre">maximum_interval</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.ActivePowerConfiguration.maximum_interval" title="Permalink to this definition"></a></dt>
+<dd><p>3600 seconds (1 hour)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.ActivePowerConfiguration.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Int16</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.ActivePowerConfiguration.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the Int16 class</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.ActivePowerConfiguration.reportable_change">
+<span class="sig-name descname"><span class="pre">reportable_change</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.ActivePowerConfiguration.reportable_change" title="Permalink to this definition"></a></dt>
+<dd><p>1 (some amount of W, dependent on multiplier and divisor)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration</span></span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.cluster">
+<span class="sig-name descname"><span class="pre">cluster</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.cluster" title="Permalink to this definition"></a></dt>
+<dd><p>SimpleMetering ID 0x0702</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.attribute">
+<span class="sig-name descname"><span class="pre">attribute</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.attribute" title="Permalink to this definition"></a></dt>
+<dd><p>InstantaneousDemand ID 0x0400</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.minimum_interval">
+<span class="sig-name descname"><span class="pre">minimum_interval</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.minimum_interval" title="Permalink to this definition"></a></dt>
+<dd><p>1 seconds</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.maximum_interval">
+<span class="sig-name descname"><span class="pre">maximum_interval</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.maximum_interval" title="Permalink to this definition"></a></dt>
+<dd><p>3600 seconds (1 hour)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Int24</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the Int24 class</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.reportable_change">
+<span class="sig-name descname"><span class="pre">reportable_change</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration.reportable_change" title="Permalink to this definition"></a></dt>
+<dd><p>1 (some amount of W, dependent on multiplier and divisor)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.defaults.powerMeter</span></span><a class="headerlink" href="#st.zigbee.defaults.powerMeter" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.zigbee_handlers">
+<span class="sig-name descname"><span class="pre">zigbee_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.zigbee_handlers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.attribute_configurations">
+<span class="sig-name descname"><span class="pre">attribute_configurations</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.attribute_configurations" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.capability_handlers">
+<span class="sig-name descname"><span class="pre">capability_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.capability_handlers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.default_active_power_configuration">
+<span class="sig-name descname"><span class="pre">default_active_power_configuration</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.defaults.powerMeter.ActivePowerConfiguration</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.default_active_power_configuration" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.default_instantaneous_demand_configuration">
+<span class="sig-name descname"><span class="pre">default_instantaneous_demand_configuration</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.defaults.powerMeter.InstantaneousDemandConfiguration</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.default_instantaneous_demand_configuration" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.electrical_measurement_divisor_handler">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">electrical_measurement_divisor_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">divisor</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.electrical_measurement_divisor_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler for ACPowerDivisor attribute on ElectricalMeasurement cluster</p>
+<p>This will take the Uint16 value of the ACPowerDivisor on the ElectricalMeasurement cluster and set the devices field
+constants.ELECTRICAL_MEASUREMENT_DIVISOR_KEY to the value.  This will then be used in the default handling of the
+ActivePower attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#ZigbeeDriver" title="ZigbeeDriver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeDriver</span></code></a></span>) – The current driver running containing necessary context for execution</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – The device this message was received from containing identifying information</p></li>
+<li><p><strong>divisor</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value of the Divisor</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the full message this report came in</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.electrical_measurement_multiplier_handler">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">electrical_measurement_multiplier_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">multiplier</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.electrical_measurement_multiplier_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler for ACPowerMultiplier attribute on ElectricalMeasurement cluster</p>
+<p>This will take the Uint16 value of the ACPowerMultiplier on the ElectricalMeasurement cluster and set the devices field
+constants.ELECTRICAL_MEASUREMENT_MULTIPLIER_KEY to the value.  This will then be used in the default handling of the
+ActivePower attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#ZigbeeDriver" title="ZigbeeDriver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeDriver</span></code></a></span>) – The current driver running containing necessary context for execution</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – The device this message was received from containing identifying information</p></li>
+<li><p><strong>multiplier</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the value of the Divisor</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the full message this report came in</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.active_power_meter_handler">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">active_power_meter_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.active_power_meter_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler for ActivePower attribute on ElectricalMeasurement cluster</p>
+<p>This converts the Int16 instantaneous demand into the powerMeter.power capability event.  This will
+check the device for values set in the constants.ELECTRICAL_MEASUREMENT_MULTIPLIER_KEY and
+constants.ELECTRICAL_MEASUREMENT_DIVISOR_KEY to convert the raw value to the correctly scaled values.  These
+fields should be set by reading the values from the same cluster</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#ZigbeeDriver" title="ZigbeeDriver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeDriver</span></code></a></span>) – The current driver running containing necessary context for execution</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – The device this message was received from containing identifying information</p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.Int16" title="st.zigbee.data_types.Int16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int16</span></code></a></span>) – the value of the ActivePower</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the full message this report came in</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.simple_metering_divisor_handler">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">simple_metering_divisor_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">divisor</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.simple_metering_divisor_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler for Divisor attribute on SimpleMetering cluster</p>
+<p>This will take the Int24 value of the Divisor on the SimpleMetering cluster and set the devices field
+constants.SIMPLE_METERING_DIVISOR_KEY to the value.  This will then be used in the default handling of the
+InstantaneousDemand attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#ZigbeeDriver" title="ZigbeeDriver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeDriver</span></code></a></span>) – The current driver running containing necessary context for execution</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – The device this message was received from containing identifying information</p></li>
+<li><p><strong>divisor</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – the value of the Divisor</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the full message this report came in</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.simple_metering_multiplier_handler">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">simple_metering_multiplier_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">multiplier</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.simple_metering_multiplier_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler for Multiplier attribute on SimpleMetering cluster</p>
+<p>This will take the Int24 value of the Multiplier on the SimpleMetering cluster and set the devices field
+constants.SIMPLE_METERING_MULTIPLIER_KEY to the value.  This will then be used in the default handling of the
+InstantaneousDemand attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#ZigbeeDriver" title="ZigbeeDriver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeDriver</span></code></a></span>) – The current driver running containing necessary context for execution</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – The device this message was received from containing identifying information</p></li>
+<li><p><strong>multiplier</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – the value of the Multiplier</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the full message this report came in</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zigbee.defaults.powerMeter.instantaneous_demand_handler">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">instantaneous_demand_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.defaults.powerMeter.instantaneous_demand_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler for InstantaneousDemand attribute on SimpleMetering cluster</p>
+<p>This converts the Int24 instantaneous demand into the powerMeter.power capability event.  This will
+check the device for values set in the constants.SIMPLE_METERING_MULTIPLIER_KEY and
+constants.SIMPLE_METERING_DIVISOR_KEY to convert the raw value to the correctly scaled values.  These
+fields should be set by reading the values from the same cluster</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#ZigbeeDriver" title="ZigbeeDriver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeDriver</span></code></a></span>) – The current driver running containing necessary context for execution</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – The device this message was received from containing identifying information</p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – the value of the instantaneous demand</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the full message this report came in</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="occupancySensor.html" class="btn btn-neutral float-left" title="Occupancy Sensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="powerSource.html" class="btn btn-neutral float-right" title="Power Source" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

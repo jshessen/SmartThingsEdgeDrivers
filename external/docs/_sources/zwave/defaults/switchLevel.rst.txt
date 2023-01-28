@@ -1,0 +1,4 @@
+Switch Level
+============
+
+.. lua:autoclass:: st.zwave.defaults.switchLevel

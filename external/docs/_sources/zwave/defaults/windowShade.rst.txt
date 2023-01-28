@@ -1,0 +1,4 @@
+Window Shade
+============
+
+.. lua:autoclass:: st.zwave.defaults.windowShade

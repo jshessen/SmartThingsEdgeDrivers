@@ -1,0 +1,10 @@
+Basic Window Covering
+=====================
+
+.. toctree::
+   :maxdepth: 2
+
+   BasicWindowCovering/StartLevelChange
+   BasicWindowCovering/StopLevelChange
+
+.. lua:autoclass:: st.zwave.CommandClass.BasicWindowCovering
