@@ -81,7 +81,7 @@ jobs:
           output-filename: "${{ inputs.driver }}/config.yml"
         env:
           GITHUB: "${{ github.server_url }}/${{ github.repository }}"
-          COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last"
+          COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-for-homeseer-devices/"
 
   publish:
     name: "Publish Driver"
