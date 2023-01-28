@@ -30,6 +30,10 @@ on:
         description: "Folder name of the driver"
         required: true
         type: string
+      path:
+        description: "Folder name of the driver"
+        required: true
+        type: string
       label:
         description: "name in config.yml"
         required: true
@@ -71,7 +75,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
-          key: ${{ inputs.pkgkey }}-${{inputs.environment }}
+          key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
           
       - name: "Generate config.yml using Handlebars Template"
         if: steps.cache-config.outputs.cache-hit != 'true'
