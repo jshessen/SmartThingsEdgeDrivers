@@ -21,7 +21,6 @@
 --- Required Libraries
 ---
 
--- @type st.Device
 local st_device = require "st.Device"
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
