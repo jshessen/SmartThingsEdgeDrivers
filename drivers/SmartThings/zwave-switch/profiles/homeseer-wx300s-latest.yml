@@ -1,5 +1,5 @@
-# https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+
-name: homeseer-ws200-5.12
+# https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
+name: homeseer-wx300s-latest
 components:
   - id: main
     capabilities:
@@ -13,12 +13,6 @@ components:
         version: 1
     categories:
       - name: Switch
-  - id: LED
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
 preferences:
   - name: "reverse"
     title: "Invert Switch"
@@ -26,7 +20,7 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: false
+      default: true
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -38,9 +32,9 @@ preferences:
         1: "When On"
       default: 0
   - name: "ledNormalColor"
-    title: "LED Color"
-    description: "Set mode of operation"
-    required: true
+    title: "Normal Mode: LED Color"
+    description: "Set LED Color"
+    required: false
     preferenceType: enumeration
     definition:
       options:
@@ -61,7 +55,7 @@ preferences:
       default: false
   - name: "centralSceneControl"
     title: "Central Scene Control"
-    description: "Enables/Disables Central Scene"
+    description: "Enable/Disable Central Scene"
     required: false
     preferenceType: enumeration
     definition:
@@ -69,3 +63,35 @@ preferences:
         0: "Control load with delay, + Multi-Tap"
         1: "Control load instantly, - Multi-Tap"
       default: 0
+  - name: "wireMode"
+    title: "Wire Mode Includes Neutrual (3-wire)"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "startupMode"
+    title: "LEDs indicate switch/dimmer on start"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: "ledBrightness"
+    title: "Sets LED indicator brightness"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 6
+      default: 3
+  - name: "toggleMode"
+    title: "Either paddle turns load on/off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "relayLoadControl"
+    title: "Load is controlled with paddle"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false

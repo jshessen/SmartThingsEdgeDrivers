@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+
-name: homeseer-ws200-status-5.12
+name: homeseer-ws200-latest
 components:
   - id: main
     capabilities:
@@ -20,7 +20,6 @@ components:
     categories:
       - name: Switch
 preferences:
-preferences:
   - name: "reverse"
     title: "Invert Switch"
     description: "Inverts the switch"
@@ -38,30 +37,20 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
-  - name: "ledStatusColor"
-    title: "Status Mode - LED Color"
-    description: "Set LED Color"
-    required: false
+  - name: "ledNormalColor"
+    title: "LED Color"
+    description: "Set mode of operation"
+    required: true
     preferenceType: enumeration
     definition:
       options:
-        0: "Off"
+        0: "White"
         1: "Red"
         2: "Green"
         3: "Blue"
         4: "Magenta"
         5: "Yellow"
         6: "Cyan"
-        7: "White"
-      default: 0
-  - name: "ledBlinkFrequency"
-    title: "LED Status Blink Frequency"
-    description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
       default: 0
   - name: "operatingMode"
     title: "Enable Status Mode"
@@ -69,8 +58,9 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: true
-- title: "Central Scene Control"
+      default: false
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
     description: "Enables/Disables Central Scene"
     required: false
     preferenceType: enumeration
