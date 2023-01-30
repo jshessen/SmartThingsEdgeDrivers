@@ -1,6 +1,0 @@
-Timeout Set
-===========
-
-.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutSet
-.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutSetV2
-.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutSetV2Args

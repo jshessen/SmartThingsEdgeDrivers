@@ -1,6 +1,0 @@
-Association Group Info Get
-==========================
-
-.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupInfoGet
-.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupInfoGetV1
-.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupInfoGetV1Args

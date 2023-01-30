@@ -1,6 +1,0 @@
-Aggregated Members Get
-======================
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.AggregatedMembersGet
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.AggregatedMembersGetV4
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.AggregatedMembersGetV4Args

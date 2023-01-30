@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Battery.Get
-.. lua:autoclass:: st.zwave.CommandClass.Battery.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.Battery.GetV1Args

@@ -1,8 +1,0 @@
-End Point Report
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointReport
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointReportV2
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointReportV2Args
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointReportV4
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointReportV4Args

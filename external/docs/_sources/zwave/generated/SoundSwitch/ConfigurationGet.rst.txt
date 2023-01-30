@@ -1,6 +1,0 @@
-Configuration Get
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ConfigurationGet
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ConfigurationGetV1
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ConfigurationGetV1Args

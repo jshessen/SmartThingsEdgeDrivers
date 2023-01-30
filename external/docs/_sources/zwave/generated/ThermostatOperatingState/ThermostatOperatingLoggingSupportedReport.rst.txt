@@ -1,6 +1,0 @@
-Thermostat Operating Logging Supported Report
-=============================================
-
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState.ThermostatOperatingLoggingSupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState.ThermostatOperatingLoggingSupportedReportV2
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState.ThermostatOperatingLoggingSupportedReportV2Args

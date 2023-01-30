@@ -1,4 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.color_component_id

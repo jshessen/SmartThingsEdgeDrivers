@@ -1,6 +1,0 @@
-Users Number Get
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.UsersNumberGet
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.UsersNumberGetV1
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.UsersNumberGetV1Args

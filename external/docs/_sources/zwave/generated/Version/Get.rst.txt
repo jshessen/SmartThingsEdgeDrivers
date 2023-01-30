@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Version.Get
-.. lua:autoclass:: st.zwave.CommandClass.Version.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.Version.GetV1Args

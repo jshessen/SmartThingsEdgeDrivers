@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Protection.Get
-.. lua:autoclass:: st.zwave.CommandClass.Protection.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.Protection.GetV1Args

@@ -1,6 +1,0 @@
-Ventilation Rate Get
-====================
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateGet
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateGetV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateGetV1Args

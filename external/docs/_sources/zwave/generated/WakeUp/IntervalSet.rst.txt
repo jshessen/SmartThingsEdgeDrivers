@@ -1,6 +1,0 @@
-Interval Set
-============
-
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalSet
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalSetV1
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalSetV1Args

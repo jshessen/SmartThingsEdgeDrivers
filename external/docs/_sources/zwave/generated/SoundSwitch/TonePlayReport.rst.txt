@@ -1,8 +1,0 @@
-Tone Play Report
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlayReport
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlayReportV1
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlayReportV1Args
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlayReportV2
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlayReportV2Args

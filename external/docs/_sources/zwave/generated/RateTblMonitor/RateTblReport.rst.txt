@@ -1,6 +1,0 @@
-Rate Tbl Report
-===============
-
-.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblReport
-.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblReportV1
-.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblReportV1Args

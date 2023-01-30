@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.Get
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.GetV1Args

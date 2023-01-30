@@ -1,7 +1,0 @@
-Supported Commands Report
-=========================
-
-.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedCommandsReport
-.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedCommandsReportV4
-.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedCommandsReportV4Args
-.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedCommandsReportV4ArgsCommandClassListLengths

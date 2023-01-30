@@ -1,6 +1,0 @@
-Supported Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SupportedGet
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SupportedGetV3
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SupportedGetV3Args

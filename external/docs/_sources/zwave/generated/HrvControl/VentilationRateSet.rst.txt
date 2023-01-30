@@ -1,6 +1,0 @@
-Ventilation Rate Set
-====================
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateSet
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateSetV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateSetV1Args

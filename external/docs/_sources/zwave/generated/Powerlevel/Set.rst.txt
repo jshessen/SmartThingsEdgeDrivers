@@ -1,6 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.Set
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.SetV1Args

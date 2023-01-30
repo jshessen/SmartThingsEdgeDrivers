@@ -1,6 +1,0 @@
-Multi Instance Cmd Encap
-========================
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstance.MultiInstanceCmdEncap
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstance.MultiInstanceCmdEncapV1
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstance.MultiInstanceCmdEncapV1Args

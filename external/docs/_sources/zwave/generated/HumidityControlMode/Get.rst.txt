@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlMode.Get
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlMode.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlMode.GetV1Args

@@ -1,6 +1,0 @@
-Mode Get
-========
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeGet
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeGetV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeGetV1Args

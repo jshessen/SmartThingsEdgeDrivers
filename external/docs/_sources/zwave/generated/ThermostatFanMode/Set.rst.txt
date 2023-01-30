@@ -1,8 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.Set
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.SetV1Args
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.SetV2
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.SetV2Args

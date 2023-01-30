@@ -1,4 +1,0 @@
-Lock Codes
-==========
-
-.. lua:autoclass:: st.zwave.defaults.lockCodes

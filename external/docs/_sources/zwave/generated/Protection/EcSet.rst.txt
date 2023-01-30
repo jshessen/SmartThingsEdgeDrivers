@@ -1,6 +1,0 @@
-Ec Set
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.Protection.EcSet
-.. lua:autoclass:: st.zwave.CommandClass.Protection.EcSetV2
-.. lua:autoclass:: st.zwave.CommandClass.Protection.EcSetV2Args

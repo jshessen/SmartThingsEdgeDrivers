@@ -1,6 +1,0 @@
-Configuration Set
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ConfigurationSet
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ConfigurationSetV1
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ConfigurationSetV1Args

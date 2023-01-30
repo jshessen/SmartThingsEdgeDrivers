@@ -1,6 +1,0 @@
-Signal Set
-==========
-
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalSet
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalSetV1
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalSetV1Args

@@ -1,6 +1,0 @@
-Mode Report
-===========
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeReport
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeReportV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeReportV1Args

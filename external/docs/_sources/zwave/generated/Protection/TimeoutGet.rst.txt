@@ -1,6 +1,0 @@
-Timeout Get
-===========
-
-.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutGet
-.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutGetV2
-.. lua:autoclass:: st.zwave.CommandClass.Protection.TimeoutGetV2Args

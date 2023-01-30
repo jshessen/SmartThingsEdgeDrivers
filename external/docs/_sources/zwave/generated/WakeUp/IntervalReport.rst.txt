@@ -1,6 +1,0 @@
-Interval Report
-===============
-
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalReport
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalReportV1
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalReportV1Args

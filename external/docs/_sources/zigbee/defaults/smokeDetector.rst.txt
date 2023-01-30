@@ -1,6 +1,0 @@
-Smoke Detector
-==============
-
-.. lua:autoclass:: st.zigbee.defaults.smokeDetector.IASZoneConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.smokeDetector

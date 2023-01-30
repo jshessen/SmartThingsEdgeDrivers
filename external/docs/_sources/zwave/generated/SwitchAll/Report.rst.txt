@@ -1,6 +1,0 @@
-Report
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.Report
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.ReportV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.ReportV1Args

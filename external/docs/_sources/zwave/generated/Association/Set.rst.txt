@@ -1,6 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Association.Set
-.. lua:autoclass:: st.zwave.CommandClass.Association.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.Association.SetV1Args

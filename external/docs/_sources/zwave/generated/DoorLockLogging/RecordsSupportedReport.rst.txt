@@ -1,6 +1,0 @@
-Records Supported Report
-========================
-
-.. lua:autoclass:: st.zwave.CommandClass.DoorLockLogging.RecordsSupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.DoorLockLogging.RecordsSupportedReportV1
-.. lua:autoclass:: st.zwave.CommandClass.DoorLockLogging.RecordsSupportedReportV1Args

@@ -1,6 +1,0 @@
-System Config Report
-====================
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigReport
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigReportV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigReportV1Args

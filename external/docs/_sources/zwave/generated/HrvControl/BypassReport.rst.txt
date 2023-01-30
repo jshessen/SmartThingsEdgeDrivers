@@ -1,6 +1,0 @@
-Bypass Report
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassReport
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassReportV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassReportV1Args

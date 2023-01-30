@@ -1,4 +1,0 @@
-Illuminance Measurement
-=======================
-
-.. lua:autoclass:: st.zigbee.defaults.illuminanceMeasurement

@@ -1,5 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.ZwaveplusInfo.node_type
-.. lua:autoclass:: st.zwave.CommandClass.ZwaveplusInfo.role_type

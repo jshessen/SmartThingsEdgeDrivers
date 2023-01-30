@@ -1,4 +1,0 @@
-Tamper Alert
-============
-
-.. lua:autoclass:: st.zwave.defaults.tamperAlert

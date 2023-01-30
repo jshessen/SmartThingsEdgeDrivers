@@ -1,4 +1,0 @@
-Carbon Dioxide Measurement
-==========================
-
-.. lua:autoclass:: st.zwave.defaults.carbonDioxideMeasurement

@@ -1,4 +1,0 @@
-Temperature Alarm
-=================
-
-.. lua:autoclass:: st.zwave.defaults.temperatureAlarm

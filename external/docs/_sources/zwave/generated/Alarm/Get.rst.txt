@@ -1,8 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.Get
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.GetV1Args
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.GetV2
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.GetV2Args

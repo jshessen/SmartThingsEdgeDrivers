@@ -1,8 +1,0 @@
-Report
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.Report
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.ReportV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.ReportV1Args
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.ReportV3
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.ReportV3Args

@@ -1,6 +1,0 @@
-Water Sensor
-============
-
-.. lua:autoclass: st.zigbee.defaults.waterSensor.IASZoneConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.waterSensor

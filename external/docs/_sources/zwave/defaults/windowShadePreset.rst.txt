@@ -1,4 +1,0 @@
-Window Shade Preset
-===================
-
-.. lua:autoclass:: st.zwave.defaults.windowShadePreset

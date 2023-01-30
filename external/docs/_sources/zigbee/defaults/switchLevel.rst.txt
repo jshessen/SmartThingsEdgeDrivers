@@ -1,6 +1,0 @@
-Switch Level
-============
-
-.. lua:autoclass:: st.zigbee.defaults.switchLevel.CurrentLevelConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.switchLevel

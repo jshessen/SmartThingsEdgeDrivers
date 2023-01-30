@@ -1,6 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.Set
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.SetV1Args

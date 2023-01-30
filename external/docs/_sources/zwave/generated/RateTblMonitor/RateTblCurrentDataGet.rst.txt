@@ -1,6 +1,0 @@
-Rate Tbl Current Data Get
-=========================
-
-.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblCurrentDataGet
-.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblCurrentDataGetV1
-.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblCurrentDataGetV1Args

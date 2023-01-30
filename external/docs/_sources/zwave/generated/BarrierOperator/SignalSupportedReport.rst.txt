@@ -1,6 +1,0 @@
-Signal Supported Report
-=======================
-
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalSupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalSupportedReportV1
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalSupportedReportV1Args

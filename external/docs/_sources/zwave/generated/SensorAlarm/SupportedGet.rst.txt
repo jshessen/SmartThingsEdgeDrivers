@@ -1,6 +1,0 @@
-Supported Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.SupportedGet
-.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.SupportedGetV1
-.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.SupportedGetV1Args

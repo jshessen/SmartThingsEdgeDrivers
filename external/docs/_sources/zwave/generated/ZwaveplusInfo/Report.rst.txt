@@ -1,8 +1,0 @@
-Report
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.ZwaveplusInfo.Report
-.. lua:autoclass:: st.zwave.CommandClass.ZwaveplusInfo.ReportV1
-.. lua:autoclass:: st.zwave.CommandClass.ZwaveplusInfo.ReportV1Args
-.. lua:autoclass:: st.zwave.CommandClass.ZwaveplusInfo.ReportV2
-.. lua:autoclass:: st.zwave.CommandClass.ZwaveplusInfo.ReportV2Args

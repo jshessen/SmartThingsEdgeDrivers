@@ -1,4 +1,0 @@
-Thermostat Mode
-===============
-
-.. lua:autoclass:: st.zwave.defaults.thermostatMode

@@ -1,6 +1,0 @@
-Mode Supported Report
-=====================
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeSupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeSupportedReportV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeSupportedReportV1Args
