@@ -69,7 +69,8 @@ preferences:
     preferenceType: boolean
     definition:
       default: true
-- title: "Central Scene Control"
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
     description: "Enables/Disables Central Scene"
     required: false
     preferenceType: enumeration
