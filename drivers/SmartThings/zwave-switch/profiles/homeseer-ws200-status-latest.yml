@@ -20,7 +20,6 @@ components:
     categories:
       - name: Switch
 preferences:
-preferences:
   - name: "reverse"
     title: "Invert Switch"
     description: "Inverts the switch"
