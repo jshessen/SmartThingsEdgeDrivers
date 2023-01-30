@@ -21,13 +21,14 @@
 --- Required Libraries
 ---
 
-local st_device = require "st.Device"
+-- @type st.Device
+local st_device = require "st.device"
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
---- @type st.zwave.CommandClass
+-- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 
---- @type st.zwave.constants
+-- @type st.zwave.constants
 local constants = require "st.zwave.constants"
 -- @type st.utils
 local utils = require "st.utils"
