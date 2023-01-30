@@ -21,7 +21,7 @@
 --- Required Libraries
 
 --- @type st.Device
-local st_device = require "st.Device"
+local st_device = require "st.device"
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
 --- @type st.zwave.CommandClass
