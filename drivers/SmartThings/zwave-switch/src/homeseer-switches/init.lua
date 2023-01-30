@@ -318,7 +318,7 @@ end
 local function version_report_handler(driver, device, command)
 
   local new_profile = ''
-  local operatingMode = command.args.preferences.operatingMode == true and '-status' or ''
+  local operatingMode = device.preferences.operatingMode == true and '-status' or ''
 
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
