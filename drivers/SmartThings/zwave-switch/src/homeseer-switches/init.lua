@@ -19,6 +19,7 @@
 
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 --- Required Libraries
+---
 
 --- @type st.Device
 local st_device = require "st.Device"
@@ -55,10 +56,12 @@ local configsMap = require "configurations"
 --- Misc
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 2})
+---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 --- ?????????????????????????????????????????????????????????????????
 --- Variables/Constants
+---
 
 --- @local
 local custom_capabilities = {}
@@ -175,12 +178,14 @@ local map_key_attribute_to_capability = {
     [0x02] = {capabilities.button.button.held()}
   }
 }
-
+---
 --- ?????????????????????????????????????????????????????????????????
 
 --- #################################################################
 --- Section: Can Handle
+---
 --- #######################################################
+---
 
 --- @function can_handle_homeseer_switches --
 --- Determine whether the passed device is a HomeSeer switch.
@@ -201,18 +206,19 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
   end
   return false
 end
-
+---
 --- #######################################################
-
+---
 --- #################################################################
 
 --- #################################################################
 --- Section: Z-Wave Handlers
-
+---
 --- ############################################################
 --- Subsection: Switch MultiLevel
-
+---
 --- #######################################################
+---
 
 --- @function dimmer_event --
 --- Handles "dimmer" functionality
@@ -238,10 +244,11 @@ local function dimmer_event(driver, device, command)
       device:emit_event_for_endpoint(command.src_channel, event)
   end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function switch_multilevel_stop_level_change_handler --
 --- Handles "on/off" functionality
@@ -255,15 +262,16 @@ local function switch_multilevel_stop_level_change_handler(driver, device, comma
   -- Send a SwitchMultilevel:Get command
   device:send(SwitchMultilevel:Get({}))
 end
-
+---
 --- #######################################################
-
+---
 --- ############################################################
 
 --- ############################################################
 --- Subsection: Central Scene
-
+---
 --- #######################################################
+---
 
 --- @function central_scene_notification_handler --
 --- Handles "Scene" functionality
@@ -292,16 +300,16 @@ local function central_scene_notification_handler(driver, device, command)
     end
   end
 end
-
-
+---
 --- #######################################################
-
+---
 --- ############################################################
 
 --- ############################################################
 --- Subsection: Version
-
+---
 --- #######################################################
+---
 
 --- @function version_report_handler --
 --- Adjust profile definition based upon reported firmware version
@@ -364,16 +372,18 @@ local function version_report_handler(driver, device, command)
     end
   end
 end
-
-
+---
 --- #######################################################
-
+---
 --- ############################################################
+---
+--- #################################################################
 
 --- #################################################################
 --- Section: Capability Handlers
-
+---
 --- #######################################################
+---
 
 --- @function: do_referesh --
 --- Refresh Device
@@ -396,10 +406,11 @@ local function do_refresh(driver, device, command)
         device:send_to_component(SwitchBinary:Get({}), component)
     end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function: checkForFirmwareUpdate_handler --
 --- Check to see if there is a firmware update available for the device
@@ -413,10 +424,11 @@ local function checkForFirmwareUpdate_handler(driver, device, command)
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function: updateFirmware_handler --
 --- Check to see if there is a firmware update available for the device
@@ -430,10 +442,11 @@ local function updateFirmware_handler(driver, device, command)
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function switch_set_on_off_handler --
 --- Handles "on/off" functionality
@@ -465,23 +478,25 @@ local function switch_set_on_off_handler(value)
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
   end
 end
-
+---
 --- #######################################################
-
+---
 --- #################################################################
 
 --- #################################################################
 --- Section: Lifecycle Handlers
-
+---
 --- #######################################################
+---
 
 local function device_init(self, device)
   device:init()
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function added_handler --
 --- @param self (Driver) Reference to the current object
@@ -507,51 +522,68 @@ local function added_handler(self, device)
     end
   end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
 
+--- @function do_configure --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
 local function do_configure(self, device)
   device:refresh()
   device:configure()
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
+--- @function info_changed --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
 local function info_changed(driver, device, event, args)
   -- Did my preference value change
   --if args.old_st_store.preferences.sensitivityLevel ~= device.preferences.sensitivityLevel then
   --  device:send(<message_to_control_device>)
   --end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
 
+--- @function driver_switched --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
 local function driver_switched(self, device)
-  
+
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
+--- @function removed --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
 local function removed(self, device)
 
 end
-
+---
 --- #######################################################
-
+---
 --- #################################################################
 
 --- /////////////////////////////////////////////////////////////////
 ---  Section: Driver
-
+---
 --- ///////////////////////////////////////////////////////
+---
 
 local homeseer_switches = {
   NAME = "HomeSeer Z-Wave Switches",
@@ -603,7 +635,7 @@ local homeseer_switches = {
     removed = removed
   }
 }
-
+---
 --- ///////////////////////////////////////////////////////
 
 return homeseer_switches
