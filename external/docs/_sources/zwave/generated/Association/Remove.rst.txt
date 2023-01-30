@@ -1,6 +1,0 @@
-Remove
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.Association.Remove
-.. lua:autoclass:: st.zwave.CommandClass.Association.RemoveV1
-.. lua:autoclass:: st.zwave.CommandClass.Association.RemoveV1Args

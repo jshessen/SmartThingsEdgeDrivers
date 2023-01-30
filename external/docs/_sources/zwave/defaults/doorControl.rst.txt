@@ -1,4 +1,0 @@
-Door Control
-============
-
-.. lua:autoclass:: st.zwave.defaults.doorControl

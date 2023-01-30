@@ -1,8 +1,0 @@
-Operation Report
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationReport
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationReportV1
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationReportV1Args
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationReportV3
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.OperationReportV3Args

@@ -1,6 +1,0 @@
-Command Records Supported Report
-================================
-
-.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandRecordsSupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandRecordsSupportedReportV1
-.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandRecordsSupportedReportV1Args

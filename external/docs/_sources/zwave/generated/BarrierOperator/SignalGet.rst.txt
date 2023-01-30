@@ -1,6 +1,0 @@
-Signal Get
-==========
-
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalGet
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalGetV1
-.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.SignalGetV1Args

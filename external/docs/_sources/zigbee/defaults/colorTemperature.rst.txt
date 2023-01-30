@@ -1,6 +1,0 @@
-Color Temperature
-=================
-
-.. lua:autoclass:: st.zigbee.defaults.colorTemperature.ColorTemperatureConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.colorTemperature

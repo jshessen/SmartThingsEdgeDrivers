@@ -1,6 +1,0 @@
-Description Get
-===============
-
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.DescriptionGet
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.DescriptionGetV4
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.DescriptionGetV4Args

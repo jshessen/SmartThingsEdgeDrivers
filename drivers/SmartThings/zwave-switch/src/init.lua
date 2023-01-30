@@ -66,7 +66,7 @@ end
 --- @param driver st.zwave.Driver
 --- @param device st.zwave.Device
 --- @param event table
---- @param args table
+--- @param args
 local function info_changed(driver, device, event, args)
   local preferences = preferencesMap.get_device_parameters(device)
   for id, value in pairs(device.preferences) do

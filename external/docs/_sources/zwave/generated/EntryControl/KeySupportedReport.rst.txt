@@ -1,6 +1,0 @@
-Key Supported Report
-====================
-
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.KeySupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.KeySupportedReportV1
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.KeySupportedReportV1Args

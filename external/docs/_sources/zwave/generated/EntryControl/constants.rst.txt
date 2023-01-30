@@ -1,5 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.data_type
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.event_type

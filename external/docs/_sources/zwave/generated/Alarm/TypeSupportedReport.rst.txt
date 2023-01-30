@@ -1,6 +1,0 @@
-Type Supported Report
-=====================
-
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.TypeSupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.TypeSupportedReportV2
-.. lua:autoclass:: st.zwave.CommandClass.Alarm.TypeSupportedReportV2Args

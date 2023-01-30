@@ -1,4 +1,0 @@
-Groupings Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.GroupingsGet

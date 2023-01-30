@@ -1,6 +1,0 @@
-System Config Set
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigSet
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigSetV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigSetV1Args

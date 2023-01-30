@@ -1,4 +1,0 @@
-Body Mass Index Measurement
-===========================
-
-.. lua:autoclass:: st.zwave.defaults.bodyMassIndexMeasurement

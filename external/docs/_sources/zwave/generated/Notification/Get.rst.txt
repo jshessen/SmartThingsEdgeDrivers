@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Notification.Get
-.. lua:autoclass:: st.zwave.CommandClass.Notification.GetV3
-.. lua:autoclass:: st.zwave.CommandClass.Notification.GetV3Args

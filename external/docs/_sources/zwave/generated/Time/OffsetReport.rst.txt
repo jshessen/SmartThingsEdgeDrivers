@@ -1,6 +1,0 @@
-Offset Report
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.Time.OffsetReport
-.. lua:autoclass:: st.zwave.CommandClass.Time.OffsetReportV2
-.. lua:autoclass:: st.zwave.CommandClass.Time.OffsetReportV2Args

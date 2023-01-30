@@ -1,6 +1,0 @@
-Configuration Set
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.CentralScene.ConfigurationSet
-.. lua:autoclass:: st.zwave.CommandClass.CentralScene.ConfigurationSetV3
-.. lua:autoclass:: st.zwave.CommandClass.CentralScene.ConfigurationSetV3Args

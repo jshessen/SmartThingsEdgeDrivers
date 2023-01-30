@@ -1,6 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.inc_dec
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.up_down
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.value

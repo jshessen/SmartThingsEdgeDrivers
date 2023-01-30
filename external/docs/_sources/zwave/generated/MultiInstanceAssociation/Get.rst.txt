@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.Get
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.GetV1Args

@@ -1,6 +1,0 @@
-Rate Tbl Set
-============
-
-.. lua:autoclass:: st.zwave.CommandClass.RateTblConfig.RateTblSet
-.. lua:autoclass:: st.zwave.CommandClass.RateTblConfig.RateTblSetV1
-.. lua:autoclass:: st.zwave.CommandClass.RateTblConfig.RateTblSetV1Args

@@ -1,6 +1,0 @@
-On
-==
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.On
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.OnV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.OnV1Args

@@ -1,4 +1,0 @@
-Alarm
-=======
-
-.. lua:autoclass:: st.zwave.defaults.alarm

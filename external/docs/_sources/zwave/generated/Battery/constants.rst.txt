@@ -1,5 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.Battery.battery_level
-.. lua:autoclass:: st.zwave.CommandClass.Battery.charging_status

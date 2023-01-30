@@ -1,6 +1,0 @@
-Bypass Set
-==========
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassSet
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassSetV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassSetV1Args

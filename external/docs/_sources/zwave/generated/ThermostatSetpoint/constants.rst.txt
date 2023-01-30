@@ -1,5 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.scale
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.setpoint_type

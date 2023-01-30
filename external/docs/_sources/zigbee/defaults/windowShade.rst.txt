@@ -1,6 +1,0 @@
-WindowShade
-===========
-
-.. lua:autoclass:: st.zigbee.defaults.windowShade.WindowCoveringConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.windowShade

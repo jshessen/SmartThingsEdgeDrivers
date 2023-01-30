@@ -1,6 +1,0 @@
-End Point Find
-==============
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointFind
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointFindV2
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.EndPointFindV2Args

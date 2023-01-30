@@ -1,6 +1,0 @@
-Supported Commands Get
-======================
-
-.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedCommandsGet
-.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedCommandsGetV4
-.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedCommandsGetV4Args

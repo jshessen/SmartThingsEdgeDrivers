@@ -1,6 +1,0 @@
-Key Supported Get
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.KeySupportedGet
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.KeySupportedGetV1
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.KeySupportedGetV1Args

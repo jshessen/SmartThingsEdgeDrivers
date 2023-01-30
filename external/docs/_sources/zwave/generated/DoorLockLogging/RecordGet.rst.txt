@@ -1,6 +1,0 @@
-Record Get
-==========
-
-.. lua:autoclass:: st.zwave.CommandClass.DoorLockLogging.RecordGet
-.. lua:autoclass:: st.zwave.CommandClass.DoorLockLogging.RecordGetV1
-.. lua:autoclass:: st.zwave.CommandClass.DoorLockLogging.RecordGetV1Args

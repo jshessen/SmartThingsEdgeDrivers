@@ -1,6 +1,0 @@
-Motion Sensor
-=============
-
-.. lua:autoclass:: st.zigbee.defaults.motionSensor.IASZoneConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.motionSensor

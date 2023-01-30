@@ -1,6 +1,0 @@
-Specific Group Get
-==================
-
-.. lua:autoclass:: st.zwave.CommandClass.Association.SpecificGroupGet
-.. lua:autoclass:: st.zwave.CommandClass.Association.SpecificGroupGetV2
-.. lua:autoclass:: st.zwave.CommandClass.Association.SpecificGroupGetV2Args

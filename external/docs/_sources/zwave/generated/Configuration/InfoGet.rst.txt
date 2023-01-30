@@ -1,6 +1,0 @@
-Info Get
-========
-
-.. lua:autoclass:: st.zwave.CommandClass.Configuration.InfoGet
-.. lua:autoclass:: st.zwave.CommandClass.Configuration.InfoGetV3
-.. lua:autoclass:: st.zwave.CommandClass.Configuration.InfoGetV3Args

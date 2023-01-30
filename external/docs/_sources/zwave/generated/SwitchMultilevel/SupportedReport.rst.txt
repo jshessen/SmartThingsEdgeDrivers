@@ -1,6 +1,0 @@
-Supported Report
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SupportedReportV3
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SupportedReportV3Args

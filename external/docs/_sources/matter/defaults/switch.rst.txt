@@ -1,4 +1,0 @@
-Switch
-=============
-
-.. lua:autoclass:: st.matter.defaults.switch

@@ -1,6 +1,0 @@
-Aggregated Members Report
-=========================
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.AggregatedMembersReport
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.AggregatedMembersReportV4
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.AggregatedMembersReportV4Args

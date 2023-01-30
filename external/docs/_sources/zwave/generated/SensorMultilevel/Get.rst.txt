@@ -1,8 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.Get
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.GetV1Args
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.GetV5
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.GetV5Args

@@ -1,6 +1,0 @@
-Supported Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.SupportedGet
-.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.SupportedGetV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.SupportedGetV1Args

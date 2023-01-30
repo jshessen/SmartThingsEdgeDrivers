@@ -1,9 +1,0 @@
-Scene Activation
-================
-
-.. toctree::
-   :maxdepth: 2
-
-   SceneActivation/Set
-
-.. lua:autoclass:: st.zwave.CommandClass.SceneActivation

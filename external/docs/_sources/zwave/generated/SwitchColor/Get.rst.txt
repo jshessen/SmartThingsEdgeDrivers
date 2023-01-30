@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.Get
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.GetV1Args

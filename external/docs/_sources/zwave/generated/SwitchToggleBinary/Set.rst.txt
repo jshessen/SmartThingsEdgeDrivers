@@ -1,6 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleBinary.Set
-.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleBinary.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleBinary.SetV1Args

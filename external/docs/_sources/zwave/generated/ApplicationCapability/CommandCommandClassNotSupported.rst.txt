@@ -1,6 +1,0 @@
-Command Command Class Not Supported
-===================================
-
-.. lua:autoclass:: st.zwave.CommandClass.ApplicationCapability.CommandCommandClassNotSupported
-.. lua:autoclass:: st.zwave.CommandClass.ApplicationCapability.CommandCommandClassNotSupportedV1
-.. lua:autoclass:: st.zwave.CommandClass.ApplicationCapability.CommandCommandClassNotSupportedV1Args

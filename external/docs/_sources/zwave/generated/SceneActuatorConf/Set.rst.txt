@@ -1,6 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.SceneActuatorConf.Set
-.. lua:autoclass:: st.zwave.CommandClass.SceneActuatorConf.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.SceneActuatorConf.SetV1Args

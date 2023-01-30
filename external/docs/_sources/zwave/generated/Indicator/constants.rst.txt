@@ -1,8 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.indicator_0_value
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.indicator_id
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.next_indicator_id
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.property_id
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.value

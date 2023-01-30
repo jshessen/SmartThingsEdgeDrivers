@@ -1,8 +1,0 @@
-Buffer
-======
-
-The buffer library provides safe binary serialization and deserialization with bounds checking and clean error handling.
-
-.. lua:autoclass:: st.buf.Buf
-.. lua:autoclass:: st.buf.Writer
-.. lua:autoclass:: st.buf.Reader

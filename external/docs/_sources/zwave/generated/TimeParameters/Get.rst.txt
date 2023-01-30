@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.TimeParameters.Get
-.. lua:autoclass:: st.zwave.CommandClass.TimeParameters.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.TimeParameters.GetV1Args

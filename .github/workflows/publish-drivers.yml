@@ -18,10 +18,6 @@ on:
       - "drivers/**.yml"
       - "drivers/**.lua"
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   # Job to run change detection
   parse-changes:
@@ -41,7 +37,6 @@ jobs:
         uses: dorny/paths-filter@v2
         id: filter
         with:
-          base: ${{ github.base_ref || github.ref_name }}
           filters: |
             zwave-switch: 'drivers/**/zwave-switch/**'
             zwave-fan: 'drivers/**/zwave-fan/**'

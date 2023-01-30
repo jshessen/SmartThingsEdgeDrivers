@@ -1,6 +1,0 @@
-Ventilation Rate Report
-=======================
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateReport
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateReportV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.VentilationRateReportV1Args

@@ -1,6 +1,0 @@
-Report
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.Report
-.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.ReportV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.ReportV1Args

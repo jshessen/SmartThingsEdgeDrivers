@@ -1,4 +1,0 @@
-Body Weight Measurement
-=======================
-
-.. lua:autoclass:: st.zwave.defaults.bodyWeightMeasurement

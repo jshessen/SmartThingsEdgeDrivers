@@ -1,6 +1,0 @@
-Valve Config Set
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveConfigSet
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveConfigSetV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveConfigSetV1Args

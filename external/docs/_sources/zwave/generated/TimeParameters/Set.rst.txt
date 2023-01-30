@@ -1,6 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.TimeParameters.Set
-.. lua:autoclass:: st.zwave.CommandClass.TimeParameters.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.TimeParameters.SetV1Args

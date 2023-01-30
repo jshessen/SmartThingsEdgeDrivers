@@ -1,7 +1,0 @@
-Remove
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.Remove
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.RemoveV1
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.RemoveV1Args
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstanceAssociation.RemoveV1ArgsGroupingIdentifiers
