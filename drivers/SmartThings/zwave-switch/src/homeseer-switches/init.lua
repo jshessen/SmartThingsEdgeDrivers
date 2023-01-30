@@ -70,8 +70,6 @@ custom_capabilities.firmwareVersion.name = "firmwareVersion"
 custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name]
 
 --- @local
-local PROFILE_CHANGED = "profile_changed"
---- @local
 local LAST_SEQ_NUMBER = "last_sequence_number"
 
 --- @local
@@ -318,59 +316,44 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 local function version_report_handler(driver, device, command)
+
+  local new_profile = ''
+  local operatingMode = command.args.preferences.operatingMode == true and '-status' or ''
+
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if fingerprint.id == "HomeSeer/Dimmer/WD200" then
       -- Check if the firmware version and sub-version match certain values
-      if (command.args.firmware_version == 5 and (command.args.firmware_sub_version > 11 and command.args.firmware_sub_version < 14)) and
-      device:get_field(PROFILE_CHANGED) ~= true then
+      if (command.args.firmware_version == 5 and (command.args.firmware_sub_version > 11 and command.args.firmware_sub_version < 14)) then
         -- Update the device's profile and set a field to indicate that the update has occurred
-        local new_profile = "homeseer-wd200-5.12"
-        device:try_update_metadata({profile = new_profile})
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
-      -- Check if the firmware version and sub-version match certain values
-      elseif (command.args.firmware_version == 5 and command.args.firmware_sub_version >= 14) and
-      device:get_field(PROFILE_CHANGED) ~= true then
+        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. command.args.firmware_version .. '.' .. command.args.firmware_sub_version
+        break
+        -- Check if the firmware version and sub-version match certain values
+      elseif (command.args.firmware_version == 5 and command.args.firmware_sub_version >= 14) then
         -- Update the device's profile and set a field to indicate that the update has occurred
-        local new_profile = "homeseer-wd200-5.14"
-        device:try_update_metadata({profile = new_profile})
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
-      end
-      break
-    end
-
-    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
-    if fingerprint.id == "HomeSeer/Dimmer/WX300S" then
-          
-      -- Check if the firmware version is greater than 1.12 and the PROFILE_CHANGED field is not true
-      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) and
-      device:get_field(PROFILE_CHANGED) ~= true then
-        
-        -- Set the new profile for the device
-        local new_profile = "homeseer-wx300s-1.13"
-        device:try_update_metadata({profile = new_profile})
-        -- Persist the change in the PROFILE_CHANGED field
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
+        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. 'latest'
         break
       end
-    end
-
-    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
-    if fingerprint.id == "HomeSeer/Dimmer/WX300D" then
-          
-      -- Check if the firmware version is greater than 1.12 and the PROFILE_CHANGED field is not true
-      if (command.args.firmware_0_version == 1 and command.args.firmware_0_sub_version > 12) and
-      device:get_field(PROFILE_CHANGED) ~= true then
-        
+    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
+    elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" then
+      -- Check if the firmware version is greater than 1.12
+      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
         -- Set the new profile for the device
-        local new_profile = "homeseer-wx300d-1.13"
-        device:try_update_metadata({profile = new_profile})
-        -- Persist the change in the PROFILE_CHANGED field
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
+        new_profile = 'homeseer-' .. 'wx300s' .. operatingMode .. '-' .. 'latest'
+        break
+      end
+    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
+    elseif fingerprint.id == "HomeSeer/Dimmer/WX300D" then
+      -- Check if the firmware version is greater than 1.12
+      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
+        -- Set the new profile for the device
+        new_profile = 'homeseer-' .. 'wx300d' .. operatingMode .. '-' .. 'latest'
         break
       end
     end
   end
+  assert (device:try_update_metadata({profile = new_profile}), "Failed to change device profile")
+  log.warn('Changed to new profile. App restart required.')
 end
 ---
 --- #######################################################
@@ -502,6 +485,8 @@ end
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function added_handler(self, device)
+  log.debug('Device Added')
+
   -- Refresh the device
   device:refresh()
   -- Get the device parameters from configsMap
@@ -531,6 +516,7 @@ end
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function do_configure(self, device)
+  log.debug('Configure Device')
   device:refresh()
   device:configure()
 end
@@ -545,11 +531,12 @@ end
 --- @param device (st.Device) Device object that is added
 --- @param event (Event)
 --- @param args (any)
-local function info_changed(driver, device, event, args)
-  -- Did my preference value change
-  --if args.old_st_store.preferences.sensitivityLevel ~= device.preferences.sensitivityLevel then
-  --  device:send(<message_to_control_device>)
-  --end
+local function info_changed(self, device, event, args)
+  log.info(device.id .. ": " .. device.device_network_id .. " > INFO CHANGED")
+
+  if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
+    device:send(Version:Get({}))
+  end
 end
 ---
 --- #######################################################
@@ -560,7 +547,7 @@ end
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function driver_switched(self, device)
-
+  log.info('device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED"')
 end
 ---
 --- #######################################################
@@ -572,7 +559,7 @@ end
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function removed(self, device)
-
+  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_REMOVED")
 end
 ---
 --- #######################################################
