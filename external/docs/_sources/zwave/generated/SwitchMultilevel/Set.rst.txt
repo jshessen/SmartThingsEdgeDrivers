@@ -1,8 +1,0 @@
-Set
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.Set
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SetV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SetV1Args
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SetV2
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.SetV2Args

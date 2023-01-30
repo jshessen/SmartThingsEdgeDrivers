@@ -1,6 +1,0 @@
-Zwave Software Report
-=====================
-
-.. lua:autoclass:: st.zwave.CommandClass.Version.ZwaveSoftwareReport
-.. lua:autoclass:: st.zwave.CommandClass.Version.ZwaveSoftwareReportV3
-.. lua:autoclass:: st.zwave.CommandClass.Version.ZwaveSoftwareReportV3Args

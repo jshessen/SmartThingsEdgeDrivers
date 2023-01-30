@@ -1,6 +1,0 @@
-Configuration Report
-====================
-
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationReport
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationReportV1
-.. lua:autoclass:: st.zwave.CommandClass.EntryControl.ConfigurationReportV1Args

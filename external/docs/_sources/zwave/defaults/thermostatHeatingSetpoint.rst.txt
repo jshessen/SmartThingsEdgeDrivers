@@ -1,4 +1,0 @@
-Thermostat Heating Setpoint
-===========================
-
-.. lua:autoclass:: st.zwave.defaults.thermostatHeatingSetpoint

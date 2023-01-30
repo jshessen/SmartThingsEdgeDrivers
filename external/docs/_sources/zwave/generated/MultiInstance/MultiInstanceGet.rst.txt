@@ -1,6 +1,0 @@
-Multi Instance Get
-==================
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstance.MultiInstanceGet
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstance.MultiInstanceGetV1
-.. lua:autoclass:: st.zwave.CommandClass.MultiInstance.MultiInstanceGetV1Args

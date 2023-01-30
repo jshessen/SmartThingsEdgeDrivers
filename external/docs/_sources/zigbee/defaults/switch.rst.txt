@@ -1,6 +1,0 @@
-Switch
-======
-
-.. lua:autoclass:: st.zigbee.defaults.switch.OnOffConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.switch

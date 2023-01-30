@@ -1,6 +1,0 @@
-Capabilities Report
-===================
-
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.CapabilitiesReport
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.CapabilitiesReportV4
-.. lua:autoclass:: st.zwave.CommandClass.DoorLock.CapabilitiesReportV4Args

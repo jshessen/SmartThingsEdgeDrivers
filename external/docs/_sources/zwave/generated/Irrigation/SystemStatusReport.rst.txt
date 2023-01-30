@@ -1,6 +1,0 @@
-System Status Report
-====================
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemStatusReport
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemStatusReportV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemStatusReportV1Args

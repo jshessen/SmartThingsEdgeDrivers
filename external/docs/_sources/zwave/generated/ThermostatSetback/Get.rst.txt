@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetback.Get
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetback.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetback.GetV1Args

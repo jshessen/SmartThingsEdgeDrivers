@@ -1,6 +1,0 @@
-Capabilities Get
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.CapabilitiesGet
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.CapabilitiesGetV1
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.CapabilitiesGetV1Args

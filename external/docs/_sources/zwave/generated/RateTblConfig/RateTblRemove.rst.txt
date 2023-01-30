@@ -1,6 +1,0 @@
-Rate Tbl Remove
-===============
-
-.. lua:autoclass:: st.zwave.CommandClass.RateTblConfig.RateTblRemove
-.. lua:autoclass:: st.zwave.CommandClass.RateTblConfig.RateTblRemoveV1
-.. lua:autoclass:: st.zwave.CommandClass.RateTblConfig.RateTblRemoveV1Args

@@ -1,6 +1,0 @@
-Stop Level Change
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.StopLevelChange
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.StopLevelChangeV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.StopLevelChangeV1Args

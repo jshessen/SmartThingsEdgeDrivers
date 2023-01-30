@@ -1,4 +1,0 @@
-ZclStatus
-=========
-
-.. lua:autoclass:: st.zigbee.zcl.types.ZclStatus

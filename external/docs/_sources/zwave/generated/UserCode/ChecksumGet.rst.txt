@@ -1,6 +1,0 @@
-Checksum Get
-============
-
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.ChecksumGet
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.ChecksumGetV2
-.. lua:autoclass:: st.zwave.CommandClass.UserCode.ChecksumGetV2Args

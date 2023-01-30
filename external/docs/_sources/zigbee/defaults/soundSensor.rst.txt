@@ -1,6 +1,0 @@
-Sound Sensor
-==============
-
-.. lua:autoclass:: st.zigbee.defaults.soundSensor.IASZoneConfiguration
-
-.. lua:autoclass:: st.zigbee.defaults.soundSensor

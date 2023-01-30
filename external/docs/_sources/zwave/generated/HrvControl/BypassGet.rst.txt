@@ -1,6 +1,0 @@
-Bypass Get
-==========
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassGet
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassGetV1
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.BypassGetV1Args

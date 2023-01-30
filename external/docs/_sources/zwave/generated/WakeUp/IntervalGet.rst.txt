@@ -1,6 +1,0 @@
-Interval Get
-============
-
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalGet
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalGetV1
-.. lua:autoclass:: st.zwave.CommandClass.WakeUp.IntervalGetV1Args

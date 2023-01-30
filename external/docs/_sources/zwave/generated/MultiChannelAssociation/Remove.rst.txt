@@ -1,7 +1,0 @@
-Remove
-======
-
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.Remove
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.RemoveV2
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.RemoveV2Args
-.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.RemoveV2ArgsMultiChannelNodes

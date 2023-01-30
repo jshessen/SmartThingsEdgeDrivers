@@ -1,6 +1,0 @@
-System Status Get
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemStatusGet
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemStatusGetV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemStatusGetV1Args

@@ -1,6 +1,0 @@
-Valve Info Get
-==============
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveInfoGet
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveInfoGetV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveInfoGetV1Args

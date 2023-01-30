@@ -1,9 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.parameter_number
-.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.scale
-.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.scale_energy_production_today
-.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.scale_instant_energy_production
-.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.scale_total_energy_production
-.. lua:autoclass:: st.zwave.CommandClass.EnergyProduction.scale_total_production_time

@@ -1,4 +1,0 @@
-Power Source
-============
-
-.. lua:autoclass:: st.zigbee.defaults.powerSource

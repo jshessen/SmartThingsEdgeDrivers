@@ -1,4 +1,0 @@
-Pest Control
-============
-
-.. lua:autoclass:: st.zwave.defaults.pestControl

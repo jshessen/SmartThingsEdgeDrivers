@@ -1,6 +1,0 @@
-Tone Info Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ToneInfoGet
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ToneInfoGetV1
-.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.ToneInfoGetV1Args

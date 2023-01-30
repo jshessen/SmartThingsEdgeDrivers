@@ -1,6 +1,0 @@
-Supported Get Sensor
-====================
-
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedGetSensor
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedGetSensorV5
-.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedGetSensorV5Args

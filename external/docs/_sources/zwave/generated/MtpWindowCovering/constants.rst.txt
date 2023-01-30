@@ -1,4 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.value

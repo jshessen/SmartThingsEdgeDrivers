@@ -1,6 +1,0 @@
-Valve Info Report
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveInfoReport
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveInfoReportV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveInfoReportV1Args

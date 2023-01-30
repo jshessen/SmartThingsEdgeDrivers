@@ -1,4 +1,0 @@
-Dust Sensor
-===========
-
-.. lua:autoclass:: st.zwave.defaults.dustSensor

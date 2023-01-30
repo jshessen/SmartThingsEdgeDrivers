@@ -1,4 +1,0 @@
-Lock
-====
-
-.. lua:autoclass:: st.zwave.defaults.lock

@@ -1,4 +1,0 @@
-Temperature Measurement
-=======================
-
-.. lua:autoclass:: st.zwave.defaults.temperatureMeasurement

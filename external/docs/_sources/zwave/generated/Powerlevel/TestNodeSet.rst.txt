@@ -1,6 +1,0 @@
-Test Node Set
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeSet
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeSetV1
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeSetV1Args

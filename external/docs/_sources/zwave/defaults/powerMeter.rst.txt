@@ -1,4 +1,0 @@
-Power Meter
-===========
-
-.. lua:autoclass:: st.zwave.defaults.powerMeter

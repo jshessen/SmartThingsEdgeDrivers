@@ -1,8 +1,0 @@
-Supported Report
-================
-
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedReport
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedReportV1
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedReportV1Args
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedReportV2
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.SupportedReportV2Args

@@ -1,6 +1,0 @@
-Groupings Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.Association.GroupingsGet
-.. lua:autoclass:: st.zwave.CommandClass.Association.GroupingsGetV1
-.. lua:autoclass:: st.zwave.CommandClass.Association.GroupingsGetV1Args

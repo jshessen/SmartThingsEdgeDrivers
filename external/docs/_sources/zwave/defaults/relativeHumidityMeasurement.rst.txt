@@ -1,4 +1,0 @@
-Relative Humidity Measurement
-=============================
-
-.. lua:autoclass:: st.zwave.defaults.relativeHumidityMeasurement

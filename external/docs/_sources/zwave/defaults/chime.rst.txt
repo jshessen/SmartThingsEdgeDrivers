@@ -1,4 +1,0 @@
-Chime
-=====
-
-.. lua:autoclass:: st.zwave.defaults.chime

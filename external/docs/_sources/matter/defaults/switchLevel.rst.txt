@@ -1,4 +1,0 @@
-Switch Level
-=============
-
-.. lua:autoclass:: st.matter.defaults.switchLevel

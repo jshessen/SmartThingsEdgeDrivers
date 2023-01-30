@@ -1,4 +1,0 @@
-Formaldehyde Measurement
-========================
-
-.. lua:autoclass:: st.zwave.defaults.formaldehydeMeasurement

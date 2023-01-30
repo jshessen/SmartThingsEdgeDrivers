@@ -1,5 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.manual_control_supported
-.. lua:autoclass:: st.zwave.CommandClass.HrvControl.mode

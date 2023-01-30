@@ -1,6 +1,0 @@
-System Config Get
-=================
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigGet
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigGetV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemConfigGetV1Args

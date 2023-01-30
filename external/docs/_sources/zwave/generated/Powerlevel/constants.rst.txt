@@ -1,6 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.power_level
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.status_of_operation
-.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.test_node_id

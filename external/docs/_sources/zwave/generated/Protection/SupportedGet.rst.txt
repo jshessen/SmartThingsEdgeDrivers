@@ -1,6 +1,0 @@
-Supported Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.Protection.SupportedGet
-.. lua:autoclass:: st.zwave.CommandClass.Protection.SupportedGetV2
-.. lua:autoclass:: st.zwave.CommandClass.Protection.SupportedGetV2Args

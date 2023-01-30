@@ -1,5 +1,0 @@
-Constants
-=========
-
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.scale
-.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.setpoint_type

@@ -1,4 +1,0 @@
-Energy Meter
-============
-
-.. lua:autoclass:: st.zigbee.defaults.energyMeter

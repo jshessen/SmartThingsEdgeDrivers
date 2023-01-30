@@ -1,8 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.Get
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.GetV1Args
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.GetV2
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.GetV2Args

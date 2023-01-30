@@ -1,6 +1,0 @@
-Supported Get
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedGet
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedGetV2
-.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedGetV2Args

@@ -1,7 +1,0 @@
-Valve Table Set
-===============
-
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveTableSet
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveTableSetV1
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveTableSetV1Args
-.. lua:autoclass:: st.zwave.CommandClass.Irrigation.ValveTableSetV1ArgsVg1

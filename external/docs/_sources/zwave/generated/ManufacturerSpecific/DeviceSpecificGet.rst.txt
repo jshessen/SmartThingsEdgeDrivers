@@ -1,6 +1,0 @@
-Device Specific Get
-===================
-
-.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.DeviceSpecificGet
-.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.DeviceSpecificGetV2
-.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.DeviceSpecificGetV2Args

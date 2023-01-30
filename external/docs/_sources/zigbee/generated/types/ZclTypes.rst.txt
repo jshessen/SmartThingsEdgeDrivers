@@ -1,4 +1,0 @@
-ZclTypes
-========
-
-.. lua:autoclass:: st.zigbee.zcl.types.ZclTypes

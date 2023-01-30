@@ -1,4 +1,0 @@
-ProfileIntervalPeriod
-=====================
-
-.. lua:autoclass:: st.zigbee.zcl.types.ProfileIntervalPeriod

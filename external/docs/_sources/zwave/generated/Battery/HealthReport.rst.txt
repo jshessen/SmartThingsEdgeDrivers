@@ -1,6 +1,0 @@
-Health Report
-=============
-
-.. lua:autoclass:: st.zwave.CommandClass.Battery.HealthReport
-.. lua:autoclass:: st.zwave.CommandClass.Battery.HealthReportV2
-.. lua:autoclass:: st.zwave.CommandClass.Battery.HealthReportV2Args

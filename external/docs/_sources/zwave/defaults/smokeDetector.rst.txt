@@ -1,4 +1,0 @@
-Smoke Detector
-==============
-
-.. lua:autoclass:: st.zwave.defaults.smokeDetector

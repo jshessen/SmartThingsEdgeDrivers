@@ -1,6 +1,0 @@
-Get
-===
-
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.Get
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.GetV1
-.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.GetV1Args
