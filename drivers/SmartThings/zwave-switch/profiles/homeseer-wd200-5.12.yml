@@ -35,6 +35,21 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
+  - name: "ledNormalColor"
+    title: "LED Color"
+    description: "Set LED Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
   - name: "rampRate"
     title: "Ramp Rate (local)"
     description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
@@ -54,10 +69,10 @@ preferences:
       maximum: 255
       default: 3
   - name: "operatingMode"
-    title: "Operating Mode"
+    title: "Enable Status Mode"
     description: "Set mode of operation"
     required: true
-    preferenceType: enumeration
+    preferenceType: boolean
     definition:
       options:
         0: "Normal mode (load status)"
@@ -209,4 +224,3 @@ preferences:
         0: "Control load with delay, + Multi-Tap"
         1: "Control load instantly, - Multi-Tap"
       default: 0
-      

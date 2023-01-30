@@ -1,11 +1,19 @@
-# https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
-name: homeseer-wx300s
+# https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd200+
+name: homeseer-wd200-latest
 components:
   - id: main
     capabilities:
       - id: switch
         version: 1
+      - id: switchLevel
+        version: 1
+        config:
+          values:
+            - key: "level.value"
+              range: [1, 100]
       - id: button
+        version: 1
+      - id: firmwareUpdate
         version: 1
       - id: refresh
         version: 1
@@ -30,7 +38,7 @@ preferences:
         1: "When On"
       default: 0
   - name: "ledNormalColor"
-    title: "Normal Mode: LED Color"
+    title: "LED Color"
     description: "Set LED Color"
     required: false
     preferenceType: enumeration
@@ -44,6 +52,47 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "minimumDimLevel"
+    title: "Minimum Dim Level"
+    description: "Sets the lowest dimming threshold (Added in firmware 5.14)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "No minimum dim value"
+        1: "6.5%"
+        2: "8%"
+        3: "9%"
+        4: "10%"
+        5: "11%"
+        6: "12%"
+        7: "13%"
+        8: "14%"
+        9: "15%"
+        10: "16%"
+        11: "17%"
+        12: "18%"
+        13: "19%"
+        14: "20%"
+      default: 0
+  - name: "rampRate"
+    title: "Ramp Rate (local)"
+    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z-Wave (remote)"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
   - name: "operatingMode"
     title: "Enable Status Mode"
     description: "Set mode of operation"
@@ -61,9 +110,3 @@ preferences:
         0: "Control load with delay, + Multi-Tap"
         1: "Control load instantly, - Multi-Tap"
       default: 0
-  - name: "wireMode"
-    title: "Wire Mode Includes Neutrual (3-wire)"
-    required: true
-    preferenceType: boolean
-    definition:
-      default: false

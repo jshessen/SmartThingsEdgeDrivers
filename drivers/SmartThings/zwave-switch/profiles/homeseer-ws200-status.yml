@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+
-name: homeseer-ws200
+name: homeseer-ws200-status
 components:
   - id: main
     capabilities:
@@ -7,8 +7,16 @@ components:
         version: 1
       - id: button
         version: 1
+      - id: firmwareUpdate
+        version: 1
       - id: refresh
         version: 1
+    categories:
+      - name: Switch
+  - id: LED
+    capabilities:
+    - id: switch
+      version: 1
     categories:
       - name: Switch
 preferences:
@@ -29,20 +37,30 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
-  - name: "ledNormalColor"
-    title: "LED Color"
-    description: "Set mode of operation"
-    required: true
+  - name: "ledStatusColor"
+    title: "Status Mode - LED Color"
+    description: "Set LED Color"
+    required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "White"
+        0: "Off"
         1: "Red"
         2: "Green"
         3: "Blue"
         4: "Magenta"
         5: "Yellow"
         6: "Cyan"
+        7: "White"
+      default: 0
+  - name: "ledBlinkFrequency"
+    title: "LED Status Blink Frequency"
+    description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
       default: 0
   - name: "operatingMode"
     title: "Enable Status Mode"
@@ -50,4 +68,4 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: false
+      default: true

@@ -19,15 +19,16 @@
 
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 --- Required Libraries
+---
 
---- @type st.Device
-local st_device = require "st.device"
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
---- @type st.zwave.CommandClass
+--- @type st.Device
+local st_device = require "st.device"
+-- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 
---- @type st.zwave.constants
+-- @type st.zwave.constants
 local constants = require "st.zwave.constants"
 -- @type st.utils
 local utils = require "st.utils"
@@ -55,10 +56,12 @@ local configsMap = require "configurations"
 --- Misc
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 2})
+---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 --- ?????????????????????????????????????????????????????????????????
 --- Variables/Constants
+---
 
 --- @local
 local custom_capabilities = {}
@@ -66,8 +69,6 @@ custom_capabilities.firmwareVersion = {}
 custom_capabilities.firmwareVersion.name = "firmwareVersion"
 custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name]
 
---- @local
-local PROFILE_CHANGED = "profile_changed"
 --- @local
 local LAST_SEQ_NUMBER = "last_sequence_number"
 
@@ -175,12 +176,14 @@ local map_key_attribute_to_capability = {
     [0x02] = {capabilities.button.button.held()}
   }
 }
-
+---
 --- ?????????????????????????????????????????????????????????????????
 
 --- #################################################################
 --- Section: Can Handle
+---
 --- #######################################################
+---
 
 --- @function can_handle_homeseer_switches --
 --- Determine whether the passed device is a HomeSeer switch.
@@ -201,18 +204,19 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
   end
   return false
 end
-
+---
 --- #######################################################
-
+---
 --- #################################################################
 
 --- #################################################################
 --- Section: Z-Wave Handlers
-
+---
 --- ############################################################
 --- Subsection: Switch MultiLevel
-
+---
 --- #######################################################
+---
 
 --- @function dimmer_event --
 --- Handles "dimmer" functionality
@@ -238,10 +242,11 @@ local function dimmer_event(driver, device, command)
       device:emit_event_for_endpoint(command.src_channel, event)
   end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function switch_multilevel_stop_level_change_handler --
 --- Handles "on/off" functionality
@@ -255,15 +260,16 @@ local function switch_multilevel_stop_level_change_handler(driver, device, comma
   -- Send a SwitchMultilevel:Get command
   device:send(SwitchMultilevel:Get({}))
 end
-
+---
 --- #######################################################
-
+---
 --- ############################################################
 
 --- ############################################################
 --- Subsection: Central Scene
-
+---
 --- #######################################################
+---
 
 --- @function central_scene_notification_handler --
 --- Handles "Scene" functionality
@@ -292,16 +298,16 @@ local function central_scene_notification_handler(driver, device, command)
     end
   end
 end
-
-
+---
 --- #######################################################
-
+---
 --- ############################################################
 
 --- ############################################################
 --- Subsection: Version
-
+---
 --- #######################################################
+---
 
 --- @function version_report_handler --
 --- Adjust profile definition based upon reported firmware version
@@ -310,70 +316,57 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 local function version_report_handler(driver, device, command)
+
+  local new_profile = ''
+  local operatingMode = device.preferences.operatingMode == true and '-status' or ''
+
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if fingerprint.id == "HomeSeer/Dimmer/WD200" then
       -- Check if the firmware version and sub-version match certain values
-      if (command.args.firmware_version == 5 and (command.args.firmware_sub_version > 11 and command.args.firmware_sub_version < 14)) and
-      device:get_field(PROFILE_CHANGED) ~= true then
+      if (command.args.firmware_version == 5 and (command.args.firmware_sub_version > 11 and command.args.firmware_sub_version < 14)) then
         -- Update the device's profile and set a field to indicate that the update has occurred
-        local new_profile = "homeseer-wd200-5.12"
-        device:try_update_metadata({profile = new_profile})
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
-      -- Check if the firmware version and sub-version match certain values
-      elseif (command.args.firmware_version == 5 and command.args.firmware_sub_version >= 14) and
-      device:get_field(PROFILE_CHANGED) ~= true then
+        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. command.args.firmware_version .. '.' .. command.args.firmware_sub_version
+        break
+        -- Check if the firmware version and sub-version match certain values
+      elseif (command.args.firmware_version == 5 and command.args.firmware_sub_version >= 14) then
         -- Update the device's profile and set a field to indicate that the update has occurred
-        local new_profile = "homeseer-wd200-5.14"
-        device:try_update_metadata({profile = new_profile})
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
-      end
-      break
-    end
-
-    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
-    if fingerprint.id == "HomeSeer/Dimmer/WX300S" then
-          
-      -- Check if the firmware version is greater than 1.12 and the PROFILE_CHANGED field is not true
-      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) and
-      device:get_field(PROFILE_CHANGED) ~= true then
-        
-        -- Set the new profile for the device
-        local new_profile = "homeseer-wx300s-1.13"
-        device:try_update_metadata({profile = new_profile})
-        -- Persist the change in the PROFILE_CHANGED field
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
+        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. 'latest'
         break
       end
-    end
-
-    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
-    if fingerprint.id == "HomeSeer/Dimmer/WX300D" then
-          
-      -- Check if the firmware version is greater than 1.12 and the PROFILE_CHANGED field is not true
-      if (command.args.firmware_0_version == 1 and command.args.firmware_0_sub_version > 12) and
-      device:get_field(PROFILE_CHANGED) ~= true then
-        
+    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
+    elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" then
+      -- Check if the firmware version is greater than 1.12
+      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
         -- Set the new profile for the device
-        local new_profile = "homeseer-wx300d-1.13"
-        device:try_update_metadata({profile = new_profile})
-        -- Persist the change in the PROFILE_CHANGED field
-        device:set_field(PROFILE_CHANGED, true, {persist = true})
+        new_profile = 'homeseer-' .. 'wx300s' .. operatingMode .. '-' .. 'latest'
+        break
+      end
+    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
+    elseif fingerprint.id == "HomeSeer/Dimmer/WX300D" then
+      -- Check if the firmware version is greater than 1.12
+      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
+        -- Set the new profile for the device
+        new_profile = 'homeseer-' .. 'wx300d' .. operatingMode .. '-' .. 'latest'
         break
       end
     end
   end
+  assert (device:try_update_metadata({profile = new_profile}), "Failed to change device profile")
+  log.warn('Changed to new profile. App restart required.')
 end
-
-
+---
 --- #######################################################
-
+---
 --- ############################################################
+---
+--- #################################################################
 
 --- #################################################################
 --- Section: Capability Handlers
-
+---
 --- #######################################################
+---
 
 --- @function: do_referesh --
 --- Refresh Device
@@ -396,10 +389,11 @@ local function do_refresh(driver, device, command)
         device:send_to_component(SwitchBinary:Get({}), component)
     end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function: checkForFirmwareUpdate_handler --
 --- Check to see if there is a firmware update available for the device
@@ -413,10 +407,11 @@ local function checkForFirmwareUpdate_handler(driver, device, command)
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function: updateFirmware_handler --
 --- Check to see if there is a firmware update available for the device
@@ -430,10 +425,11 @@ local function updateFirmware_handler(driver, device, command)
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function switch_set_on_off_handler --
 --- Handles "on/off" functionality
@@ -465,28 +461,32 @@ local function switch_set_on_off_handler(value)
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
   end
 end
-
+---
 --- #######################################################
-
+---
 --- #################################################################
 
 --- #################################################################
 --- Section: Lifecycle Handlers
-
+---
 --- #######################################################
+---
 
 local function device_init(self, device)
   device:init()
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function added_handler --
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function added_handler(self, device)
+  log.debug('Device Added')
+
   -- Refresh the device
   device:refresh()
   -- Get the device parameters from configsMap
@@ -507,51 +507,70 @@ local function added_handler(self, device)
     end
   end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
 
+--- @function do_configure --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
 local function do_configure(self, device)
+  log.debug('Configure Device')
   device:refresh()
   device:configure()
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
-local function info_changed(driver, device, event, args)
-  -- Did my preference value change
-  --if args.old_st_store.preferences.sensitivityLevel ~= device.preferences.sensitivityLevel then
-  --  device:send(<message_to_control_device>)
-  --end
+--- @function info_changed --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function info_changed(self, device, event, args)
+  log.info(device.id .. ": " .. device.device_network_id .. " > INFO CHANGED")
+
+  if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
+    device:send(Version:Get({}))
+  end
 end
-
+---
 --- #######################################################
 
 --- #######################################################
 
+--- @function driver_switched --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
 local function driver_switched(self, device)
-  
+  log.info('device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED"')
 end
-
+---
 --- #######################################################
 
 --- #######################################################
+---
 
+--- @function removed --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
 local function removed(self, device)
-
+  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_REMOVED")
 end
-
+---
 --- #######################################################
-
+---
 --- #################################################################
 
 --- /////////////////////////////////////////////////////////////////
 ---  Section: Driver
-
+---
 --- ///////////////////////////////////////////////////////
+---
 
 local homeseer_switches = {
   NAME = "HomeSeer Z-Wave Switches",
@@ -603,7 +622,7 @@ local homeseer_switches = {
     removed = removed
   }
 }
-
+---
 --- ///////////////////////////////////////////////////////
 
 return homeseer_switches
