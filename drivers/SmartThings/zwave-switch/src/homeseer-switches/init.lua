@@ -24,7 +24,7 @@
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
 --- @type st.zwave.Device
-local st_device = require "st.zwave.Device"
+local st_device = require "st.device"
 -- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 
