@@ -23,6 +23,8 @@
 -- Required Libraries
 --
 local capabilities = require "st.capabilities"
+--- @type st.Device
+local st_device = require "st.device"
 local log = require "log"
 
 local cc = require "st.zwave.CommandClass"
@@ -109,16 +111,18 @@ end
 --- Function: capability_handlers()
 --- 
 -- 
+
 local capability_handlers = {}
 --
 --#######################################################
 
 --#######################################################
+
 --- Function: capability_handlers.fan_speed_set()
 --- Issue a level-set command to the specified device.
 ---
---- @param driver st.zwave.Driver
---- @param device st.zwave.Device
+--- @param driver Driver
+--- @param device st.Device
 --- @param command table ST level capability command
 function capability_handlers.fan_speed_set(driver, device, command)
   fan_speed_helper.capability_handlers.fan_speed_set(driver, device, command, map_fan_4_speed_to_switch_level)
@@ -130,17 +134,19 @@ end
 --- Function: zwave_handlers()
 ---
 --
+
 local zwave_handlers = {}
 --
 --#######################################################
 
 --#######################################################
+
 --- Function: zwave_handlers.fan_multilevel_report()
 --- Convert `SwitchMultilevel` level {0 - 99}
 --- into `FanSpeed` speed { 0, 1, 2, 3, 4}
 ---
---- @param driver st.zwave.Driver
---- @param device st.zwave.Device
+--- @param driver Driver
+--- @param device st.Device
 --- @param cmd st.zwave.CommandClass.SwitchMultilevel.Report
 function zwave_handlers.fan_multilevel_report(driver, device, cmd)
   fan_speed_helper.zwave_handlers.fan_multilevel_report(driver, device, cmd, map_switch_level_to_fan_4_speed)
