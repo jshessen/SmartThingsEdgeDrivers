@@ -519,6 +519,7 @@ end
 local function do_configure(self, device)
   log.debug('Configure Device')
   device:refresh()
+  device:send(Version:Get({}))
   device:configure()
 end
 ---
