@@ -27,13 +27,13 @@ zwaveManufacturer:
     deviceLabel: HomeSeer WX300 Switch
     manufacturerId: 0x000C
     productType: 0x4447
-    productId: 0x4036
+    productId: 0x4037
     deviceProfileName: homeseer-wx300s
   - id: "HomeSeer/Dimmer/WX300D"
     deviceLabel: HomeSeer WX300 Dimmer
     manufacturerId: 0x000C
     productType: 0x4447
-    productId: 0x4037
+    productId: 0x4036
     deviceProfileName: homeseer-wx300d
   - id: "ZLink/Switch/WS100"
     deviceLabel: ZLink ZL-WS-100 Switch

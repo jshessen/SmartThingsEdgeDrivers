@@ -317,43 +317,52 @@ end
 --- @return (nil)
 local function version_report_handler(driver, device, command)
 
-  local new_profile = ''
   local operatingMode = device.preferences.operatingMode == true and '-status' or ''
+  local profile
 
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
-    if fingerprint.id == "HomeSeer/Dimmer/WD200" then
-      -- Check if the firmware version and sub-version match certain values
-      if (command.args.firmware_version == 5 and (command.args.firmware_sub_version > 11 and command.args.firmware_sub_version < 14)) then
-        -- Update the device's profile and set a field to indicate that the update has occurred
-        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. command.args.firmware_version .. '.' .. command.args.firmware_sub_version
-        break
+    if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
+      log.debug(string.format("%s: mfr=%s, prod=%s, model=%s", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
+      log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
+      profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/')) .. operatingMode
+
+
+      if fingerprint.id == "HomeSeer/Dimmer/WD200" then
         -- Check if the firmware version and sub-version match certain values
-      elseif (command.args.firmware_version == 5 and command.args.firmware_sub_version >= 14) then
-        -- Update the device's profile and set a field to indicate that the update has occurred
-        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. 'latest'
-        break
-      end
-    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
-    elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" then
-      -- Check if the firmware version is greater than 1.12
-      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
-        -- Set the new profile for the device
-        new_profile = 'homeseer-' .. 'wx300s' .. operatingMode .. '-' .. 'latest'
-        break
-      end
-    -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
-    elseif fingerprint.id == "HomeSeer/Dimmer/WX300D" then
-      -- Check if the firmware version is greater than 1.12
-      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
-        -- Set the new profile for the device
-        new_profile = 'homeseer-' .. 'wx300d' .. operatingMode .. '-' .. 'latest'
-        break
+        if (command.args.application_version == 5 and (command.args.application_sub_version > 11 and command.args.application_sub_version < 14)) then
+          -- Update the device's profile and set a field to indicate that the update has occurred
+          profile = profile .. '-' .. command.args.application_version .. '.' .. command.args.application_sub_version
+          break
+          -- Check if the firmware version and sub-version match certain values
+        elseif (command.args.application_version == 5 and command.args.application_sub_version >= 14) then
+          -- Update the device's profile and set a field to indicate that the update has occurred
+          profile = profile .. '-' .. 'latest'
+          break
+        end
+      -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
+      elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" then
+        -- Check if the firmware version is greater than 1.12
+        if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
+          -- Set the new profile for the device
+          profile = profile .. '-' .. 'latest'
+          break
+        end
+      -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
+      elseif fingerprint.id == "HomeSeer/Dimmer/WX300D" then
+        -- Check if the firmware version is greater than 1.12
+        if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
+          -- Set the new profile for the device
+          profile = profile .. '-' .. 'latest'
+          break
+        end
       end
     end
   end
-  assert (device:try_update_metadata({profile = new_profile}), "Failed to change device profile")
-  log.warn('Changed to new profile. App restart required.')
+  if profile ~= nil then
+    assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
+    log.warn(string.format("Setting profile: %s", profile))
+  end
 end
 ---
 --- #######################################################
@@ -490,7 +499,7 @@ local function added_handler(self, device)
   -- Refresh the device
   device:refresh()
   -- Get the device parameters from configsMap
-  local configs = configsMap.get_device_parameters(device)
+--[[   local configs = configsMap.get_device_parameters(device)
   -- Check if configs are available
   if configs then
     -- Loop through the device components
@@ -505,7 +514,7 @@ local function added_handler(self, device)
         device:emit_component_event(comp, capabilities.button.supportedButtonValues(BUTTON_VALUES, { visibility = { displayed = false } }))
       end
     end
-  end
+  end ]]
 end
 ---
 --- #######################################################
@@ -532,22 +541,44 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function info_changed(self, device, event, args)
-  log.info(device.id .. ": " .. device.device_network_id .. " > INFO CHANGED")
+  log.info(device.pretty_print(self))
 
   if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
     device:send(Version:Get({}))
+  end
+  call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function call_parent_handler --
+--- @param handlers (string)
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function call_parent_handler(handlers, self, device, event, args)
+  if type(handlers) == "function" then
+    local handler_table = { handlers }  -- wrap as table
+  end
+  for _, func in ipairs( handlers or {} ) do
+      func(self, device, event, args)
   end
 end
 ---
 --- #######################################################
 
 --- #######################################################
+---
 
 --- @function driver_switched --
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function driver_switched(self, device)
-  log.info('device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED"')
+  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED")
 end
 ---
 --- #######################################################
