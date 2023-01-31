@@ -323,13 +323,14 @@ local function version_report_handler(driver, device, command)
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if fingerprint.id == "HomeSeer/Dimmer/WD200" then
+      log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
       -- Check if the firmware version and sub-version match certain values
-      if (command.args.firmware_version == 5 and (command.args.firmware_sub_version > 11 and command.args.firmware_sub_version < 14)) then
+      if (command.args.application_version == 5 and (command.args.application_sub_version > 11 and command.args.application_sub_version < 14)) then
         -- Update the device's profile and set a field to indicate that the update has occurred
-        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. command.args.firmware_version .. '.' .. command.args.firmware_sub_version
+        new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. command.args.application_version .. '.' .. command.args.application_sub_version
         break
         -- Check if the firmware version and sub-version match certain values
-      elseif (command.args.firmware_version == 5 and command.args.firmware_sub_version >= 14) then
+      elseif (command.args.application_version == 5 and command.args.application_sub_version >= 14) then
         -- Update the device's profile and set a field to indicate that the update has occurred
         new_profile = 'homeseer-' .. 'wd200' .. operatingMode .. '-' .. 'latest'
         break
@@ -337,7 +338,7 @@ local function version_report_handler(driver, device, command)
     -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
     elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" then
       -- Check if the firmware version is greater than 1.12
-      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
+      if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
         -- Set the new profile for the device
         new_profile = 'homeseer-' .. 'wx300s' .. operatingMode .. '-' .. 'latest'
         break
@@ -345,7 +346,7 @@ local function version_report_handler(driver, device, command)
     -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
     elseif fingerprint.id == "HomeSeer/Dimmer/WX300D" then
       -- Check if the firmware version is greater than 1.12
-      if (command.args.firmware_version == 1 and command.args.firmware_sub_version > 12) then
+      if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
         -- Set the new profile for the device
         new_profile = 'homeseer-' .. 'wx300d' .. operatingMode .. '-' .. 'latest'
         break
@@ -353,7 +354,7 @@ local function version_report_handler(driver, device, command)
     end
   end
   assert (device:try_update_metadata({profile = new_profile}), "Failed to change device profile")
-  log.warn('Changed to new profile. App restart required.')
+  log.warn(string.format("Changed to new profile: %s", new_profile))
 end
 ---
 --- #######################################################
@@ -490,7 +491,7 @@ local function added_handler(self, device)
   -- Refresh the device
   device:refresh()
   -- Get the device parameters from configsMap
-  local configs = configsMap.get_device_parameters(device)
+--[[   local configs = configsMap.get_device_parameters(device)
   -- Check if configs are available
   if configs then
     -- Loop through the device components
@@ -505,7 +506,7 @@ local function added_handler(self, device)
         device:emit_component_event(comp, capabilities.button.supportedButtonValues(BUTTON_VALUES, { visibility = { displayed = false } }))
       end
     end
-  end
+  end ]]
 end
 ---
 --- #######################################################
