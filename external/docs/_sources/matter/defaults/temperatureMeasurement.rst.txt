@@ -1,0 +1,4 @@
+Temperature Measurement
+=======================
+
+.. lua:autoclass:: st.matter.defaults.temperatureMeasurement

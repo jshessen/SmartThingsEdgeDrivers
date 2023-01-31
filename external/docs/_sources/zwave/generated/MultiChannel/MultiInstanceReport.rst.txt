@@ -1,0 +1,6 @@
+Multi Instance Report
+=====================
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.MultiInstanceReport
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.MultiInstanceReportV2
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.MultiInstanceReportV2Args

@@ -1,0 +1,301 @@
+ZCL Clusters
+============
+
+.. contents::
+  :depth: 4
+
+The Zigbee protocol application layer can take several forms, but most commonly for home automation you will see
+devices that use the Zigbee Cluster Library to control and define the device behavior.  For the specifics of the
+Zigbee Cluster Library and it's behavior you should look at the Zigbee specification.  However, in order to
+facilitate Driver development we have included a lua implementation of much of the behavior for constructing and
+parsing commands and attributes.  To do this we have defined a :lua:class:`ZigbeeCluster <ZigbeeCluster>` class
+that will contain all of the information about a cluster.  This top level class will contain information about
+the cluster, like it's ``NAME`` and ``ID`` for identification, but it will also contain a list of the ``attributes``
+and ``commands`` which dictate the functionality of that cluster.  Those are also represented in lua as the
+classes :lua:class:`ZigbeeClusterAttribute <ZigbeeClusterAttribute>` and
+:lua:class:`ZigbeeClusterCommand <ZigbeeClusterCommand>`.  On this page you will find the documentation of the
+class templates, but you can find the individual cluster documentation :doc:`here <../generated/clusters>` or reference
+the Zigbee documentation directly.
+
+Cluster Attribute
++++++++++++++++++
+
+Below is the description of what a `ZigbeeClusterAttribute` class provides in the lua libraries.
+
+Examples
+--------
+
+Read an Attribute
+~~~~~~~~~~~~~~~~~
+
+.. code-block:: lua
+
+    local OnOff = (require "st.zigbee.zcl.clusters").OnOff
+    local OnOffAttribute = OnOff.attributes.OnOff
+
+    -- Device object, see driver documentation for details
+    local my_device = ... --- Address = 0xDEAD, endpoint = 0x01
+
+    -- Read the value of the OnOff Attribute
+    OnOffAttribute:read(my_device):pretty_print()
+    -- ZCLMessageTx:
+    --     Uint16: 0x0000
+    --     AddressHeader:
+    --         src_addr: 0x0000
+    --         src_endpoint: 0x01
+    --         dest_addr: 0xDEAD
+    --         dest_endpoint: 0x01
+    --         profile: 0x0104
+    --         cluster: 0x0006
+    --     ZCLHeader:
+    --         frame_ctrl: 0x00
+    --         seqno: 0x00
+    --         ZCLCommandId: 0x00
+    --     ReadAttribute:
+    --         AttributeId: 0x0000
+
+Configure an Attribute
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: lua
+
+    local OnOff = (require "st.zigbee.zcl.clusters").OnOff
+    local OnOffAttribute = OnOff.attributes.OnOff
+
+    -- Device object, see driver documentation for details
+    local my_device = ... --- Address = 0xDEAD, endpoint = 0x01
+
+    -- Configure the OnOffAttribute to report on every change, and at least once an hour
+    -- It is a discrete data type (Boolean) so reportable_change is unneeded
+    OnOffAttribute:configure_reporting(my_device, 0, 3600):pretty_print()
+    -- ZCLMessageTx:
+    --     Uint16: 0x0000
+    --     AddressHeader:
+    --         src_addr: 0x0000
+    --         src_endpoint: 0x01
+    --         dest_addr: 0xDEAD
+    --         dest_endpoint: 0x01
+    --         profile: 0x0104
+    --         cluster: 0x0006
+    --     ZCLHeader:
+    --         frame_ctrl: 0x00
+    --         seqno: 0x00
+    --         ZCLCommandId: 0x06
+    --     ConfigureReporting:
+    --         AttributeReportingConfiguration:
+    --             Uint8: 0x00
+    --             AttributeId: 0x0000
+    --             DataType: Boolean
+    --             minimum_reporting_interval: 0x0000
+    --             maximum_reporting_interval: 0x0E10
+
+Write an Attribute
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: lua
+
+    local PowerConfig = (require "st.zigbee.zcl.clusters").PowerConfig
+    local BatteryVoltageThreshold1 = PowerConfig.attributes.BatteryVoltageThreshold1
+
+    -- Device object, see driver documentation for details
+    local my_device = ... --- Address = 0xDEAD, endpoint = 0x01
+
+    -- Set the battery voltage threshold to 2.4 v
+    BatteryVoltageThreshold1:write(device, 24):pretty_print()
+    -- ZCLMessageTx:
+    --     Uint16: 0x0000
+    --     AddressHeader:
+    --         src_addr: 0x0000
+    --         src_endpoint: 0x01
+    --         dest_addr: 0xDEAD
+    --         dest_endpoint: 0x01
+    --         profile: 0x0104
+    --         cluster: 0x0001
+    --     ZCLHeader:
+    --         frame_ctrl: 0x00
+    --         seqno: 0x00
+    --         ZCLCommandId: 0x02
+    --     WriteAttribute:
+    --         AttributeRecord:
+    --             AttributeId: 0x0037
+    --             DataType: Uint8
+    --             Uint8: 0x18
+
+
+
+Documentation
+-------------
+
+.. lua:autoclass:: ZigbeeClusterAttribute
+
+Cluster Command
++++++++++++++++
+
+Below is a description of the `ZigbeeClusterCommand` template which describes the shared behavior
+of cluster specific command representations in the lua Zigbee library.
+
+Examples
+--------
+
+Build a TX Command
+~~~~~~~~~~~~~~~~~~
+
+Example command without arguments
+
+.. code-block:: lua
+
+    local OnOff = (require "st.zigbee.zcl.clusters").OnOff
+    local OnCommand = OnOff.commands.client.On
+
+    -- Device object, see driver documentation for details
+    local my_device = ... -- Address = 0xDEAD, endpoint = 0x01
+
+    OnCommand(my_device):pretty_print()
+    -- ZCLMessageTx:
+    --     Uint16: 0x0000
+    --     AddressHeader:
+    --         src_addr: 0x0000
+    --         src_endpoint: 0x01
+    --         dest_addr: 0xDEAD
+    --         dest_endpoint: 0x01
+    --         profile: 0x0104
+    --         cluster: 0x0006
+    --     ZCLHeader:
+    --         frame_ctrl: 0x01
+    --         seqno: 0x00
+    --         ZCLCommandId: 0x01
+    --     On:
+
+Example command with arguments
+
+.. code-block:: lua
+
+    local Level = (require "st.zigbee.zcl.clusters").Level
+    local MoveToLevelWithOnOffCommand = Level.commands.client.MoveToLevelWithOnOff
+
+    -- Device object, see driver documentation for details
+    local my_device = ... -- Address = 0xDEAD, endpoint = 0x01
+
+    -- Set the level of the device to 50% with a transition time of 0
+    MoveToLevelWithOnOffCommand(my_device, math.floor(50 * 0xFE / 100), 0):pretty_print()
+    -- ZCLMessageTx:
+    --     Uint16: 0x0000
+    --     AddressHeader:
+    --         src_addr: 0x0000
+    --         src_endpoint: 0x01
+    --         dest_addr: 0xDEAD
+    --         dest_endpoint: 0x01
+    --         profile: 0x0104
+    --         cluster: 0x0008
+    --     ZCLHeader:
+    --         frame_ctrl: 0x01
+    --         seqno: 0x00
+    --         ZCLCommandId: 0x04
+    --     MoveToLevelWithOnOff:
+    --         level: 0x7F
+    --         transition_time: 0x0000
+
+
+Parse an RX Command
+~~~~~~~~~~~~~~~~~~~
+
+This is primarily something that you should not have to do directly, but is handled by the parsing
+code in the :lua:class:`ZigbeeMessageRx` by default.  However, here is an example of parsing a byte
+string of a cluster specific command directly.
+
+.. code-block:: lua
+
+    local IASZone = (require "st.zigbee.zcl.clusters").IASZone
+    local ZoneStatusChangeNotification = IASZone.commands.server.ZoneStatusChangeNotification
+
+    local bytes = "\x01\x00\x00\x01\x02\x00"
+    ZoneStatusChangeNotification.deserialize(bytes):pretty_print()
+    -- ZoneStatusChangeNotification:
+    --     zone_status: 0x0001
+    --     extended_status: 0x00
+    --     zone_id: 0x01
+    --     delay: 0x0002
+
+    -- OR
+    local data_types = require "st.zigbee.data_types"
+
+    IASZone:parse_cluster_specific_command(
+        data_types.ZCLCommandId(ZoneStatusChangeNotification.ID),
+        0x01,
+        bytes
+    ):pretty_print()
+    -- ZoneStatusChangeNotification:
+    --     zone_status: 0x0001
+    --     extended_status: 0x00
+    --     zone_id: 0x01
+    --     delay: 0x0002
+
+
+Documentation
+-------------
+
+.. lua:autoclass:: ZigbeeClusterCommand
+
+
+Cluster
++++++++
+
+Below is the description of what a ``ZigbeeCluster`` class provides in the lua libraries.  Most of the
+relevant usage is through either a :lua:class:`ZigbeeClusterAttribute` or :lua:class:`ZigbeeClusterCommand`
+so relevant examples are present under those class definitions above.
+
+Examples
+--------
+
+Create an attribute read command for an attribute only knowing its ID
+
+.. code-block:: lua
+
+    local OnOff = (require "st.zigbee.zcl.clusters").OnOff
+
+    -- Device object, see driver documentation for details
+    local my_device = ... -- Address = 0xDEAD, endpoint = 0x01
+
+    -- Read the OnOff attribute only knowing its ID
+    OnOff:get_attribute_by_id(0x0000):read(my_device):pretty_print()
+    -- ZCLMessageTx:
+    --     Uint16: 0x0000
+    --     AddressHeader:
+    --         src_addr: 0x0000
+    --         src_endpoint: 0x01
+    --         dest_addr: 0xDEAD
+    --         dest_endpoint: 0x01
+    --         profile: 0x0104
+    --         cluster: 0x0006
+    --     ZCLHeader:
+    --         frame_ctrl: 0x00
+    --         seqno: 0x00
+    --         ZCLCommandId: 0x00
+    --     ReadAttribute:
+    --         AttributeId: 0x0000
+
+Create a cluster specific command by ID
+
+.. code-block:: lua
+
+    local OnOff = (require "st.zigbee.zcl.clusters").OnOff
+
+    -- Device object, see driver documentation for details
+    local my_device = ... -- Address = 0xDEAD, endpoint = 0x01
+
+    -- Toggle the device by command ID
+    OnOff:get_client_command_by_id(0x02)(my_device):pretty_print()
+    -- ZCLMessageTx:
+    --     Uint16: 0x0000
+    --     AddressHeader:
+    --         src_addr: 0x0000
+    --         src_endpoint: 0x01
+    --         dest_addr: 0xDEAD
+    --         dest_endpoint: 0x01
+    --         profile: 0x0104
+    --         cluster: 0x0006
+    --     ZCLHeader:
+    --         frame_ctrl: 0x01
+    --         seqno: 0x00
+    --         ZCLCommandId: 0x02
+    --     Toggle:

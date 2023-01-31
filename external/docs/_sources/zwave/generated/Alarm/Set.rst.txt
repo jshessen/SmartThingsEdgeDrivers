@@ -1,0 +1,6 @@
+Set
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.Set
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.SetV2
+.. lua:autoclass:: st.zwave.CommandClass.Alarm.SetV2Args

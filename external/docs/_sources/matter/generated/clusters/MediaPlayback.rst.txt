@@ -1,0 +1,70 @@
+MediaPlayback
+================================
+
+Attributes
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.CurrentState
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.StartTime
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.Duration
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.SampledPosition
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.PlaybackSpeed
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.SeekRangeEnd
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.SeekRangeStart
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.AcceptedCommandList
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.AttributeList
+Client Commands
++++++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.PlaybackResponse
+
+Server Commands
++++++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.Play
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.Pause
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.StopPlayback
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.StartOver
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.Previous
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.Next
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.Rewind
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.FastForward
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.SkipForward
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.SkipBackward
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.Seek
+
+Bitmap types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.types.MediaPlaybackFeature
+
+Enum types
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.types.MediaPlaybackStatusEnum
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.types.PlaybackStateEnum
+
+Struct types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.MediaPlayback.types.PlaybackPosition
+

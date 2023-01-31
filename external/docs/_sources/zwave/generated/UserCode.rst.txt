@@ -1,0 +1,27 @@
+User Code
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   UserCode/Set
+   UserCode/Get
+   UserCode/Report
+   UserCode/UsersNumberGet
+   UserCode/UsersNumberReport
+   UserCode/CapabilitiesGet
+   UserCode/CapabilitiesReport
+   UserCode/KeypadModeSet
+   UserCode/KeypadModeGet
+   UserCode/KeypadModeReport
+   UserCode/ExtendedSet
+   UserCode/ExtendedGet
+   UserCode/ExtendedReport
+   UserCode/MasterCodeSet
+   UserCode/MasterCodeGet
+   UserCode/MasterCodeReport
+   UserCode/ChecksumGet
+   UserCode/ChecksumReport
+   UserCode/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.UserCode

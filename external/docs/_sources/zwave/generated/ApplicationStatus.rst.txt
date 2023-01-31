@@ -1,0 +1,11 @@
+Application Status
+==================
+
+.. toctree::
+   :maxdepth: 2
+
+   ApplicationStatus/ApplicationBusy
+   ApplicationStatus/ApplicationRejectedRequest
+   ApplicationStatus/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.ApplicationStatus

@@ -1,0 +1,19 @@
+RelativeHumidity
+================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.RelativeHumidity
+
+RelativeHumidity Attributes
++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.RelativeHumidity.MeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.RelativeHumidity.MinMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.RelativeHumidity.MaxMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.RelativeHumidity.Tolerance
+
+RelativeHumidity Commands
++++++++++++++++++++++++++
+

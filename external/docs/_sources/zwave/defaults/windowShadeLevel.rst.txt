@@ -1,0 +1,4 @@
+Window Shade Level
+==================
+
+.. lua:autoclass:: st.zwave.defaults.windowShadeLevel

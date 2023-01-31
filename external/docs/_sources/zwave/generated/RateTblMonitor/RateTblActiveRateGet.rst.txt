@@ -1,0 +1,6 @@
+Rate Tbl Active Rate Get
+========================
+
+.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblActiveRateGet
+.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblActiveRateGetV1
+.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblActiveRateGetV1Args

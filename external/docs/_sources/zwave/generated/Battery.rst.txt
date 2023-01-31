@@ -1,0 +1,13 @@
+Battery
+=======
+
+.. toctree::
+   :maxdepth: 2
+
+   Battery/Get
+   Battery/Report
+   Battery/HealthGet
+   Battery/HealthReport
+   Battery/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.Battery

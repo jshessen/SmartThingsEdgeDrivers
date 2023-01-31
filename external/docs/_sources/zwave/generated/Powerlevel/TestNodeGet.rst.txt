@@ -1,0 +1,6 @@
+Test Node Get
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeGet
+.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeGetV1
+.. lua:autoclass:: st.zwave.CommandClass.Powerlevel.TestNodeGetV1Args

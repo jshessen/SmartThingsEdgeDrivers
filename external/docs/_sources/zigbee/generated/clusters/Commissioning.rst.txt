@@ -1,0 +1,86 @@
+Commissioning
+=============
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning
+
+Commissioning Attributes
+++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ShortAddress
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ExtendedPANId
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.PANId
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ChannelMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ProtocolVersion
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.StackProfile
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.StartupControl
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.TrustCenterAddress
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.TrustCenterMasterKey
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.NetworkKey
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.UseInsecureJoin
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.PreconfiguredLinkKey
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.NetworkKeySeqNum
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.NetworkKeyType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.NetworkManagerAddress
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ScanAttempts
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.TimeBetweenScans
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.RejoinInterval
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.MaxRejoinInterval
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.IndirectPollRate
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ParentRetryThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ConcentratorFlag
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ConcentratorRadius
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ConcentratorDiscoveryTime
+
+Commissioning Commands
+++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.RestartDeviceResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.SaveStartupParametersResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.RestoreStartupParametersResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ResetStartupParametersResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.RestartDevice
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.SaveStartupParameters
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.RestoreStartupParameters
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.ResetStartupParameters
+
+Commissioning Types
++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.types.CsKey
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.types.Options
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.types.StartupMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Commissioning.types.Options
+

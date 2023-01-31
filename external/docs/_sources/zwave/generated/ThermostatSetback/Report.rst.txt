@@ -1,0 +1,6 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetback.Report
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetback.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetback.ReportV1Args

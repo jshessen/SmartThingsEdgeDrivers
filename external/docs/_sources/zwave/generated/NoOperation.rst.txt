@@ -1,0 +1,8 @@
+No Operation
+============
+
+.. toctree::
+   :maxdepth: 2
+
+
+.. lua:autoclass:: st.zwave.CommandClass.NoOperation

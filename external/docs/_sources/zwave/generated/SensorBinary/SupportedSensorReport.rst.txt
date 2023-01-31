@@ -1,0 +1,6 @@
+Supported Sensor Report
+=======================
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.SupportedSensorReport
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.SupportedSensorReportV2
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.SupportedSensorReportV2Args

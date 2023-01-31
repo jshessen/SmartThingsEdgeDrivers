@@ -1,0 +1,6 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleBinary.Report
+.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleBinary.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchToggleBinary.ReportV1Args

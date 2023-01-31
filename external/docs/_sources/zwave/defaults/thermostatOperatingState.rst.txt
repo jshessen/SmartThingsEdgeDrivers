@@ -1,0 +1,4 @@
+Thermostat Operating State
+==========================
+
+.. lua:autoclass:: st.zwave.defaults.thermostatOperatingState

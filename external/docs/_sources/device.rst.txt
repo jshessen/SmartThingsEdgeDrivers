@@ -1,0 +1,139 @@
+Device
+======
+
+In order for a driver to do its job it will need to know information about the devices that it is responsible for.
+This information is held in a :lua:class:`Device <st.device.Device>` object that provides many utility functions and
+abstractions that will simplify many normal use cases. It will also provide relevant caching and updating on changes
+that originate outside the driver.  In addition a driver can provide a ``infoChanged`` lifecycle handler that can do
+additional processing after the provided processing. The :lua:class:`Device <st.device.Device>` object is provided to
+event handlers handling events for a specific device. A full list of all of these objects for every device the driver is
+responsible for can be fetched with the :lua:func:`Driver:get_devices <st.driver.Driver:get_devices>` method.
+
+
+Below is an example of a :lua:class:`Device <st.device.Device>` object.
+
+.. code-block:: lua
+
+    device = {
+      driver = {
+        id = "9fbc3680-b9a9-4bd8-a574-9b03517032b2", name = "smartthings/Lua Zigbee Water", type = "DATAMGMT" },
+      components = {
+        main = {
+          capabilities = {
+            { id = "temperatureMeasurement", version = 1 },
+            { id = "battery", version = 1 },
+            { id = "waterSensor", version = 1 },
+            { id = "sensor", version = 1 },
+          },
+          emit_event = function(capability_event, event_metadata) end,
+          id = "main"
+        }
+      },
+      preferences = {},
+      zigbee_endpoints = {
+         1 = {
+          client_clusters = { 25 },
+          device_id = 1026,
+          id = 1,
+          manufacturer = "CentraLite",
+          model = "3315-S",
+          profile_id = 260,
+          server_clusters = { 0, 1, 3, 32, 1026, 1280, 2821 }
+        }
+      },
+      id = "02703834-4ab9-46e0-80ed-789fbd481f63",
+      fingerprinted_endpoint_id = 1,
+      zigbee_eui = "\x00\x0D\x6F\x00\x03\x26\x8A\x5C",
+      network_type = "DEVICE_ZIGBEE",
+      label = "Water Leak Sensor",
+      data = {
+        deviceEUI = "000D6F0003268A5C",
+        firmwareChecked = "2020-01-15T00:41:46.213Z",
+        initialJoinTime = "2019-12-05T15:54:31.563Z",
+        initialJoinType = "Unsecure Join",
+        lastJoinTime = "2020-01-08T18:33:57.480Z",
+        lastJoinType = "Secure Rejoin",
+        parent = "0000",
+        targetFirmwareVersion = "520573712",
+        zigbeeNodeType = "SLEEPY_END_DEVICE"
+      },
+      profile = {
+        components = {
+          {
+            capabilities = {
+              { id = "temperatureMeasurement", version = 1 },
+              { id = "battery", version = 1 },
+              { id = "waterSensor", version = 1 },
+              { id = "configuration", version = 1 },
+              { id = "sensor", version = 1 },
+              { id = "healthCheck", version = 1 }
+            },
+            id = "main"
+          }
+        },
+        id = "b648f97a-ab00-4a92-a1f5-2d10bf9a5c7d"
+      },
+      device_network_id = "D836"
+    }
+
+
+Device Class
+------------
+
+The device class is the wrapper on top of the raw data provided by the ``device_api``.
+The device class table will store information in a variety of different locations, and
+these locations will be protected with metatables.  Following are the main pieces to the
+device object.
+
+st_store:
+    This is used to store the above shown representation of the SmartThings device
+    model.  It is read only, and will be updated automatically if there are changes in the
+    model from an external source (e.g. a change in the cloud).  The top level values of this
+    table are also "mirrored" onto the device object itself.  That is ``device.st_store.id``
+    will give you the device's UUID to refer to the device in the SmartThings platform, but you
+    can also access this value simply through ``device.id``.  This is done for simplicity of
+    access.
+
+transient_store:
+    The transient_store is used for storing driver/device specific information.
+    This information however, will only exist as long as the driver is running, and will need
+    to be re-populated where necessary on restart of the hub.  A good example of this would be
+    storing the timestamp of the last time you read a given attribute.  It's something that is
+    only useful within the context of the specific driver, but is easily re-constructed after
+    a restart.  It is suggested that most of your data can/should be stored this way.  It is
+    also recommended that most user/driver stored data be accessed/set using the
+    ``device:set_field`` and ``device:get_field`` methods documented below.
+
+persistent_store:
+    Similar to the transient_store, this is for use for driver specific
+    information, however, unlike the transient_store, information written here will be stored
+    and persisted through restarts.  This carries with it a cost in wear, as well as time delays
+    associated with the writing and reading.  This should also be accessed through the
+    ``device:set_field`` and ``device:get_field`` methods.  A good example of a target for the
+    persistent store would be something like the number of lock codes a lock can support.  This
+    is something that only needs to be read once when the device is first joined, and won't
+    change for the lifetime of the device.  This could be read every time the driver restarts, but
+    it is reasonable to read once and store for the lifetime of the device.  In order to protect the
+    longevity of your hub device, we limit how frequently values are actually written to flash. This
+    does, however, come with a potential loss of information.  When the persistent store for your
+    driver is "written" it is cached in memory and will actually be written to flash on a schedule
+    and on graceful shutdown.  This means there is potential information loss in the case of a power
+    loss.
+
+state_cache:
+    The state cache is a persistent data cache that will store for each component,
+    capability, attribute, the most recently generated state by the driver.  For example
+    ``device.state_cache.main.switch`` would contain ``{ value = "on" }``.
+
+The ``set_field`` and ``get_field`` functions can be used to write and read from the persistent
+and transient stores.  It is enforced that top level keys cannot be repeated between the two
+stores, as such ``get_field`` will always return the single value with the matching key.
+Consequently ``set_field`` will delete the value in the other store if it is written to the
+other.
+
+There are also a variety of other utility methods documented below.
+
+Device Class Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. lua:autoclass:: st.Device

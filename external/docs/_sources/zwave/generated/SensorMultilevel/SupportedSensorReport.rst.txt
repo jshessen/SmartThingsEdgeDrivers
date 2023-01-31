@@ -1,0 +1,18 @@
+Supported Sensor Report
+=======================
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReport
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV5
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV5Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV6
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV6Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV7
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV7Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV8
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV8Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV9
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV9Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV10
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV10Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV11
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedSensorReportV11Args

@@ -1,0 +1,6 @@
+Set
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.Set
+.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.SetV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchAll.SetV1Args

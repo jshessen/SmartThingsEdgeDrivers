@@ -1,0 +1,4 @@
+Contact Sensor
+==============
+
+.. lua:autoclass:: st.matter.defaults.contactSensor

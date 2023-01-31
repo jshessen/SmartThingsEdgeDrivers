@@ -1,0 +1,8 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.Get
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.GetV1Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.GetV2
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.GetV2Args

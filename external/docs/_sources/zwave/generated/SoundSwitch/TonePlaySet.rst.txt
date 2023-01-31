@@ -1,0 +1,8 @@
+Tone Play Set
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlaySet
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlaySetV1
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlaySetV1Args
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlaySetV2
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonePlaySetV2Args

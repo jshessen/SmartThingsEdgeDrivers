@@ -1,0 +1,35 @@
+PollControl
+===========
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl
+
+PollControl Attributes
+++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.CheckInInterval
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.LongPollInterval
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.ShortPollInterval
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.FastPollTimeout
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.CheckInIntervalMin
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.LongPollIntervalMin
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.FastPollTimeoutMax
+
+PollControl Commands
+++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.CheckIn
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.CheckInResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.FastPollStop
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.SetLongPollInterval
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.PollControl.SetShortPollInterval
+

@@ -1,0 +1,8 @@
+Supported Report
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedReport
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedReportV2
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedReportV2Args
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedReportV3
+.. lua:autoclass:: st.zwave.CommandClass.Indicator.SupportedReportV3Args

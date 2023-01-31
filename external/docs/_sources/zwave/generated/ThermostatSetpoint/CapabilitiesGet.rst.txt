@@ -1,0 +1,6 @@
+Capabilities Get
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.CapabilitiesGet
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.CapabilitiesGetV3
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatSetpoint.CapabilitiesGetV3Args

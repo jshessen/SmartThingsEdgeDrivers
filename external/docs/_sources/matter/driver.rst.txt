@@ -1,0 +1,152 @@
+Matter Driver Structures
+========================
+
+A ``MatterDriver`` is an extension of the :lua:class:`Driver <Driver>` and contains some more specific structures that are
+only applicable to a Matter device.
+
+.. _matter_handlers:
+
+matter_handlers
++++++++++++++++
+
+The ``matter_handlers`` are the most common additional field you will be adding to the driver template used to build
+your driver.  The ``matter_handlers`` structure is used to register message handlers for any interaction response coming from the
+device that you may need to convert to a SmartThings capability event, or use as state to manage the continued execution
+of the device.  Detailed information on the types of handlers as well as the structure of the table can be found
+on the :doc:`Interaction response message handlers <matter_message_handlers>` page.
+
+There are some additional caveats to take into account when setting these up in your driver.  First is the interaction
+between ``matter_handlers`` you define in your driver template, and handlers defined in
+:doc:`default Matter behavior <defaults>` that you pull in using the ``defaults.register_for_default_handlers``
+call.  The handlers you provide directly in your driver template will take precedence over any default behavior that
+would be present.  More concretely, if you provide a handler for the OnOff attribute of the OnOff cluster in your driver
+template, but then call to register defaults for the switch capability (which also provides a handler for that cluster
+and attribute); your handler would be the one called with the message.  In this way you can
+choose to only override the specific handlers in which your device strays from the standard behavior.
+
+Note that each registered "handler" can be either a function, or a list of functions.  If you provide a list,
+each function in that list will be called with the same message.
+
+Example
+~~~~~~~
+
+Below is an example creating a simple set of ``matter_handlers`` for a Matter switch that supports switch and level
+(:ref:`subscribed_attributes and subscribed_events <subscriptions>`, default handlers, and ``capability_handlers`` omitted for
+example simplicity).
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local MatterDriver = require "st.matter.driver"
+    local clusters = require "st.matter.clusters"
+    local OnOff = clusters.OnOff
+    local LevelControl = clusters.LevelControl
+
+    local function on_off_attr_handler(driver, device, ib, response)
+      local attr = capabilities.switch.switch
+      device:emit_event(ib.data.value and attr.on() or attr.off())
+    end
+
+    local function level_attr_handler(driver, device, ib, response)
+      device:emit_event(capabilities.switchLevel.level(math.floor((ib.data.value / 254.0 * 100) + 0.5)))
+    end
+
+    local matter_switch_driver_template = {
+      supported_capabilities = {
+        capabilities.switch,
+        capabilities.switchLevel,
+      },
+      matter_handlers = {
+        cmd_response = {},
+        event = {},
+        attr = {
+          [OnOff.ID] = {
+            [OnOff.attributes.OnOff.ID] = on_off_attr_handler
+          },
+          [LevelControl.ID] = {
+            [LevelControl.attributes.CurrentLevel.ID] = level_attr_handler
+          }
+        }
+      }
+    }
+
+    local matter_switch = MatterDriver("matter-switch", matter_switch_driver_template)
+    matter_switch:run()
+
+In addition there are 2 extra keys that can be added to the ``matter_handlers`` table. The ``fallback`` and ``error`` fields
+can be set to be used as the special handlers for the :ref:`Dispatchers <dispatchers>`. ``fallback`` can be purposed to be
+called in the case of no other matching handler; ``error`` can be purposed to be called if a Lua error is encountered in a handler.
+
+.. _subscriptions:
+
+subscribed_attributes
+++++++++++++++++++++++
+
+The ``subscribed_attributes`` are another MatterDriver template option that maps closely to the
+Matter subscription interaction.  A driver's subscribed attributes are a mapping of capabilities to the Matter
+cluster attributes that are needed in the subscription to inform SmartThings of changes in state.
+
+These subscribed attributes should be grouped into lists, under the key of the capability ID they are associated with.
+Each item in the list can be a cluster library attribute object or a table with the ``cluster`` and ``attribute`` keys
+filled in with the cluster and attribute ID numbers.
+In terms of registering defaults, if you define a set of subscribed attributes on your driver under a given capability,
+the corresponding defaults will not be included even if you call to register them.
+
+subscribed_events
+++++++++++++++++++++++
+
+The ``subscribed_events`` are another MatterDriver template option that do the same thing as ``subscribed_attributes``,
+only for a cluster event rather than an attribute.
+
+Each item in the list can be a cluster library attribute object or a table with the ``cluster`` and ``event`` keys
+filled in with the cluster and attribute ID numbers.
+
+Subscribed attributes and events are not supported in sub-drivers.
+
+Example
+~~~~~~~
+
+Below is an example creating a simple set of ``subscribed_attributes`` and ``subscribed_events`` for a Matter
+switch that supports switch and level (:ref:`matter_handlers <matter_handlers>`, default handlers, and ``capability_handlers`` omitted for
+example simplicity).
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local MatterDriver = require "st.matter.driver"
+    local clusters = require "st.matter.clusters"
+    local OnOff = clusters.OnOff
+    local LevelControl = clusters.LevelControl
+    local Switch = clusters.Switch
+
+    local matter_switch_driver_template = {
+      supported_capabilities = {
+        capabilities.switch,
+        capabilities.switchLevel,
+      },
+      subscribed_attributes = {
+        [capabilities.switch.ID] = {
+          OnOff.attributes.OnOff,
+        },
+        [capabilities.switchLevel.ID] = {
+          {
+            cluster = LevelControl.ID,
+            attribute = LevelControl.attributes.CurrentLevel.ID,
+          }
+        }
+      },
+      subscribed_events = {
+        [capabilities.switch.ID] = {
+          Switch.events.SwitchLatched,
+        }
+      }
+    }
+
+    local matter_switch = MatterDriver("matter-switch", matter_switch_driver_template)
+    matter_switch:run()
+
+
+MatterDriver Class Documentation
+++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: MatterDriver

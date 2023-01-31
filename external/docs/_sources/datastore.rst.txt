@@ -1,0 +1,90 @@
+Datastore
+=========
+
+While drivers are long running processes that allow for simple storage of working information
+through the use of standard lua tables, there are situations where the driver will stop running.
+Either through an unexpected fatal error, or if the hub the driver is running on restarts (either
+through power loss, firmware update, or other situation).  There are some classes of information
+that will be useful for a driver where persisting this through these restarts.   The ``datastore``
+module is the method provided for doing that.  Each driver will have a datastore created to go
+with it, this datastore will be loaded at startup from whatever was persisted in the past, and
+will be periodically written into a persistent state.  From the lua side, this datastore will act
+primarily as a standard lua table, but with some significant metatable restrictions on setting
+values.  These restrictions are primarily to restrict values to only those that can be properly
+serialized for storage.  It is recommended that you primarily interact with the data store through
+the driver, but below is a simple example of datastore usage
+
+
+.. code-block:: lua
+
+    local ds = require "datastore"
+
+    local my_func = function() return 1 end
+    local my_table = {}
+    my_table.number = 1
+    my_table.string = "asdf"
+
+    local nested_func_table = {}
+    nested_func_table.sub_table = {}
+    nested_func_table.func = my_func
+
+    local multi_nested_table = {}
+    multi_nested_table.deeper = {}
+    multi_nested_table.deeper.number = 1
+    multi_nested_table.deeper.deepest = {}
+
+    my_ds = ds.init()
+
+    -- This will move these values into the datastore and do a check that things are
+    -- valid.  Since all values here are valid, this will be fine
+    my_ds.my_table = my_table
+
+    -- The above check happens recursively so nested values will be verified as well
+    my_ds.multi_nested_table = multi_nested_table
+
+    -- These should fail
+    local function set_func()
+      my_ds.my_func = my_func
+    end
+
+    succ, val = pcall(set_func)
+    if succ then
+      print("should have failed to set function")
+    else
+      -- Data store keys and values must be JSON encodable: function: 0x55a76bbfc490 is of unsupported type function
+      print(val)
+    end
+
+    local function set_nested_func()
+      my_ds.nested_func = nested_func_table
+    end
+
+    succ, val = pcall(set_nested_func)
+    if succ then
+      print("should have failed to set a nested function but didnt'")
+    else
+    -- Data store keys and values must be JSON encodable: function: 0x55a76bbfc490 is of unsupported type function
+      print(val)
+    end
+
+    print(my_ds:is_dirty()) -- true
+    my_ds:save() -- sends table out for persistence.
+    print(my_ds:is_dirty()) -- false
+
+    my_ds.my_table = nil
+    print(my_ds:is_dirty()) -- true
+    my_ds:save()
+
+
+The ``is_dirty`` and ``save`` functionality should not need to be used directly in normal
+driver operation, but saving will happen automatically as normal operation of the driver.
+
+There are a few ways you can interact with a datastore from the driver.  After using one of the
+``driver_helper.init`` function (or one of the protocol specific driver inits) the driver context
+table will inlcude a datastore field that will be loaded from any data that had been previously
+written for this driver.  You can access it through ``driver.datastore``, and can directly set
+values as shown in the example above.  Similarly the device objects expose sub tables of the
+datastore through the ``device.persistent_store`` table.  These can be accessed directly through
+the datastore, but the keys are preceeded with the double underscore ``__`` to avoid unintentional
+name conflict, and it's recommended that you interact through those device objects for that
+data instead.

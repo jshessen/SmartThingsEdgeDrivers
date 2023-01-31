@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZCL Clusters &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ZDO Commands" href="../zdo/zdo_commands.html" />
+    <link rel="prev" title="ZCL Global Commands" href="zcl_commands.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zigbee_message_handlers.html">Zigbee Driver RX message handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../defaults.html">Zigbee Driver Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ZCL Clusters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cluster-attribute">Cluster Attribute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cluster-command">Cluster Command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cluster">Cluster</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated.html">Generated Zigbee Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../zigbee.html">Zigbee Libraries</a> &raquo;</li>
+      <li>ZCL Clusters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/zigbee/zcl/zcl_clusters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="zcl-clusters">
+<h1><a class="toc-backref" href="#id4">ZCL Clusters</a><a class="headerlink" href="#zcl-clusters" title="Permalink to this headline"></a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#zcl-clusters" id="id4">ZCL Clusters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cluster-attribute" id="id5">Cluster Attribute</a></p>
+<ul>
+<li><p><a class="reference internal" href="#examples" id="id6">Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#read-an-attribute" id="id7">Read an Attribute</a></p></li>
+<li><p><a class="reference internal" href="#configure-an-attribute" id="id8">Configure an Attribute</a></p></li>
+<li><p><a class="reference internal" href="#write-an-attribute" id="id9">Write an Attribute</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#documentation" id="id10">Documentation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#cluster-command" id="id11">Cluster Command</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id12">Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#build-a-tx-command" id="id13">Build a TX Command</a></p></li>
+<li><p><a class="reference internal" href="#parse-an-rx-command" id="id14">Parse an RX Command</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id2" id="id15">Documentation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#cluster" id="id16">Cluster</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id17">Examples</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The Zigbee protocol application layer can take several forms, but most commonly for home automation you will see
+devices that use the Zigbee Cluster Library to control and define the device behavior.  For the specifics of the
+Zigbee Cluster Library and it’s behavior you should look at the Zigbee specification.  However, in order to
+facilitate Driver development we have included a lua implementation of much of the behavior for constructing and
+parsing commands and attributes.  To do this we have defined a <code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeCluster</span></code> class
+that will contain all of the information about a cluster.  This top level class will contain information about
+the cluster, like it’s <code class="docutils literal notranslate"><span class="pre">NAME</span></code> and <code class="docutils literal notranslate"><span class="pre">ID</span></code> for identification, but it will also contain a list of the <code class="docutils literal notranslate"><span class="pre">attributes</span></code>
+and <code class="docutils literal notranslate"><span class="pre">commands</span></code> which dictate the functionality of that cluster.  Those are also represented in lua as the
+classes <a class="reference internal" href="#ZigbeeClusterAttribute" title="ZigbeeClusterAttribute"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeClusterAttribute</span></code></a> and
+<a class="reference internal" href="#ZigbeeClusterCommand" title="ZigbeeClusterCommand"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeClusterCommand</span></code></a>.  On this page you will find the documentation of the
+class templates, but you can find the individual cluster documentation <a class="reference internal" href="../generated/clusters.html"><span class="doc">here</span></a> or reference
+the Zigbee documentation directly.</p>
+<section id="cluster-attribute">
+<h2><a class="toc-backref" href="#id5">Cluster Attribute</a><a class="headerlink" href="#cluster-attribute" title="Permalink to this headline"></a></h2>
+<p>Below is the description of what a <cite>ZigbeeClusterAttribute</cite> class provides in the lua libraries.</p>
+<section id="examples">
+<h3><a class="toc-backref" href="#id6">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline"></a></h3>
+<section id="read-an-attribute">
+<h4><a class="toc-backref" href="#id7">Read an Attribute</a><a class="headerlink" href="#read-an-attribute" title="Permalink to this headline"></a></h4>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">OnOff</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">OnOff</span>
+<span class="kd">local</span> <span class="n">OnOffAttribute</span> <span class="o">=</span> <span class="n">OnOff</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">OnOff</span>
+
+<span class="c1">-- Device object, see driver documentation for details</span>
+<span class="kd">local</span> <span class="n">my_device</span> <span class="o">=</span> <span class="p">...</span> <span class="c1">--- Address = 0xDEAD, endpoint = 0x01</span>
+
+<span class="c1">-- Read the value of the OnOff Attribute</span>
+<span class="n">OnOffAttribute</span><span class="p">:</span><span class="n">read</span><span class="p">(</span><span class="n">my_device</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZCLMessageTx:</span>
+<span class="c1">--     Uint16: 0x0000</span>
+<span class="c1">--     AddressHeader:</span>
+<span class="c1">--         src_addr: 0x0000</span>
+<span class="c1">--         src_endpoint: 0x01</span>
+<span class="c1">--         dest_addr: 0xDEAD</span>
+<span class="c1">--         dest_endpoint: 0x01</span>
+<span class="c1">--         profile: 0x0104</span>
+<span class="c1">--         cluster: 0x0006</span>
+<span class="c1">--     ZCLHeader:</span>
+<span class="c1">--         frame_ctrl: 0x00</span>
+<span class="c1">--         seqno: 0x00</span>
+<span class="c1">--         ZCLCommandId: 0x00</span>
+<span class="c1">--     ReadAttribute:</span>
+<span class="c1">--         AttributeId: 0x0000</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-an-attribute">
+<h4><a class="toc-backref" href="#id8">Configure an Attribute</a><a class="headerlink" href="#configure-an-attribute" title="Permalink to this headline"></a></h4>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">OnOff</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">OnOff</span>
+<span class="kd">local</span> <span class="n">OnOffAttribute</span> <span class="o">=</span> <span class="n">OnOff</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">OnOff</span>
+
+<span class="c1">-- Device object, see driver documentation for details</span>
+<span class="kd">local</span> <span class="n">my_device</span> <span class="o">=</span> <span class="p">...</span> <span class="c1">--- Address = 0xDEAD, endpoint = 0x01</span>
+
+<span class="c1">-- Configure the OnOffAttribute to report on every change, and at least once an hour</span>
+<span class="c1">-- It is a discrete data type (Boolean) so reportable_change is unneeded</span>
+<span class="n">OnOffAttribute</span><span class="p">:</span><span class="n">configure_reporting</span><span class="p">(</span><span class="n">my_device</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZCLMessageTx:</span>
+<span class="c1">--     Uint16: 0x0000</span>
+<span class="c1">--     AddressHeader:</span>
+<span class="c1">--         src_addr: 0x0000</span>
+<span class="c1">--         src_endpoint: 0x01</span>
+<span class="c1">--         dest_addr: 0xDEAD</span>
+<span class="c1">--         dest_endpoint: 0x01</span>
+<span class="c1">--         profile: 0x0104</span>
+<span class="c1">--         cluster: 0x0006</span>
+<span class="c1">--     ZCLHeader:</span>
+<span class="c1">--         frame_ctrl: 0x00</span>
+<span class="c1">--         seqno: 0x00</span>
+<span class="c1">--         ZCLCommandId: 0x06</span>
+<span class="c1">--     ConfigureReporting:</span>
+<span class="c1">--         AttributeReportingConfiguration:</span>
+<span class="c1">--             Uint8: 0x00</span>
+<span class="c1">--             AttributeId: 0x0000</span>
+<span class="c1">--             DataType: Boolean</span>
+<span class="c1">--             minimum_reporting_interval: 0x0000</span>
+<span class="c1">--             maximum_reporting_interval: 0x0E10</span>
+</pre></div>
+</div>
+</section>
+<section id="write-an-attribute">
+<h4><a class="toc-backref" href="#id9">Write an Attribute</a><a class="headerlink" href="#write-an-attribute" title="Permalink to this headline"></a></h4>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">PowerConfig</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">PowerConfig</span>
+<span class="kd">local</span> <span class="n">BatteryVoltageThreshold1</span> <span class="o">=</span> <span class="n">PowerConfig</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">BatteryVoltageThreshold1</span>
+
+<span class="c1">-- Device object, see driver documentation for details</span>
+<span class="kd">local</span> <span class="n">my_device</span> <span class="o">=</span> <span class="p">...</span> <span class="c1">--- Address = 0xDEAD, endpoint = 0x01</span>
+
+<span class="c1">-- Set the battery voltage threshold to 2.4 v</span>
+<span class="n">BatteryVoltageThreshold1</span><span class="p">:</span><span class="n">write</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="mi">24</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZCLMessageTx:</span>
+<span class="c1">--     Uint16: 0x0000</span>
+<span class="c1">--     AddressHeader:</span>
+<span class="c1">--         src_addr: 0x0000</span>
+<span class="c1">--         src_endpoint: 0x01</span>
+<span class="c1">--         dest_addr: 0xDEAD</span>
+<span class="c1">--         dest_endpoint: 0x01</span>
+<span class="c1">--         profile: 0x0104</span>
+<span class="c1">--         cluster: 0x0001</span>
+<span class="c1">--     ZCLHeader:</span>
+<span class="c1">--         frame_ctrl: 0x00</span>
+<span class="c1">--         seqno: 0x00</span>
+<span class="c1">--         ZCLCommandId: 0x02</span>
+<span class="c1">--     WriteAttribute:</span>
+<span class="c1">--         AttributeRecord:</span>
+<span class="c1">--             AttributeId: 0x0037</span>
+<span class="c1">--             DataType: Uint8</span>
+<span class="c1">--             Uint8: 0x18</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="documentation">
+<h3><a class="toc-backref" href="#id10">Documentation</a><a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h3>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ZigbeeClusterAttribute</span></span><a class="headerlink" href="#ZigbeeClusterAttribute" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#ZigbeeClusterAttribute.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#ZigbeeClusterAttribute.ID" title="Permalink to this definition"></a></dt>
+<dd><p>the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute.cluster">
+<span class="sig-name descname"><span class="pre">cluster</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">ZigbeeCluster</span><a class="headerlink" href="#ZigbeeClusterAttribute.cluster" title="Permalink to this definition"></a></dt>
+<dd><p>A reference to the cluster this is a part of</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ZigbeeClusterAttribute.read" title="Permalink to this definition"></a></dt>
+<dd><p>Build a ReadAttribute ZigbeeMessageTx for this cluster attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – The device to send the read command to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constructed ReadAttribute body with the message headers to send</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ZigbeeClusterAttribute.write" title="Permalink to this definition"></a></dt>
+<dd><p>Build a WriteAttribute ZigbeeMessageTx for this cluster attribute</p>
+<p>This function will only be available on attributes that are read/write and will not be present on those that
+are read only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – The device to send the write command to</p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.DataType" title="st.zigbee.data_types.DataType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.DataType</span></code></a></span>) – The value to write to this cluster attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constructed WriteAttribute body with the message headers to send</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ZigbeeClusterAttribute.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Build a ConfigureReporting ZigbeeMessageTx for this cluster attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – The device to send the configure command to</p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – The minimum reporting interval for this attribute reporting</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – The maximum reporting interval for this attribute reporting</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.DataType" title="st.zigbee.data_types.DataType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.DataType</span></code></a></span>) – The amount of change necessary to trigger a report (only necessary on non-discrete data types)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constructed ConfigureReporting body with the message headers to send</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="ZigbeeClusterAttribute.new_value">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">orig</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ZigbeeClusterAttribute.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Build a DataType instance of this attribute</p>
+<p>This can also be called with the constructor syntax ZigbeeClusterAttribute(value)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>orig</strong> (<span><a class="reference internal" href="#ZigbeeClusterAttribute" title="ZigbeeClusterAttribute"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeClusterAttribute</span></code></a></span>) – The ZigbeeClusterAttribute object we are instantiating</p></li>
+<li><p><strong>value</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">value</span></code></span>) – The value to use to create the st.zigbee.data_types.DataType</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The constructed DataType of this attribute</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../data_types.html#st.zigbee.data_types.DataType" title="st.zigbee.data_types.DataType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.DataType</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="cluster-command">
+<h2><a class="toc-backref" href="#id11">Cluster Command</a><a class="headerlink" href="#cluster-command" title="Permalink to this headline"></a></h2>
+<p>Below is a description of the <cite>ZigbeeClusterCommand</cite> template which describes the shared behavior
+of cluster specific command representations in the lua Zigbee library.</p>
+<section id="id1">
+<h3><a class="toc-backref" href="#id12">Examples</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<section id="build-a-tx-command">
+<h4><a class="toc-backref" href="#id13">Build a TX Command</a><a class="headerlink" href="#build-a-tx-command" title="Permalink to this headline"></a></h4>
+<p>Example command without arguments</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">OnOff</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">OnOff</span>
+<span class="kd">local</span> <span class="n">OnCommand</span> <span class="o">=</span> <span class="n">OnOff</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">On</span>
+
+<span class="c1">-- Device object, see driver documentation for details</span>
+<span class="kd">local</span> <span class="n">my_device</span> <span class="o">=</span> <span class="p">...</span> <span class="c1">-- Address = 0xDEAD, endpoint = 0x01</span>
+
+<span class="n">OnCommand</span><span class="p">(</span><span class="n">my_device</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZCLMessageTx:</span>
+<span class="c1">--     Uint16: 0x0000</span>
+<span class="c1">--     AddressHeader:</span>
+<span class="c1">--         src_addr: 0x0000</span>
+<span class="c1">--         src_endpoint: 0x01</span>
+<span class="c1">--         dest_addr: 0xDEAD</span>
+<span class="c1">--         dest_endpoint: 0x01</span>
+<span class="c1">--         profile: 0x0104</span>
+<span class="c1">--         cluster: 0x0006</span>
+<span class="c1">--     ZCLHeader:</span>
+<span class="c1">--         frame_ctrl: 0x01</span>
+<span class="c1">--         seqno: 0x00</span>
+<span class="c1">--         ZCLCommandId: 0x01</span>
+<span class="c1">--     On:</span>
+</pre></div>
+</div>
+<p>Example command with arguments</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Level</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">Level</span>
+<span class="kd">local</span> <span class="n">MoveToLevelWithOnOffCommand</span> <span class="o">=</span> <span class="n">Level</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">MoveToLevelWithOnOff</span>
+
+<span class="c1">-- Device object, see driver documentation for details</span>
+<span class="kd">local</span> <span class="n">my_device</span> <span class="o">=</span> <span class="p">...</span> <span class="c1">-- Address = 0xDEAD, endpoint = 0x01</span>
+
+<span class="c1">-- Set the level of the device to 50% with a transition time of 0</span>
+<span class="n">MoveToLevelWithOnOffCommand</span><span class="p">(</span><span class="n">my_device</span><span class="p">,</span> <span class="nb">math.floor</span><span class="p">(</span><span class="mi">50</span> <span class="o">*</span> <span class="mh">0xFE</span> <span class="o">/</span> <span class="mi">100</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZCLMessageTx:</span>
+<span class="c1">--     Uint16: 0x0000</span>
+<span class="c1">--     AddressHeader:</span>
+<span class="c1">--         src_addr: 0x0000</span>
+<span class="c1">--         src_endpoint: 0x01</span>
+<span class="c1">--         dest_addr: 0xDEAD</span>
+<span class="c1">--         dest_endpoint: 0x01</span>
+<span class="c1">--         profile: 0x0104</span>
+<span class="c1">--         cluster: 0x0008</span>
+<span class="c1">--     ZCLHeader:</span>
+<span class="c1">--         frame_ctrl: 0x01</span>
+<span class="c1">--         seqno: 0x00</span>
+<span class="c1">--         ZCLCommandId: 0x04</span>
+<span class="c1">--     MoveToLevelWithOnOff:</span>
+<span class="c1">--         level: 0x7F</span>
+<span class="c1">--         transition_time: 0x0000</span>
+</pre></div>
+</div>
+</section>
+<section id="parse-an-rx-command">
+<h4><a class="toc-backref" href="#id14">Parse an RX Command</a><a class="headerlink" href="#parse-an-rx-command" title="Permalink to this headline"></a></h4>
+<p>This is primarily something that you should not have to do directly, but is handled by the parsing
+code in the <code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeMessageRx</span></code> by default.  However, here is an example of parsing a byte
+string of a cluster specific command directly.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">IASZone</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">IASZone</span>
+<span class="kd">local</span> <span class="n">ZoneStatusChangeNotification</span> <span class="o">=</span> <span class="n">IASZone</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">ZoneStatusChangeNotification</span>
+
+<span class="kd">local</span> <span class="n">bytes</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\x01\x00\x00\x01\x02\x00</span><span class="s2">&quot;</span>
+<span class="n">ZoneStatusChangeNotification</span><span class="p">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">bytes</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZoneStatusChangeNotification:</span>
+<span class="c1">--     zone_status: 0x0001</span>
+<span class="c1">--     extended_status: 0x00</span>
+<span class="c1">--     zone_id: 0x01</span>
+<span class="c1">--     delay: 0x0002</span>
+
+<span class="c1">-- OR</span>
+<span class="kd">local</span> <span class="n">data_types</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee.data_types&quot;</span>
+
+<span class="n">IASZone</span><span class="p">:</span><span class="n">parse_cluster_specific_command</span><span class="p">(</span>
+    <span class="n">data_types</span><span class="p">.</span><span class="n">ZCLCommandId</span><span class="p">(</span><span class="n">ZoneStatusChangeNotification</span><span class="p">.</span><span class="n">ID</span><span class="p">),</span>
+    <span class="mh">0x01</span><span class="p">,</span>
+    <span class="n">bytes</span>
+<span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZoneStatusChangeNotification:</span>
+<span class="c1">--     zone_status: 0x0001</span>
+<span class="c1">--     extended_status: 0x00</span>
+<span class="c1">--     zone_id: 0x01</span>
+<span class="c1">--     delay: 0x0002</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id2">
+<h3><a class="toc-backref" href="#id15">Documentation</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="ZigbeeClusterCommand">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ZigbeeClusterCommand</span></span><a class="headerlink" href="#ZigbeeClusterCommand" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeClusterCommand.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#ZigbeeClusterCommand.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>the name of this command</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="ZigbeeClusterCommand.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#ZigbeeClusterCommand.ID" title="Permalink to this definition"></a></dt>
+<dd><p>the ID of this command</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="cluster">
+<h2><a class="toc-backref" href="#id16">Cluster</a><a class="headerlink" href="#cluster" title="Permalink to this headline"></a></h2>
+<p>Below is the description of what a <code class="docutils literal notranslate"><span class="pre">ZigbeeCluster</span></code> class provides in the lua libraries.  Most of the
+relevant usage is through either a <a class="reference internal" href="#ZigbeeClusterAttribute" title="ZigbeeClusterAttribute"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeClusterAttribute</span></code></a> or <a class="reference internal" href="#ZigbeeClusterCommand" title="ZigbeeClusterCommand"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeClusterCommand</span></code></a>
+so relevant examples are present under those class definitions above.</p>
+<section id="id3">
+<h3><a class="toc-backref" href="#id17">Examples</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<p>Create an attribute read command for an attribute only knowing its ID</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">OnOff</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">OnOff</span>
+
+<span class="c1">-- Device object, see driver documentation for details</span>
+<span class="kd">local</span> <span class="n">my_device</span> <span class="o">=</span> <span class="p">...</span> <span class="c1">-- Address = 0xDEAD, endpoint = 0x01</span>
+
+<span class="c1">-- Read the OnOff attribute only knowing its ID</span>
+<span class="n">OnOff</span><span class="p">:</span><span class="n">get_attribute_by_id</span><span class="p">(</span><span class="mh">0x0000</span><span class="p">):</span><span class="n">read</span><span class="p">(</span><span class="n">my_device</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZCLMessageTx:</span>
+<span class="c1">--     Uint16: 0x0000</span>
+<span class="c1">--     AddressHeader:</span>
+<span class="c1">--         src_addr: 0x0000</span>
+<span class="c1">--         src_endpoint: 0x01</span>
+<span class="c1">--         dest_addr: 0xDEAD</span>
+<span class="c1">--         dest_endpoint: 0x01</span>
+<span class="c1">--         profile: 0x0104</span>
+<span class="c1">--         cluster: 0x0006</span>
+<span class="c1">--     ZCLHeader:</span>
+<span class="c1">--         frame_ctrl: 0x00</span>
+<span class="c1">--         seqno: 0x00</span>
+<span class="c1">--         ZCLCommandId: 0x00</span>
+<span class="c1">--     ReadAttribute:</span>
+<span class="c1">--         AttributeId: 0x0000</span>
+</pre></div>
+</div>
+<p>Create a cluster specific command by ID</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">OnOff</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">OnOff</span>
+
+<span class="c1">-- Device object, see driver documentation for details</span>
+<span class="kd">local</span> <span class="n">my_device</span> <span class="o">=</span> <span class="p">...</span> <span class="c1">-- Address = 0xDEAD, endpoint = 0x01</span>
+
+<span class="c1">-- Toggle the device by command ID</span>
+<span class="n">OnOff</span><span class="p">:</span><span class="n">get_client_command_by_id</span><span class="p">(</span><span class="mh">0x02</span><span class="p">)(</span><span class="n">my_device</span><span class="p">):</span><span class="n">pretty_print</span><span class="p">()</span>
+<span class="c1">-- ZCLMessageTx:</span>
+<span class="c1">--     Uint16: 0x0000</span>
+<span class="c1">--     AddressHeader:</span>
+<span class="c1">--         src_addr: 0x0000</span>
+<span class="c1">--         src_endpoint: 0x01</span>
+<span class="c1">--         dest_addr: 0xDEAD</span>
+<span class="c1">--         dest_endpoint: 0x01</span>
+<span class="c1">--         profile: 0x0104</span>
+<span class="c1">--         cluster: 0x0006</span>
+<span class="c1">--     ZCLHeader:</span>
+<span class="c1">--         frame_ctrl: 0x01</span>
+<span class="c1">--         seqno: 0x00</span>
+<span class="c1">--         ZCLCommandId: 0x02</span>
+<span class="c1">--     Toggle:</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="zcl_commands.html" class="btn btn-neutral float-left" title="ZCL Global Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../zdo/zdo_commands.html" class="btn btn-neutral float-right" title="ZDO Commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

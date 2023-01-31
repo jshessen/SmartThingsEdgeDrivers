@@ -1,0 +1,8 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.Report
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.ReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.ReportV2
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.ReportV2Args

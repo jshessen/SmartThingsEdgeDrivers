@@ -1,0 +1,4 @@
+Thermostat Heating Setpoint
+===========================
+
+.. lua:autoclass:: st.zigbee.defaults.thermostatHeatingSetpoint

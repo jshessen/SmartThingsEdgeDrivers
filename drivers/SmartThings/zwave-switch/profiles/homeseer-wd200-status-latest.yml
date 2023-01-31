@@ -13,8 +13,52 @@ components:
               range: [1, 100]
       - id: button
         version: 1
+      - id: firmwareUpdate
+        version: 1
       - id: refresh
         version: 1
+    categories:
+      - name: Switch
+  - id: LED-1
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-2
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-3
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-4
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-5
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-6
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-7
+    capabilities:
+    - id: switch
+      version: 1
     categories:
       - name: Switch
 preferences:
@@ -24,17 +68,7 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: true
-  - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn LED indicator on..."
-    required: false
-    preferenceType: enumeration
-    definition:
-      options:
-        0: "When Off"
-        1: "When On"
-      default: 0
+      default: false
   - name: "minimumDimLevel"
     title: "Minimum Dim Level"
     description: "Sets the lowest dimming threshold (Added in firmware 5.14)"
@@ -76,6 +110,16 @@ preferences:
       minimum: 1
       maximum: 255
       default: 3
+  - name: "ledIndicator"
+    title: "LED Indicator"
+    description: "Turn LED indicator on..."
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "When Off"
+        1: "When On"
+      default: 0
   - name: "ledStatusColor1"
     title: "Status Mode - LED Color"
     description: "Set LED-1 (bottom) Color"
@@ -98,7 +142,7 @@ preferences:
     required: false
     preferenceType: enumeration
     definition:
-      options: &led_color_options
+      options:
         0: "Off"
         7: "White"
         1: "Red"

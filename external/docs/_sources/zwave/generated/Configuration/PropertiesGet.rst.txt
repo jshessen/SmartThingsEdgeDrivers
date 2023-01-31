@@ -1,0 +1,6 @@
+Properties Get
+==============
+
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesGet
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesGetV3
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesGetV3Args

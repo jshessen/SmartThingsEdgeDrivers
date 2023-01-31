@@ -1,0 +1,6 @@
+Move To Position Report
+=======================
+
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionReport
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionReportV1
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionReportV1Args

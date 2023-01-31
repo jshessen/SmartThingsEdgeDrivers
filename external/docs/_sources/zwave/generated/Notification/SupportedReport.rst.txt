@@ -1,0 +1,12 @@
+Supported Report
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReport
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV4
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV4Args
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV6
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV6Args
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV7
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV7Args
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV8
+.. lua:autoclass:: st.zwave.CommandClass.Notification.SupportedReportV8Args

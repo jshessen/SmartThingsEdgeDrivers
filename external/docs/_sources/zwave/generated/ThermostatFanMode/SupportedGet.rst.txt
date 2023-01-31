@@ -1,0 +1,6 @@
+Supported Get
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.SupportedGet
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.SupportedGetV1
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.SupportedGetV1Args

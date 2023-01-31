@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.Get
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.GetV1Args

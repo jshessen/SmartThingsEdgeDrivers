@@ -1,0 +1,19 @@
+Generated Shared Types
+======================
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Contents:
+
+    types/ZclTypes
+
+    types/AttributeReportingStatus
+
+    types/ZclStatus
+
+    types/ProfileIntervalPeriod
+
+    types/IasZoneType
+
+    types/IasZoneStatus
+

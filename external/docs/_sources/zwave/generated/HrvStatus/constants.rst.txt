@@ -1,0 +1,12 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.status_parameter
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale_discharge_air_temperature
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale_exhaust_air_temperature
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale_outdoor_air_temperature
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale_relative_humidity_in_room
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale_remaining_filter_life
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale_room_temperature
+.. lua:autoclass:: st.zwave.CommandClass.HrvStatus.scale_supply_air_temperature

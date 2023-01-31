@@ -1,0 +1,5 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.sensor_state
+.. lua:autoclass:: st.zwave.CommandClass.SensorAlarm.sensor_type

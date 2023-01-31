@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driver &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Device" href="device.html" />
+    <link rel="prev" title="Global Environment" href="global_environment.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="global_environment.html">Global Environment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Driver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#driver-class-documentation">Driver Class Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#driver-template-options">Driver Template Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lifecycle-event-handlers">Lifecycle Event Handlers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example">example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#capability-command-handlers">Capability Command Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subdrivers">SubDrivers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#subdriver-class-documentation">SubDriver Class Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#driver-tests">Driver tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+      <li>Driver</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/driver.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="driver">
+<h1>Driver<a class="headerlink" href="#driver" title="Permalink to this headline"></a></h1>
+<p>Drivers are the replacement for DTHs (Device Type Handlers) but are more specific in their responsibilities.  A driver represents
+the code necessary to provide the needed behavior for a set of devices.  Within the Lua code base, a “driver”
+represents a table containing the context necessary for executing device behaviors.  Unlike DTHs, a separate
+driver instance will not run for each device; instead a single “driver” will handle all devices that are
+set to use it.  Unlike DTHs, drivers behave functionally as if they are long running. That is,
+the script will behave as if it is always running and waiting for input on the devices it is registered to
+handle.  See <code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code> for the description of what a “driver” table will
+contain.  There are additional functions and structures provided on a per-protocol basis that are specific to those
+protocols.</p>
+<p>For most use cases you can create a template that has some basic behavior defined for a driver and then pass it to
+<code class="docutils literal notranslate"><span class="pre">Driver(&lt;driver_name&gt;,</span> <span class="pre">&lt;driver_template&gt;)</span></code> to handle setting up most of the defaults.  Below is an
+example of a driver setup:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">driver</span> <span class="o">=</span> <span class="n">Driver</span><span class="p">(</span><span class="s2">&quot;my fancy bulb&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="n">capability_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">on</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_handlers</span><span class="p">.</span><span class="n">handle_switch_on</span><span class="p">,</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">off</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_handlers</span><span class="p">.</span><span class="n">handle_switch_off</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">setLevel</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_handlers</span><span class="p">.</span><span class="n">handle_set_level</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">colorControl</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">colorControl</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">setColor</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_handlers</span><span class="p">.</span><span class="n">handle_set_color</span><span class="p">,</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">colorControl</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">setHue</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_handlers</span><span class="p">.</span><span class="n">handle_set_hue</span><span class="p">,</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">colorControl</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">setSaturation</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_handlers</span><span class="p">.</span><span class="n">handle_set_saturation</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">colorTemperature</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">colorTemperature</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">setColorTemperature</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_handlers</span><span class="p">.</span><span class="n">handle_set_color_temp</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>In this case, the only pieces of the template being specified are the command handlers for capability commands for these
+devices.  Also note that some specific protocols may have more tailored options, and a more tailored init function for
+the driver contexts.  See the individual protocols for examples.</p>
+<section id="driver-class-documentation">
+<h2>Driver Class Documentation<a class="headerlink" href="#driver-class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="Driver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Driver</span></span><a class="headerlink" href="#Driver" title="Permalink to this definition"></a></dt>
+<dd><p>This is a template class to define the various parts of a driver table.  The Driver object represents all of the
+state necessary for running and supporting the operation of this class of devices.  This can be as specific as a
+single model of device, or if there is much shared functionality can manage several different models and
+manufacturers.</p>
+<p>Drivers go through initial set up on hub boot, or initial install, but after that the Drivers are considered
+long running.  That is, they will behave as if they run forever.  As a result, they should have a main run loop
+that continues to check for work/things to process and handles it when available.  For MOST uses the provided
+run function should work, and there should be no reason to overwrite the existing run loop.</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#Driver.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>a name used for debug and error output</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.capability_channel">
+<span class="sig-name descname"><span class="pre">capability_channel</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">message_channel</span><a class="headerlink" href="#Driver.capability_channel" title="Permalink to this definition"></a></dt>
+<dd><p>the communication channel for capability commands/events</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.lifecycle_channel">
+<span class="sig-name descname"><span class="pre">lifecycle_channel</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">message_channel</span><a class="headerlink" href="#Driver.lifecycle_channel" title="Permalink to this definition"></a></dt>
+<dd><p>the communication channel for device lifecycle events</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.timer_api">
+<span class="sig-name descname"><span class="pre">timer_api</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">timer_api</span><a class="headerlink" href="#Driver.timer_api" title="Permalink to this definition"></a></dt>
+<dd><p>utils related to timer functionality</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.device_api">
+<span class="sig-name descname"><span class="pre">device_api</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">device_api</span><a class="headerlink" href="#Driver.device_api" title="Permalink to this definition"></a></dt>
+<dd><p>utils related to device functionality</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.environment_channel">
+<span class="sig-name descname"><span class="pre">environment_channel</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">message_channel</span><a class="headerlink" href="#Driver.environment_channel" title="Permalink to this definition"></a></dt>
+<dd><p>the communication channel for environment info updates</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.timers">
+<span class="sig-name descname"><span class="pre">timers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#Driver.timers" title="Permalink to this definition"></a></dt>
+<dd><p>this will contain a list of in progress timers running for the driver</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.capability_dispatcher">
+<span class="sig-name descname"><span class="pre">capability_dispatcher</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">CapabilityCommandDispatcher</span><a class="headerlink" href="#Driver.capability_dispatcher" title="Permalink to this definition"></a></dt>
+<dd><p>dispatcher for routing capability commands</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.lifecycle_dispatcher">
+<span class="sig-name descname"><span class="pre">lifecycle_dispatcher</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">DeviceLifecycleDispatcher</span><a class="headerlink" href="#Driver.lifecycle_dispatcher" title="Permalink to this definition"></a></dt>
+<dd><p>dispatcher for routing lifecycle events</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="Driver.sub_drivers">
+<span class="sig-name descname"><span class="pre">sub_drivers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">list[SubDriver]</span><a class="headerlink" href="#Driver.sub_drivers" title="Permalink to this definition"></a></dt>
+<dd><p>A list of sub_drivers that contain more specific behavior behind a can_handle function</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.call_with_delay">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">call_with_delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">delay_s</span></em>, <em class="sig-param"><span class="pre">callback</span></em>, <em class="sig-param"><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.call_with_delay" title="Permalink to this definition"></a></dt>
+<dd><p>Set up a one shot timer to hit the callback after delay_s seconds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver setting up the timer</p></li>
+<li><p><strong>delay_s</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the number of seconds to wait before hitting the callback</p></li>
+<li><p><strong>callback</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span>) – the function to call when the timer expires. &#64;see Driver.timer_callback_template</p></li>
+<li><p><strong>name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – an optional name for the timer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created timer</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">timer</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.call_on_schedule">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">call_on_schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">interval_s</span></em>, <em class="sig-param"><span class="pre">callback</span></em>, <em class="sig-param"><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.call_on_schedule" title="Permalink to this definition"></a></dt>
+<dd><p>Set up a periodic timer to hit the callback every interval_s seconds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver setting up the timer</p></li>
+<li><p><strong>interval_s</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the number of seconds to wait between hitting the callback</p></li>
+<li><p><strong>callback</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span>) – the function to call when the timer expires. &#64;see Driver.timer_callback_template</p></li>
+<li><p><strong>name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – an optional name for the timer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created timer</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">timer</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.cancel_timer">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">cancel_timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.cancel_timer" title="Permalink to this definition"></a></dt>
+<dd><p>Cancel a timer set up on this driver</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver with the timer</p></li>
+<li><p><strong>t</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Timer</span></code></span>) – the timer to cancel</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.capability_message_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">capability_message_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">capability_channel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.capability_message_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler that can be registered for the capability message channel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the capability commands</p></li>
+<li><p><strong>capability_channel</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">message_channel</span></code></span>) – the capability message channel with data to be read</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.handle_capability_command">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">handle_capability_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">cap_command</span></em>, <em class="sig-param"><span class="pre">quiet</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.handle_capability_command" title="Permalink to this definition"></a></dt>
+<dd><p>Default capability command handler.  This takes the parsed command and will look up the command handler and call it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the capability commands</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device that this command was sent to</p></li>
+<li><p><strong>cap_command</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the capability command table including the capability, command, component and args</p></li>
+<li><p><strong>quiet</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span>) – if true, suppress logging; useful if the driver is injecting a capability command itself</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.inject_capability_command">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">inject_capability_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">cap_command</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.inject_capability_command" title="Permalink to this definition"></a></dt>
+<dd><p>Inject a capability command into the capability command dispatcher.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the capability command</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.Device" title="st.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.Device</span></code></a></span>) – the device for which this command is injected</p></li>
+<li><p><strong>cap_command</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the capability command table including the capability, command, component and args</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.lifecycle_message_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">lifecycle_message_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">lifecycle_channel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.lifecycle_message_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler that can be registered for the device lifecycle events</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the device lifecycle events</p></li>
+<li><p><strong>lifecycle_channel</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">message_channel</span></code></span>) – the lifecycle message channel with data to be read</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.driver_lifecycle_message_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">driver_lifecycle_message_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">ch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.driver_lifecycle_message_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler that can be registered for the driver lifecycle events</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the device lifecycle events</p></li>
+<li><p><strong>ch</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">message_channel</span></code></span>) – the lifecycle message channel with data to be read</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.discovery_message_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">discovery_message_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">discovery_channel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.discovery_message_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler that can be registered for the device discovery events</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the device discovery events</p></li>
+<li><p><strong>discovery_channel</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">message_channel</span></code></span>) – the discovery message channel with data to be read</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.environment_info_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">environment_info_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">environment_channel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.environment_info_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Default handler that can be registered for the environment info messages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the device lifecycle events</p></li>
+<li><p><strong>environment_channel</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">message_channel</span></code></span>) – the environment update message channel</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.get_devices">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_devices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Driver.get_devices" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of all devices known to this driver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>of Device objects</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">List</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.build_child_device">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_child_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">raw_device_table</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.build_child_device" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>raw_device_table</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.get_device_info">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_device_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">device_uuid</span></em>, <em class="sig-param"><span class="pre">force_refresh</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.get_device_info" title="Permalink to this definition"></a></dt>
+<dd><p>Default function for getting and caching device info on a driver</p>
+<p>By default this will use the devices api to request information about the device id provided
+it will then cache that information on the driver.  The information will be stored as a table
+after being decoded from the JSON sent across.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver running</p></li>
+<li><p><strong>device_uuid</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the uuid of the device to get info for</p></li>
+<li><p><strong>force_refresh</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span>) – if true, re-request from the driver api instead of returning cached value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.try_create_device">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">try_create_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device_metadata</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.try_create_device" title="Permalink to this definition"></a></dt>
+<dd><p>Send a request to create a new device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At this time, only LAN type devices can be created via this api.</p>
+</div>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">local</span> <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;LAN&quot;</span><span class="p">,</span>
+  <span class="n">device_network_id</span> <span class="o">=</span> <span class="s2">&quot;24FD5B0001044502&quot;</span><span class="p">,</span>
+  <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Kitchen Smart Bulb&quot;</span><span class="p">,</span>
+  <span class="n">profile</span> <span class="o">=</span> <span class="s2">&quot;bulb.rgb.v1&quot;</span><span class="p">,</span>
+  <span class="n">manufacturer</span> <span class="o">=</span> <span class="s2">&quot;WiFi Smart Bulb Co.&quot;</span><span class="p">,</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;WiFi Bulb 9000&quot;</span><span class="p">,</span>
+  <span class="n">vendor_provided_label</span> <span class="o">=</span> <span class="s2">&quot;Kitchen Smart Bulb&quot;</span>
+<span class="p">})</span>
+
+<span class="n">driver</span><span class="p">:</span><span class="n">try_create_device</span><span class="p">(</span><span class="n">metadata</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>All metadata fields are type string. Valid metadata fields are:</p>
+<ul class="simple">
+<li><p><strong>type</strong> - network type of the device. Must be “LAN”. (required)</p></li>
+<li><p><strong>device_network_id</strong> - unique identifier specific for this device (required)</p></li>
+<li><p><strong>label</strong> - label for the device (required)</p></li>
+<li><p><strong>profile</strong> - profile name defined in the profile .yaml file (required)</p></li>
+<li><p><strong>parent_device_id</strong> - device id of a parent device</p></li>
+<li><p><strong>manufacturer</strong> - device manufacturer</p></li>
+<li><p><strong>model</strong> - model name of the device</p></li>
+<li><p><strong>vendor_provided_label</strong> - device label provided by the manufacturer/vendor (typically the same as label during device creation)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_metadata</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – A table of device metadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.register_channel_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">register_channel_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">message_channel</span></em>, <em class="sig-param"><span class="pre">callback</span></em>, <em class="sig-param"><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.register_channel_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Function to register a message_channel handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle message events</p></li>
+<li><p><strong>message_channel</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">message_channel</span></code></span>) – the message channel to listen to input on</p></li>
+<li><p><strong>callback</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">function</span></code></span>) – the callback function to call when there is data on the message channel</p></li>
+<li><p><strong>name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Optional name for the channel handler, used for logging</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.unregister_channel_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">unregister_channel_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">message_channel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.unregister_channel_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Function to unregister a message_channel handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to handle the message events</p></li>
+<li><p><strong>message_channel</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">message_channel</span></code></span>) – the message channel to stop listening for input on</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="Driver.standardize_sub_drivers">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">standardize_sub_drivers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.standardize_sub_drivers" title="Permalink to this definition"></a></dt>
+<dd><p>Standardize the structure of the sub driver structure of this driver</p>
+<p>The handlers registered as a part of the base driver file (or capability defaults) are
+assumed to be the default behavior of the driver.  However, if there is need for a subset
+of devices to override the base behavior for one reason or another (e.g. manufacturer or
+model specific behavior), a value can be added to the “sub_drivers”.  Each sub_driver must
+contain a <cite>can_handle</cite> function of the signature <cite>can_handle(opts, driver, device, …)</cite>
+where opts can be used to provide context specific information necessary to determine if
+the sub_driver should be responsible for some type of work.  The most common use for the
+sub drivers will be to provide capabiltiy/zigbee/zwave/matter handlers that need to override the
+default for the driver.  It may optionally also contain its own <cite>sub_drivers</cite> containing
+further subservient sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>driver</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="Driver.populate_capability_dispatcher_from_sub_drivers">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">populate_capability_dispatcher_from_sub_drivers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.populate_capability_dispatcher_from_sub_drivers" title="Permalink to this definition"></a></dt>
+<dd><p>Recursively build the capability dispatcher structure from sub_drivers</p>
+<p>This will recursively follow the <cite>sub_drivers</cite> defined on the driver and build
+a structure that will correctly find and execute a handler that matches.  It should be
+noted that a child handler will always be preferred over a handler at the same level,
+but that if multiple child handlers report that they can handle a message, it will be
+sent to each handler that reports it can handle the message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>driver</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="Driver.populate_lifecycle_dispatcher_from_sub_drivers">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">populate_lifecycle_dispatcher_from_sub_drivers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.populate_lifecycle_dispatcher_from_sub_drivers" title="Permalink to this definition"></a></dt>
+<dd><p>Recursively build the lifecycle dispatcher structure from sub_drivers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>driver</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="Driver.init">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cls</span></em>, <em class="sig-param"><span class="pre">name</span></em>, <em class="sig-param"><span class="pre">template</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.init" title="Permalink to this definition"></a></dt>
+<dd><p>Given a driver template and name initialize the context</p>
+<p>This is used to build the driver context that will be passed around to provide access to various state necessary
+for operation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – class to be instantiated</p></li>
+<li><p><strong>name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the name of the driver used for logging</p></li>
+<li><p><strong>template</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – a template with any override or necessary driver information</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the constructed driver context</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver._internal_select">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">_internal_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">recv</span></em>, <em class="sig-param"><span class="pre">sendt</span></em>, <em class="sig-param"><span class="pre">timeout</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver._internal_select" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recv</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p></li>
+<li><p><strong>sendt</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p></li>
+<li><p><strong>timeout</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="Driver.run">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Driver.run" title="Permalink to this definition"></a></dt>
+<dd><p>Function to run a driver</p>
+<p>This will run an “infinite” loop for this driver.  It will wait for input on any message channel that has a handler
+registered for it through the register_channel_handler function.  In addition it will wait for any registered timers
+to expire and trigger as well.  Whenever data becomes available on one of the message channels the callback will
+be called and then it will go back to waiting for input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver to run</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="driver-template-options">
+<h2>Driver Template Options<a class="headerlink" href="#driver-template-options" title="Permalink to this headline"></a></h2>
+<p>To create a driver, use the <code class="docutils literal notranslate"><span class="pre">Driver(&lt;driver_name&gt;,</span> <span class="pre">&lt;driver_template&gt;)</span></code> call to
+create the driver object.  There are a number of things that can be included within the driver template that is passed
+in.</p>
+<dl class="simple">
+<dt>lifecycle_handlers</dt><dd><p>A structure of registered handlers for a variety of different events pertaining to the lifecycle of devices</p>
+</dd>
+<dt>capability_handlers</dt><dd><p>The structure mentioned in the <a class="reference internal" href="zwave/defaults.html#capability-handlers"><span class="std std-ref">capabilities handlers</span></a> section used to handle
+SmartThings capability commands</p>
+</dd>
+<dt>sub_drivers</dt><dd><p>The list of <a class="reference internal" href="#sub-drivers"><span class="std std-ref">sub drivers</span></a> that are under this driver.</p>
+</dd>
+<dt>driver_lifecycle</dt><dd><p>A function used to respond to driver lifecycle events.  Contains two arguments.  The first argument is the <code class="docutils literal notranslate"><span class="pre">Driver</span></code>
+the second argument is the string name of the event (currently <code class="docutils literal notranslate"><span class="pre">&quot;shutdown&quot;</span></code> is the only option)</p>
+</dd>
+</dl>
+<section id="lifecycle-event-handlers">
+<h3>Lifecycle Event Handlers<a class="headerlink" href="#lifecycle-event-handlers" title="Permalink to this headline"></a></h3>
+<p>All drivers, regardless of the underlying protocol, will by default support the definition of a <code class="docutils literal notranslate"><span class="pre">lifecycle_handlers</span></code>
+structure that will allow you to provide a set of functions that will be called when any of the following device events
+happen</p>
+<dl class="simple">
+<dt>init</dt><dd><p>This device init function will be called any time a device object needs to be instantiated within the driver.
+There are 2 main cases where this happens: 1) the driver just started up and needs to create the objects for
+existing devices and 2) a device was newly added to the driver.</p>
+</dd>
+<dt>added</dt><dd><p>A device was newly added to this driver.  This represents when the device is, for the first time, assigned to run
+with this driver.  For example, when it is first joined to the network and fingerprinted to this driver.</p>
+</dd>
+<dt>doConfigure</dt><dd><p>This is an event that will be sent when the platform believes the device needs to go through provisioning for it to
+work as expected.  The most common situation for this is when the device is first added to the platform, but there
+are other protocol specific cases that this may be triggered as well.</p>
+</dd>
+<dt>infoChanged</dt><dd><p>This represents a change that has happened in the data representing the device on the SmartThings platform.  An
+example could be a change to the name of the device.</p>
+</dd>
+<dt>driverSwitched</dt><dd><p>This represents a device being switched from using a different driver, to using the current driver.  This will
+be sent after an <code class="docutils literal notranslate"><span class="pre">added</span></code> event and it can be used to determine if this device can properly be supported by
+the driver or not.  See <code class="docutils literal notranslate"><span class="pre">Driver.default_capability_match_driverSwitched_handler</span></code> as an example.  Updating the
+devices metadata field <code class="docutils literal notranslate"><span class="pre">provisioning_state</span></code> to either <code class="docutils literal notranslate"><span class="pre">NONFUNCTIONAL</span></code> or <code class="docutils literal notranslate"><span class="pre">PROVISIONED</span></code> can be used to indicate
+that the driver won’t or will, respectively, function within this driver.</p>
+</dd>
+<dt>removed</dt><dd><p>This represents a device being removed from this driver.</p>
+</dd>
+</dl>
+<p>Each of these can be defined in the <code class="docutils literal notranslate"><span class="pre">lifecycle_handlers</span></code> table as a key with the corresponding function that will be
+called when the event happens.  These functions will have the signature of
+<code class="docutils literal notranslate"><span class="pre">event_handler(driver,</span> <span class="pre">device,</span> <span class="pre">event,</span> <span class="pre">args)</span></code> where <code class="docutils literal notranslate"><span class="pre">event</span></code> is the string matching the above event and args is
+a table with key-values specific to the event.  The only event that currently uses the <code class="docutils literal notranslate"><span class="pre">args</span></code> is the <code class="docutils literal notranslate"><span class="pre">infoChanged</span></code>
+event which provides the key arg <code class="docutils literal notranslate"><span class="pre">old_st_store</span></code> which is the table representation of the device info from before this
+event happened with the <code class="docutils literal notranslate"><span class="pre">device</span></code> arg containing the new up to date information.</p>
+<p>There is also some default behavior that will always happen for certain events.  <code class="docutils literal notranslate"><span class="pre">added</span></code> will also trigger an <code class="docutils literal notranslate"><span class="pre">init</span></code>
+after it has completed the <code class="docutils literal notranslate"><span class="pre">added</span></code> behavior.  <code class="docutils literal notranslate"><span class="pre">removed</span></code> will remove the device from the device cache and make
+the device inoperable.</p>
+<p>In addition there are 2 extra keys that can be added the <code class="docutils literal notranslate"><span class="pre">fallback</span></code> and <code class="docutils literal notranslate"><span class="pre">error</span></code> fields can be set to be used as
+the special handlers for the <a class="reference internal" href="dispatchers.html#dispatchers"><span class="std std-ref">Dispatchers</span></a> to be handlers that get called in the case of no other
+matching handler or an error is encountered respectively.</p>
+<p>Further these lifecycle handlers can be defined in <a class="reference internal" href="#sub-drivers"><span class="std std-ref">SubDrivers</span></a> if there is some differntiation
+needed between devices within a driver.</p>
+</section>
+</section>
+<section id="example">
+<h2>example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h2>
+<p>Here is a simple example in which a device needs to do some specific configuration and setup.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+<span class="kd">local</span> <span class="n">ZigbeeDriver</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee&quot;</span>
+<span class="kd">local</span> <span class="n">defaults</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee.defaults&quot;</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">configure_device</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="n">device</span><span class="p">:</span><span class="n">configure</span><span class="p">()</span>
+    <span class="c1">-- some driver specific behavior</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">arbitrary_value</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">arbitrary_value</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">device_init</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">device_tracker</span><span class="p">[</span><span class="n">device</span><span class="p">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;device initted&quot;</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">zigbee_outlet_driver_template</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">supported_capabilities</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">lifecycle_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="o">=</span> <span class="n">device_init</span><span class="p">,</span>
+    <span class="n">doConfigure</span> <span class="o">=</span> <span class="n">configure_device</span>
+  <span class="p">},</span>
+  <span class="n">device_tracker</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="n">defaults</span><span class="p">.</span><span class="n">register_for_default_handlers</span><span class="p">(</span><span class="n">zigbee_outlet_driver_template</span><span class="p">,</span> <span class="n">zigbee_outlet_driver_template</span><span class="p">.</span><span class="n">supported_capabilities</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">zigbee_outlet</span> <span class="o">=</span> <span class="n">ZigbeeDriver</span><span class="p">(</span><span class="s2">&quot;zigbee_bulb&quot;</span><span class="p">,</span> <span class="n">zigbee_outlet_driver_template</span><span class="p">)</span>
+<span class="n">zigbee_outlet</span><span class="p">:</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="capability-command-handlers">
+<span id="capability-handlers"></span><h3>Capability Command Handlers<a class="headerlink" href="#capability-command-handlers" title="Permalink to this headline"></a></h3>
+<p>All drivers, regardless of the underlying protocol, will by default support the definition of a <code class="docutils literal notranslate"><span class="pre">capability_handlers</span></code>
+structure that will allow you to map the capability commands to a function meant to support that command.  For more
+information about the use of capabilities within drivers, including the <code class="docutils literal notranslate"><span class="pre">capability_handlers</span></code> structure, see
+<a class="reference internal" href="capabilities.html"><span class="doc">capabilities</span></a>.</p>
+</section>
+<section id="subdrivers">
+<span id="sub-drivers"></span><h3>SubDrivers<a class="headerlink" href="#subdrivers" title="Permalink to this headline"></a></h3>
+<p>Because drivers are no longer a separate instance for each device, it becomes much easier to support
+multiple different-but-similar devices (e.g. both a Zigbee on/off/dim bulb and a Zigbee RGBW bulb) in the same driver
+to maximize similar behavior between devices; a driver can support any number of different profiles.  However,
+there still exists the problem of handling abnormal devices, for example a device that is exactly the same in handling
+and behavior except for one command which has a slightly different handling.  You could register a single
+<a class="reference internal" href="zwave/defaults.html#capability-handlers"><span class="std std-ref">capability handler</span></a> (or other protocol specific handler) with branching within the handler
+for each device variation.  However, this can quickly get out of control with long lists of if/else blocks.  This is the
+problem that <code class="docutils literal notranslate"><span class="pre">SubDrivers</span></code> helps solve.  With this solution, each subdriver will provide a single <code class="docutils literal notranslate"><span class="pre">can_handle</span></code>
+function that can be used to determine if the given subdriver should handle _something_.  Below is the function
+definition:</p>
+<dl class="lua function">
+<dt class="sig sig-object lua" id="can_handle">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">can_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">opts</span></em>, <em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#can_handle" title="Permalink to this definition"></a></dt>
+<dd><p>Check if this subdriver can handle a given context</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<span><a class="reference internal" href="global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – A table containing optional arguments that can be used to determine if something is handleable</p></li>
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Device</span></code></span>) – the device we are checking handling against</p></li>
+<li><p><strong>...</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – The additional context values, typically the message that is being checked for handling</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>As you can see, some of the args are a bit nebulous including a vararg option at the end.  This is to allow for the
+flexibility of using the same function in many contexts.  However, the most common example would be to handle devices of
+a specific model (or manufacturer) in which case the function can be very simple:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">my_subdriver</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">can_handle</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="p">...)</span>
+        <span class="kr">return</span> <span class="n">device</span><span class="p">:</span><span class="n">get_model</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;modelOne&quot;</span>
+    <span class="kr">end</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this case, this is for a <a class="reference internal" href="zigbee/driver.html#ZigbeeDriver" title="ZigbeeDriver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeDriver</span></code></a> so we are using the function to get the model of the
+device and branching on that, and we will use that in all situations for the subdriver.</p>
+<p>In addition to the <code class="docutils literal notranslate"><span class="pre">can_handle</span></code> function, you can incorporate <a class="reference internal" href="zwave/defaults.html#capability-handlers"><span class="std std-ref">capability handlers</span></a> or any
+other protocol specific handlers. These will be built into the <a class="reference internal" href="dispatchers.html"><span class="doc">dispatcher</span></a>
+for these handlers, and follow the corresponding rules for dispatching to the correct handler in the context of that
+dispatcher.  Additionally, this subdriver could be used for whatever driver-specific uses are needed, specific to your use case.</p>
+<section id="id1">
+<h4>Example<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<p>Below is an example showing a base driver utilizing subdrivers.  It has a base driver that provides the
+Zigbee standard support for switch and switchLevel capabilities.  It registers 2 subdrivers, split into separate files
+to make organization and understanding the blocks of behavior better.  First, it has a <code class="docutils literal notranslate"><span class="pre">manufacturer_one.lua</span></code> subdriver
+whose <code class="docutils literal notranslate"><span class="pre">can_handle</span></code> verifies that the device has the correct manufacturer.  If the device does match that manufacturer,
+then instead of using the standard switchLevel support it will arbitrarily generate an event 15 less than it would
+otherwise when the device reports, and it will set it to 15 less than the commands sent to it.  Similarly, the
+<code class="docutils literal notranslate"><span class="pre">manufacturer_two.lua</span></code> works functionally the same but with a different manufacturer and different level offset.  The
+complete driver could now support any standard Zigbee bulb that supported switch and switchLevel as well as two specific
+manufacturers bulbs who arbitrarily offset the levels.</p>
+<section id="init-lua">
+<h5>init.lua<a class="headerlink" href="#init-lua" title="Permalink to this headline"></a></h5>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+<span class="kd">local</span> <span class="n">ZigbeeDriver</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee&quot;</span>
+<span class="kd">local</span> <span class="n">defaults</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee.defaults&quot;</span>
+
+<span class="kd">local</span> <span class="n">zigbee_man_model_driver_template</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;man-model-example&quot;</span><span class="p">,</span>
+  <span class="n">supported_capabilities</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">sub_drivers</span> <span class="o">=</span> <span class="p">{</span> <span class="nb">require</span><span class="p">(</span><span class="s2">&quot;manufacturer_one&quot;</span><span class="p">),</span> <span class="nb">require</span><span class="p">(</span><span class="s2">&quot;manufacturer_two&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">defaults</span><span class="p">.</span><span class="n">register_for_default_handlers</span><span class="p">(</span><span class="n">zigbee_man_model_driver_template</span><span class="p">,</span>
+                                       <span class="n">zigbee_man_model_driver_template</span><span class="p">.</span><span class="n">supported_capabilities</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">zigbee_man_model_driver</span> <span class="o">=</span> <span class="n">ZigbeeDriver</span><span class="p">(</span><span class="n">zigbee_man_model_driver_template</span><span class="p">)</span>
+<span class="n">zigbee_man_model_driver</span><span class="p">:</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="manufacturer-one-lua">
+<h5>manufacturer_one.lua<a class="headerlink" href="#manufacturer-one-lua" title="Permalink to this headline"></a></h5>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">zcl_clusters</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span>
+<span class="kd">local</span> <span class="n">Level</span> <span class="o">=</span> <span class="n">zcl_clusters</span><span class="p">.</span><span class="n">Level</span>
+<span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+
+<span class="kd">local</span> <span class="n">manufacturer_one_handler</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;ManufacturerOne&quot;</span><span class="p">,</span>
+  <span class="n">zigbee_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">attr</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">Level</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">Level</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">CurrentLevel</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+          <span class="c1">-- Arbitrarily subtract 15 for example purposes</span>
+          <span class="n">device</span><span class="p">:</span><span class="n">emit_event</span><span class="p">(</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">level</span><span class="p">(</span><span class="nb">math.floor</span><span class="p">((</span><span class="n">value</span><span class="p">.</span><span class="n">value</span> <span class="o">/</span> <span class="mf">254.0</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-</span> <span class="mi">15</span><span class="p">))</span>
+        <span class="kr">end</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="n">capability_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">setLevel</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+        <span class="c1">-- Arbitrarily subtract 15 for example purposes</span>
+        <span class="kd">local</span> <span class="n">level</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">((</span><span class="n">command</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="n">level</span> <span class="o">-</span> <span class="mi">15</span><span class="p">)</span><span class="o">/</span><span class="mf">100.0</span> <span class="o">*</span> <span class="mi">254</span><span class="p">)</span>
+        <span class="n">device</span><span class="p">:</span><span class="n">send</span><span class="p">(</span><span class="n">Level</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">MoveToLevelWithOnOff</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="n">rate</span> <span class="ow">or</span> <span class="mh">0xFFFF</span><span class="p">))</span>
+      <span class="kr">end</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="n">sub_drivers</span> <span class="o">=</span> <span class="p">{},</span> <span class="c1">-- could optionally nest further.  The can_handles would be chained</span>
+  <span class="n">can_handle</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="p">...)</span>
+    <span class="kr">return</span> <span class="n">device</span><span class="p">:</span><span class="n">get_manufacturer</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;manufacturer_one&quot;</span>
+  <span class="kr">end</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kr">return</span> <span class="n">manufacturer_one_handler</span>
+</pre></div>
+</div>
+</section>
+<section id="manufacturer-two-lua">
+<h5>manufacturer_two.lua<a class="headerlink" href="#manufacturer-two-lua" title="Permalink to this headline"></a></h5>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+<span class="kd">local</span> <span class="n">zcl_clusters</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span>
+<span class="kd">local</span> <span class="n">Level</span> <span class="o">=</span> <span class="n">zcl_clusters</span><span class="p">.</span><span class="n">Level</span>
+
+<span class="kd">local</span> <span class="n">manufacturer_two</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;ManufacturerTwo&quot;</span><span class="p">,</span>
+  <span class="n">zigbee_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">attr</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">Level</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">Level</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">CurrentLevel</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+          <span class="c1">-- Arbitrarily subtract 5 for example purposes</span>
+          <span class="n">device</span><span class="p">:</span><span class="n">emit_event</span><span class="p">(</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">level</span><span class="p">(</span><span class="nb">math.floor</span><span class="p">((</span><span class="n">value</span><span class="p">.</span><span class="n">value</span> <span class="o">/</span> <span class="mf">254.0</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="kr">end</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="n">capability_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">setLevel</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+        <span class="c1">-- Arbitrarily subtract 5 for example purposes</span>
+        <span class="kd">local</span> <span class="n">level</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">((</span><span class="n">command</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="n">level</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mf">100.0</span> <span class="o">*</span> <span class="mi">254</span><span class="p">)</span>
+        <span class="n">device</span><span class="p">:</span><span class="n">send</span><span class="p">(</span><span class="n">Level</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">MoveToLevelWithOnOff</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="n">rate</span> <span class="ow">or</span> <span class="mh">0xFFFF</span><span class="p">))</span>
+      <span class="kr">end</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="n">sub_drivers</span> <span class="o">=</span> <span class="p">{},</span>
+  <span class="n">can_handle</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="p">...)</span>
+    <span class="kr">return</span> <span class="n">device</span><span class="p">:</span><span class="n">get_manufacturer</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;manufacturer_two&quot;</span>
+  <span class="kr">end</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="subdriver-class-documentation">
+<h2>SubDriver Class Documentation<a class="headerlink" href="#subdriver-class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="SubDriver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SubDriver</span></span><a class="headerlink" href="#SubDriver" title="Permalink to this definition"></a></dt>
+<dd><p>A SubDriver is a way to bundle groups of functionality that overrides the basic behavior of a given driver by gating
+it behind a can_handle function.</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="SubDriver.can_handle">
+<span class="sig-name descname"><span class="pre">can_handle</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">function</span><a class="headerlink" href="#SubDriver.can_handle" title="Permalink to this definition"></a></dt>
+<dd><p>(type: Driver, type: Device, …):boolean whether or not this sub driver, if it has a matching handler, should handle a message</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="SubDriver.zigbee_handlers">
+<span class="sig-name descname"><span class="pre">zigbee_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#SubDriver.zigbee_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>the same zigbee handlers that a driver would have</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="SubDriver.zwave_handlers">
+<span class="sig-name descname"><span class="pre">zwave_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#SubDriver.zwave_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>the same zwave handlers that a driver would have</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="SubDriver.capability_handlers">
+<span class="sig-name descname"><span class="pre">capability_handlers</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#SubDriver.capability_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>the same capability handlers that a driver would have</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="driver-tests">
+<h3>Driver tests<a class="headerlink" href="#driver-tests" title="Permalink to this headline"></a></h3>
+<p>It is useful to have a set of unit tests for the functionality of your driver.  You can see documentation on how to
+set up driver tests here <span class="xref std std-doc">here</span></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="global_environment.html" class="btn btn-neutral float-left" title="Global Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="device.html" class="btn btn-neutral float-right" title="Device" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

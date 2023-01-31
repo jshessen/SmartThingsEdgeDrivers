@@ -1,0 +1,4 @@
+Lock
+====
+
+.. lua:autoclass:: st.zigbee.defaults.lock

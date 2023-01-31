@@ -1,0 +1,6 @@
+Command Configuration Get
+=========================
+
+.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandConfigurationGet
+.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandConfigurationGetV1
+.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandConfigurationGetV1Args

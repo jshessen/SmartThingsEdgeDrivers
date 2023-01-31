@@ -1,0 +1,6 @@
+Supported Scale Report
+======================
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedScaleReport
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedScaleReportV5
+.. lua:autoclass:: st.zwave.CommandClass.SensorMultilevel.SupportedScaleReportV5Args

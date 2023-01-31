@@ -1,0 +1,4 @@
+Dew Point
+=========
+
+.. lua:autoclass:: st.zwave.defaults.dewPoint

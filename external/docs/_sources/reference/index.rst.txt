@@ -1,0 +1,22 @@
+Edge Device Driver Reference
+============================
+
+.. toctree::
+   :maxdepth: 2
+
+   ../global_environment
+   ../driver
+   ../device
+   ../capabilities
+   ../matter/matter
+   ../zigbee/zigbee
+   ../zwave/zwave
+   ../socket
+   ../datastore
+   ../dispatchers
+   ../buf
+   ../thread
+   ../log
+   ../utils
+   ../integration_tests
+

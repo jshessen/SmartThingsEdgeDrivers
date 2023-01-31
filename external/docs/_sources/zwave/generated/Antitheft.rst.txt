@@ -1,0 +1,12 @@
+Antitheft
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   Antitheft/Set
+   Antitheft/Get
+   Antitheft/Report
+   Antitheft/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.Antitheft

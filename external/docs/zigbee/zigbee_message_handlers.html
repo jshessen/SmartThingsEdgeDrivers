@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zigbee Driver RX message handlers &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Zigbee Driver Capability Defaults" href="defaults.html" />
+    <link rel="prev" title="ZigbeeDevice Class" href="device.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Zigbee Driver RX message handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#zcl-attribute-value-handler">ZCL attribute value handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zcl-global-command-handler">ZCL global command handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zcl-cluster-command-handler">ZCL cluster command handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zdo-command-handler">ZDO command handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defaults.html">Zigbee Driver Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zcl/zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zcl/zcl_clusters.html">ZCL Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated.html">Generated Zigbee Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="zigbee.html">Zigbee Libraries</a> &raquo;</li>
+      <li>Zigbee Driver RX message handlers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/zigbee/zigbee_message_handlers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="zigbee-driver-rx-message-handlers">
+<h1>Zigbee Driver RX message handlers<a class="headerlink" href="#zigbee-driver-rx-message-handlers" title="Permalink to this headline"></a></h1>
+<p>These are handlers that can be used to handle any incoming <a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeMessageRx</span></code></a>.  In
+general, there are 4 common types of handlers that can be simply defined and automatically handled by the driver
+infrastructure.  These are:</p>
+<ol class="arabic simple">
+<li><p>ZCL attribute value handlers</p></li>
+<li><p>ZCL global command handlers</p></li>
+<li><p>ZCL cluster specific command handlers</p></li>
+<li><p>ZDO handlers.</p></li>
+</ol>
+<p>A further description of each is provided below.</p>
+<p>In order for one of these message handlers to be registered, the driver will provide a table with the registrations
+included in it.  There are also included a number of default handlers that can be registered based on a list of
+capabilities.  This can be done using:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">defaults</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee.defaults&quot;</span>
+<span class="n">defaults</span><span class="p">.</span><span class="n">register_for_default_handlers</span><span class="p">(</span><span class="n">driver_template</span><span class="p">,</span> <span class="p">{</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">switchLevel</span> <span class="p">})</span>
+</pre></div>
+</div>
+<p>These defaults can be overridden explicitly, never registered, or left as-is
+and expanded by registering additional handlers.  The following is an example of additional handlers added in a driver:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">generate_event_from_zone_status</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">zone_status</span><span class="p">)</span>
+  <span class="n">capabilities</span><span class="p">.</span><span class="n">emit_event</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">driver</span><span class="p">.</span><span class="n">capability_socket</span><span class="p">,</span> <span class="p">(</span><span class="n">zone_status</span><span class="p">:</span><span class="n">is_alarm1_set</span><span class="p">()</span> <span class="ow">or</span> <span class="n">zone_status</span><span class="p">:</span><span class="n">is_alarm2_set</span><span class="p">())</span> <span class="ow">and</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">WaterSensor</span><span class="p">.</span><span class="n">water</span><span class="p">.</span><span class="n">wet</span><span class="p">()</span> <span class="ow">or</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">WaterSensor</span><span class="p">.</span><span class="n">water</span><span class="p">.</span><span class="n">dry</span><span class="p">())</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">ias_zone_status_attr_handler</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">attr_val</span><span class="p">)</span>
+  <span class="n">generate_event_from_zone_status</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">ZoneStatus</span><span class="p">(</span><span class="n">attr_val</span><span class="p">.</span><span class="n">value</span><span class="p">))</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">ias_zone_status_change_handler</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">zigbee_message</span><span class="p">)</span>
+  <span class="n">generate_event_from_zone_status</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">zigbee_message</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">zone_status</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">global</span> <span class="o">=</span> <span class="p">{},</span>
+  <span class="n">cluster</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">IASZone</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">IASZone</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">ZoneStatusChangeNotification</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">ias_zone_status_change_handler</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="n">attr</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">IASZone</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">IASZone</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">ZoneStatus</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">ias_zone_status_attr_handler</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="n">zdo</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">-- This handlers table could then be used with the zigbee driver utils to register/build a driver</span>
+</pre></div>
+</div>
+<p>Here we are adding one cluster specific handler and one attribute handler.  Both are for handling zone
+status values.  You can see the <a class="reference internal" href="defaults.html"><span class="doc">defaults</span></a> doc for additional information on what defaults are
+available and how they are used.</p>
+<section id="zcl-attribute-value-handler">
+<h2>ZCL attribute value handler<a class="headerlink" href="#zcl-attribute-value-handler" title="Permalink to this headline"></a></h2>
+<p>The following is a prototype definition of an attribute handler:</p>
+<dl class="lua function">
+<dt class="sig sig-object lua" id="zcl_attribute_value_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">zcl_attribute_value_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">attr_val</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zcl_attribute_value_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Handle an attribute value sent from the device (either via a read attribute response or a report attribute global
+message).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Device</span></code></span>) – the device reporting the attribute</p></li>
+<li><p><strong>attr_val</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.DataType</span></code></span>) – the attribute value</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the full Zigbee message this value is being extracted from</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>If this handler type is registered, it will be nested as follows:
+“attr”-&gt;cluster_id-&gt;attribute_id-&gt;handler, that is, it is named as an “attr” handler, then it is associated with a
+specific cluster and attribute.  When either a
+<code class="xref lua lua-class docutils literal notranslate"><span class="pre">read</span> <span class="pre">attribute</span> <span class="pre">response</span></code> or
+<code class="xref lua lua-class docutils literal notranslate"><span class="pre">report</span> <span class="pre">attribute</span></code> message is received matching the cluster and attribute, that
+value will be passed into the handler function on receipt.  Note that a read attribute response value will only call the
+handler if the status was success.</p>
+<p>Below is an example. By default this is registered for cluster <cite>0x0006</cite>
+(On Off cluster) attribute <cite>0x0000</cite> (On Off attribute) if the “Switch” capability is listed as supported.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">OnOff</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">OnOff</span>
+<span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+
+<span class="c1">--- Default handler for on off attribute on the on off cluster</span>
+<span class="c1">---</span>
+<span class="c1">--- This converts the boolean value from true -&gt; Switch.switch.on and false to Switch.switch.off.</span>
+<span class="c1">---</span>
+<span class="c1">--- @param driver Driver The current driver running containing necessary context for execution</span>
+<span class="c1">--- @param device ZigbeeDevice The device this message was received from containing identifying information</span>
+<span class="c1">--- @param value Boolean the value of the On Off cluster On Off attribute</span>
+<span class="kd">local</span> <span class="n">on_off_attr_handler</span> <span class="o">=</span> <span class="kr">function</span> <span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">attr</span> <span class="o">=</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">switch</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">emit_event</span><span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="n">value</span> <span class="ow">and</span> <span class="n">attr</span><span class="p">.</span><span class="n">on</span><span class="p">()</span> <span class="ow">or</span> <span class="n">attr</span><span class="p">.</span><span class="n">off</span><span class="p">())</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">zigbee_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">attr</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">OnOff</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">OnOff</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">OnOff</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">on_off_attr_handler</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="zcl-global-command-handler">
+<h2>ZCL global command handler<a class="headerlink" href="#zcl-global-command-handler" title="Permalink to this headline"></a></h2>
+<p>Below is a prototype function defining a global command handler:</p>
+<dl class="lua function">
+<dt class="sig sig-object lua" id="zcl_global_command_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">zcl_global_command_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zcl_global_command_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Handle a ZCL message using a global command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Device</span></code></span>) – the device reporting the attribute</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the Zigbee message received</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>If this handler type is registered it will be nested as follows:
+“global”-&gt;cluster_id-&gt;command_id-&gt;handler, that is, it is named as a “global” handler, then it is associated with a
+specific cluster and command.  When a message is received matching the cluster and command, and the frame
+control cluster specific flag is false, the entire parsed <a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeMessageRx</span></code></a> will
+be passed into the handler.</p>
+<p>Below is an example of a method that will handle any read or report
+attribute message on the SmartThings-specific acceleration cluster <cite>0xFC04</cite>.  This is done as a global command handler
+instead of an attribute handler because we expect to receive and want to act on multiple attribute reports in a single
+message, not a single attribute value.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">zcl_commands</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.global_commands&quot;</span>
+<span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+
+<span class="c1">--- Handler for SmartThings multi sensor threeAxis acceleration events</span>
+<span class="c1">---</span>
+<span class="c1">--- This is a report attribute message handler and if there are values present for each of the x y and z axis</span>
+<span class="c1">--- accelerations a threeAxis event will be generated</span>
+<span class="c1">---</span>
+<span class="c1">--- @param driver Driver The current driver running containing necessary context for execution</span>
+<span class="c1">--- @param device st.zigbee.Device The device this message was received from containing identifying information</span>
+<span class="c1">--- @param zbrx st.zigbee.ZigbeeMessageRx the message that matched the cluster and command</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">three_axis_report_handler</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">zbrx</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
+  <span class="kr">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">zbrx</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">zcl_body</span><span class="p">.</span><span class="n">attr_records</span><span class="p">)</span> <span class="kr">do</span>
+    <span class="kr">if</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">attr_id</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="mh">0x0012</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">value</span>
+    <span class="kr">elseif</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">attr_id</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="mh">0x0013</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="n">y</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">value</span>
+    <span class="kr">elseif</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">attr_id</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="mh">0x0014</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="n">z</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">value</span>
+    <span class="kr">end</span>
+  <span class="kr">end</span>
+  <span class="kr">if</span> <span class="n">x</span> <span class="o">~=</span> <span class="kc">nil</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">~=</span> <span class="kc">nil</span> <span class="ow">and</span> <span class="n">z</span> <span class="o">~=</span> <span class="kc">nil</span> <span class="kr">then</span>
+    <span class="n">device</span><span class="p">:</span><span class="n">emit_event</span><span class="p">(</span><span class="n">capabilities</span><span class="p">.</span><span class="n">threeAxis</span><span class="p">.</span><span class="n">threeAxis</span><span class="p">({</span><span class="n">value</span> <span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">}}))</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">zigbee_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">global</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="mh">0xFC02</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">zcl_commands</span><span class="p">.</span><span class="n">ReportAttribute</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">three_axis_report_handler</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="zcl-cluster-command-handler">
+<h2>ZCL cluster command handler<a class="headerlink" href="#zcl-cluster-command-handler" title="Permalink to this headline"></a></h2>
+<p>Below is a prototype defining the ZCL cluster command handler:</p>
+<dl class="lua function">
+<dt class="sig sig-object lua" id="zcl_cluster_command_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">zcl_cluster_command_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zcl_cluster_command_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Handle a ZCL message using a cluster specific command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Device</span></code></span>) – the device reporting the attribute</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the Zigbee message received</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>If this handler type is registered it will be nested as follows:
+“cluster”-&gt;cluster_id-&gt;command_id-&gt;handler, that is, it is named as an “cluster” handler, then it is associated with a
+specific cluster and command.  When either a message is received matching the cluster and command, and the frame
+control cluster specific flag is true, the entire parsed <a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeMessageRx</span></code></a> will
+be passed into the handler.</p>
+<p>A common example for a driver would be handling the Zone Status Change Notification command on the IAS Zone cluster.
+That is a cluster specific command that will need handling on devices that use it.  However, a default handler is not
+included because that message does not map to a single event type but is instead device-specific.  Below is an example
+of one such handler for a moisture sensor:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">IASZone</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zigbee.zcl.clusters&quot;</span><span class="p">).</span><span class="n">IASZone</span>
+<span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+
+<span class="c1">--- Handler for the cluster specific command ZoneStatusChangeNotification on the IASZone</span>
+<span class="c1">---</span>
+<span class="c1">--- @param driver Driver The current driver running containing necessary context for execution</span>
+<span class="c1">--- @param device ZigbeeDevice The device this message was received from containing identifying information</span>
+<span class="c1">--- @param zb_rx ZigbeeMessageRx the Zigbee message received</span>
+<span class="kd">local</span> <span class="n">ias_zone_status_change_handler</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">zb_rx</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">zone_status</span> <span class="o">=</span> <span class="n">zb_rx</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">zcl_body</span><span class="p">.</span><span class="n">zone_status</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">emit_event</span><span class="p">(</span>
+      <span class="p">(</span><span class="n">zone_status</span><span class="p">:</span><span class="n">is_alarm1_set</span><span class="p">()</span> <span class="ow">or</span> <span class="n">zone_status</span><span class="p">:</span><span class="n">is_alarm2_set</span><span class="p">())</span> <span class="ow">and</span>
+          <span class="n">capabilities</span><span class="p">.</span><span class="n">waterSensor</span><span class="p">.</span><span class="n">water</span><span class="p">.</span><span class="n">wet</span><span class="p">()</span> <span class="ow">or</span>
+          <span class="n">capabilities</span><span class="p">.</span><span class="n">waterSensor</span><span class="p">.</span><span class="n">water</span><span class="p">.</span><span class="n">dry</span><span class="p">()</span>
+  <span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">zigbee_handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="p">[</span><span class="n">IASZone</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="p">[</span><span class="n">IASZone</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">ZoneStatusChangeNotification</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">ias_zone_status_change_handler</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="zdo-command-handler">
+<h2>ZDO command handler<a class="headerlink" href="#zdo-command-handler" title="Permalink to this headline"></a></h2>
+<p>Below is a prototype function defining a zdo handler:</p>
+<dl class="lua function">
+<dt class="sig sig-object lua" id="zdo_handler">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">zdo_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">zb_rx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zdo_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Handle a ZCL message using a global command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="../driver.html#Driver" title="Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Driver</span></code></a></span>) – the driver context</p></li>
+<li><p><strong>device</strong> (<span><a class="reference internal" href="device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – the device reporting the attribute</p></li>
+<li><p><strong>zb_rx</strong> (<span><a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span>) – the Zigbee message received</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>If this handler type is registered it will be nested as follows:
+“zdo”-&gt;cluster_id-&gt;handler, that is, it is named as an “zdo” handler, then it is associated with a
+specific cluster.  When  a message is received matching the cluster and profile (zdo) the entire parsed
+<a class="reference internal" href="messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ZigbeeMessageRx</span></code></a> will be passed into the handler.  One potential example of this
+is to look at some devices binding table to find group membership.  Here is an example:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="kr">function</span> <span class="nf">zdo_binding_table_handler</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">zb_rx</span><span class="p">)</span>
+  <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">binding_table</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">zb_rx</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">zdo_body</span><span class="p">.</span><span class="n">binding_table_entries</span><span class="p">)</span> <span class="kr">do</span>
+    <span class="kr">if</span> <span class="n">binding_table</span><span class="p">.</span><span class="n">dest_addr_mode</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">binding_table</span><span class="p">.</span><span class="n">DEST_ADDR_MODE_SHORT</span> <span class="kr">then</span>
+      <span class="c1">-- Do something with the group membership</span>
+    <span class="kr">end</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">zigbee_handlers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">zdo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">mgmt_bind_resp</span><span class="p">.</span><span class="n">MGMT_BIND_RESPONSE</span><span class="p">]</span> <span class="o">=</span> <span class="n">zdo_binding_table_handler</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="device.html" class="btn btn-neutral float-left" title="ZigbeeDevice Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="defaults.html" class="btn btn-neutral float-right" title="Zigbee Driver Capability Defaults" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

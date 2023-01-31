@@ -1,0 +1,6 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.Time.Report
+.. lua:autoclass:: st.zwave.CommandClass.Time.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.Time.ReportV1Args

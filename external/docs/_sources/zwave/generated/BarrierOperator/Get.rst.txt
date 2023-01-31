@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.Get
+.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator.GetV1Args

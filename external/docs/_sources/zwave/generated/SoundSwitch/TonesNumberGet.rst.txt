@@ -1,0 +1,6 @@
+Tones Number Get
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonesNumberGet
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonesNumberGetV1
+.. lua:autoclass:: st.zwave.CommandClass.SoundSwitch.TonesNumberGetV1Args

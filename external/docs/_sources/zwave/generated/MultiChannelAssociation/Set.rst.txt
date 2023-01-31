@@ -1,0 +1,7 @@
+Set
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.Set
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.SetV2
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.SetV2Args
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannelAssociation.SetV2ArgsMultiChannelNodes

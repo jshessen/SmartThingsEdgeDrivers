@@ -1,0 +1,4 @@
+Carbon Monoxide Measurement
+===========================
+
+.. lua:autoclass:: st.zwave.defaults.carbonMonoxideMeasurement

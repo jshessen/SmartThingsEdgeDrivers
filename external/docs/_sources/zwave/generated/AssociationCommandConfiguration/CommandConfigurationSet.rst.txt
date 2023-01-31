@@ -1,0 +1,6 @@
+Command Configuration Set
+=========================
+
+.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandConfigurationSet
+.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandConfigurationSetV1
+.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration.CommandConfigurationSetV1Args

@@ -1,0 +1,7 @@
+Rate Tbl Current Data Report
+============================
+
+.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblCurrentDataReport
+.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblCurrentDataReportV1
+.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblCurrentDataReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.RateTblMonitor.RateTblCurrentDataReportV1ArgsReports

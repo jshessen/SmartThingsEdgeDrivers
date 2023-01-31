@@ -1,0 +1,4 @@
+Color Temperature
+=================
+
+.. lua:autoclass:: st.zwave.defaults.colorTemperature

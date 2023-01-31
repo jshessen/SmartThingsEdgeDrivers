@@ -1,0 +1,6 @@
+Bulk Get
+========
+
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.BulkGet
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.BulkGetV2
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.BulkGetV2Args

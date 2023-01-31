@@ -1,0 +1,13 @@
+Manufacturer Specific
+=====================
+
+.. toctree::
+   :maxdepth: 2
+
+   ManufacturerSpecific/Get
+   ManufacturerSpecific/Report
+   ManufacturerSpecific/DeviceSpecificGet
+   ManufacturerSpecific/DeviceSpecificReport
+   ManufacturerSpecific/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific

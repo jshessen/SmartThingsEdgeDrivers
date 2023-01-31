@@ -1,0 +1,16 @@
+Version
+=======
+
+.. toctree::
+   :maxdepth: 2
+
+   Version/Get
+   Version/Report
+   Version/CommandClassGet
+   Version/CommandClassReport
+   Version/CapabilitiesGet
+   Version/CapabilitiesReport
+   Version/ZwaveSoftwareGet
+   Version/ZwaveSoftwareReport
+
+.. lua:autoclass:: st.zwave.CommandClass.Version
