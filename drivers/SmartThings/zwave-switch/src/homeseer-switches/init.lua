@@ -56,7 +56,6 @@ local configsMap = require "configurations"
 --- Misc
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 2})
-local call_parent_handler = require "call_parent"
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -204,6 +203,33 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
     end
   end
   return false
+end
+---
+--- #######################################################
+---
+--- #################################################################
+
+
+
+--- #################################################################
+--- Section: Utilities
+---
+--- #######################################################
+---
+
+--- @function call_parent_handler --
+--- @param handlers (string)
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function call_parent_handler(handlers, self, device, event, args)
+  if type(handlers) == "function" then
+    local handler_table = { handlers }  -- wrap as table
+  end
+  for _, func in ipairs( handlers or {} ) do
+      func(self, device, event, args)
+  end
 end
 ---
 --- #######################################################
