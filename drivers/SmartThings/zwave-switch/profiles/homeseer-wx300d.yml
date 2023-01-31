@@ -25,31 +25,6 @@ preferences:
     preferenceType: boolean
     definition:
       default: true
-  - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn LED indicator on..."
-    required: false
-    preferenceType: enumeration
-    definition:
-      options:
-        0: "When Off"
-        1: "When On"
-      default: 0
-  - name: "ledNormalColor"
-    title: "Normal Mode: LED Color"
-    description: "Set LED Color"
-    required: false
-    preferenceType: enumeration
-    definition:
-      options:
-        0: "White"
-        1: "Red"
-        2: "Green"
-        3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
-        6: "Cyan"
-      default: 0
   - name: "minimumDimLevel"
     title: "Minimum Dim Level"
     description: "Sets the lowest dimming threshold"
@@ -80,6 +55,31 @@ preferences:
       minimum: 0
       maximum: 90
       default: 3
+  - name: "ledIndicator"
+    title: "LED Indicator"
+    description: "Turn LED indicator on..."
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "When Off"
+        1: "When On"
+      default: 0
+  - name: "ledNormalColor"
+    title: "Normal Mode: LED Color"
+    description: "Set LED Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "White"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+      default: 0
   - name: "operatingMode"
     title: "Enable Status Mode"
     description: "Set mode of operation"

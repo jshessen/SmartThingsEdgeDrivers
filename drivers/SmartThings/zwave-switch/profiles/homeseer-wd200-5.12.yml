@@ -74,11 +74,8 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      options:
-        0: "Normal mode (load status)"
-        1: "Status mode (custom status)"
-      default: 0
-    - name: "centralSceneControl"
+      default: false
+  - name: "centralSceneControl"
     title: "Central Scene Control"
     description: "Enable/Disable Central Scene"
     required: false

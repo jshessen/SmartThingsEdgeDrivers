@@ -25,6 +25,24 @@ preferences:
     preferenceType: boolean
     definition:
       default: true
+  - name: "rampRate"
+    title: "Ramp Rate (local)"
+    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z-Wave (remote)"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -50,24 +68,6 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
-  - name: "rampRate"
-    title: "Ramp Rate (local)"
-    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 1
-      maximum: 255
-      default: 3
-  - name: "rampRateZWave"
-    title: "Ramp Rate Z-Wave (remote)"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 1
-      maximum: 255
-      default: 3
   - name: "operatingMode"
     title: "Enable Status Mode"
     description: "Set mode of operation"
