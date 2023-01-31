@@ -24,7 +24,7 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: true
+      default: false
   - name: "rampRate"
     title: "Ramp Rate (local)"
     description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"

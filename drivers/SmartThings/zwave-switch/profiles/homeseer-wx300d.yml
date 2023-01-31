@@ -24,7 +24,7 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: true
+      default: false
   - name: "minimumDimLevel"
     title: "Minimum Dim Level"
     description: "Sets the lowest dimming threshold"
