@@ -38,6 +38,7 @@ jobs:
         id: filter
         with:
           filters: |
+            base: ${{ github.base_ref || github.ref_name }}
             zwave-switch: 'drivers/**/zwave-switch/**'
             zwave-fan: 'drivers/**/zwave-fan/**'
             zwave-sensor: 'drivers/**/zwave-sensor/**'
