@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/sensors/hs-fls100+/hs-fls100+-user-guide
-name: homeseer-fls100
+name: homeseer-floodlight-sensor
 components:
 - id: main
   capabilities:
