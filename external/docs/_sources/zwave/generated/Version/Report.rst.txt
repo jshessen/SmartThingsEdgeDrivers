@@ -1,0 +1,9 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.Version.Report
+.. lua:autoclass:: st.zwave.CommandClass.Version.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.Version.ReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.Version.ReportV2
+.. lua:autoclass:: st.zwave.CommandClass.Version.ReportV2Args
+.. lua:autoclass:: st.zwave.CommandClass.Version.ReportV2ArgsFirmwareTargets

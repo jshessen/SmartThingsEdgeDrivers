@@ -1,0 +1,196 @@
+Z-Wave Command Object
+=====================
+
+The :lua:class:`st.zwave.Command <st.zwave.Command>` object is the base type inherited by all Z-Wave commands exchanged by Z-Wave drivers.  :lua:class:`st.zwave.Command <st.zwave.Command>` provides serialization and deserialization facilities, and exposes both an opaque payload encoded to the Z-Wave specification and an abstracted table of decoded arguments. Driver code is intended to interact with decoded arguments, both inspecting received commands based upon these arguments, and constructing commands from them.  Security/integrity and multichannel encapsulation parameters are also exposed.
+
+Command Versioning
+++++++++++++++++++
+
+The Z-Wave command library is organized into Lua modules according to named command classes. These modules may be accessed with the require directive:
+
+.. code-block:: lua
+
+    --- @type st.zwave.CommandClass.Basic
+    local Basic = require "st.zwave.CommandClass.Basic"
+
+Command class modules returned by the require statement are callable to construct versioned command class instances that expose commands at the desired version.  This is the typical use case.  Construction of a versioned command class instance and command are as follows:
+
+.. code-block:: lua
+
+    --- @type st.zwave.CommandClass.Basic
+    local Basic = (require "st.zwave.CommandClass.Basic")({ version = 1 })
+    local get = Basic:Get({ })
+
+Each construction of a versioned command class object produces a distinct instance.  Because of this, different versions may be used in different portions of a driver as needed.  Multiple versions may also be constructed and accessed within a single code path:
+
+.. code-block:: lua
+
+    --- @type st.zwave.CommandClass.SwitchMultilevel
+    local SwitchMultilevelV1 = (require "st.zwave.CommandClass.SwitchMultilevel")({ version = 1 })
+    --- @type st.zwave.CommandClass.SwitchMultilevel
+    local SwitchMultilevelV2 = (require "st.zwave.CommandClass.SwitchMultilevel")({ version = 2 })
+
+    local setv1 = SwitchMultilevelV1:Set({ value = 1 })
+    local setv2 = SwitchMultilevelV2:Set({ value = 1, duration = 2 })
+
+Command Construction
+++++++++++++++++++++
+
+The command library provides command construction from both tables of named arguments (serialization) and opaque payloads encoded to the Z-Wave specification (deserialization).  The former is the majority use case for driver code.  The latter facility is used by the framework to transform commands received from devices into command objects for receipt by drivers.
+
+Construction from named arguments is as follows:
+
+.. code-block:: lua
+
+    --- @type st.zwave.CommandClass.Basic
+    local Basic = (require "st.zwave.CommandClass.Basic")({ version = 2 })
+    local set = Basic:Set({ value = 1 })
+
+By default, the library requires all command arguments to be explicitly passed to constructors.  In this default configuration, missing arguments cause an assert.  However, if desired, the library can instead populate zero-ish defaults (0 for numbers, false for booleans, zero-length strings for string types, etc.).  To access this functionality, the strict flag must be set to false:
+
+.. code-block:: lua
+
+    --- @type st.zwave.CommandClass.Basic
+    local Basic = (require "st.zwave.CommandClass.Basic")({ version = 1, strict = false })
+    -- Normally, this would assert.  But with strict == false, the library will
+    -- populate this set with a default value == 0.
+    local set = Basic:Set({})
+
+Command Encapsulation
++++++++++++++++++++++
+
+The Edge Driver framework largely abstracts Z-Wave command encapsulation, primarily delegating encode and decode of encapsulation to other parts of the stack.  However, multichannel encapsulation parameters and security/integrity encapsulation designations (:lua:attr:`CRC16 <st.zwave.ENCAP.CRC16>`, :lua:attr:`S0 <st.zwave.ENCAP.S0>`, etc.) are visible within command objects and settable if needed.
+
+The following security/integrity encapsulation options are exposed:
+
+* :lua:attr:`AUTO <st.zwave.Command.ENCAP.AUTO>`
+* :lua:attr:`NONE <st.zwave.Command.ENCAP.NONE>`
+* :lua:attr:`CRC16 <st.zwave.Command.ENCAP.CRC16>`
+* :lua:attr:`S0 <st.zwave.Command.ENCAP.S0>`
+* :lua:attr:`S2_UNAUTH <st.zwave.Command.ENCAP.S2_UNAUTH>`
+* :lua:attr:`S2_AUTH <st.zwave.Command.ENCAP.S2_AUTH>`
+* :lua:attr:`S2_ACCESS_CONTROL <st.zwave.Command.ENCAP.S2_ACCESS_CONTROL>`
+
+:lua:attr:`AUTO <st.zwave.ENCAP.AUTO>` security encapsulation is the default setting for constructed messages, and is almost always the right choice for outgoing traffic.  This directs other layers of the stack to encapsulate with the highest security level available.
+
+Overriding security encapsulation is highly discouraged. If a specific device behavior requires a different setting, this may be specified in the command instructor.
+
+Encapsulation parameters are specified in command constructors as follows:
+
+.. code-block:: lua
+
+    --- @type st.zwave
+    local zw = require "st.zwave"
+    --- @type st.zwave.CommandClass.Basic
+    local Basic = (require "st.zwave.CommandClass.Basic")({ version = 1 })
+    local set = Basic:Set({ value = 1 }, { encap = zw.ENCAP.AUTO, src_channel = 0, dst_channels = { 1, 2 } })
+
+These parameters appear within both incoming and outgoing commands at the top-level fields :lua:attr:`encap <st.zwave.Command.encap>`, :lua:attr:`src_channel <st.zwave.Command.src_channel>`, and :lua:attr:`dst_channels <st.zwave.Command.dst_channels>`.  An example usage follows:
+
+.. code-block:: lua
+
+    --- @type st.zwave.CommandClass.Basic
+    local Basic = (require "st.zwave.CommandClass.Basic")({ version = 1 })
+
+    --- @param device st.zwave.Device
+    local function multichannel_sender(device)
+      -- Issue a basic set to the device's channel 2 destination endpoint.
+      local set = Basic:Set({ value = 1 }, { dst_channels = { 2 } })
+      device:send(set)
+      -- Issue a basic get to the device's channel 2 destination endpoint.
+      local get = Basic:Get({ value = 1 }, { dst_channels = { 2 } })
+      device:send(get)
+    end
+
+    --- @param driver st.zwave.Driver
+    --- @param device st.zwave.Device
+    --- @param cmd st.zwave.CommandClass.Basic.Report
+    local function multichannel_receiver(driver, device, cmd)
+      if cmd.src_channel == 1 then
+        -- Do something with this report that originated from the device's
+        -- source channel 1 endpoint.
+      elseif cmd.src_channel == 2 then
+        -- Do something else with this report that originated from the
+        -- device's source channel 2 endpoint.
+      end
+    end
+
+Command Receipt
++++++++++++++++
+
+Commands received by drivers are dynamically versioned.  This is to accommodate the fact that drivers' devices may issue commands at any command class version.  While it is possible to interrogate devices to learn their supported versions, the framework does not use this facility.
+
+Instead, the framework attempts to parse commands from the framework's highest supported version down to the lowest supported version.  The library infers version based upon the highest version for which parse succeeds.
+
+Within a driver, further version-specific branching can occur:
+
+.. code-block:: lua
+
+    --- @param driver st.zwave.Driver
+    --- @param device st.zwave.Device
+    --- @param report st.zwave.CommandClass.Basic.Report
+    local function basic_report_handler(driver, device, cmd)
+      if cmd.version == 1 then
+        -- do something with version 1
+      elseif cmd.version == 2 then
+        -- do something else with version 2
+      end
+    end
+
+To ensure backward and forward compatibility, commands received from devices enclose the union of all possible fields that may be present at a command version and its predecessors.  For instance, :lua:class:`st.zwave.CommandClass.Basic.ReportV1 <st.zwave.CommandClass.Basic.ReportV1>` has a single field :lua:attr:`value <st.zwave.CommandClass.Basic.ReportV1Args.value>`.  :lua:class:`st.zwave.CommandClass.Basic.ReportV2 <st.zwave.CommandClass.Basic.ReportV2>` renames this field :lua:attr:`current_value <st.zwave.CommandClass.Basic.ReportV2Args.current_value>`, and adds :lua:attr:`target_value <st.zwave.CommandClass.Basic.ReportV2Args.target_value>` and :lua:attr:`duration <st.zwave.CommandClass.Basic.ReportV2Args.duration>`.
+
+A :lua:class:`version 2 basic report <st.zwave.CommandClass.Basic.ReportV2>` received from a device will be passed to drivers with args containing the union of all fields from :lua:class:`st.zwave.CommandClass.Basic.ReportV2Args <st.zwave.CommandClass.Basic.ReportV2Args>` and :lua:class:`st.zwave.CommandClass.Basic.ReportV1Args <st.zwave.CommandClass.Basic.ReportV1Args>`, where field lua:attr:`value <st.zwave.CommandClass.Basic.ReportV1Args.value>` will shadow the equivalent v2 field :lua:attr:`current_value <st.zwave.CommandClass.Basic.ReportV2Args.current_value>`.
+
+Command Parse Failures
+++++++++++++++++++++++
+
+Receiving code in the framework must accommodate both commands known to the library and those that are unrecognized.  Below are some examples of commands that may be unrecognized:
+
+* Manufacturer-proprietary commands outside of the Z-Wave specification
+* Commands falling within the Z-Wave specification, but that are not explicitly supported by the library
+* New commands introduced after development of the library
+* Commands that are malformed, perhaps due to device firmware bugs or deviations from the Z-Wave spec
+
+In all of these cases, command parsing will fail.  However, driver code must still have an opportunity to handle such situations.  In these cases, the framework will pass a partially constructed command object with :lua:attr:`args <st.zwave.Command.args>` and :lua:attr:`version <st.zwave.Command.version>` nil, but the raw :lua:attr:`payload <st.zwave.Command.payload>` intact and :lua:attr:`err <st.zwave.Command.err>` enclosed to provide some error context.
+
+For example, the following command is from an unrecognized command class:
+
+.. code-block:: lua
+
+    > local zw = require "st.zwave"
+    > local cmd = zw.Command(0xFFFF, 0x01, "\x0A\x0B\x0C")
+    > print(cmd)
+    {cmd_class=65535, cmd_id=1, dst_channels={}, encap="AUTO", err="unsupported command class", payload="\x0A\x0B\x0C", src_channel=0}
+
+This is a known command, but with a malformed payload:
+
+.. code-block:: lua
+
+    > local zw = require "st.zwave"
+    > local cc = require "st.zwave.CommandClass"
+    > local Basic = require "st.zwave.CommandClass.Basic"
+    > local set = zw.Command(cc.BASIC, Basic.SET, "")
+    > print(set)
+    {cmd_class="BASIC", cmd_id="SET", dst_channels={}, encap="AUTO", err="...st/buf.lua:469: buffer too short", payload="", src_channel=0}
+
+When needed, driver code can be written to accomodate these situations, either as exceptional cases or as expected operation due to some device-specific behavior.
+
+Command Stringification
++++++++++++++++++++++++
+
+Z-Wave commands constructed by the library include a __tostring metatable method, and so may be passed through the tostring function and print to provide useful string-formatted output:
+
+.. code-block:: lua
+
+    > Notification = require ("st.zwave.CommandClass.Notification")({ version = 3})
+    > report = Notification:Report({ notification_type = Notification.notification_type.SMOKE, event = Notification.event.smoke.DETECTED })
+    > print(report)
+    {args={event="DETECTED", event_parameter="", notification_status="OFF", notification_type="SMOKE", v1_alarm_level=0, v1_alarm_type=0}, cmd_class="NOTIFICATION", cmd_id="REPORT", dst_channels={}, encap="AUTO", payload="\x00\x00\x00\x00\x01\x02\x00", src_channel=0, version=3}
+
+The :lua:class:`st.zwave.Command <st.zwave.Command>` __tostring metatable method always attempts to perform string conversion for known constants to their associated monikers.
+
+Class Documentation
++++++++++++++++++++
+
+.. lua:autoclass:: st.zwave.Command
+.. lua:autoclass:: st.zwave.ENCAP

@@ -1,0 +1,4 @@
+Log
+---
+
+.. lua:autoclass:: log

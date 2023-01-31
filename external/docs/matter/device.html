@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MatterDevice Class &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Matter Interaction Response Handlers" href="matter_message_handlers.html" />
+    <link rel="prev" title="Matter Driver Structures" href="driver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="matter.html">Matter Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Matter Driver Structures</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">MatterDevice Class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subscribing-to-matter-devices">Subscribing to Matter Devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multi-component-devices">Multi-Component devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parent-child-devices">Parent/Child Devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="matter_message_handlers.html">Matter Interaction Response Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_types.html">Matter Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interaction_model.html">Interaction Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated.html">Generated Matter Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defaults.html">Matter Driver Capability Defaults</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="matter.html">Matter Libraries</a> &raquo;</li>
+      <li>MatterDevice Class</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/matter/device.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="matterdevice-class">
+<h1>MatterDevice Class<a class="headerlink" href="#matterdevice-class" title="Permalink to this headline"></a></h1>
+<p>This is a class that inherits from the <code class="xref lua lua-class docutils literal notranslate"><span class="pre">Device</span></code> class, but extends behavior
+with Matter-specific functionality.  These functions are documented in the class documentation below.</p>
+<section id="subscribing-to-matter-devices">
+<h2>Subscribing to Matter Devices<a class="headerlink" href="#subscribing-to-matter-devices" title="Permalink to this headline"></a></h2>
+<p>Matter devices commonly subscribe to a cluster’s attributes and events to be
+informed of changes that occur on the device.  The hub maintains a single subscription with every device that is
+joined to the fabric. When a driver sends a Subscribe InteractionRequest, the hub will ensure those
+attributes and events are included in the subscription. Subsequent Subscribe InteractionRequests will override previous
+requests; only the attribute/event paths in the most recent subscription request are guaranteed to be a part of the subscription.</p>
+<p>There are a few different ways to setup the attribute/events in the subsciption. The first option
+is to define the <code class="docutils literal notranslate"><span class="pre">init</span></code> lifecycle event handler for your driver, manually building and sending a subscribe
+interaction request with the needed attribute and event paths to monitor on the device. The Matter Device object
+also provides <code class="docutils literal notranslate"><span class="pre">subscribed_attributes</span></code> and <code class="docutils literal notranslate"><span class="pre">subscribed_events</span></code> fields which list the cluster attributes/events that
+should be included in the subscription, and are used to build and send a subscription request when <code class="docutils literal notranslate"><span class="pre">MatterDevice:subscribe()</span></code> is called.</p>
+<section id="subscribed-attributes">
+<h3>Subscribed Attributes<a class="headerlink" href="#subscribed-attributes" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">subscribed_attributes</span></code> on a device object will be included in the subscription request when <code class="docutils literal notranslate"><span class="pre">MatterDevice:subscribe()</span></code> is called.
+These can be added to a device using the <code class="xref lua lua-meth docutils literal notranslate"><span class="pre">MatterDevice:add_subscribed_attribute</span></code>.
+Typically these attributes are added as a part of the device object construction via the <code class="docutils literal notranslate"><span class="pre">init</span></code> lifecycle event,
+however, it can be done in whatever way makes sense for the device.  These attributes will also automatically be read
+from the device when <code class="docutils literal notranslate"><span class="pre">MatterDevice:refresh()</span></code> is called.</p>
+</section>
+<section id="subscribed-events">
+<h3>Subscribed Events<a class="headerlink" href="#subscribed-events" title="Permalink to this headline"></a></h3>
+<p>A subscribed event will be included in the subscription request when <code class="docutils literal notranslate"><span class="pre">MatterDevice:subscribe()</span></code> is called.
+These can be added to a device using the <code class="xref lua lua-meth docutils literal notranslate"><span class="pre">MatterDevice:add_subscribed_event</span></code>.
+Typically these events are added as a part of the device object construction via the <code class="docutils literal notranslate"><span class="pre">init</span></code> lifecycle event,
+however, it can be done in whatever way makes sense for the device.  These events will <em>NOT</em> be read
+from the device when <code class="docutils literal notranslate"><span class="pre">MatterDevice:refresh()</span></code> is called. This is because such events are things that have happened in the past
+and capability events represent something that has just happened to the device.</p>
+</section>
+<section id="defaults-and-subscribed-attributes-events">
+<h3>Defaults and Subscribed Attributes/Events<a class="headerlink" href="#defaults-and-subscribed-attributes-events" title="Permalink to this headline"></a></h3>
+<p>As described in the defaults section, quite a bit of default behavior is supported based on the capabilities a device
+supports (defined in the device’s profile). If your driver registers for defaults, there are a number of subscribed attributes
+and subscribed events that that will be added to the device, which means calling <cite>MatterDevice:subscribe()</cite> or
+<cite>MatterDevice:refresh()</cite> will include these defaults.</p>
+</section>
+</section>
+<section id="multi-component-devices">
+<h2>Multi-Component devices<a class="headerlink" href="#multi-component-devices" title="Permalink to this headline"></a></h2>
+<p>There are a number of situations where the SmartThings model of the device makes sense to be broken down into several
+“components”.  A classic example of this would be a smart power strip, where it is a single device on the network, but
+each outlet can be controlled separately.  This would best be modeled as a single device, with a component for each
+switch.</p>
+<p>Within Matter, these separate pieces of functionality are often modeled as “endpoints”, and messages to the devices can
+be addressed to the specific endpoint you want to control and interact with. The <code class="docutils literal notranslate"><span class="pre">MatterDevice</span></code> object provides a way for
+your driver to define how you want to map between components and endpoints that can then be used by the rest of the Matter
+Lua standard library to automatically generate events for the correct components or send messages to the correct endpoint.
+As an important note, as with most things in the standard library, this is built to support the most common model, but it is
+likely that there will be individual devices that don’t adhere to this model and will need to override this behavior.</p>
+<p>In order to opt in to this behavior you can use the following functions:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">MatterDevice</span><span class="p">:</span><span class="nf">set_component_to_endpoint_fn</span><span class="p">(</span><span class="n">comp_ep_fn</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">MatterDevice</span><span class="p">:</span><span class="nf">set_endpoint_to_component_fn</span><span class="p">(</span><span class="n">ep_comp_fn</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here you can provide a function for each direction to map a Matter endpoint id (number) to a SmartThings
+component id (string), and vice versa.  Once these are set, the following functions on the device are used for event
+generation and message addressing:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">MatterDevice</span><span class="p">:</span><span class="nf">endpoint_to_component</span><span class="p">(</span><span class="n">comp_id</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">MatterDevice</span><span class="p">:</span><span class="nf">component_to_endpoint</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If these functions are used without setting the mapping functions above, they will return the defaults (“main” for a
+component, and <code class="docutils literal notranslate"><span class="pre">MATTER_DEFAULT_ENDPOINT</span></code>, which is 1, for the endpoint).  For convenience, the following
+function is provided as well:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">MatterDevice</span><span class="p">:</span><span class="nf">emit_event_for_endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="example">
+<h3>example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h3>
+<p>Here is a simple example of a driver that supports multi-switch Matter outlet where the profiles are defined as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">two-outlet</span><span class="w"></span>
+<span class="nt">components</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+<span class="w">  </span><span class="nt">capabilities</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Switch</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">capabilities</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Switch</span><span class="w"></span>
+
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">three-outlet</span><span class="w"></span>
+<span class="nt">components</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+<span class="w">  </span><span class="nt">capabilities</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Switch</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">capabilities</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Switch</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch2</span><span class="w"></span>
+<span class="w">  </span><span class="nt">capabilities</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Switch</span><span class="w"></span>
+</pre></div>
+</div>
+<p>And uses Matter endpoints <code class="docutils literal notranslate"><span class="pre">0x01</span></code> for the first outlet and increments by one for each additional outlet.  Then the
+following driver will be able to use the built-in behavior to correctly generate events and address commands.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+<span class="kd">local</span> <span class="n">MatterDriver</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.matter.driver&quot;</span>
+<span class="kd">local</span> <span class="n">matter_device_module</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.matter.device&quot;</span>
+<span class="kd">local</span> <span class="n">defaults</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.matter.defaults&quot;</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">component_to_endpoint</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">component_id</span><span class="p">)</span>
+  <span class="kr">if</span> <span class="n">component_id</span> <span class="o">==</span> <span class="s2">&quot;main&quot;</span> <span class="kr">then</span>
+    <span class="kr">return</span> <span class="n">matter_device_module</span><span class="p">.</span><span class="n">DEFAULT_MATTER_ENDPOINT</span> <span class="c1">--DEFAULT_MATTER_ENDPOINT == 1</span>
+  <span class="kr">else</span>
+    <span class="kd">local</span> <span class="n">ep_num</span> <span class="o">=</span> <span class="n">component_id</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;switch(%d)&quot;</span><span class="p">)</span>
+    <span class="kr">return</span> <span class="n">ep_num</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">tonumber</span><span class="p">(</span><span class="n">ep_num</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">matter_device_module</span><span class="p">.</span><span class="n">DEFAULT_MATTER_ENDPOINT</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">endpoint_to_component</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">ep</span><span class="p">)</span>
+  <span class="kr">if</span> <span class="n">ep</span> <span class="o">==</span> <span class="n">matter_device_module</span><span class="p">.</span><span class="n">DEFAULT_MATTER_ENDPOINT</span> <span class="kr">then</span>
+    <span class="kr">return</span> <span class="s2">&quot;main&quot;</span>
+  <span class="kr">else</span>
+    <span class="kr">return</span> <span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;switch%d&quot;</span><span class="p">,</span> <span class="n">ep</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">device_init</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">set_component_to_endpoint_fn</span><span class="p">(</span><span class="n">component_to_endpoint</span><span class="p">)</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">set_endpoint_to_component_fn</span><span class="p">(</span><span class="n">endpoint_to_component</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">matter_outlet_driver_template</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">supported_capabilities</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">lifecycle_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="o">=</span> <span class="n">device_init</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">defaults</span><span class="p">.</span><span class="n">register_for_default_handlers</span><span class="p">(</span><span class="n">matter_outlet_driver_template</span><span class="p">,</span> <span class="n">matter_outlet_driver_template</span><span class="p">.</span><span class="n">supported_capabilities</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">matter_outlet</span> <span class="o">=</span> <span class="n">MatterDriver</span><span class="p">(</span><span class="s2">&quot;matter-outlet&quot;</span><span class="p">,</span> <span class="n">matter_outlet_driver_template</span><span class="p">)</span>
+<span class="n">matter_outlet</span><span class="p">:</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="parent-child-devices">
+<h2>Parent/Child Devices<a class="headerlink" href="#parent-child-devices" title="Permalink to this headline"></a></h2>
+<p>Very similar to multi component devices there may be some situations where you prefer to model a single network device
+as multiple SmartThings device records.  This can be done by creating “Child” devices to represent individual endpoints
+on the device.  NOTE: If you aren’t modeling each child as an endpoint, you won’t be able to use the library
+abstractions, but you can build your own handling of messages for whatever model you desire.</p>
+<p>You can define a <code class="docutils literal notranslate"><span class="pre">find_child</span></code> function using the <code class="docutils literal notranslate"><span class="pre">set_find_child</span></code> method on device objects.  Then any use of
+<code class="docutils literal notranslate"><span class="pre">emit_event_for_endpoint</span></code> including the default capability handlers will use this to emit events on the appropriate
+children.  The <code class="docutils literal notranslate"><span class="pre">find_child</span></code> function you define will be passed the source endpoint a message came from and should then
+return the device object representing the child device that is responsible for that endpoint, or <code class="docutils literal notranslate"><span class="pre">nil</span></code> if there isn’t
+one.</p>
+<p>When deleting devices in a parent/child relationship, deleting the parent will result in the removal of all of the
+children as well as all communication goes through the parent device.  However, you can delete individual children
+without affecting the others.  It should be noted though that typically the only way to create the children is on device
+join so if deleted getting the child devices back will often require deleting and re-onboarding the parent.</p>
+<section id="id1">
+<h3>example<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<p>Profile:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outlet</span><span class="w"></span>
+<span class="nt">components</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+<span class="w">    </span><span class="nt">capabilities</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span><span class="w"></span>
+<span class="w">        </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh</span><span class="w"></span>
+<span class="w">        </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Outlet</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Driver:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+<span class="kd">local</span> <span class="n">clusters</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.matter.clusters&quot;</span>
+<span class="kd">local</span> <span class="n">MatterDriver</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.matter.driver&quot;</span>
+<span class="kd">local</span> <span class="n">device_lib</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.device&quot;</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">find_child</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">ep_id</span><span class="p">)</span>
+  <span class="kr">return</span> <span class="n">parent</span><span class="p">:</span><span class="n">get_child_by_parent_assigned_key</span><span class="p">(</span><span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;%02X&quot;</span><span class="p">,</span> <span class="n">ep_id</span><span class="p">))</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">added</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+  <span class="c1">-- Only create children for the actual Zigbee device and not the children</span>
+  <span class="kr">if</span> <span class="n">device</span><span class="p">.</span><span class="n">network_type</span> <span class="o">==</span> <span class="n">device_lib</span><span class="p">.</span><span class="n">NETWORK_TYPE_MATTER</span> <span class="kr">then</span>
+    <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span> <span class="kr">do</span>
+      <span class="kd">local</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;%s outlet %d&quot;</span><span class="p">,</span> <span class="n">device</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;EDGE_CHILD&quot;</span><span class="p">,</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="s2">&quot;outlet&quot;</span><span class="p">,</span>
+        <span class="n">parent_device_id</span> <span class="o">=</span> <span class="n">device</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="n">parent_assigned_child_key</span> <span class="o">=</span> <span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;%02X&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+        <span class="n">vendor_provided_label</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+      <span class="p">}</span>
+      <span class="n">driver</span><span class="p">:</span><span class="n">try_create_device</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+    <span class="kr">end</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">init</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+  <span class="kr">if</span> <span class="n">device</span><span class="p">.</span><span class="n">network_type</span> <span class="o">==</span> <span class="n">device_lib</span><span class="p">.</span><span class="n">NETWORK_TYPE_MATTER</span> <span class="kr">then</span>
+    <span class="n">device</span><span class="p">:</span><span class="n">set_find_child</span><span class="p">(</span><span class="n">find_child</span><span class="p">)</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">on_off_attr_handler</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">ib</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+  <span class="c1">-- This device will _always_ be the parent because the parent is the only one actually on the network sending messages</span>
+  <span class="c1">-- but this call to `emit_event_for_endpoint` will use the `find_child` function set below to find the child and</span>
+  <span class="c1">-- emit the event for that SmartThings device instead</span>
+  <span class="kr">if</span> <span class="n">ib</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">value</span> <span class="kr">then</span>
+    <span class="n">device</span><span class="p">:</span><span class="n">emit_event_for_endpoint</span><span class="p">(</span><span class="n">ib</span><span class="p">.</span><span class="n">endpoint_id</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">on</span><span class="p">())</span>
+  <span class="kr">else</span>
+    <span class="n">device</span><span class="p">:</span><span class="n">emit_event_for_endpoint</span><span class="p">(</span><span class="n">ib</span><span class="p">.</span><span class="n">endpoint_id</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">off</span><span class="p">())</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">handle_switch_on</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+  <span class="c1">-- Since we will receive commands separately for the different children, the device object here could be a parent or</span>
+  <span class="c1">-- child.  The message building will work the same as the child will defer to the parent for addressing information.</span>
+  <span class="kd">local</span> <span class="n">endpoint_id</span> <span class="o">=</span> <span class="n">device</span><span class="p">:</span><span class="n">component_to_endpoint</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">component</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">req</span> <span class="o">=</span> <span class="n">clusters</span><span class="p">.</span><span class="n">OnOff</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">On</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">endpoint_id</span><span class="p">)</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">send</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">handle_switch_off</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+  <span class="c1">-- Since we will receive commands separately for the different children, the device object here could be a parent or</span>
+  <span class="c1">-- child.  The message building will work the same as the child will defer to the parent for addressing information.</span>
+  <span class="kd">local</span> <span class="n">endpoint_id</span> <span class="o">=</span> <span class="n">device</span><span class="p">:</span><span class="n">component_to_endpoint</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">component</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">req</span> <span class="o">=</span> <span class="n">clusters</span><span class="p">.</span><span class="n">OnOff</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">Off</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">endpoint_id</span><span class="p">)</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">send</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">matter_driver_template</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">lifecycle_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="o">=</span> <span class="n">init</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">matter_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">attr</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">clusters</span><span class="p">.</span><span class="n">OnOff</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">clusters</span><span class="p">.</span><span class="n">OnOff</span><span class="p">.</span><span class="n">attributes</span><span class="p">.</span><span class="n">OnOff</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">on_off_attr_handler</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">capability_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">on</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">handle_switch_on</span><span class="p">,</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">off</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">handle_switch_off</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1">-- The on_handler and on_off_attr_handler above would be covered by these defaults, but are included for example purposes</span>
+<span class="kd">local</span> <span class="n">matter_driver</span> <span class="o">=</span> <span class="n">MatterDriver</span><span class="p">(</span><span class="s2">&quot;matter-child-example&quot;</span><span class="p">,</span> <span class="n">matter_driver_template</span><span class="p">)</span>
+<span class="n">matter_driver</span><span class="p">:</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.Device">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.Device</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="../device.html#st.Device" title="st.Device"><span class="pre">st.Device</span></a><a class="headerlink" href="#st.matter.Device" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.get_endpoints">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_endpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster_id</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.get_endpoints" title="Permalink to this definition"></a></dt>
+<dd><p>Get the endpoints on a device that support a particular cluster, atttribute, or command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the cluster ID to check for</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span> <span class="pre">or</span> <span class="pre">nil</span></code></span>) – valid options include feature_bitmap to check cluster feature support.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of endpoint ids that support the given server cluster</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[number]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.supports_server_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">supports_server_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster_id</span></em>, <em class="sig-param"><span class="pre">endpoint_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.supports_server_cluster" title="Permalink to this definition"></a></dt>
+<dd><p>Check if this device endpoint supports a specific cluster</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the cluster ID to check for</p></li>
+<li><p><strong>endpoint_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">nil</span></code></span>) – the endpoint to check cluster support (default to search all endpoints)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.set_component_to_endpoint_fn">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_component_to_endpoint_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">comp_ep_fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.set_component_to_endpoint_fn" title="Permalink to this definition"></a></dt>
+<dd><p>Set a function to map this devices SmartThings components to Matter endpoints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>comp_ep_fn</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">CompToEp</span></code></span>) – function to do the mapping for this device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.set_endpoint_to_component_fn">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_endpoint_to_component_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ep_comp_fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.set_endpoint_to_component_fn" title="Permalink to this definition"></a></dt>
+<dd><p>Set a function to map this devices Matter endpoints to SmartThings components</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ep_comp_fn</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">EpToComp</span></code></span>) – function to do the mapping for this device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.component_to_endpoint">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">component_to_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">comp_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.component_to_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Given the component ID find the corresponding endpoint for this device</p>
+<p>This will use the function set by st.matter.Device:set_component_to_endpoint_fn to
+return the appropriate endpoint given the component.  If the function is unset
+it defaults to the MATTER_ROOT_ENDPOINT</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>comp_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the component ID to find the endpoint for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the endpoint this component matches to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.endpoint_to_component">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">endpoint_to_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ep</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.endpoint_to_component" title="Permalink to this definition"></a></dt>
+<dd><p>Given the endpoint ID find the corresponding component for this device</p>
+<p>This will use the function set by st.matter.Device:set_endpoint_to_component_fn to
+return the appropriate component given the endpoint.  If the function is unset
+it defaults to “main”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ep</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the endpoint ID to find the component for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the component ID the endpoint matches to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.add_subscribed_attribute">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">add_subscribed_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">attr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.add_subscribed_attribute" title="Permalink to this definition"></a></dt>
+<dd><p>Add a subscribed attribute for this device</p>
+<p>This will not take effect until subscribe is called for the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attr</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – Attribute object from the cluster library or a table containing <cite>cluster</cite> and <cite>attribute</cite> fields</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.add_subscribed_event">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">add_subscribed_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">attr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.add_subscribed_event" title="Permalink to this definition"></a></dt>
+<dd><p>Add a subscribed event for this device</p>
+<p>This will not take effect until subscribe is called for the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attr</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – Event object from the cluster library or a table containing <cite>cluster</cite> and <cite>event</cite> fields</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.subscribe">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.subscribe" title="Permalink to this definition"></a></dt>
+<dd><p>Send request to the hub to subscribe to the device’s <cite>subscribed_attributes</cite> and <cite>subscribed_events</cite> list</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.refresh">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.refresh" title="Permalink to this definition"></a></dt>
+<dd><p>Send a read attribute request with <cite>all subscribed attributes</cite> on this device</p>
+<p>Note that this does not read the <cite>subscribed_events</cite></p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.emit_event_for_endpoint">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">emit_event_for_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">endpoint</span></em>, <em class="sig-param"><span class="pre">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.emit_event_for_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Emit a capability event for this device coming from the given endpoint</p>
+<p>This uses st.matter.Device:endpoint_to_component to find the appropriate component
+and emit the event for that component</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the endpoint ID a message was received from</p></li>
+<li><p><strong>event</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the capability event to generate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.send">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">req</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.send" title="Permalink to this definition"></a></dt>
+<dd><p>Send an InteractionRequest to this device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>req</strong> (<span><a class="reference internal" href="interaction_model.html#st.matter.interaction_model.InteractionRequest" title="st.matter.interaction_model.InteractionRequest"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.matter.interaction_model.InteractionRequest</span></code></a></span>) – the interaction request to send to this device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.Device.pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.Device.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>string representation of the object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.ChildDevice</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="../device.html#st.Device" title="st.Device"><span class="pre">st.Device</span></a><a class="headerlink" href="#st.matter.ChildDevice" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.get_endpoint">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_endpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.get_endpoint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.get_endpoints">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_endpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster_id</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.get_endpoints" title="Permalink to this definition"></a></dt>
+<dd><p>Get the endpoints on a device that support a particular cluster, atttribute, or command</p>
+<p>Because the default implementation of children is that a child represents a single endpoint, this will only ever
+return a single endpoint representing this device if the cluster is supported</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the cluster ID to check for</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span> <span class="pre">or</span> <span class="pre">nil</span></code></span>) – valid options include a server_command_id, client_command_id, attribute_id, or feature_bitmap to search (only one).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of endpoint ids that support the given server cluster</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">list[number]</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.supports_server_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">supports_server_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster_id</span></em>, <em class="sig-param"><span class="pre">endpoint_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.supports_server_cluster" title="Permalink to this definition"></a></dt>
+<dd><p>Check if this device endpoint supports a specific cluster</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the cluster ID to check for</p></li>
+<li><p><strong>endpoint_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">nil</span></code></span>) – the endpoint to check cluster support (default to search all endpoints)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.component_to_endpoint">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">component_to_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">comp_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.component_to_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Given the component ID find the corresponding endpoint for this device</p>
+<p>This will use the function set by st.matter.Device:set_component_to_endpoint_fn to
+return the appropriate endpoint given the component.  If the function is unset
+it defaults to the MATTER_ROOT_ENDPOINT</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>comp_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the component ID to find the endpoint for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the endpoint this component matches to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.add_subscribed_attribute">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">add_subscribed_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">attr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.add_subscribed_attribute" title="Permalink to this definition"></a></dt>
+<dd><p>Add a subscribed attribute for this device</p>
+<p>This will not take effect until subscribe is called for the device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attr</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – Attribute object from the cluster library or a table containing <cite>cluster</cite> and <cite>attribute</cite> fields</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.subscribe">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.subscribe" title="Permalink to this definition"></a></dt>
+<dd><p>Send request to the hub to subscribe to the device’s <cite>subscribed_attributes</cite> list</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.send">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">req</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.send" title="Permalink to this definition"></a></dt>
+<dd><p>Send an InteractionRequest to this device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>req</strong> (<span><a class="reference internal" href="interaction_model.html#st.matter.interaction_model.InteractionRequest" title="st.matter.interaction_model.InteractionRequest"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.matter.interaction_model.InteractionRequest</span></code></a></span>) – the interaction request to send to this device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.debug_pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">debug_pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.debug_pretty_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.ChildDevice.pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.ChildDevice.pretty_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="driver.html" class="btn btn-neutral float-left" title="Matter Driver Structures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="matter_message_handlers.html" class="btn btn-neutral float-right" title="Matter Interaction Response Handlers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

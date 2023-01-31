@@ -1,0 +1,11 @@
+Scene Actuator Conf
+===================
+
+.. toctree::
+   :maxdepth: 2
+
+   SceneActuatorConf/Set
+   SceneActuatorConf/Get
+   SceneActuatorConf/Report
+
+.. lua:autoclass:: st.zwave.CommandClass.SceneActuatorConf

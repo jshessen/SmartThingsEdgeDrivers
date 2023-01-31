@@ -1,0 +1,6 @@
+Master Code Set
+===============
+
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.MasterCodeSet
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.MasterCodeSetV2
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.MasterCodeSetV2Args

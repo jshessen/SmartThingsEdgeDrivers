@@ -1,0 +1,6 @@
+Mode Set
+========
+
+.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeSet
+.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeSetV1
+.. lua:autoclass:: st.zwave.CommandClass.HrvControl.ModeSetV1Args

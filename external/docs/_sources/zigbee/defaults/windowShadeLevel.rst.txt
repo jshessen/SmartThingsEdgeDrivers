@@ -1,0 +1,4 @@
+WindowShadeLevel
+================
+
+.. lua:autoclass:: st.zigbee.defaults.windowShadeLevel

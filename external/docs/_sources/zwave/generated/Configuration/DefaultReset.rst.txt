@@ -1,0 +1,6 @@
+Default Reset
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.DefaultReset
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.DefaultResetV4
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.DefaultResetV4Args

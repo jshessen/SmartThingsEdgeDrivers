@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.Get
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatFanMode.GetV1Args

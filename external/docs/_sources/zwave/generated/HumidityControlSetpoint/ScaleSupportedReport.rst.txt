@@ -1,0 +1,6 @@
+Scale Supported Report
+======================
+
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.ScaleSupportedReport
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.ScaleSupportedReportV1
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlSetpoint.ScaleSupportedReportV1Args

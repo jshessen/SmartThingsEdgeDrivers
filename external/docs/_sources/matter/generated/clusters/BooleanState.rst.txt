@@ -1,0 +1,16 @@
+BooleanState
+================================
+
+Attributes
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.BooleanState.StateValue
+
+.. lua:autoclass:: st.matter.clusters.BooleanState.AcceptedCommandList
+
+.. lua:autoclass:: st.matter.clusters.BooleanState.AttributeList
+Events
+++++++
+
+.. lua:autoclass:: st.matter.clusters.BooleanState.StateChange
+

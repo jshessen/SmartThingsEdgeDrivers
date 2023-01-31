@@ -1,0 +1,318 @@
+MatterDevice Class
+==================
+
+This is a class that inherits from the :lua:class:`Device <Device>` class, but extends behavior
+with Matter-specific functionality.  These functions are documented in the class documentation below.
+
+
+Subscribing to Matter Devices
++++++++++++++++++++++++++++++
+
+Matter devices commonly subscribe to a cluster's attributes and events to be
+informed of changes that occur on the device.  The hub maintains a single subscription with every device that is
+joined to the fabric. When a driver sends a Subscribe InteractionRequest, the hub will ensure those
+attributes and events are included in the subscription. Subsequent Subscribe InteractionRequests will override previous
+requests; only the attribute/event paths in the most recent subscription request are guaranteed to be a part of the subscription.
+
+There are a few different ways to setup the attribute/events in the subsciption. The first option
+is to define the ``init`` lifecycle event handler for your driver, manually building and sending a subscribe
+interaction request with the needed attribute and event paths to monitor on the device. The Matter Device object
+also provides ``subscribed_attributes`` and ``subscribed_events`` fields which list the cluster attributes/events that
+should be included in the subscription, and are used to build and send a subscription request when ``MatterDevice:subscribe()`` is called.
+
+Subscribed Attributes
+---------------------
+
+The ``subscribed_attributes`` on a device object will be included in the subscription request when ``MatterDevice:subscribe()`` is called.
+These can be added to a device using the :lua:meth:`MatterDevice:add_subscribed_attribute <st.matter.Device:add_subscribed_attribute>`.
+Typically these attributes are added as a part of the device object construction via the ``init`` lifecycle event,
+however, it can be done in whatever way makes sense for the device.  These attributes will also automatically be read
+from the device when ``MatterDevice:refresh()`` is called.
+
+Subscribed Events
+--------------------
+
+A subscribed event will be included in the subscription request when ``MatterDevice:subscribe()`` is called.
+These can be added to a device using the :lua:meth:`MatterDevice:add_subscribed_event <st.matter.Device:add_subscribed_event>`.
+Typically these events are added as a part of the device object construction via the ``init`` lifecycle event,
+however, it can be done in whatever way makes sense for the device.  These events will *NOT* be read
+from the device when ``MatterDevice:refresh()`` is called. This is because such events are things that have happened in the past
+and capability events represent something that has just happened to the device.
+
+Defaults and Subscribed Attributes/Events
+-----------------------------------------
+
+As described in the defaults section, quite a bit of default behavior is supported based on the capabilities a device
+supports (defined in the device's profile). If your driver registers for defaults, there are a number of subscribed attributes
+and subscribed events that that will be added to the device, which means calling `MatterDevice:subscribe()` or
+`MatterDevice:refresh()` will include these defaults.
+
+
+Multi-Component devices
++++++++++++++++++++++++
+
+There are a number of situations where the SmartThings model of the device makes sense to be broken down into several
+"components".  A classic example of this would be a smart power strip, where it is a single device on the network, but
+each outlet can be controlled separately.  This would best be modeled as a single device, with a component for each
+switch.
+
+..
+  See the TODO: SmartThings Profile documentation for more discussion on SmartThings components.
+
+Within Matter, these separate pieces of functionality are often modeled as "endpoints", and messages to the devices can
+be addressed to the specific endpoint you want to control and interact with. The ``MatterDevice`` object provides a way for
+your driver to define how you want to map between components and endpoints that can then be used by the rest of the Matter
+Lua standard library to automatically generate events for the correct components or send messages to the correct endpoint.
+As an important note, as with most things in the standard library, this is built to support the most common model, but it is
+likely that there will be individual devices that don't adhere to this model and will need to override this behavior.
+
+In order to opt in to this behavior you can use the following functions:
+
+.. code-block:: lua
+
+    function MatterDevice:set_component_to_endpoint_fn(comp_ep_fn)
+    function MatterDevice:set_endpoint_to_component_fn(ep_comp_fn)
+
+
+Here you can provide a function for each direction to map a Matter endpoint id (number) to a SmartThings
+component id (string), and vice versa.  Once these are set, the following functions on the device are used for event
+generation and message addressing:
+
+.. code-block:: lua
+
+   function MatterDevice:endpoint_to_component(comp_id)
+   function MatterDevice:component_to_endpoint(ep)
+
+
+If these functions are used without setting the mapping functions above, they will return the defaults ("main" for a
+component, and ``MATTER_DEFAULT_ENDPOINT``, which is 1, for the endpoint).  For convenience, the following
+function is provided as well:
+
+.. code-block:: lua
+
+    function MatterDevice:emit_event_for_endpoint(endpoint, event)
+
+example
+-------
+
+Here is a simple example of a driver that supports multi-switch Matter outlet where the profiles are defined as follows:
+
+.. code-block:: yaml
+
+    name: two-outlet
+    components:
+    - id: main
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+    - id: switch1
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+
+    name: three-outlet
+    components:
+    - id: main
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+    - id: switch1
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+    - id: switch2
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+
+
+And uses Matter endpoints ``0x01`` for the first outlet and increments by one for each additional outlet.  Then the
+following driver will be able to use the built-in behavior to correctly generate events and address commands.
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local MatterDriver = require "st.matter.driver"
+    local matter_device_module = require "st.matter.device"
+    local defaults = require "st.matter.defaults"
+
+    local function component_to_endpoint(device, component_id)
+      if component_id == "main" then
+        return matter_device_module.DEFAULT_MATTER_ENDPOINT --DEFAULT_MATTER_ENDPOINT == 1
+      else
+        local ep_num = component_id:match("switch(%d)")
+        return ep_num and (tonumber(ep_num) + 1) or matter_device_module.DEFAULT_MATTER_ENDPOINT
+      end
+    end
+
+    local function endpoint_to_component(device, ep)
+      if ep == matter_device_module.DEFAULT_MATTER_ENDPOINT then
+        return "main"
+      else
+        return string.format("switch%d", ep - 1)
+      end
+    end
+
+    local device_init = function(self, device)
+      device:set_component_to_endpoint_fn(component_to_endpoint)
+      device:set_endpoint_to_component_fn(endpoint_to_component)
+    end
+
+    local matter_outlet_driver_template = {
+      supported_capabilities = {
+        capabilities.switch,
+      },
+      lifecycle_handlers = {
+        init = device_init,
+      },
+    }
+
+    defaults.register_for_default_handlers(matter_outlet_driver_template, matter_outlet_driver_template.supported_capabilities)
+    local matter_outlet = MatterDriver("matter-outlet", matter_outlet_driver_template)
+    matter_outlet:run()
+
+
+Parent/Child Devices
+++++++++++++++++++++
+
+Very similar to multi component devices there may be some situations where you prefer to model a single network device
+as multiple SmartThings device records.  This can be done by creating "Child" devices to represent individual endpoints
+on the device.  NOTE: If you aren't modeling each child as an endpoint, you won't be able to use the library
+abstractions, but you can build your own handling of messages for whatever model you desire.
+
+You can define a ``find_child`` function using the ``set_find_child`` method on device objects.  Then any use of
+``emit_event_for_endpoint`` including the default capability handlers will use this to emit events on the appropriate
+children.  The ``find_child`` function you define will be passed the source endpoint a message came from and should then
+return the device object representing the child device that is responsible for that endpoint, or ``nil`` if there isn't
+one.
+
+When deleting devices in a parent/child relationship, deleting the parent will result in the removal of all of the
+children as well as all communication goes through the parent device.  However, you can delete individual children
+without affecting the others.  It should be noted though that typically the only way to create the children is on device
+join so if deleted getting the child devices back will often require deleting and re-onboarding the parent.
+
+
+example
+-------
+
+Profile:
+
+.. code-block:: yaml
+
+    name: outlet
+    components:
+      - id: main
+        capabilities:
+          - id: switch
+            version: 1
+          - id: refresh
+            version: 1
+        categories:
+          - name: Outlet
+
+
+Driver:
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local clusters = require "st.matter.clusters"
+    local MatterDriver = require "st.matter.driver"
+    local device_lib = require "st.device"
+
+    local function find_child(parent, ep_id)
+      return parent:get_child_by_parent_assigned_key(string.format("%02X", ep_id))
+    end
+
+    local function added(driver, device, event)
+      -- Only create children for the actual Zigbee device and not the children
+      if device.network_type == device_lib.NETWORK_TYPE_MATTER then
+        for i = 2, 5, 1 do
+          local name = string.format("%s outlet %d", device.label, i)
+          local metadata = {
+            type = "EDGE_CHILD",
+            label = name,
+            profile = "outlet",
+            parent_device_id = device.id,
+            parent_assigned_child_key = string.format("%02X", i),
+            vendor_provided_label = name,
+          }
+          driver:try_create_device(metadata)
+        end
+      end
+    end
+
+    local function init(driver, device, event)
+      if device.network_type == device_lib.NETWORK_TYPE_MATTER then
+        device:set_find_child(find_child)
+      end
+    end
+
+    local function on_off_attr_handler(driver, device, ib, response)
+      -- This device will _always_ be the parent because the parent is the only one actually on the network sending messages
+      -- but this call to `emit_event_for_endpoint` will use the `find_child` function set below to find the child and
+      -- emit the event for that SmartThings device instead
+      if ib.data.value then
+        device:emit_event_for_endpoint(ib.endpoint_id, capabilities.switch.switch.on())
+      else
+        device:emit_event_for_endpoint(ib.endpoint_id, capabilities.switch.switch.off())
+      end
+    end
+
+    local function handle_switch_on(driver, device, cmd)
+      -- Since we will receive commands separately for the different children, the device object here could be a parent or
+      -- child.  The message building will work the same as the child will defer to the parent for addressing information.
+      local endpoint_id = device:component_to_endpoint(cmd.component)
+      local req = clusters.OnOff.server.commands.On(device, endpoint_id)
+      device:send(req)
+    end
+
+    local function handle_switch_off(driver, device, cmd)
+      -- Since we will receive commands separately for the different children, the device object here could be a parent or
+      -- child.  The message building will work the same as the child will defer to the parent for addressing information.
+      local endpoint_id = device:component_to_endpoint(cmd.component)
+      local req = clusters.OnOff.server.commands.Off(device, endpoint_id)
+      device:send(req)
+    end
+
+    local matter_driver_template = {
+      lifecycle_handlers = {
+        init = init,
+      },
+      matter_handlers = {
+        attr = {
+          [clusters.OnOff.ID] = {
+            [clusters.OnOff.attributes.OnOff.ID] = on_off_attr_handler,
+          },
+        },
+      },
+      capability_handlers = {
+        [capabilities.switch.ID] = {
+          [capabilities.switch.commands.on.NAME] = handle_switch_on,
+          [capabilities.switch.commands.off.NAME] = handle_switch_off,
+        },
+      },
+    }
+
+    -- The on_handler and on_off_attr_handler above would be covered by these defaults, but are included for example purposes
+    local matter_driver = MatterDriver("matter-child-example", matter_driver_template)
+    matter_driver:run()
+
+
+
+Class Documentation
++++++++++++++++++++
+
+.. lua:autoclass:: st.matter.Device
+
+.. lua:autoclass:: st.matter.ChildDevice

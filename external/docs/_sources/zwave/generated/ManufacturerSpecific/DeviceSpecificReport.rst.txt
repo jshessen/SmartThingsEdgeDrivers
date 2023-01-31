@@ -1,0 +1,6 @@
+Device Specific Report
+======================
+
+.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.DeviceSpecificReport
+.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.DeviceSpecificReportV2
+.. lua:autoclass:: st.zwave.CommandClass.ManufacturerSpecific.DeviceSpecificReportV2Args

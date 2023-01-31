@@ -1,0 +1,17 @@
+ThermostatUserInterfaceConfiguration
+====================================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ThermostatUserInterfaceConfiguration
+
+ThermostatUserInterfaceConfiguration Attributes
++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ThermostatUserInterfaceConfiguration.TemperatureDisplayMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ThermostatUserInterfaceConfiguration.KeypadLockout
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.ThermostatUserInterfaceConfiguration.ScheduleProgrammingVisibility
+
+ThermostatUserInterfaceConfiguration Commands
++++++++++++++++++++++++++++++++++++++++++++++
+

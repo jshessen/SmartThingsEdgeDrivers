@@ -1,0 +1,33 @@
+OccupancySensing
+================================
+
+Attributes
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.Occupancy
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.OccupancySensorType
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.OccupancySensorTypeBitmap
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.PirOccupiedToUnoccupiedDelay
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.PirUnoccupiedToOccupiedDelay
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.PirUnoccupiedToOccupiedThreshold
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.UltrasonicOccupiedToUnoccupiedDelay
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.UltrasonicUnoccupiedToOccupiedDelay
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.UltrasonicUnoccupiedToOccupiedThreshold
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.PhysicalContactOccupiedToUnoccupiedDelay
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.PhysicalContactUnoccupiedToOccupiedDelay
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.PhysicalContactUnoccupiedToOccupiedThreshold
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.AcceptedCommandList
+
+.. lua:autoclass:: st.matter.clusters.OccupancySensing.AttributeList

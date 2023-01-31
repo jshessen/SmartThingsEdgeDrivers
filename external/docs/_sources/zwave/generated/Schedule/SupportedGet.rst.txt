@@ -1,0 +1,8 @@
+Supported Get
+=============
+
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedGet
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedGetV1
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedGetV1Args
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedGetV2
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.SupportedGetV2Args

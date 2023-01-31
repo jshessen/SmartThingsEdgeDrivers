@@ -1,0 +1,10 @@
+Set
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.Set
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.SetV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.SetV1Args
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.SetV1ArgsColorComponents
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.SetV2
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.SetV2Args
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.SetV2ArgsColorComponents

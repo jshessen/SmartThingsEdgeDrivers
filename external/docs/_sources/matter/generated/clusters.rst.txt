@@ -1,0 +1,45 @@
+Generated Clusters
+==================
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Contents:
+
+    clusters/OnOff
+
+    clusters/LevelControl
+
+    clusters/Basic
+
+    clusters/PowerSource
+
+    clusters/Switch
+
+    clusters/BooleanState
+
+    clusters/ModeSelect
+
+    clusters/DoorLock
+
+    clusters/WindowCovering
+
+    clusters/Thermostat
+
+    clusters/FanControl
+
+    clusters/ColorControl
+
+    clusters/IlluminanceMeasurement
+
+    clusters/TemperatureMeasurement
+
+    clusters/FlowMeasurement
+
+    clusters/RelativeHumidityMeasurement
+
+    clusters/OccupancySensing
+
+    clusters/MediaPlayback
+
+    clusters/KeypadInput
+

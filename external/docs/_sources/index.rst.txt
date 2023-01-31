@@ -1,0 +1,25 @@
+SmartThings Edge Device Drivers Reference Documentation
+=======================================================
+
+Below you can find reference documentation for SmartThings Edge Device Driver libraries, modules, data classes, and more.
+
+Versions
+--------
+
+Version 3 [Public Beta] - **2023-01-18**
+++++++++++++++++++++++++++++++++++++++++
+
+Initial public release
+
+.. toctree::
+   :maxdepth: 2
+   :caption: References:
+
+   reference/index.rst
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

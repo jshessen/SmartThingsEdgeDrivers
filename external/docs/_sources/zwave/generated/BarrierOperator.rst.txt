@@ -1,0 +1,17 @@
+Barrier Operator
+================
+
+.. toctree::
+   :maxdepth: 2
+
+   BarrierOperator/Set
+   BarrierOperator/Get
+   BarrierOperator/Report
+   BarrierOperator/SignalSupportedGet
+   BarrierOperator/SignalSupportedReport
+   BarrierOperator/SignalSet
+   BarrierOperator/SignalGet
+   BarrierOperator/SignalReport
+   BarrierOperator/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.BarrierOperator

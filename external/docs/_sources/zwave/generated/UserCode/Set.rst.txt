@@ -1,0 +1,6 @@
+Set
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.Set
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.SetV1
+.. lua:autoclass:: st.zwave.CommandClass.UserCode.SetV1Args

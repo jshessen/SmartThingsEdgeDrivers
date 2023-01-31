@@ -1,0 +1,4 @@
+Multi Instance Get
+==================
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.MultiInstanceGet

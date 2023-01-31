@@ -1,0 +1,35 @@
+OccupancySensing
+================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing
+
+OccupancySensing Attributes
++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.Occupancy
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.OccupancySensorType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.OccupancySensorTypeBitmap
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.PIROccupiedToUnoccupiedDelay
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.PIRUnoccupiedToOccupiedDelay
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.PIRUnoccupiedToOccupiedThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.UltrasonicOccupiedToUnoccupiedDelay
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.UltrasonicUnoccupiedToOccupiedDelay
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.UltrasonicUnoccupiedToOccupiedThreshold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.PhysicalContactOccupiedToUnoccupiedDelay
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.PhysicalContactUnoccupiedToOccupiedDelay
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OccupancySensing.PhysicalContactUnoccupiedToOccupiedThreshold
+
+OccupancySensing Commands
++++++++++++++++++++++++++
+

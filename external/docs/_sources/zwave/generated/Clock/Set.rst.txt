@@ -1,0 +1,6 @@
+Set
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.Clock.Set
+.. lua:autoclass:: st.zwave.CommandClass.Clock.SetV1
+.. lua:autoclass:: st.zwave.CommandClass.Clock.SetV1Args

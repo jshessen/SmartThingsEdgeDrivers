@@ -1,0 +1,6 @@
+System Shutoff
+==============
+
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemShutoff
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemShutoffV1
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemShutoffV1Args

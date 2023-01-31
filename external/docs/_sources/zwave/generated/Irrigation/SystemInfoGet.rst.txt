@@ -1,0 +1,6 @@
+System Info Get
+===============
+
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemInfoGet
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemInfoGetV1
+.. lua:autoclass:: st.zwave.CommandClass.Irrigation.SystemInfoGetV1Args

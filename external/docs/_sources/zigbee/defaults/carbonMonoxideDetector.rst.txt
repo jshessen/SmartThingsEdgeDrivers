@@ -1,0 +1,6 @@
+Carbon Monoxide Detector
+========================
+
+.. lua:autoclass:: st.zigbee.defaults.carbonMonoxideDetector.IASZoneConfiguration
+
+.. lua:autoclass:: st.zigbee.defaults.carbonMonoxideDetector

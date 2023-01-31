@@ -1,0 +1,6 @@
+Capabilities Report
+===================
+
+.. lua:autoclass:: st.zwave.CommandClass.Version.CapabilitiesReport
+.. lua:autoclass:: st.zwave.CommandClass.Version.CapabilitiesReportV3
+.. lua:autoclass:: st.zwave.CommandClass.Version.CapabilitiesReportV3Args

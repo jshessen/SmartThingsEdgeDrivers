@@ -1,0 +1,4 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.Antitheft.anti_theft_protection_status

@@ -1,0 +1,8 @@
+Start Level Change
+==================
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.StartLevelChange
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.StartLevelChangeV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.StartLevelChangeV1Args
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.StartLevelChangeV3
+.. lua:autoclass:: st.zwave.CommandClass.SwitchColor.StartLevelChangeV3Args

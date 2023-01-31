@@ -1,0 +1,10 @@
+Rate Tbl Config
+===============
+
+.. toctree::
+   :maxdepth: 2
+
+   RateTblConfig/RateTblSet
+   RateTblConfig/RateTblRemove
+
+.. lua:autoclass:: st.zwave.CommandClass.RateTblConfig

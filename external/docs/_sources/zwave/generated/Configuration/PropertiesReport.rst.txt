@@ -1,0 +1,8 @@
+Properties Report
+=================
+
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesReport
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesReportV3
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesReportV3Args
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesReportV4
+.. lua:autoclass:: st.zwave.CommandClass.Configuration.PropertiesReportV4Args

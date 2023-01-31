@@ -1,0 +1,6 @@
+Logging Get
+===========
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState.LoggingGet
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState.LoggingGetV2
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState.LoggingGetV2Args

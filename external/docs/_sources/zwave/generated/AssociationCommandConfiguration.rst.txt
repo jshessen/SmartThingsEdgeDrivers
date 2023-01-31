@@ -1,0 +1,13 @@
+Association Command Configuration
+=================================
+
+.. toctree::
+   :maxdepth: 2
+
+   AssociationCommandConfiguration/CommandRecordsSupportedGet
+   AssociationCommandConfiguration/CommandRecordsSupportedReport
+   AssociationCommandConfiguration/CommandConfigurationSet
+   AssociationCommandConfiguration/CommandConfigurationGet
+   AssociationCommandConfiguration/CommandConfigurationReport
+
+.. lua:autoclass:: st.zwave.CommandClass.AssociationCommandConfiguration

@@ -1,0 +1,122 @@
+Global Environment
+==================
+
+SmartThings Lua scripts execute in an environment similar to the stock Lua environment. Some
+functions have been removed where they are impossible to use from within the sandbox, such as those
+dealing with filesystem access. Some have been reimplemented, matching the behavior of the standard
+lua implementation to work with the sandbox, such as ``require``.
+
+There is no functionality added to the global environment. All SmartThings specific functionality
+is provided in the form of libraries accessible via ``require``.
+
+.. lua:class:: coroutine
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#6.2
+
+.. lua:function:: assert
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-assert
+
+.. lua:function:: collectgarbage
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-collectgarbage
+
+.. lua:function:: error
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-error
+
+.. lua:function:: getmetatable
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-getmetatable
+
+.. lua:function:: ipairs
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-ipairs
+
+.. lua:function:: next
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-next
+
+.. lua:function:: pairs
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-pairs
+
+.. lua:function:: pcall
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-pcall
+
+.. lua:function:: rawequal
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-rawequal
+
+.. lua:function:: rawget
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-rawget
+
+.. lua:function:: rawlen
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-rawlen
+
+.. lua:function:: rawset
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-rawset
+
+.. lua:function:: require
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-require
+
+.. lua:function:: setmetatable
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-setmetatable
+
+.. lua:function:: select
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-select
+
+.. lua:function:: tonumber
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-tonumber
+
+.. lua:function:: tostring
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-tostring
+
+.. lua:function:: type
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-type
+
+.. lua:function:: xpcall
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-xpcall
+
+.. lua:class:: math
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#6.7
+
+.. lua:function:: os.clock
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-os.clock
+
+.. lua:function:: os.date
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-os.date
+
+.. lua:function:: os.difftime
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-os.difftime
+
+.. lua:function:: os.time
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#pdf-os.time
+
+.. lua:class:: string
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#6.4
+
+.. lua:class:: table
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#6.6
+
+.. lua:class:: utf8
+
+    See Lua Reference Manual: https://www.lua.org/manual/5.3/manual.html#6.5

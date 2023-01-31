@@ -1,0 +1,51 @@
+Interaction Model
+--------------------
+
+The Matter spec defines the Interaction Model explain how a controller, such as the hub, should
+interact with various cluster elements on the device, and to provide an abstraction that is separate from other
+layers such as security, and message format/encoding. An Interaction between two nodes is made up
+one or more Transactions, which is made up of Actions. Actions are then translated into one
+or more messages in the layers below the Interaction Model.
+
+The lua objects defined in the ``interaction_model`` module break down the Interaction Model as defined in
+the spec into a Request/Response model where an ``InteractionRequest`` and ``InteractionResponse`` are analagous
+to the Actions that make up an Interaction. This was done to work with the Matter communication socket used for device
+communication, which is completely asynchronous. For Read, Write, and Invoke interactions, the hub guarantees
+that a response (possibly with an error status) will be received in the driver for every Read, Write, and Invoke request
+that is sent.
+
+Drivers hook into the Matter device interaction model by building ``InteractionRequest``\s that contain one or more
+``InteractionInfoBlock``\s; when an ``InteractionResponse`` is received as a result of a request, the driver handles
+the ``InteractionResponseInfoBlock``\s contained within the response by dispatching the info blocks to matter handler funtions.
+
+``InteractionInfoBlock``\s exist on both requests and responses. They contain the attribute/event/command paths along with any
+TLV data associated with the cluster path for the request or response. The TLV data is a string of bytes that is serialized and
+deserialized into the core matter data types as well as cluster library defined types and stored in the table field
+``InteractionInfoBlock.data``. TLV deserialization is done automatically when raw responses are received from the matter socket
+and serialization occurs when sending on the matter socket. ``InteractionResponseInfoBlocks`` contain an
+``InteractionInfoBlock`` as well as a status associated with the response.
+
+
+Subscribe Interaction
++++++++++++++++++++++
+
+The subscription interaction is unique in the spec-defined Interaction model and as such is also unique in the
+interaction model exposed by the Matter Lua standard libraries. The hub maintains a single subscription for
+each device on its Matter fabric. The SUBSCRIBE ``InteractionRequest.RequestType`` is used to update the
+subscription with a list of attribute and event paths. The hub will restart subscriptions if they terminate,
+update the subscription event/attribute paths with each subsequent subscribe request, and guarantees that
+the most recent subscription request sent from the driver will have its attributes and events included in the
+current subscription. There are no subscription ``InteractionResponse``\s from the hub that will be received in
+the driver.
+
+.. lua:autoclass:: st.matter.interaction_model.InteractionRequest.RequestType
+
+.. lua:autoclass:: st.matter.interaction_model.InteractionRequest
+
+.. lua:autoclass:: st.matter.interaction_model.InteractionInfoBlock
+
+.. lua:autoclass:: st.matter.interaction_model.InteractionResponse.ResponseType
+
+.. lua:autoclass:: st.matter.interaction_model.InteractionResponse
+
+.. lua:autoclass:: st.matter.interaction_model.InteractionResponseInfoBlock

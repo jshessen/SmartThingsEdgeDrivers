@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matter Driver Capability Defaults &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Battery" href="defaults/battery.html" />
+    <link rel="prev" title="KeypadInput" href="generated/clusters/KeypadInput.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="matter.html">Matter Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Matter Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="device.html">MatterDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="matter_message_handlers.html">Matter Interaction Response Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_types.html">Matter Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interaction_model.html">Interaction Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated.html">Generated Matter Code</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Matter Driver Capability Defaults</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#existing-defaults">Existing Defaults</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="matter.html">Matter Libraries</a> &raquo;</li>
+      <li>Matter Driver Capability Defaults</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/matter/defaults.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="matter-driver-capability-defaults">
+<h1>Matter Driver Capability Defaults<a class="headerlink" href="#matter-driver-capability-defaults" title="Permalink to this headline"></a></h1>
+<p>Within the <a class="reference internal" href="driver.html"><span class="doc">MatterDriver</span></a> you will be registering a number of <code class="docutils literal notranslate"><span class="pre">matter_handlers</span></code> which
+handle incoming Matter interaction response from a device.  Provided within the library are a number of default
+implementations that follow the natural mapping of “Matter cluster interaction -&gt; SmartThings capability event”.  These
+can either be manually referenced from your driver by simply requiring the correct default file, or you can have all
+the defaults registered by making a call to
+<code class="docutils literal notranslate"><span class="pre">register_for_default_handlers(driver_template,</span> <span class="pre">{</span> <span class="pre">capabilities.switch,</span> <span class="pre">capabilities.switchLevel</span> <span class="pre">})</span></code> listing all the
+capabilities you are interested in registering the default handlers for.</p>
+<p>Each Matter defaults file will be named according to the single SmartThings capability it is providing defaults for, and
+will contain several key components.</p>
+<p>Any Matter message or capability command handlers that are specific to the capability will be defined within the
+file. These functions will be one of the <a class="reference internal" href="matter_message_handlers.html"><span class="doc">Matter handlers</span></a> for messages from the device
+or capability handlers for capability commands.  The number and types that are present are entirely dependent on the
+Matter to SmartThings mapping and thus will vary depending on the capability.</p>
+<p>Various <code class="docutils literal notranslate"><span class="pre">subscribed_attributes</span></code> and <code class="docutils literal notranslate"><span class="pre">subscribed_events</span></code> lists are defined which will be included in the driver
+template. These list out all the attribute and event cluster elements that a device will need to subscribe to in order to
+properly support the capability.</p>
+<section id="existing-defaults">
+<h2>Existing Defaults<a class="headerlink" href="#existing-defaults" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="defaults/battery.html">Battery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/colorControl.html">Color Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/colorTemperature.html">Color Temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/contactSensor.html">Contact Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/illuminanceMeasurement.html">Illuminance Measurement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/motionSensor.html">Motion Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/relativeHumidityMeasurement.html">Relative Humidity Measurement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/switch.html">Switch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/switchLevel.html">Switch Level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defaults/temperatureMeasurement.html">Temperature Measurement</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="generated/clusters/KeypadInput.html" class="btn btn-neutral float-left" title="KeypadInput" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="defaults/battery.html" class="btn btn-neutral float-right" title="Battery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+Capability Get
+==============
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.CapabilityGet
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.CapabilityGetV2
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.CapabilityGetV2Args

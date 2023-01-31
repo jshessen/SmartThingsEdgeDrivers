@@ -1,0 +1,6 @@
+Get
+===
+
+.. lua:autoclass:: st.zwave.CommandClass.Clock.Get
+.. lua:autoclass:: st.zwave.CommandClass.Clock.GetV1
+.. lua:autoclass:: st.zwave.CommandClass.Clock.GetV1Args

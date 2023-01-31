@@ -1,0 +1,104 @@
+PowerSource
+================================
+
+Attributes
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.Status
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.Order
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.Description
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.WiredAssessedInputVoltage
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.WiredAssessedInputFrequency
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.WiredCurrentType
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.WiredAssessedCurrent
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.WiredNominalVoltage
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.WiredMaximumCurrent
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.WiredPresent
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.ActiveWiredFaults
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatVoltage
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatPercentRemaining
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatTimeRemaining
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatChargeLevel
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatReplacementNeeded
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatReplaceability
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatPresent
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.ActiveBatFaults
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatReplacementDescription
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatCommonDesignation
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatANSIDesignation
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatIECDesignation
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatApprovedChemistry
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatCapacity
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatQuantity
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatChargeState
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatTimeToFullCharge
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatFunctionalWhileCharging
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.BatChargingCurrent
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.ActiveBatChargeFaults
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.AcceptedCommandList
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.AttributeList
+Bitmap types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.PowerSourceFeature
+
+Enum types
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.BatChargeFault
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.BatChargeLevel
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.BatChargeState
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.BatFault
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.BatReplaceability
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.PowerSourceStatus
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.WiredCurrentType
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.WiredFault
+
+Struct types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.BatChargeFaultChangeType
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.BatFaultChangeType
+
+.. lua:autoclass:: st.matter.clusters.PowerSource.types.WiredFaultChangeType
+

@@ -1,0 +1,11 @@
+Humidity Control Operating State
+================================
+
+.. toctree::
+   :maxdepth: 2
+
+   HumidityControlOperatingState/Get
+   HumidityControlOperatingState/Report
+   HumidityControlOperatingState/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.HumidityControlOperatingState

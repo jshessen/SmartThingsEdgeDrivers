@@ -1,0 +1,9 @@
+Hail
+====
+
+.. toctree::
+   :maxdepth: 2
+
+   Hail/Hail
+
+.. lua:autoclass:: st.zwave.CommandClass.Hail

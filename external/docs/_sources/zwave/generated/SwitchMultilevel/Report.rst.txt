@@ -1,0 +1,8 @@
+Report
+======
+
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.Report
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.ReportV1
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.ReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.ReportV4
+.. lua:autoclass:: st.zwave.CommandClass.SwitchMultilevel.ReportV4Args

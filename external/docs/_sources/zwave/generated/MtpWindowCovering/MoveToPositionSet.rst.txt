@@ -1,0 +1,6 @@
+Move To Position Set
+====================
+
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionSet
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionSetV1
+.. lua:autoclass:: st.zwave.CommandClass.MtpWindowCovering.MoveToPositionSetV1Args

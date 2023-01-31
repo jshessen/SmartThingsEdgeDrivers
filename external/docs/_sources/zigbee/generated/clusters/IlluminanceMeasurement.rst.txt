@@ -1,0 +1,21 @@
+IlluminanceMeasurement
+======================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.IlluminanceMeasurement
+
+IlluminanceMeasurement Attributes
++++++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.IlluminanceMeasurement.MeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.IlluminanceMeasurement.MinMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.IlluminanceMeasurement.MaxMeasuredValue
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.IlluminanceMeasurement.Tolerance
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.IlluminanceMeasurement.LightSensorType
+
+IlluminanceMeasurement Commands
++++++++++++++++++++++++++++++++
+

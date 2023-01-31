@@ -1,0 +1,314 @@
+ZigbeeDevice Class
+==================
+
+This is a class that inherits from the :lua:class:`Device <Device>` class, but extends behavior
+with Zigbee-specific functionality.  These functions are documented in the class documentation below.
+
+
+Configuring Zigbee Devices
+++++++++++++++++++++++++++
+
+With Zigbee devices it is very common to want to configure attribute reporting for either when values change or on a
+schedule.  There are a few different ways to do this. The first option is to define the ``doConfigure`` lifecycle event
+handler for your driver, manually building and sending configuration commands that are needed for your device.  The
+Zigbee Device object also provides two options for adding attribute configurations either as a "configured attribute"
+or as a "monitored attribute".
+
+Configured Attributes
+---------------------
+
+A configured attribute will result in sending a bind request ZDO command as well as a ZCL configure reporting command
+to the device when ``ZigbeeDevice:configure()`` is called.  These can be added to a device using the
+:lua:meth:`st.zigbee.Device:add_configured_attribute <st.zigbee.Device.add_configured_attribute>`.  Typically you would
+add these as a part of the device object construction via the ``init`` lifecycle event, however, it can be done in
+whatever way makes sense for the device.  These attributes will also automatically be read from the device when
+``ZigbeeDevice:refresh()`` is called.
+
+Monitored Attributes
+--------------------
+
+Monitored attributes are those that will have their reports tracked by the platform and will automatically issue a read
+if the attribute hasn't reported within the requested max reporting interval.  These can be added using the
+``ZigbeDevice:add_monitored_attribute(config)``.  In order to avoid sending an immediate read if the max interval is
+exceeded slightly due to network issues, a grace period of half the max interval will be allowed before issuing the read.
+Additionally, the check if an attribute is out of date will happen every 30 seconds, so it could be up to
+1.5 * max reporting interval + 30 seconds before a read is sent.  In general this should not be needed if the
+device supports reporting configuration, however, some Zigbee devices (such as those using the ZLL profile) don't and so
+it can be helpful to have periodic checks of attributes.
+
+Zigbee device configuration from defaults
+-----------------------------------------
+
+As described in the defaults section, quite a bit of default behavior is supported based on the capabilities a device
+supports defined in it's profile.  If your driver registers for defaults, there are a number of attribute configurations
+that will be added as configured and monitored attributes, which means calling `ZigbeeDevice:configure()` or
+`ZigbeeDevice:refresh()` will include these defaults.
+
+
+Multi-Component devices
++++++++++++++++++++++++
+
+There are a number of situations where the SmartThings model of the device makes sense to be broken down into several
+"components".  A classic example of this would be a smart power strip, where it is a single device on the network, but
+each outlet can be controlled separately.  This would best be modeled as a single device, with a component for each
+switch.
+
+..
+  See the TODO: SmartThings Profile documentation for more discussion on SmartThings components.
+
+Within Zigbee these separate pieces of functionality are often modeled as "endpoints", and messages to the devices can
+be addressed to the specific endpoint you want to control and interact with.  In order to promote code reuse the
+ZigbeeDevice object provides a way for your driver to define how you want to map between components and endpoints that
+can then be used by the rest of the Zigbee Lua standard library to automatically generate events for the correct
+components or send messages to the correct endpoint.  As an important note, as with most things in the standard library
+this is built to support the most common model, but it is likely that there will be individual devices that don't
+adhere to this model and will need to override this behavior.
+
+In order to opt in to this behavior you can use the following functions:
+
+.. code-block:: lua
+
+    function ZigbeeDevice:set_component_to_endpoint_fn(comp_ep_fn)
+    function ZigbeeDevice:set_endpoint_to_component_fn(ep_comp_fn)
+
+
+Here you can provide a function for each direction to map a Zigbee endpoint id (1 byte number) to a SmartThings
+component id (string), and vice versa.  Once these are set the following functions on the device are used for event
+generation and message addressing:
+
+.. code-block:: lua
+
+   function ZigbeeDevice:get_endpoint_for_component_id(comp_id)
+   function ZigbeeDevice:get_component_id_for_endpoint(ep)
+
+
+If these functions are used without settign the mapping functions above, they will return the defaults ("main" for a
+component, and ``device.fingerprinted_endpoint_id`` for the endpoint).  Further as a convenience method the following
+function is provided as well
+
+.. code-block:: lua
+
+    function ZigbeeDevice:emit_event_for_endpoint(endpoint, event)
+
+
+That will automatically generate the event for the correct endpoint.
+
+example
+-------
+
+Here is a simple example of a driver that supports multi switch Zigbee outlet where the profiles are defined as follows:
+
+.. code-block:: yaml
+
+    name: two-outlet
+    components:
+    - id: main
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+    - id: switch1
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+
+    name: three-outlet
+    components:
+    - id: main
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+    - id: switch1
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+    - id: switch2
+      capabilities:
+      - id: switch
+        version: 1
+      categories:
+      - name: Switch
+
+
+And uses Zigbee endpoints ``0x00`` for the first outlet and increments by one for each additional outlet.  Then the
+following driver will be able to use the built-in behavior to correctly generate events and address commands.
+
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local ZigbeeDriver = require "st.zigbee"
+    local defaults = require "st.zigbee.defaults"
+
+    local function component_to_endpoint(device, component_id)
+      if component_id == "main" then
+        return device.fingerprinted_endpoint_id
+      else
+        local ep_num = component_id:match("switch(%d)")
+        return ep_num and tonumber(ep_num) or device.fingerprinted_endpoint_id
+      end
+    end
+
+    local function endpoint_to_component(device, ep)
+      if ep == device.fingerprinted_endpoint_id then
+        return "main"
+      else
+        return string.format("switch%d", ep)
+      end
+    end
+
+    local device_init = function(self, device)
+      device:set_component_to_endpoint_fn(component_to_endpoint)
+      device:set_endpoint_to_component_fn(endpoint_to_component)
+    end
+
+    local zigbee_outlet_driver_template = {
+      supported_capabilities = {
+        capabilities.switch,
+      },
+      lifecycle_handlers = {
+        init = device_init,
+      },
+    }
+
+    defaults.register_for_default_handlers(zigbee_outlet_driver_template, zigbee_outlet_driver_template.supported_capabilities)
+    local zigbee_outlet = ZigbeeDriver("zigbee_bulb", zigbee_outlet_driver_template)
+    zigbee_outlet:run()
+
+
+Parent/Child Devices
+++++++++++++++++++++
+
+Very similar to multi component devices there may be some situations where you prefer to model a single network device
+as multiple SmartThings device records.  This can be done by creating "Child" devices to represent individual endpoints
+on the device.  NOTE: If you aren't modeling each child as an endpoint, you won't be able to use the library
+abstractions, but you can build your own handling of messages for whatever model you desire.
+
+You can define a ``find_child`` function using the ``set_find_child`` method on device objects.  Then any use of
+``emit_event_for_endpoint`` including the default capability handlers will use this to emit events on the appropriate
+children.  The ``find_child`` function you define will be passed the source endpoint a message came from and should then
+return the device object representing the child device that is responsible for that endpoint, or ``nil`` if there isn't
+one.
+
+When deleting devices in a parent/child relationship, deleting the parent will result in the removal of all of the
+children as well as all communication goes through the parent device.  However, you can delete individual children
+without affecting the others.  It should be noted though that typically the only way to create the children is on device
+join so if deleted getting the child devices back will often require deleting and re-onboarding the parent.
+
+
+example
+-------
+
+Profile:
+
+.. code-block:: yaml
+
+    name: outlet
+    components:
+      - id: main
+        capabilities:
+          - id: switch
+            version: 1
+          - id: refresh
+            version: 1
+        categories:
+          - name: Outlet
+
+
+Driver:
+
+.. code-block:: lua
+
+    local capabilities = require "st.capabilities"
+    local ZigbeeDriver = require "st.zigbee"
+    local defaults = require "st.zigbee.defaults"
+    local device_lib = require "st.device"
+    local zcl_clusters = require "st.zigbee.zcl.clusters"
+
+    -- These same handlers will work for both the parent and child devices
+    local function on_off_attr_handler(driver, device, value, zb_rx)
+      local attr = capabilities.switch.switch
+      -- This device will _always_ be the parent because the parent is the only one actually on the network sending messages
+      -- but this call to `emit_event_for_endpoint` will use the `find_child` function set below to find the child and
+      -- emit the event for that SmartThings device instead
+      device:emit_event_for_endpoint(zb_rx.address_header.src_endpoint.value, value.value and attr.on() or attr.off())
+    end
+
+    local function on_handler(driver, device, command)
+      -- Since we will receive commands separately for the different children, the device object here could be a parent or
+      -- child.  The message building will work the same as the child will defer to the parent for addressing information.
+      -- And similarly `send_to_component` on the child device will ultimately call send on the parent as that is the actual
+      -- network device.
+      device:send_to_component(command.component, zcl_clusters.OnOff.server.commands.On(device))
+    end
+
+    local function added(driver, device, event)
+      -- Only create children for the actual Zigbee device and not the children
+      if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+        for i = 2, 5, 1 do
+          local name = string.format("%s outlet %d", device.label, i)
+          local metadata = {
+            type = "EDGE_CHILD",
+            label = name,
+            profile = "outlet",
+            parent_device_id = device.id,
+            parent_assigned_child_key = string.format("%02X", i),
+            vendor_provided_label = name,
+          }
+          driver:try_create_device(metadata)
+        end
+      end
+    end
+
+    local function find_child(parent, ep_id)
+      return parent:get_child_by_parent_assigned_key(string.format("%02X", ep_id))
+    end
+
+    local function init(driver, device, event)
+      if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+        device:set_find_child(find_child)
+      end
+    end
+
+    local zigbee_parent_child_switch_template = {
+      supported_capabilities = {
+        capabilities.switch,
+      },
+      zigbee_handlers = {
+        attr = {
+          [zcl_clusters.OnOff] = {
+            [zcl_clusters.OnOff.attributes.OnOff] = on_off_attr_handler
+          }
+        },
+      },
+      capability_handlers = {
+        [capabilities.switch.ID] = {
+          [capabilities.switch.commands.on.NAME] = on_handler,
+          -- Off handler provided by defaults
+        },
+      },
+      lifecycle_handlers = {
+        added = added,
+        init = init,
+      },
+    }
+
+    -- The on_handler and on_off_attr_handler above would be covered by these defaults, but are included for example purposes
+    defaults.register_for_default_handlers(zigbee_parent_child_switch_template, zigbee_parent_child_switch_template.supported_capabilities)
+    local zigbee_parent_child_switch = ZigbeeDriver("child_device_example", zigbee_parent_child_switch_template)
+    zigbee_parent_child_switch:run()
+
+
+Class Documentation
++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.Device
+
+.. lua:autoclass:: st.zigbee.ChildDevice

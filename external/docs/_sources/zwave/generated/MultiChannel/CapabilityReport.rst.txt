@@ -1,0 +1,6 @@
+Capability Report
+=================
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.CapabilityReport
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.CapabilityReportV2
+.. lua:autoclass:: st.zwave.CommandClass.MultiChannel.CapabilityReportV2Args

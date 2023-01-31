@@ -1,0 +1,12 @@
+Supported Report
+================
+
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReport
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV1
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV1Args
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV2
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV2Args
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV2ArgsSupportedScenes
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV3
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV3Args
+.. lua:autoclass:: st.zwave.CommandClass.CentralScene.SupportedReportV3ArgsSupportedScenes

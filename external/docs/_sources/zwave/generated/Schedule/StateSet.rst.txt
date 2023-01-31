@@ -1,0 +1,8 @@
+State Set
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateSet
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateSetV1
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateSetV1Args
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateSetV2
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.StateSetV2Args

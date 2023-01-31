@@ -1,0 +1,11 @@
+Time Parameters
+===============
+
+.. toctree::
+   :maxdepth: 2
+
+   TimeParameters/Set
+   TimeParameters/Get
+   TimeParameters/Report
+
+.. lua:autoclass:: st.zwave.CommandClass.TimeParameters

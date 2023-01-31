@@ -1,0 +1,15 @@
+Thermostat Operating State
+==========================
+
+.. toctree::
+   :maxdepth: 2
+
+   ThermostatOperatingState/Get
+   ThermostatOperatingState/Report
+   ThermostatOperatingState/LoggingSupportedGet
+   ThermostatOperatingState/ThermostatOperatingLoggingSupportedReport
+   ThermostatOperatingState/LoggingGet
+   ThermostatOperatingState/LoggingReport
+   ThermostatOperatingState/constants
+
+.. lua:autoclass:: st.zwave.CommandClass.ThermostatOperatingState

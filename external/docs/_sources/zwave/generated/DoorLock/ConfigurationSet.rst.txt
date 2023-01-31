@@ -1,0 +1,8 @@
+Configuration Set
+=================
+
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.ConfigurationSet
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.ConfigurationSetV1
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.ConfigurationSetV1Args
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.ConfigurationSetV4
+.. lua:autoclass:: st.zwave.CommandClass.DoorLock.ConfigurationSetV4Args

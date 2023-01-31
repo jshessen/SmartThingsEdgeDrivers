@@ -1,0 +1,6 @@
+Stop Level Change
+=================
+
+.. lua:autoclass:: st.zwave.CommandClass.BasicWindowCovering.StopLevelChange
+.. lua:autoclass:: st.zwave.CommandClass.BasicWindowCovering.StopLevelChangeV1
+.. lua:autoclass:: st.zwave.CommandClass.BasicWindowCovering.StopLevelChangeV1Args

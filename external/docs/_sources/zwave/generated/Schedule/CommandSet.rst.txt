@@ -1,0 +1,13 @@
+Command Set
+===========
+
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSet
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV1
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV1Args
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV1ArgsCmds
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV2
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV2Args
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV2ArgsCmds
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV3
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV3Args
+.. lua:autoclass:: st.zwave.CommandClass.Schedule.CommandSetV3ArgsCmds

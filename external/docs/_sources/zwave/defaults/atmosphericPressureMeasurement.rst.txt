@@ -1,0 +1,4 @@
+Atmospheric Pressure Measurement
+================================
+
+.. lua:autoclass:: st.zwave.defaults.atmosphericPressureMeasurement

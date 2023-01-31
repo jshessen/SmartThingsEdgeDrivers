@@ -1,0 +1,11 @@
+Multi Instance
+==============
+
+.. toctree::
+   :maxdepth: 2
+
+   MultiInstance/MultiInstanceGet
+   MultiInstance/MultiInstanceReport
+   MultiInstance/MultiInstanceCmdEncap
+
+.. lua:autoclass:: st.zwave.CommandClass.MultiInstance

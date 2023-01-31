@@ -1,0 +1,4 @@
+Thermostat Fan Mode
+===================
+
+.. lua:autoclass:: st.zwave.defaults.thermostatFanMode

@@ -1,0 +1,136 @@
+Thermostat
+==========
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat
+
+Thermostat Attributes
++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.LocalTemperature
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.OutdoorTemperature
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.Occupancy
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.AbsMinHeatSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.AbsMaxHeatSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.AbsMinCoolSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.AbsMaxCoolSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.PICoolingDemand
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.PIHeatingDemand
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.HVACSystemTypeConfiguration
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.LocalTemperatureCalibration
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.OccupiedCoolingSetpoint
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.OccupiedHeatingSetpoint
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.UnoccupiedCoolingSetpoint
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.UnoccupiedHeatingSetpoint
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.MinHeatSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.MaxHeatSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.MinCoolSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.MaxCoolSetpointLimit
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.MinSetpointDeadBand
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.RemoteSensing
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ControlSequenceOfOperation
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.SystemMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.AlarmMask
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ThermostatRunningMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.StartOfWeek
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.NumberOfWeeklyTransitions
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.NumberOfDailyTransitions
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.TemperatureSetpointHold
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.TemperatureSetpointHoldDuration
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ThermostatProgrammingOperationMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ThermostatRunningState
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.SetpointChangeSource
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.SetpointChangeAmount
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.SetpointChangeSourceTimestamp
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.OccupiedSetback
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.OccupiedSetbackMin
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.OccupiedSetbackMax
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.UnoccupiedSetback
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.UnoccupiedSetbackMin
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.UnoccupiedSetbackMax
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.EmergencyHeatDelta
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACCapacity
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACRefrigerantType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACCompressorType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACErrorCode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACLouverPosition
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACCoilTemperature
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ACCapacityFormat
+
+Thermostat Commands
++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.GetWeeklyScheduleResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.GetRelayStatusLogResponse
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.SetpointRaiseOrLower
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.SetWeeklySchedule
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.GetWeeklySchedule
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.ClearWeeklySchedule
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.GetRelayStatusLog
+
+Thermostat Types
+++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.types.TransitionType
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.types.DayOfWeek
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.types.ScheduleMode
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.Thermostat.types.Mode
+

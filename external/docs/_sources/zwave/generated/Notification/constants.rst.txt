@@ -1,0 +1,28 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.Notification.notification_status
+.. lua:autoclass:: st.zwave.CommandClass.Notification.notification_type
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_access_control
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_appliance
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_clock
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_co
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_co2
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_emergency
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_gas_alarm
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_heat
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_home_health
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_home_monitoring
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_home_security
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_irrigation
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_light_sensor
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_pest_control
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_power_management
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_siren
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_smoke
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_system
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_water
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_water_quality_monitoring
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_water_valve
+.. lua:autoclass:: st.zwave.CommandClass.Notification.event_weather_alarm

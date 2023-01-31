@@ -1,0 +1,40 @@
+OnOff
+=====
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff
+
+OnOff Attributes
+++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.OnOff
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.GlobalSceneControl
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.OnTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.OffWaitTime
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.StartUpOnOff
+
+OnOff Commands
+++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.Off
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.On
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.Toggle
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.OffWithEffect
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.OnWithRecallGlobalScene
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.OnWithTimedOff
+
+OnOff Types
++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.types.EffectIdentifier
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.OnOff.types.OnOffControl
+

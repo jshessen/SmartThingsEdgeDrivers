@@ -1,0 +1,6 @@
+Temperature Measurement
+=======================
+
+.. lua:autoclass:: st.zigbee.defaults.temperatureMeasurement.TemperatureConfiguration
+
+.. lua:autoclass:: st.zigbee.defaults.temperatureMeasurement

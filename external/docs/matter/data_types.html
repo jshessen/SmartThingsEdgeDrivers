@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matter Data Types &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interaction Model" href="interaction_model.html" />
+    <link rel="prev" title="Matter Interaction Response Handlers" href="matter_message_handlers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="matter.html">Matter Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Matter Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="device.html">MatterDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="matter_message_handlers.html">Matter Interaction Response Handlers</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Matter Data Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#null">Null</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data">Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#boolean">Boolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bitmap-and-enum">Bitmap and Enum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uint">Uint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#int">Int</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#floating-points">Floating Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#strings">Strings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#container-types">Container Types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interaction_model.html">Interaction Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated.html">Generated Matter Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defaults.html">Matter Driver Capability Defaults</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="matter.html">Matter Libraries</a> &raquo;</li>
+      <li>Matter Data Types</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/matter/data_types.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="matter-data-types">
+<h1>Matter Data Types<a class="headerlink" href="#matter-data-types" title="Permalink to this headline"></a></h1>
+<p>This is the base type of the DataType classes.  It is abstract and not instantiable itself, and contains no functionality
+but defines the interface.</p>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.DataType</span></span><a class="headerlink" href="#st.matter.data_types.DataType" title="Permalink to this definition"></a></dt>
+<dd><p>A generic class defining the interface shared across all Matter data types</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataType.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.DataType.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>pretty print class name</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataType.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.DataType.ID" title="Permalink to this definition"></a></dt>
+<dd><p>the Matter data type ID for this data type</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataType.serialize">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.DataType.serialize" title="Permalink to this definition"></a></dt>
+<dd><p>Pack this DataType</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the byte representation of this DataType length of byte_length</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataType.deserialize">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bytes</span></em>, <em class="sig-param"><span class="pre">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.DataType.deserialize" title="Permalink to this definition"></a></dt>
+<dd><p>Parse this DataType from a string of bytes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bytes</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the bytes containing the st.matter.data_types.DataType only byte_length bytes will be consumed extra will be ignored</p></li>
+<li><p><strong>field_name</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – optional name of this field (used when pretty_printing)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the parsed version of DataType</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.matter.data_types.DataType</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataType.get_length">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.DataType.get_length" title="Permalink to this definition"></a></dt>
+<dd><p>Get the length in bytes of this DataType</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the byte length of this DataType</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataType.pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.DataType.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Format this DataType in a human readable way</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A human readable string of this DataType</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="null">
+<h2>Null<a class="headerlink" href="#null" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.NullABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.NullABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.NullABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the NullABC class represent Matter data types whose lua “value” is stored
+as nil.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.NullABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.NullABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter Null</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The meta table containing the functionality for this type class</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Null">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Null</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.NullABC" title="st.matter.data_types.NullABC"><span class="pre">st.matter.data_types.NullABC</span></a><a class="headerlink" href="#st.matter.data_types.Null" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Null.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Null.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Null.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Null.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Null”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Null.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">nil</span><a class="headerlink" href="#st.matter.data_types.Null.value" title="Permalink to this definition"></a></dt>
+<dd><p>this data type has no body</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.DataABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.DataABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the DataABC class represent Matter data types whose lua “value” is stored
+as a generic byte string as the direct structure is not known or not storable in another way.  In
+general these are the Matter data types Data8-Data64 represented by IDs 0x08-0x0F.  However, due to
+limitations of lua numbers, numeric types of 64 bit length use this base as well.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.DataABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em>, <em class="sig-param"><span class="pre">byte_length</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.DataABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter Data field</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p></li>
+<li><p><strong>byte_length</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the length in bytes of this Data field</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int64">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Int64</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataABC" title="st.matter.data_types.DataABC"><span class="pre">st.matter.data_types.DataABC</span></a><a class="headerlink" href="#st.matter.data_types.Int64" title="Permalink to this definition"></a></dt>
+<dd><p>64 bits long and signed.  In this case our number is signed so we could possibly use a native number
+However, to maintain consistency with all other 64 bit Matter types we actually inherit from the DataABC Matter type
+and store the bytes of the number directly. Thus usage of this will be different.</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int64.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int64.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x03</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int64.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Int64.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Int64”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int64.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int64.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>8</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int64.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Int64.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint64">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Uint64</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataABC" title="st.matter.data_types.DataABC"><span class="pre">st.matter.data_types.DataABC</span></a><a class="headerlink" href="#st.matter.data_types.Uint64" title="Permalink to this definition"></a></dt>
+<dd><p>64 bits long and unsigned.  We inherit from the DataABC matter type and store the bytes
+of the number directly. Thus usage of this will be different</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint64.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint64.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x07</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint64.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Uint64.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Uint64”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint64.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint64.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>8</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint64.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Uint64.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="boolean">
+<h2>Boolean<a class="headerlink" href="#boolean" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.BooleanABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.BooleanABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.BooleanABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the BooleanABC class represent Matter data types whose lua “value” is stored
+as a boolean.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.BooleanABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.BooleanABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter Boolean</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The meta table containing the functionality for this type class</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Boolean">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Boolean</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.BooleanABC" title="st.matter.data_types.BooleanABC"><span class="pre">st.matter.data_types.BooleanABC</span></a><a class="headerlink" href="#st.matter.data_types.Boolean" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Boolean.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Boolean.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x08</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Boolean.ExtendedID">
+<span class="sig-name descname"><span class="pre">ExtendedID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Boolean.ExtendedID" title="Permalink to this definition"></a></dt>
+<dd><p>0x09 allows too element types to map to the same data type</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Boolean.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Boolean.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Boolean”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Boolean.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">boolean</span><a class="headerlink" href="#st.matter.data_types.Boolean.value" title="Permalink to this definition"></a></dt>
+<dd><p>The value of this boolean data type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="bitmap-and-enum">
+<h2>Bitmap and Enum<a class="headerlink" href="#bitmap-and-enum" title="Permalink to this headline"></a></h2>
+<p>Bitmaps and Enum values are represented as unsigned integers</p>
+</section>
+<section id="uint">
+<h2>Uint<a class="headerlink" href="#uint" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.UintABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.UintABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.UintABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the UintABC class represent Matter data types whose lua “value” is stored
+as an unsigned number.  In general these are the Matter data types Uint8-Uint56 represented by IDs 0x20-0x26.
+Uint64 has to be treated differently due to lua limitations.  In addition there are several other ID types
+that derive their behavior from Uint as well.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.UintABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em>, <em class="sig-param"><span class="pre">byte_length</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.UintABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter Uint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p></li>
+<li><p><strong>byte_length</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the length in bytes of this Uint</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint8">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Uint8</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.UintABC" title="st.matter.data_types.UintABC"><span class="pre">st.matter.data_types.UintABC</span></a><a class="headerlink" href="#st.matter.data_types.Uint8" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint8.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint8.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x04</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint8.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Uint8.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Uint8”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint8.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint8.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint8.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint8.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint16">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Uint16</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.UintABC" title="st.matter.data_types.UintABC"><span class="pre">st.matter.data_types.UintABC</span></a><a class="headerlink" href="#st.matter.data_types.Uint16" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint16.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint16.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x05</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint16.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Uint16.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Uint16”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint16.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint16.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>2</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint16.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint16.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint32">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Uint32</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.UintABC" title="st.matter.data_types.UintABC"><span class="pre">st.matter.data_types.UintABC</span></a><a class="headerlink" href="#st.matter.data_types.Uint32" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint32.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint32.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x06</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint32.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Uint32.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Uint32”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint32.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint32.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>4</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Uint32.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Uint32.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="int">
+<h2>Int<a class="headerlink" href="#int" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.IntABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.IntABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.IntABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the IntABC class represent Matter data types whose lua “value” is stored
+as a signed number.  In general these are the Matter data types Int8-Int56 represented by IDs 0x28-0x2E.
+Int64 has to be treated differently due to lua limitations.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.IntABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em>, <em class="sig-param"><span class="pre">byte_length</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.IntABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter Int</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p></li>
+<li><p><strong>byte_length</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the length in bytes of this Int</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int8">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Int8</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.IntABC" title="st.matter.data_types.IntABC"><span class="pre">st.matter.data_types.IntABC</span></a><a class="headerlink" href="#st.matter.data_types.Int8" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int8.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int8.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x00</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int8.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Int8.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Int8”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int8.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int8.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int8.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int8.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int16">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Int16</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.IntABC" title="st.matter.data_types.IntABC"><span class="pre">st.matter.data_types.IntABC</span></a><a class="headerlink" href="#st.matter.data_types.Int16" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int16.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int16.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x01</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int16.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Int16.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Int16”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int16.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int16.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int16.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int16.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int32">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Int32</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.IntABC" title="st.matter.data_types.IntABC"><span class="pre">st.matter.data_types.IntABC</span></a><a class="headerlink" href="#st.matter.data_types.Int32" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int32.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int32.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x02</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int32.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Int32.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Int32”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int32.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int32.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>4</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Int32.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Int32.value" title="Permalink to this definition"></a></dt>
+<dd><p>This is the actual value of the instance of the data type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="floating-points">
+<h2>Floating Points<a class="headerlink" href="#floating-points" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.FloatABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.FloatABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.FloatABC" title="Permalink to this definition"></a></dt>
+<dd><p>This represents a number of the form (1 + mantissa) * 2 ^ exponent with some exceptions
+see the Matter spec for further details</p>
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.FloatABC.mantissa">
+<span class="sig-name descname"><span class="pre">mantissa</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.FloatABC.mantissa" title="Permalink to this definition"></a></dt>
+<dd><p>The fractional component of the number</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.FloatABC.exponent">
+<span class="sig-name descname"><span class="pre">exponent</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.FloatABC.exponent" title="Permalink to this definition"></a></dt>
+<dd><p>The exponent for 2</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.FloatABC.sign">
+<span class="sig-name descname"><span class="pre">sign</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.FloatABC.sign" title="Permalink to this definition"></a></dt>
+<dd><p>either 1 if the value is negative or 0 if positive</p>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.FloatABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em>, <em class="sig-param"><span class="pre">byte_length</span></em>, <em class="sig-param"><span class="pre">mantissa_bit_length</span></em>, <em class="sig-param"><span class="pre">exponent_bit_length</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.FloatABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter Float field</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p></li>
+<li><p><strong>byte_length</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the length in bytes of this Float field</p></li>
+<li><p><strong>mantissa_bit_length</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the number of bits to use for the mantissa field</p></li>
+<li><p><strong>exponent_bit_length</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the number of bits to use for the exponent field</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.SinglePrecisionFloat">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.SinglePrecisionFloat</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.FloatABC" title="st.matter.data_types.FloatABC"><span class="pre">st.matter.data_types.FloatABC</span></a><a class="headerlink" href="#st.matter.data_types.SinglePrecisionFloat" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.SinglePrecisionFloat.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.SinglePrecisionFloat.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0A</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.SinglePrecisionFloat.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.SinglePrecisionFloat.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“SinglePrecision”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.SinglePrecisionFloat.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.SinglePrecisionFloat.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>4</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.SinglePrecisionFloat.mantissa_bit_length">
+<span class="sig-name descname"><span class="pre">mantissa_bit_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.SinglePrecisionFloat.mantissa_bit_length" title="Permalink to this definition"></a></dt>
+<dd><p>23</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.SinglePrecisionFloat.exponent_bit_length">
+<span class="sig-name descname"><span class="pre">exponent_bit_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.SinglePrecisionFloat.exponent_bit_length" title="Permalink to this definition"></a></dt>
+<dd><p>8</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.DoublePrecisionFloat">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.DoublePrecisionFloat</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.FloatABC" title="st.matter.data_types.FloatABC"><span class="pre">st.matter.data_types.FloatABC</span></a><a class="headerlink" href="#st.matter.data_types.DoublePrecisionFloat" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.DoublePrecisionFloat.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.DoublePrecisionFloat.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.DoublePrecisionFloat.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.DoublePrecisionFloat.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“DoublePrecision”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.DoublePrecisionFloat.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.DoublePrecisionFloat.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>8</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.DoublePrecisionFloat.mantissa_bit_length">
+<span class="sig-name descname"><span class="pre">mantissa_bit_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.DoublePrecisionFloat.mantissa_bit_length" title="Permalink to this definition"></a></dt>
+<dd><p>52</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.DoublePrecisionFloat.exponent_bit_length">
+<span class="sig-name descname"><span class="pre">exponent_bit_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.DoublePrecisionFloat.exponent_bit_length" title="Permalink to this definition"></a></dt>
+<dd><p>11</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="strings">
+<h2>Strings<a class="headerlink" href="#strings" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.StringABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.StringABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.StringABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the StringABC class represent Matter data types whose lua “value” is stored
+as a string.  These are the Matter data types UTF-8 String, 1-octet length, UTF-8 String, 2-octet length,
+UTF-8 String, 4-octet length, and UTF-8 String, 8-octet length.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.StringABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em>, <em class="sig-param"><span class="pre">length_byte_length</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.StringABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter String</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p></li>
+<li><p><strong>length_byte_length</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the length of the encoded byte_length of this String</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString1">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.OctetString1</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.OctetString1" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString1.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString1.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x10</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString1.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString1.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“OctetString1”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString1.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString1.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString1.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString1.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString1.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString1.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString2">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.OctetString2</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.OctetString2" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString2.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString2.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x11</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString2.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString2.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“OctetString2”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString2.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString2.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString2.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString2.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString2.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString2.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString4">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.OctetString4</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.OctetString4" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString4.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString4.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x12</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString4.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString4.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“OctetString4”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString4.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString4.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString4.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString4.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString4.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString4.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString8">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.OctetString8</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.OctetString8" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString8.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString8.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x13</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString8.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString8.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“OctetString8”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString8.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString8.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString8.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.OctetString8.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.OctetString8.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.OctetString8.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String1">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.UTF8String1</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.UTF8String1" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String1.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String1.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0C</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String1.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String1.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“UTF8String1”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String1.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String1.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>1 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String1.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String1.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String1.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String1.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String2">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.UTF8String2</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.UTF8String2" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String2.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String2.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0D</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String2.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String2.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“UTF8String2”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String2.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String2.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>2 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String2.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String2.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String2.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String2.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String4">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.UTF8String4</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.UTF8String4" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String4.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String4.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0E</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String4.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String4.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“UTF8String4”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String4.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String4.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>4 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String4.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String4.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String4.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String4.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String8">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.UTF8String8</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StringABC" title="st.matter.data_types.StringABC"><span class="pre">st.matter.data_types.StringABC</span></a><a class="headerlink" href="#st.matter.data_types.UTF8String8" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String8.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String8.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0F</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String8.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String8.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“UTF8String8”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String8.length_byte_length">
+<span class="sig-name descname"><span class="pre">length_byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String8.length_byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>8 (This is the number of bytes the length description takes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String8.byte_length">
+<span class="sig-name descname"><span class="pre">byte_length</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.UTF8String8.byte_length" title="Permalink to this definition"></a></dt>
+<dd><p>the length of this string (not including the length bytes)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.UTF8String8.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.UTF8String8.value" title="Permalink to this definition"></a></dt>
+<dd><p>The string representation of this field (note this does not include the length bytes)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="container-types">
+<h2>Container Types<a class="headerlink" href="#container-types" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.ArrayABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.ArrayABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.ArrayABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the ArrayABC class represent Matter data types whose lua “value” is stored
+as a Lua-native 1-indexed table of Matter data types all of the same type.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.ArrayABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.ArrayABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a Matter Array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The meta table containing the functionality for this type class</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Array">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Array</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.ArrayABC" title="st.matter.data_types.ArrayABC"><span class="pre">st.matter.data_types.ArrayABC</span></a><a class="headerlink" href="#st.matter.data_types.Array" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Array.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Array.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x16 (aka Matter Element Type)</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Array.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Array.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Array”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Array.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.matter.data_types.Array.value" title="Permalink to this definition"></a></dt>
+<dd><p>the list of elements in this array</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.StructureABC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.StructureABC</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.DataType" title="st.matter.data_types.DataType"><span class="pre">st.matter.data_types.DataType</span></a><a class="headerlink" href="#st.matter.data_types.StructureABC" title="Permalink to this definition"></a></dt>
+<dd><p>Classes being created using the StructureABC class represent matter data types whose lua “value” is stored
+as an array of matter data types each of which can be a separate type.</p>
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.matter.data_types.StructureABC.new_mt">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">new_mt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.matter.data_types.StructureABC.new_mt" title="Permalink to this definition"></a></dt>
+<dd><p>This function will create a new metatable with the appropriate functionality for a matter Structure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the base meta table, this will include the ID and NAME of the type being represented</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The meta table containing the functionality for this type class</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.matter.data_types.Structure">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.matter.data_types.Structure</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="#st.matter.data_types.StructureABC" title="st.matter.data_types.StructureABC"><span class="pre">st.matter.data_types.StructureABC</span></a><a class="headerlink" href="#st.matter.data_types.Structure" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Structure.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.matter.data_types.Structure.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x15</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Structure.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.matter.data_types.Structure.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Structure”</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.matter.data_types.Structure.elements">
+<span class="sig-name descname"><span class="pre">elements</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.matter.data_types.Structure.elements" title="Permalink to this definition"></a></dt>
+<dd><p>the list of elements in this structure</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="matter_message_handlers.html" class="btn btn-neutral float-left" title="Matter Interaction Response Handlers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="interaction_model.html" class="btn btn-neutral float-right" title="Interaction Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

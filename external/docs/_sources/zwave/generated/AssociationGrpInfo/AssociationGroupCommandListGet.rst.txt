@@ -1,0 +1,6 @@
+Association Group Command List Get
+==================================
+
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupCommandListGet
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupCommandListGetV1
+.. lua:autoclass:: st.zwave.CommandClass.AssociationGrpInfo.AssociationGroupCommandListGetV1Args

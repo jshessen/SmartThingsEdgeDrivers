@@ -1,0 +1,148 @@
+Thermostat
+================================
+
+Attributes
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.LocalTemperature
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.OutdoorTemperature
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.Occupancy
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.AbsMinHeatSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.AbsMaxHeatSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.AbsMinCoolSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.AbsMaxCoolSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.PICoolingDemand
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.PIHeatingDemand
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.HVACSystemTypeConfiguration
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.LocalTemperatureCalibration
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.OccupiedCoolingSetpoint
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.OccupiedHeatingSetpoint
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.UnoccupiedCoolingSetpoint
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.UnoccupiedHeatingSetpoint
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.MinHeatSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.MaxHeatSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.MinCoolSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.MaxCoolSetpointLimit
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.MinSetpointDeadBand
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.RemoteSensing
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ControlSequenceOfOperation
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.SystemMode
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ThermostatRunningMode
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.StartOfWeek
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.NumberOfWeeklyTransitions
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.NumberOfDailyTransitions
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.TemperatureSetpointHold
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.TemperatureSetpointHoldDuration
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ThermostatProgrammingOperationMode
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ThermostatRunningState
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.SetpointChangeSource
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.SetpointChangeAmount
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.SetpointChangeSourceTimestamp
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.OccupiedSetback
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.OccupiedSetbackMin
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.OccupiedSetbackMax
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.UnoccupiedSetback
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.UnoccupiedSetbackMin
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.UnoccupiedSetbackMax
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.EmergencyHeatDelta
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACType
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACCapacity
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACRefrigerantType
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACCompressorType
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACErrorCode
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACLouverPosition
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACCoilTemperature
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ACCapacityformat
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.AcceptedCommandList
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.AttributeList
+Client Commands
++++++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.GetWeeklyScheduleResponse
+
+Server Commands
++++++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.SetpointRaiseLower
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.SetWeeklySchedule
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.GetWeeklySchedule
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.ClearWeeklySchedule
+
+Bitmap types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.DayOfWeek
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.ModeForSequence
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.ThermostatFeature
+
+Enum types
+++++++++++
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.SetpointAdjustMode
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.ThermostatControlSequence
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.ThermostatRunningMode
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.ThermostatSystemMode
+
+Struct types
+++++++++++++
+
+.. lua:autoclass:: st.matter.clusters.Thermostat.types.ThermostatScheduleTransition
+

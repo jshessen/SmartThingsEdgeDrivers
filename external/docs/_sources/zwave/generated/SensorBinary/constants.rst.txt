@@ -1,0 +1,5 @@
+Constants
+=========
+
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.sensor_type
+.. lua:autoclass:: st.zwave.CommandClass.SensorBinary.sensor_value

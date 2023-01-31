@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Z-Wave Device Class &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Z-Wave Capability Defaults" href="defaults.html" />
+    <link rel="prev" title="Z-Wave Driver Class" href="driver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../zigbee/zigbee.html">Zigbee Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zwave.html">Z-Wave Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Z-Wave Driver Class</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Z-Wave Device Class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sleepy-devices">Sleepy devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parent-child-devices">Parent/Child Devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defaults.html">Z-Wave Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command.html">Z-Wave Command Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated.html">Z-Wave Command Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="zwave.html">Z-Wave Libraries</a> &raquo;</li>
+      <li>Z-Wave Device Class</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/zwave/device.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="z-wave-device-class">
+<h1>Z-Wave Device Class<a class="headerlink" href="#z-wave-device-class" title="Permalink to this headline"></a></h1>
+<p>The <a class="reference internal" href="#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a> class inherits from <code class="xref lua lua-class docutils literal notranslate"><span class="pre">Device</span></code>, extending behavior
+with Z-Wave-specific functionality.  Device objects are instantiated by the framework and passed to drivers as parameters
+for device-related methods.</p>
+<section id="sleepy-devices">
+<h2>Sleepy devices<a class="headerlink" href="#sleepy-devices" title="Permalink to this headline"></a></h2>
+<p>Sleepy devices present unique use cases for a Z-Wave controller since communication can only occur when the device is awake.
+One particular case is when a sleepy device’s preferences are updated and it is asleep, any configuration commands for the
+device cannot be sent until the device wakes up. To allow for sending device configuration commands when the device wakes up,
+a driver can set an <code class="docutils literal notranslate"><span class="pre">update_preferences</span></code> function on a device which will get called when the device wakes up. The function is provided
+<code class="docutils literal notranslate"><span class="pre">args</span></code> which are similar to the args on the <code class="docutils literal notranslate"><span class="pre">infoChanged</span></code> lifecycle event and contain the <code class="docutils literal notranslate"><span class="pre">old_st_store.preferences</span></code> with the
+preferences that were present the last time the device woke up. Note that there will still be an <code class="docutils literal notranslate"><span class="pre">infoChanged</span></code> event for
+sleepy devices, and this automatic preference update mechanism only works for devices that support the WakeUp command class.
+The following is an example of how this functionality should be handled in a driver that supports <em>both listening and
+sleepy devices</em>:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+<span class="c1">--- @type st.zwave.Driver</span>
+<span class="kd">local</span> <span class="n">ZwaveDriver</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zwave&quot;</span>
+<span class="c1">--- @type st.zwave.defaults</span>
+<span class="kd">local</span> <span class="n">defaults</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zwave.defaults&quot;</span>
+<span class="kd">local</span> <span class="n">cc</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zwave.CommandClass&quot;</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">update_preferences</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+  <span class="kr">if</span> <span class="n">args</span><span class="p">.</span><span class="n">old_st_store</span><span class="p">.</span><span class="n">prefrences</span><span class="p">[</span><span class="s2">&quot;my_pref&quot;</span><span class="p">]</span> <span class="o">~=</span> <span class="n">device</span><span class="p">.</span><span class="n">preferences</span><span class="p">[</span><span class="s2">&quot;my_pref&quot;</span><span class="p">]</span> <span class="kr">then</span>
+    <span class="c1">-- send commands if you need</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">device_init</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">set_update_preferences_fn</span><span class="p">(</span><span class="n">update_preferences</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">info_changed</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+  <span class="c1">-- only update preferences for devices we know are awake</span>
+  <span class="c1">-- if this driver only supports sleepy devices, an infoChanged handler may not be needed at all.</span>
+  <span class="kr">if</span> <span class="o">~</span><span class="n">device</span><span class="p">:</span><span class="n">is_cc_supported</span><span class="p">(</span><span class="n">cc</span><span class="p">.</span><span class="n">WAKE_UP</span><span class="p">)</span> <span class="kr">then</span>
+    <span class="n">update_preferences</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">zwave_contact_driver</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">supported_capabilities</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">capabilities</span><span class="p">.</span><span class="n">contactSensor</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="p">.</span><span class="n">battery</span>
+  <span class="p">},</span>
+  <span class="n">lifecycle_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="o">=</span> <span class="n">device_init</span><span class="p">,</span>
+    <span class="n">infoChanged</span> <span class="o">=</span> <span class="n">info_changed</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">defaults</span><span class="p">.</span><span class="n">register_for_default_handlers</span><span class="p">(</span><span class="n">zwave_contact_driver</span><span class="p">,</span> <span class="n">zwave_contact_driver</span><span class="p">.</span><span class="n">supported_capabilities</span><span class="p">)</span>
+<span class="c1">--- @type st.zwave.Driver</span>
+<span class="kd">local</span> <span class="n">contact_sensor</span> <span class="o">=</span> <span class="n">ZwaveDriver</span><span class="p">(</span><span class="s2">&quot;zwave_contact_sensor&quot;</span><span class="p">,</span> <span class="n">zwave_contact_driver</span><span class="p">)</span>
+<span class="n">contact_sensor</span><span class="p">:</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="parent-child-devices">
+<h2>Parent/Child Devices<a class="headerlink" href="#parent-child-devices" title="Permalink to this headline"></a></h2>
+<p>There may be some situations where you prefer to model a single network device
+as multiple SmartThings device records.  This can be done by creating “Child” devices to represent individual endpoints
+on the device.  NOTE: If you aren’t modeling each child as an endpoint, you won’t be able to use the library
+abstractions, but you can build your own handling of messages for whatever model you desire.</p>
+<p>You can define a <code class="docutils literal notranslate"><span class="pre">find_child</span></code> function using the <code class="docutils literal notranslate"><span class="pre">set_find_child</span></code> method on device objects.  Then any use of
+<code class="docutils literal notranslate"><span class="pre">emit_event_for_endpoint</span></code> including the default capability handlers will use this to emit events on the appropriate
+children.  The <code class="docutils literal notranslate"><span class="pre">find_child</span></code> function you define will be passed the source channel a message came from and should then
+return the device object representing the child device that is responsible for that source channel, or <code class="docutils literal notranslate"><span class="pre">nil</span></code> if there
+isn’t one.</p>
+<p>When deleting devices in a parent/child relationship, deleting the parent will result in the removal of all of the
+children as well as all communication goes through the parent device.  However, you can delete individual children
+without affecting the others.  It should be noted though that typically the only way to create the children is on device
+join so if deleted getting the child devices back will often require deleting and re-onboarding the parent.</p>
+<section id="example">
+<h3>example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h3>
+<p>Profile:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outlet</span><span class="w"></span>
+<span class="nt">components</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+<span class="w">    </span><span class="nt">capabilities</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span><span class="w"></span>
+<span class="w">        </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh</span><span class="w"></span>
+<span class="w">        </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Outlet</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Driver:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">capabilities</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.capabilities&quot;</span>
+<span class="kd">local</span> <span class="n">ZwaveDriver</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zwave.driver&quot;</span>
+<span class="kd">local</span> <span class="n">defaults</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zwave.defaults&quot;</span>
+<span class="kd">local</span> <span class="n">device_lib</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.device&quot;</span>
+<span class="kd">local</span> <span class="n">constants</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zwave.constants&quot;</span>
+<span class="kd">local</span> <span class="n">cc</span>  <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;st.zwave.CommandClass&quot;</span>
+<span class="kd">local</span> <span class="n">SwitchBinary</span> <span class="o">=</span> <span class="p">(</span><span class="nb">require</span> <span class="s2">&quot;st.zwave.CommandClass.SwitchBinary&quot;</span><span class="p">)({</span><span class="n">version</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="kc">true</span><span class="p">})</span>
+
+<span class="c1">-- These same handlers will work for both the parent and child devices</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">report_handler</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+  <span class="kd">local</span> <span class="n">event</span>
+  <span class="kr">if</span> <span class="n">cmd</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">SwitchBinary</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">OFF_DISABLE</span> <span class="kr">then</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">off</span><span class="p">()</span>
+  <span class="kr">else</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">on</span><span class="p">()</span>
+  <span class="kr">end</span>
+
+  <span class="c1">-- This device will _always_ be the parent because the parent is the only one actually on the network sending</span>
+  <span class="c1">-- messages but this call to `emit_event_for_endpoint` will use the `find_child` function set below to find the</span>
+  <span class="c1">-- child and emit the event for that SmartThings device instead</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">emit_event_for_endpoint</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">src_channel</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">on_handler</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+  <span class="c1">-- Since we will receive commands separately for the different children, the device object here could be a parent</span>
+  <span class="c1">-- or child.  The message building will work the same as the child will defer to the parent for addressing</span>
+  <span class="c1">-- information. And similarly `send_to_component` on the child device will ultimately call send on the parent as</span>
+  <span class="c1">-- that is the actual network device.</span>
+  <span class="n">device</span><span class="p">:</span><span class="n">send_to_component</span><span class="p">(</span>
+    <span class="n">SwitchBinary</span><span class="p">:</span><span class="n">Set</span><span class="p">({</span> <span class="n">target_value</span> <span class="o">=</span> <span class="n">SwitchBinary</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">ON_ENABLE</span><span class="p">,</span> <span class="n">duration</span> <span class="o">=</span> <span class="mi">0</span><span class="p">}),</span>
+    <span class="n">command</span><span class="p">.</span><span class="n">component</span>
+  <span class="p">)</span>
+  <span class="kd">local</span> <span class="n">query_device</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+    <span class="n">device</span><span class="p">:</span><span class="n">send_to_component</span><span class="p">(</span><span class="n">SwitchBinary</span><span class="p">:</span><span class="n">Get</span><span class="p">({}),</span> <span class="n">command</span><span class="p">.</span><span class="n">component</span><span class="p">)</span>
+  <span class="kr">end</span>
+  <span class="n">device</span><span class="p">.</span><span class="n">thread</span><span class="p">:</span><span class="n">call_with_delay</span><span class="p">(</span><span class="n">constants</span><span class="p">.</span><span class="n">DEFAULT_GET_STATUS_DELAY</span><span class="p">,</span> <span class="n">query_device</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">capability_handlers</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">added</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+  <span class="c1">-- Only create children for the actual Z-Wave device and not the children</span>
+  <span class="kr">if</span> <span class="n">device</span><span class="p">.</span><span class="n">network_type</span> <span class="o">==</span> <span class="n">device_lib</span><span class="p">.</span><span class="n">NETWORK_TYPE_ZWAVE</span> <span class="kr">then</span>
+    <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span> <span class="kr">do</span>
+      <span class="kd">local</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;%s outlet %d&quot;</span><span class="p">,</span> <span class="n">device</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;EDGE_CHILD&quot;</span><span class="p">,</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="s2">&quot;outlet&quot;</span><span class="p">,</span>
+        <span class="n">parent_device_id</span> <span class="o">=</span> <span class="n">device</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="n">parent_assigned_child_key</span> <span class="o">=</span> <span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;%02X&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+        <span class="n">vendor_provided_label</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+      <span class="p">}</span>
+      <span class="n">driver</span><span class="p">:</span><span class="n">try_create_device</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+    <span class="kr">end</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">find_child</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">src_channel</span><span class="p">)</span>
+  <span class="kr">return</span> <span class="n">parent</span><span class="p">:</span><span class="n">get_child_by_parent_assigned_key</span><span class="p">(</span><span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;%02X&quot;</span><span class="p">,</span> <span class="n">src_channel</span><span class="p">))</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">init</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+  <span class="kr">if</span> <span class="n">device</span><span class="p">.</span><span class="n">network_type</span> <span class="o">==</span> <span class="n">device_lib</span><span class="p">.</span><span class="n">NETWORK_TYPE_ZWAVE</span> <span class="kr">then</span>
+    <span class="n">device</span><span class="p">:</span><span class="n">set_find_child</span><span class="p">(</span><span class="n">find_child</span><span class="p">)</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">zwave_parent_child_switch_template</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">supported_capabilities</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="n">zwave_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">cc</span><span class="p">.</span><span class="n">SWITCH_BINARY</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">SwitchBinary</span><span class="p">.</span><span class="n">REPORT</span><span class="p">]</span> <span class="o">=</span> <span class="n">report_handler</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">capability_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">[</span><span class="n">capabilities</span><span class="p">.</span><span class="n">switch</span><span class="p">.</span><span class="n">commands</span><span class="p">.</span><span class="n">on</span><span class="p">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">=</span> <span class="n">on_handler</span><span class="p">,</span>
+      <span class="c1">-- Off handler provided by defaults</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">lifecycle_handlers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">added</span> <span class="o">=</span> <span class="n">added</span><span class="p">,</span>
+    <span class="n">init</span> <span class="o">=</span> <span class="n">init</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1">-- The on_handler and on_off_attr_handler above would be covered by these defaults, but are included for example purposes</span>
+<span class="n">defaults</span><span class="p">.</span><span class="n">register_for_default_handlers</span><span class="p">(</span><span class="n">zwave_parent_child_switch_template</span><span class="p">,</span> <span class="n">zwave_parent_child_switch_template</span><span class="p">.</span><span class="n">supported_capabilities</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">zwave_parent_child_switch</span> <span class="o">=</span> <span class="n">ZwaveDriver</span><span class="p">(</span><span class="s2">&quot;child_device_example&quot;</span><span class="p">,</span> <span class="n">zwave_parent_child_switch_template</span><span class="p">)</span>
+<span class="n">zwave_parent_child_switch</span><span class="p">:</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.Device">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.Device</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="../device.html#st.Device" title="st.Device"><span class="pre">st.Device</span></a><a class="headerlink" href="#st.zwave.Device" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zwave.Device.zwave_endpoints">
+<span class="sig-name descname"><span class="pre">zwave_endpoints</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">table</span><a class="headerlink" href="#st.zwave.Device.zwave_endpoints" title="Permalink to this definition"></a></dt>
+<dd><p>store Z-Wave endpoints</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.collect_default_refresh_commands">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">collect_default_refresh_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.collect_default_refresh_commands" title="Permalink to this definition"></a></dt>
+<dd><p>Collect and return the list of refresh commands for self device as provided</p>
+<p>by registered default modules, removing duplicates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<span><a class="reference internal" href="#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.set_component_to_endpoint_fn">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_component_to_endpoint_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">comp_ep_fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.set_component_to_endpoint_fn" title="Permalink to this definition"></a></dt>
+<dd><p>Set a function to map this devices SmartThings components to Zwave endpoints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>comp_ep_fn</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">CompToEp</span></code></span>) – Component to Endpoint function to do the mapping for this device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.set_endpoint_to_component_fn">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_endpoint_to_component_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ep_comp_fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.set_endpoint_to_component_fn" title="Permalink to this definition"></a></dt>
+<dd><p>Set a function to map this devices Zwave endpoints to SmartThings components</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ep_comp_fn</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">EpToComp</span></code></span>) – function to do the mapping for this device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.set_update_preferences_fn">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_update_preferences_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">update_pref_fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.set_update_preferences_fn" title="Permalink to this definition"></a></dt>
+<dd><p>Set a function to be called with with previous preferences when this device wakes up. Should be used to update preferences on sleepy devices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>update_pref_fn</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">UpdatePreference</span></code></span>) – function to update preferences when a device wakes up.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.default_refresh">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">default_refresh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.default_refresh" title="Permalink to this definition"></a></dt>
+<dd><p>Collect device-specific refresh commands from registered default modules</p>
+<p>and send these to the associated Z-Wave device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<span><a class="reference internal" href="#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.refresh">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.refresh" title="Permalink to this definition"></a></dt>
+<dd><p>Use the capability dispatcher to execute refresh as appropriate for</p>
+<p>the particular device instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<span><a class="reference internal" href="#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.default_configure">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">default_configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.default_configure" title="Permalink to this definition"></a></dt>
+<dd><p>Default device configure function.  Execute refresh to bootstrap state</p>
+<p>for all capability event listeners.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>self</strong> (<span><a class="reference internal" href="#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.emit_event_for_endpoint">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">emit_event_for_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">endpoint</span></em>, <em class="sig-param"><span class="pre">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.emit_event_for_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Emit event for Z-Wave endpoint(channel), mapped to component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the endpoint(Z-Wave channel) ID to find the component for</p></li>
+<li><p><strong>event</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – the endpoint(Z-Wave channel) ID to find the component for</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.send">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cmd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.send" title="Permalink to this definition"></a></dt>
+<dd><p>Send a Z-Wave command to the associated Z-Wave device.</p>
+<p>The command will be logged in the live logs when it is sent from the driver.
+There will also be logs to trace when the command is queued in the hub,
+and when the transmission has completed on the radio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cmd</strong> (<span><a class="reference internal" href="command.html#st.zwave.Command" title="st.zwave.Command"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Command</span></code></a></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.send_to_component">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">send_to_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cmd</span></em>, <em class="sig-param"><span class="pre">component_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.send_to_component" title="Permalink to this definition"></a></dt>
+<dd><p>Send a Z-Wave command to the specific component of associated Z-Wave device.</p>
+<p>The command will be logged in the live logs when it is sent from the driver.
+There will also be logs to trace when the command is queued in the hub,
+and when the transmission has completed on the radio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<span><a class="reference internal" href="command.html#st.zwave.Command" title="st.zwave.Command"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Command</span></code></a></span>) – </p></li>
+<li><p><strong>component_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.component_to_endpoint">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">component_to_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">component_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.component_to_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Map component to end_points(channels)</p>
+<p>e.g.
+{} - map component to un-encapsulated
+{2} - map to specific Z-Wave endpoint(channel)
+{1,2,3} - map to more then one Z-Wave endpoint (channels)</p>
+<p>e.g. {2} for Z-Wave channel 2 or {} for unencapsulated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>component_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dst_channels destination channels</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.endpoint_to_component">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">endpoint_to_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">endpoint</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.endpoint_to_component" title="Permalink to this definition"></a></dt>
+<dd><p>Map end_point(channel) to Z-Wave endpoint(channel)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>endpoint</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the endpoint(Z-Wave channel) ID to find the component for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the component ID the endpoint matches to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.is_cc_supported">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">is_cc_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cc_value</span></em>, <em class="sig-param"><span class="pre">endpoint</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.is_cc_supported" title="Permalink to this definition"></a></dt>
+<dd><p>Interrogate the device’s profile to determine whether a particular command class is supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cc_value</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the command class id as defined in cc.lua, e.g cc.SWITCH_BINARY = 0x25</p></li>
+<li><p><strong>endpoint</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – of the endpoint to check, if nil we check the first endpoint</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the command class is supported, false if not</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.id_match">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">id_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mfr_id</span></em>, <em class="sig-param"><span class="pre">product_type</span></em>, <em class="sig-param"><span class="pre">product_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.id_match" title="Permalink to this definition"></a></dt>
+<dd><p>Determine whether device self is a match to the passed manufacturer ID(s),</p>
+<p>product ID(s) and product type(s).  Filter arguments can be numerical
+literals or arrays of numerical literals.</p>
+<p>In the case that a filter argument is an array, matching uses OR logic.
+Match against any single array item is considered a device match.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mfr_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">table</span></code></span>) – numerical manufacturer ID or array of IDs</p></li>
+<li><p><strong>product_type</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">table</span></code></span>) – numerical product type ( aka product in DTH namespace) or array of types.</p></li>
+<li><p><strong>product_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">table</span></code></span>) – numerical product ID ( aka model in DTH namespace) or array of IDs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if device self matches the passed all filter arguments</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zwave.Device.init">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cls</span></em>, <em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">raw_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize an st.zwave.Device instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> (<span><a class="reference internal" href="#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a></span>) – st.zwave.Device class definition table</p></li>
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#st.zwave.Driver" title="st.zwave.Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Driver</span></code></a></span>) – </p></li>
+<li><p><strong>raw_device</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – cloud-published device instance data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.debug_pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">debug_pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.debug_pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string representation of device model and supported command class information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>string containing the device model and supported command class information</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">A</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.Device.pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.Device.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Get a string with the ID, DNI and label of the device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a short string representation of the device</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zwave.ChildDevice</span></span><em class="property"><span class="pre">:</span> </em><a class="reference internal" href="../device.html#st.Device" title="st.Device"><span class="pre">st.Device</span></a><a class="headerlink" href="#st.zwave.ChildDevice" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.get_dst_channel">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">get_dst_channel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.get_dst_channel" title="Permalink to this definition"></a></dt>
+<dd><p>Get the dst_channels array used to address a message to this child through the parent</p>
+<p>The default implementation here assumes that this device has a parent assigned child key of the child endpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>&lt;number&gt; the dst channels to address a message to this child device</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.send">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cmd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.send" title="Permalink to this definition"></a></dt>
+<dd><p>Send a Z-Wave command to the associated Z-Wave device.</p>
+<p>The command will be logged in the live logs when it is sent from the driver.
+There will also be logs to trace when the command is queued in the hub,
+and when the transmission has completed on the radio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cmd</strong> (<span><a class="reference internal" href="command.html#st.zwave.Command" title="st.zwave.Command"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Command</span></code></a></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.component_to_endpoint">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">component_to_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">component_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.component_to_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Map component to end_points(channels)</p>
+<p>e.g.
+{} - map component to un-encapsulated
+{2} - map to specific Z-Wave endpoint(channel)
+{1,2,3} - map to more then one Z-Wave endpoint (channels)</p>
+<p>e.g. {2} for Z-Wave channel 2 or {} for unencapsulated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>component_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dst_channels destination channels</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.is_cc_supported">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">is_cc_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cc_value</span></em>, <em class="sig-param"><span class="pre">endpoint</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.is_cc_supported" title="Permalink to this definition"></a></dt>
+<dd><p>Interrogate the device’s profile to determine whether a particular command class is supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cc_value</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – the command class id as defined in cc.lua, e.g cc.SWITCH_BINARY = 0x25</p></li>
+<li><p><strong>endpoint</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span></code></span>) – of the endpoint to check, if nil we check the first endpoint</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the command class is supported, false if not</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.id_match">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">id_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">mfr_id</span></em>, <em class="sig-param"><span class="pre">product_type</span></em>, <em class="sig-param"><span class="pre">product_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.id_match" title="Permalink to this definition"></a></dt>
+<dd><p>Determine whether device self is a match to the passed manufacturer ID(s),</p>
+<p>product ID(s) and product type(s).  Filter arguments can be numerical
+literals or arrays of numerical literals.</p>
+<p>In the case that a filter argument is an array, matching uses OR logic.
+Match against any single array item is considered a device match.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mfr_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">table</span></code></span>) – numerical manufacturer ID or array of IDs</p></li>
+<li><p><strong>product_type</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">table</span></code></span>) – numerical product type ( aka product in DTH namespace) or array of types.</p></li>
+<li><p><strong>product_id</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">table</span></code></span>) – numerical product ID ( aka model in DTH namespace) or array of IDs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if device self matches the passed all filter arguments</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">boolean</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.init">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cls</span></em>, <em class="sig-param"><span class="pre">driver</span></em>, <em class="sig-param"><span class="pre">raw_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.init" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize an st.zwave.Device instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> (<span><a class="reference internal" href="#st.zwave.Device" title="st.zwave.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Device</span></code></a></span>) – st.zwave.Device class definition table</p></li>
+<li><p><strong>driver</strong> (<span><a class="reference internal" href="driver.html#st.zwave.Driver" title="st.zwave.Driver"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zwave.Driver</span></code></a></span>) – </p></li>
+<li><p><strong>raw_device</strong> (<span><a class="reference internal" href="../global_environment.html#table" title="table"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">table</span></code></a></span>) – cloud-published device instance data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.debug_pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">debug_pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.debug_pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string representation of device model and supported command class information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string containing the device newtwork ID and the parent device ID of this child</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zwave.ChildDevice.pretty_print">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#st.zwave.ChildDevice.pretty_print" title="Permalink to this definition"></a></dt>
+<dd><p>Get a string with the ID, DNI and label of the device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a short string representation of the device</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="driver.html" class="btn btn-neutral float-left" title="Z-Wave Driver Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="defaults.html" class="btn btn-neutral float-right" title="Z-Wave Capability Defaults" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
