@@ -486,7 +486,9 @@ end
 --- @function device_init --
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
-local function device_init(self, device)
+--- @param event (Event)
+--- @param args (any)
+local function device_init(self, device, event, args)
   log.info(device.pretty_print(self) .. ": " .. device.id .. ": " .. device.device_network_id .. " > DEVICE INIT")
   if device.network_type == st_device.NETWORK_TYPE_ZWAVE then
     self.lifecycle_handlers.init(self, device, event, args)
@@ -532,7 +534,9 @@ end
 --- @function do_configure --
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
-local function do_configure(self, device)
+--- @param event (Event)
+--- @param args (any)
+local function do_configure(self, device, event, args)
   log.info(device.pretty_print(self) .. ": " .. device.id .. ": " .. device.device_network_id .. " > DO_CONFIGURE")
   device:refresh()
   device:configure()
