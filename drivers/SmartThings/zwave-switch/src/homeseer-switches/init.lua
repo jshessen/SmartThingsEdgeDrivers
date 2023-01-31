@@ -327,7 +327,7 @@ local function version_report_handler(driver, device, command)
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       log.debug(string.format("%s: mfr=%s, prod=%s, model=%s", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
       log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
-      profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/')) .. operatingMode
+      profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/')+1) .. operatingMode
 
 
       if fingerprint.id == "HomeSeer/Dimmer/WD200" then
