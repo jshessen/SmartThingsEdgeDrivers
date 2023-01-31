@@ -253,7 +253,7 @@ preferences:
     preferenceType: boolean
     definition:
       default: false
-        - name: "startupMode"
+  - name: "startupMode"
     title: "LEDs indicate switch/dimmer on start"
     required: true
     preferenceType: boolean
