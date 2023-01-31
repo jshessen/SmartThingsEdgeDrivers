@@ -317,7 +317,7 @@ end
 --- @return (nil)
 local function version_report_handler(driver, device, command)
 
-  local new_profile = ''
+  local new_profile
   local operatingMode = device.preferences.operatingMode == true and '-status' or ''
 
   -- Iterate through the list of HomeSeer switch fingerprints
@@ -356,8 +356,10 @@ local function version_report_handler(driver, device, command)
       end
     end
   end
-  assert (device:try_update_metadata({profile = new_profile}), "Failed to change device profile")
-  log.warn(string.format("Changed to new profile: %s", new_profile))
+  if new_profile ~= nil then
+    assert (device:try_update_metadata({profile = new_profile}), "Failed to change device profile")
+    log.warn(string.format("Changed to new profile: %s", new_profile))
+  end
 end
 ---
 --- #######################################################
