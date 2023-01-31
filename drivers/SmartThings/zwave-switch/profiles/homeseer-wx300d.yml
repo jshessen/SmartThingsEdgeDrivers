@@ -100,7 +100,7 @@ preferences:
         1: "Control load instantly, - Multi-Tap"
       default: 0
   - name: "wireMode"
-    title: "Wire Mode Includes Neutrual (3-wire)"
+    title: "Wire Mode does NOT include Neutral (2-wire aka Line & Load)"
     required: true
     preferenceType: boolean
     definition:

@@ -1,10 +1,16 @@
 # https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
-name: homeseer-wx300s-status
+name: homeseer-wx300d-status-latest
 components:
   - id: main
     capabilities:
       - id: switch
         version: 1
+      - id: switchLevel
+        version: 1
+        config:
+          values:
+            - key: "level.value"
+              range: [1, 100]
       - id: button
         version: 1
       - id: firmwareUpdate
@@ -17,30 +23,44 @@ components:
     capabilities:
     - id: switch
       version: 1
+    categories:
+      - name: Switch
   - id: LED-2
     capabilities:
     - id: switch
       version: 1
+    categories:
+      - name: Switch
   - id: LED-3
     capabilities:
     - id: switch
       version: 1
+    categories:
+      - name: Switch
   - id: LED-4
     capabilities:
     - id: switch
       version: 1
+    categories:
+      - name: Switch
   - id: LED-5
     capabilities:
     - id: switch
       version: 1
+    categories:
+      - name: Switch
   - id: LED-6
     capabilities:
     - id: switch
       version: 1
+    categories:
+      - name: Switch
   - id: LED-7
     capabilities:
     - id: switch
       version: 1
+    categories:
+      - name: Switch
 preferences:
   - name: "reverse"
     title: "Invert Switch"
@@ -49,6 +69,36 @@ preferences:
     preferenceType: boolean
     definition:
       default: false
+  - name: "minimumDimLevel"
+    title: "Minimum Dim Level"
+    description: "Sets the lowest dimming threshold"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 14
+      default: 1
+      #options:
+      #  1: "16%"
+      #  14: "25%"
+  - name: "rampRate"
+    title: "Ramp Rate (local)"
+    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 90
+      default: 3
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z-Wave (remote)"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 90
+      default: 3
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -186,7 +236,7 @@ preferences:
     required: true
     preferenceType: boolean
     definition:
-      default: true
+      default: false
   - name: "centralSceneControl"
     title: "Central Scene Control"
     description: "Enable/Disable Central Scene"
@@ -200,6 +250,32 @@ preferences:
   - name: "wireMode"
     title: "Wire Mode does NOT include Neutral (2-wire aka Line & Load)"
     required: true
+    preferenceType: boolean
+    definition:
+      default: false
+        - name: "startupMode"
+    title: "LEDs indicate switch/dimmer on start"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: "ledBrightness"
+    title: "Sets LED indicator brightness"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 6
+      default: 3
+  - name: "toggleMode"
+    title: "Either paddle turns load on/off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "relayLoadControl"
+    title: "Load is NOT controlled with paddle"
+    required: false
     preferenceType: boolean
     definition:
       default: false
