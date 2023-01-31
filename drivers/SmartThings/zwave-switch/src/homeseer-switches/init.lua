@@ -543,17 +543,39 @@ local function info_changed(self, device, event, args)
   if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
     device:send(Version:Get({}))
   end
+  call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
 end
 ---
 --- #######################################################
 
 --- #######################################################
+---
+
+--- @function call_parent_handler --
+--- @param handlers (string)
+--- @param self (Driver) Reference to the current object
+--- @param device (st.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function call_parent_handler(handlers, self, device, event, args)
+  if type(handlers) == "function" then
+    local handler_table = { handlers }  -- wrap as table
+  end
+  for _, func in ipairs( handlers or {} ) do
+      func(self, device, event, args)
+  end
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
 
 --- @function driver_switched --
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function driver_switched(self, device)
-  log.info('device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED"')
+  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED")
 end
 ---
 --- #######################################################
