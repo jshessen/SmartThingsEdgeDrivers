@@ -209,6 +209,8 @@ end
 ---
 --- #################################################################
 
+
+
 --- #################################################################
 --- Section: Z-Wave Handlers
 ---
@@ -325,7 +327,7 @@ local function version_report_handler(driver, device, command)
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       log.debug(string.format("%s: mfr=%s, prod=%s, model=%s", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
       log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
-      profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/')) .. operatingMode
+      profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
 
       if fingerprint.id == "HomeSeer/Dimmer/WD200" then
@@ -546,27 +548,7 @@ local function info_changed(self, device, event, args)
   if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
     device:send(Version:Get({}))
   end
-  call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
-end
----
---- #######################################################
-
---- #######################################################
----
-
---- @function call_parent_handler --
---- @param handlers (string)
---- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
---- @param event (Event)
---- @param args (any)
-local function call_parent_handler(handlers, self, device, event, args)
-  if type(handlers) == "function" then
-    local handler_table = { handlers }  -- wrap as table
-  end
-  for _, func in ipairs( handlers or {} ) do
-      func(self, device, event, args)
-  end
+  self.lifecycle_handlers.infoChanged(self, device, event, args)
 end
 ---
 --- #######################################################
