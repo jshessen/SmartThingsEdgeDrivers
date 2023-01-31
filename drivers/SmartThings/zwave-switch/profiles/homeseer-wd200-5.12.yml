@@ -1,5 +1,5 @@
-# https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
-name: homeseer-wx300d
+# https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd200+
+name: homeseer-wd200-5.12
 components:
   - id: main
     capabilities:
@@ -27,36 +27,6 @@ preferences:
     preferenceType: boolean
     definition:
       default: false
-  - name: "minimumDimLevel"
-    title: "Minimum Dim Level"
-    description: "Sets the lowest dimming threshold"
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 1
-      maximum: 14
-      default: 1
-      #options:
-      #  1: "16%"
-      #  14: "25%"
-  - name: "rampRate"
-    title: "Ramp Rate (local)"
-    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 90
-      default: 3
-  - name: "rampRateZWave"
-    title: "Ramp Rate Z-Wave (remote)"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 90
-      default: 3
   - name: "ledIndicator"
     title: "LED Indicator"
     description: "Turn LED indicator on..."
@@ -68,7 +38,7 @@ preferences:
         1: "When On"
       default: 0
   - name: "ledNormalColor"
-    title: "Normal Mode: LED Color"
+    title: "LED Color"
     description: "Set LED Color"
     required: false
     preferenceType: enumeration
@@ -82,6 +52,24 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "rampRate"
+    title: "Ramp Rate (local)"
+    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "rampRateZWave"
+    title: "Ramp Rate Z-Wave (remote)"
+    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
   - name: "operatingMode"
     title: "Enable Status Mode"
     description: "Set mode of operation"
@@ -99,9 +87,3 @@ preferences:
         0: "Control load with delay, + Multi-Tap"
         1: "Control load instantly, - Multi-Tap"
       default: 0
-  - name: "wireMode"
-    title: "Wire Mode Includes Neutrual (3-wire)"
-    required: true
-    preferenceType: boolean
-    definition:
-      default: false

@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
-name: homeseer-wx300d
+name: homeseer-wx300d-latest
 components:
   - id: main
     capabilities:
@@ -102,6 +102,32 @@ preferences:
   - name: "wireMode"
     title: "Wire Mode Includes Neutrual (3-wire)"
     required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "startupMode"
+    title: "LEDs indicate switch/dimmer on start"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: "ledBrightness"
+    title: "Sets LED indicator brightness"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 6
+      default: 3
+  - name: "toggleMode"
+    title: "Either paddle turns load on/off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "relayLoadControl"
+    title: "Load is controlled with paddle"
+    required: false
     preferenceType: boolean
     definition:
       default: false

@@ -1,5 +1,5 @@
 # https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+
-name: homeseer-ws200
+name: homeseer-ws200-latest
 components:
   - id: main
     capabilities:
@@ -53,3 +53,13 @@ preferences:
     preferenceType: boolean
     definition:
       default: false
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
+    description: "Enables/Disables Central Scene"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Control load with delay, + Multi-Tap"
+        1: "Control load instantly, - Multi-Tap"
+      default: 0

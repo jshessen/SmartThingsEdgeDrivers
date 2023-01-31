@@ -1,0 +1,123 @@
+# https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+
+name: homeseer-ws200-status-latest
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: button
+        version: 1
+      - id: firmwareUpdate
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+  - id: LED
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-1
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-2
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-3
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-4
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-5
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-6
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-7
+    capabilities:
+    - id: switch
+      version: 1
+    categories:
+      - name: Switch
+preferences:
+  - name: "reverse"
+    title: "Invert Switch"
+    description: "Inverts the switch"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: "ledIndicator"
+    title: "LED Indicator"
+    description: "Turn LED indicator on..."
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "When Off"
+        1: "When On"
+      default: 0
+  - name: "ledStatusColor"
+    title: "Status Mode - LED Color"
+    description: "Set LED Color"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Off"
+        1: "Red"
+        2: "Green"
+        3: "Blue"
+        4: "Magenta"
+        5: "Yellow"
+        6: "Cyan"
+        7: "White"
+      default: 0
+  - name: "ledBlinkFrequency"
+    title: "LED Status Blink Frequency"
+    description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: "operatingMode"
+    title: "Enable Status Mode"
+    description: "Set mode of operation"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: true
+  - name: "centralSceneControl"
+    title: "Central Scene Control"
+    description: "Enables/Disables Central Scene"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Control load with delay, + Multi-Tap"
+        1: "Control load instantly, - Multi-Tap"
+      default: 0
