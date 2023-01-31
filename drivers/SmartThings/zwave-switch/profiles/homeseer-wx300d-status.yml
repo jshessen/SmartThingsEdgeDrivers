@@ -13,12 +13,12 @@ components:
               range: [1, 100]
       - id: button
         version: 1
+      - id: firmwareUpdate
+        version: 1
       - id: refresh
         version: 1
     categories:
       - name: Switch
-<<<<<<< HEAD:drivers/SmartThings/zwave-switch/profiles/homeseer-wx300d-1.13.yml
-=======
   - id: LED-1
     capabilities:
     - id: switch
@@ -61,7 +61,6 @@ components:
       version: 1
     categories:
       - name: Switch
->>>>>>> beta:drivers/SmartThings/zwave-switch/profiles/homeseer-wx300d-status.yml
 preferences:
   - name: "reverse"
     title: "Invert Switch"
@@ -102,7 +101,7 @@ preferences:
     required: false
     preferenceType: enumeration
     definition:
-      options: &led_color_options
+      options:
         0: "Off"
         7: "White"
         1: "Red"
