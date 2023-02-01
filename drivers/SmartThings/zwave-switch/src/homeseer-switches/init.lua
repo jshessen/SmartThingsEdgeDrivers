@@ -492,7 +492,7 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function device_init(self, device, event, args)
-  log.info(device.pretty_print('') .. ": " .. device.id .. ": " .. device.device_network_id .. " > DEVICE INIT")
+  log.info(device.id .. ": " .. device.device_network_id .. " > DEVICE INIT")
   if device.network_type == st_device.NETWORK_TYPE_ZWAVE then
     self.lifecycle_handlers.init(self, device, event, args)
   end
@@ -507,7 +507,7 @@ end
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function added_handler(self, device)
-  log.info(device.pretty_print('') .. ": " .. device.id .. ": " .. device.device_network_id .. " > DEVICE_ADDED")
+  log.info(device.id .. ": " .. device.device_network_id .. " > DEVICE_ADDED")
 
   -- Refresh the device
   device:refresh()
@@ -540,7 +540,7 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function do_configure(self, device, event, args)
-  log.info(device.pretty_print('') .. ": " .. device.id .. ": " .. device.device_network_id .. " > DO_CONFIGURE")
+  log.info(device.id .. ": " .. device.device_network_id .. " > DO_CONFIGURE")
   device:refresh()
   device:configure()
 end
@@ -556,7 +556,7 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function info_changed(self, device, event, args)
-  log.info(device.pretty_print('') .. ": " .. device.id .. ": " .. device.device_network_id .. " > INFO_CHANGED")
+  log.info(device.id .. ": " .. device.device_network_id .. " > INFO_CHANGED")
 
   if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
     device:send(Version:Get({}))
@@ -573,7 +573,7 @@ end
 --- @param self (Driver) Reference to the current object
 --- @param device (st.Device) Device object that is added
 local function driver_switched(self, device)
-  log.info(device.pretty_print('') .. ": " .. device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED")
+  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED")
 end
 ---
 --- #######################################################
@@ -644,7 +644,7 @@ local homeseer_switches = {
   },
   lifecycle_handlers = {
     init = device_init,
-    added = added_handler,
+    --added = added_handler,
     doConfigure = do_configure,
     infoChanged = info_changed,
     driverSwitched = driver_switched,
