@@ -23,8 +23,8 @@
 
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
---- @type st.Device
-local st_device = require "st.device"
+--- @type st.zwave.Device
+local st_device = require "st.zwave.device"
 -- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 
@@ -192,7 +192,7 @@ local map_key_attribute_to_capability = {
 --- If a match is found, the function returns true, else it returns false.
 --- @param opts (table)
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @vararg ... any
 --- @return (boolean)
 local function can_handle_homeseer_switches(opts, driver, device, ...)
@@ -223,14 +223,17 @@ end
 --- @function dimmer_event --
 --- Handles "dimmer" functionality
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function dimmer_event(driver, device, command)
-  local level = command.args.value and command.args.value or command.args.target_value
-  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
-
   log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", command.src_channel))
+  local level = command.args.value and command.args.value or command.args.target_value
+  log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
+  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+  
+
+  
   --- Switch/Dimmer functionality
   if command.src_channel == 0 then
     device:emit_event_for_endpoint(command.src_channel, event)
@@ -255,7 +258,7 @@ end
 --- @function switch_multilevel_stop_level_change_handler --
 --- Handles "on/off" functionality
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function switch_multilevel_stop_level_change_handler(driver, device, command)
@@ -278,7 +281,7 @@ end
 --- @function central_scene_notification_handler --
 --- Handles "Scene" functionality
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return nil
 local function central_scene_notification_handler(driver, device, command)
@@ -316,7 +319,7 @@ end
 --- @function version_report_handler --
 --- Adjust profile definition based upon reported firmware version
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function version_report_handler(driver, device, command)
@@ -384,7 +387,7 @@ end
 --- @function: do_referesh --
 --- Refresh Device
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function do_refresh(driver, device, command)
@@ -411,7 +414,7 @@ end
 --- @function: checkForFirmwareUpdate_handler --
 --- Check to see if there is a firmware update available for the device
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function checkForFirmwareUpdate_handler(driver, device, command)
@@ -429,7 +432,7 @@ end
 --- @function: updateFirmware_handler --
 --- Check to see if there is a firmware update available for the device
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function updateFirmware_handler(driver, device, command)
@@ -451,7 +454,7 @@ end
 local function switch_set_on_off_handler(value)
   --- Handles "on/off" functionality
   --- @param driver (Driver) The driver object
-  --- @param device (st.Device) The device object
+  --- @param device (st.zwave.Device) The device object
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
@@ -488,7 +491,7 @@ end
 
 --- @function device_init --
 --- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
+--- @param device (st.zwave.Device) Device object that is added
 --- @param event (Event)
 --- @param args (any)
 local function device_init(self, device, event, args)
@@ -505,7 +508,7 @@ end
 
 --- @function added_handler --
 --- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
+--- @param device (st.zwave.Device) Device object that is added
 local function added_handler(self, device)
   log.info(device.id .. ": " .. device.device_network_id .. " > DEVICE_ADDED")
 
@@ -536,7 +539,7 @@ end
 
 --- @function do_configure --
 --- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
+--- @param device (st.zwave.Device) Device object that is added
 --- @param event (Event)
 --- @param args (any)
 local function do_configure(self, device, event, args)
@@ -552,7 +555,7 @@ end
 
 --- @function info_changed --
 --- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
+--- @param device (st.zwave.Device) Device object that is added
 --- @param event (Event)
 --- @param args (any)
 local function info_changed(self, device, event, args)
@@ -571,7 +574,7 @@ end
 
 --- @function driver_switched --
 --- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
+--- @param device (st.zwave.Device) Device object that is added
 local function driver_switched(self, device)
   log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED")
 end
@@ -583,7 +586,7 @@ end
 
 --- @function removed --
 --- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
+--- @param device (st.zwave.Device) Device object that is added
 local function removed(self, device)
   log.info(device.pretty_print(self) .. ": " .. device.id .. ": " .. device.device_network_id .. " > DRIVER_REMOVED")
 end
