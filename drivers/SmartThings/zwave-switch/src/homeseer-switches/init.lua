@@ -457,9 +457,11 @@ end
 
 --- @function switch_set_on_off_handler --
 --- Handles "on/off" functionality
---- @param value number
---- @return function
-local function switch_set_on_off_handler(value)
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @return (nil)
+local function switch_set_on_off_handler(driver, device, command)
   --- Handles "on/off" functionality
   --- @param driver (Driver) The driver object
   --- @param device (st.zwave.Device) The device object
@@ -469,11 +471,14 @@ local function switch_set_on_off_handler(value)
     local get, set
 
     if device:supports_capability(capabilities.switchLevel, nil) then
-      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
-      set = SwitchMultilevel:Set({value = value, duration = dimmingDuration })
+      local level = utils.round(command.args.value)
+      level = utils.clamp_value(level, 1, 99)
+      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
+
+      set = SwitchMultilevel:Set({value = command.args.value, duration = dimmingDuration })
       get = SwitchMultilevel:Get({})
     elseif device:supports_capability(capabilities.switch, nil) then
-      set = SwitchBinary:Set({target_value = value, duration = 0})
+      set = SwitchBinary:Set({target_value = command.args.value, duration = 0})
       get = SwitchBinary:Get({})
     end
 
@@ -490,6 +495,8 @@ end
 --- #######################################################
 ---
 --- #################################################################
+
+
 
 --- #################################################################
 --- Section: Lifecycle Handlers
@@ -620,6 +627,8 @@ end
 ---
 --- #################################################################
 
+
+
 --- /////////////////////////////////////////////////////////////////
 ---  Section: Driver
 ---
@@ -658,11 +667,11 @@ local homeseer_switches = {
       [capabilities.refresh.commands.refresh.NAME] = do_refresh
     },
     [capabilities.switch.ID] = {
-      [capabilities.switch.switch.on.NAME] = switch_set_on_off_handler(SwitchBinary.value.ON_ENABLE),
-      [capabilities.switch.switch.off.NAME] = switch_set_on_off_handler(SwitchBinary.value.OFF_DISABLE)
+      [capabilities.switch.switch.on.NAME] = switch_set_on_off_handler,
+      [capabilities.switch.switch.off.NAME] = switch_set_on_off_handler
     },
     [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = dimmer_event
+      [capabilities.switchLevel.commands.setLevel.NAME] = switch_set_on_off_handler
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
