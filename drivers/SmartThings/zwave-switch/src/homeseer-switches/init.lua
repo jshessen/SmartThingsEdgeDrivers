@@ -507,7 +507,7 @@ end
 --- @param component_id (string) ID
 --- @return table dst_channels destination channels e.g. {2} for Z-Wave channel 2 or {} for unencapsulated
 local function component_to_endpoint(device, component_id)
-  local ep_num = component_id:match("LED-%d")
+  local ep_num = component_id == "main" and 0 or component_id:match("LED-%d")
   return { ep_num and tonumber(ep_num) }
 end
 ---
