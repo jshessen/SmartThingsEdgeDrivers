@@ -236,11 +236,10 @@ end
 --- @return (nil)
 local function dimmer_event(driver, device, command)
   log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", command.src_channel))
-  log.debug(string.format("=====>DEBUG: dimmer_event -- args = %s", command.args))
-  log.debug(string.format("=====>DEBUG: dimmer_event -- component_id = %s", command.args.component_id))
-  log.debug(string.format("=====>DEBUG: dimmer_event -- component = %s", command.args.component))
+  log.debug(string.format("=====>DEBUG: dimmer_event -- component_id = %s", command.component_id))
+  log.debug(string.format("=====>DEBUG: dimmer_event -- component = %s", command.component))
 
-  channel=command.args.component
+  local channel = command.src_channel ~= nil and command.src_channel or device:component_to_endpoint(command.component)
   log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", channel))
 
   local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
