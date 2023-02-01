@@ -235,7 +235,7 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 local function dimmer_event(driver, device, command)
-  local channel = command.src_channel ~= nil and command.src_channel or device.component_to_endpoint(command.args.component_id)
+  local channel = command.src_channel ~= nil and command.src_channel or device.component_to_endpoint(command.args.component)
   log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", channel))
 
   local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
