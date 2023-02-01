@@ -69,10 +69,16 @@ custom_capabilities.firmwareVersion = {}
 custom_capabilities.firmwareVersion.name = "firmwareVersion"
 custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name]
 
---- @local
+--- @local (string)
 local LAST_SEQ_NUMBER = "last_sequence_number"
 
---- @local
+--- @local (table)
+local ENDPOINTS = {
+  main = 0,
+  led = { 1, 2, 3, 4, 5, 6, 7 }
+}
+
+--- @local (table)
 local BUTTON_VALUES = {
   "up_hold",
   "down_hold",
@@ -95,6 +101,7 @@ local BUTTON_VALUES = {
   "double"
 }
 --- Map HomeSeer Fingerprints
+--- @local (table)
 local HOMESEER_SWITCH_FINGERPRINTS = {
   {id = "HomeSeer/Switch/WS100",  mfr = 0x000C, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch
   {id = "HomeSeer/Dimmer/WD100",  mfr = 0x000C, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Dimmer
@@ -106,6 +113,7 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
   {id = "ZLink/Dimmer/WD100",     mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- ZLink ZL-WD-100 Dimmer - ZWaveProducts.com
 }
 --- Map Attributes to Capabilities
+--- @local (table)
 local map_key_attribute_to_capability = {
   [CentralScene.key_attributes.KEY_PRESSED_1_TIME] = {
     [0x01] = {
@@ -227,26 +235,26 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 local function dimmer_event(driver, device, command)
-  log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", command.src_channel))
-  local level = command.args.value and command.args.value or command.args.target_value
-  log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
-  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
-  
+  local channel = command.src_channel ~= nil and command.src_channel or device.component_to_endpoint(command.args.component_id)
+  log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", channel))
 
-  
+  local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
+  log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
+
+  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
   --- Switch/Dimmer functionality
-  if command.src_channel == 0 then
-    device:emit_event_for_endpoint(command.src_channel, event)
+  if channel == 0 then
+    device:emit_event_for_endpoint(channel, event)
 
     level = utils.clamp_value(level, 0, 100)
     if level >= 99 then
-      device:emit_event_for_endpoint(command.src_channel, capabilities.switchLevel.level(100))
+      device:emit_event_for_endpoint(channel, capabilities.switchLevel.level(100))
     else
-      device:emit_event_for_endpoint(command.src_channel, capabilities.switchLevel.level(level))
+      device:emit_event_for_endpoint(channel, capabilities.switchLevel.level(level))
     end
   --- LED Switch functionality
   else
-      device:emit_event_for_endpoint(command.src_channel, event)
+      device:emit_event_for_endpoint(channel, event)
   end
 end
 ---
@@ -489,6 +497,21 @@ end
 --- #######################################################
 ---
 
+--- @function component_to_endpoint --
+--- Map component to end_points (channels)
+--- @param device (st.zwave.Device)
+--- @param component_id (string) ID
+--- @return table dst_channels destination channels e.g. {2} for Z-Wave channel 2 or {} for unencapsulated
+local function component_to_endpoint(device, component_id)
+  local ep_num = component_id:match("LED-%d")
+  return { ep_num and tonumber(ep_num) }
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
 --- @function device_init --
 --- @param self (Driver) Reference to the current object
 --- @param device (st.zwave.Device) Device object that is added
@@ -496,6 +519,8 @@ end
 --- @param args (any)
 local function device_init(self, device, event, args)
   log.info(device.id .. ": " .. device.device_network_id .. " > DEVICE INIT")
+  device:set_component_to_endpoint_fn(component_to_endpoint)
+
   if device.network_type == st_device.NETWORK_TYPE_ZWAVE then
     self.lifecycle_handlers.init(self, device, event, args)
   end
