@@ -229,6 +229,8 @@ end
 local function dimmer_event(driver, device, command)
   local level = command.args.value and command.args.value or command.args.target_value
   local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+
+  log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", command.src_channel))
   --- Switch/Dimmer functionality
   if command.src_channel == 0 then
     device:emit_event_for_endpoint(command.src_channel, event)
@@ -325,7 +327,7 @@ local function version_report_handler(driver, device, command)
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.debug(string.format("%s: mfr=%s, prod=%s, model=%s", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
+      log.debug(string.format("%s: mfr=%x, prod=%x, model=%x", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
       log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
       profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
@@ -469,6 +471,7 @@ local function switch_set_on_off_handler(value)
     end
 
     device:send_to_component(set, command.component)
+    log.debug(string.format("=====>DEBUG: switch_set_on_off_handler -- command.component = %s", command.component))
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
   end
 end
