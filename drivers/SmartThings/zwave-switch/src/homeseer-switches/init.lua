@@ -475,13 +475,14 @@ local function switch_set_on_off_handler(driver, device, command)
       level = utils.clamp_value(level, 1, 99)
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
 
-      set = SwitchMultilevel:Set({value = command.args.value, duration = dimmingDuration })
+      set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       get = SwitchMultilevel:Get({})
     elseif device:supports_capability(capabilities.switch, nil) then
-      set = SwitchBinary:Set({target_value = command.args.value, duration = 0})
+      local value = command.args.command == "on" and SwitchBinary.value.ON_ENABLE or SwitchBinary.value.OFF_DISABLE
+
+      set = SwitchBinary:Set({target_value = value, duration = 0})
       get = SwitchBinary:Get({})
     end
-
     local query_device = function()
       device:send_to_component(get, command.component)
     end
