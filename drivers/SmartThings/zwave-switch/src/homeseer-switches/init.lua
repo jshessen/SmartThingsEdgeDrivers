@@ -235,7 +235,7 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 local function dimmer_event(driver, device, command)
-  local level = command.args.value and command.args.value or command.args.target_value
+  local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
   log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
   local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
 
