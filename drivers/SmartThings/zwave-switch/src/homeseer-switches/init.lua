@@ -607,6 +607,9 @@ local homeseer_switches = {
       [Basic.SET] = dimmer_event,
       [Basic.REPORT] = dimmer_event
     },
+    [cc.SWITCH_BINARY] = {
+      [SwitchBinary.REPORT] = dimmer_event
+    },
     --- Dimmer
     [cc.SWITCH_MULTILEVEL] = {
       [SwitchMultilevel.SET] = dimmer_event,
