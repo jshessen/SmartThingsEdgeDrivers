@@ -235,17 +235,13 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 local function dimmer_event(driver, device, command)
-  log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", command.src_channel))
-  log.debug(string.format("=====>DEBUG: dimmer_event -- component_id = %s", command.component_id))
-  log.debug(string.format("=====>DEBUG: dimmer_event -- component = %s", command.component))
+  local level = command.args.value and command.args.value or command.args.target_value
+  log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
+  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
 
-  local channel = command.src_channel ~= nil and command.src_channel or device:component_to_endpoint(command.component)
+  local channel = command.src_channel ~= nil and command.src_channel or device:component_to_endpoint(command.component)[1]
   log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", channel))
 
-  local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
-  log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
-
-  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
   --- Switch/Dimmer functionality
   if channel == 0 then
     device:emit_event_for_endpoint(channel, event)
