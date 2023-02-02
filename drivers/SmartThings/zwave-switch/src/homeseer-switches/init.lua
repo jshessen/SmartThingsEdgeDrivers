@@ -647,6 +647,7 @@ local homeseer_switches = {
       [Basic.REPORT] = dimmer_event
     },
     [cc.SWITCH_BINARY] = {
+      [SwitchBinary.SET] = dimmer_event,
       [SwitchBinary.REPORT] = dimmer_event
     },
     --- Dimmer
@@ -672,9 +673,6 @@ local homeseer_switches = {
       [capabilities.switch.switch.on.NAME] = switch_handler(SwitchBinary.value.ON_ENABLE),
       [capabilities.switch.switch.off.NAME] = switch_handler(SwitchBinary.value.OFF_DISABLE)
     },
---[[     [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = switch_handler
-    }, ]]
     --- Placeholder
     [capabilities.firmwareUpdate] = {
       [capabilities.firmwareUpdate.commands.checkForFirmwareUpdate] = checkForFirmwareUpdate_handler,
