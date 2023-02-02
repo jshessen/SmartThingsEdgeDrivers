@@ -319,11 +319,10 @@ local function central_scene_notification_handler(driver, device, command)
     device:set_field(LAST_SEQ_NUMBER, command.args.sequence_number)
     local event_map = map_key_attribute_to_capability[command.args.key_attributes]
     local event = event_map and event_map[command.args.scene_number]
-    log.debug(string.format("%s [%s] : Button Event Map - %s", device.id, device.device_network_id, event))
     -- loop through the events array
     for _, e in ipairs(event) do
       if e ~= nil then
-        log.debug(string.format("%s [%s] : Button Event - %s", device.id, device.device_network_id, e))
+        log.debug(string.format("%s [%s] : Button Event - '%s'", device.id, device.device_network_id, e.value))
         -- emit the event for the endpoint
         device:emit_event_for_endpoint(command.src_channel, e)
       end
