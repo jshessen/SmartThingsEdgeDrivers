@@ -177,13 +177,13 @@ end
 --- #######################################################
 ---
 
---- @function switch_level_handler --
+--- @function switch_multilevel_handler --
 --- Handles "dimmer/level" functionality
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (function)
-local function switch_level_handler(driver, device, command)
+local function switch_multilevel_handler(driver, device, command)
   local level
 
   if command.args.level ~= nil then
@@ -376,7 +376,7 @@ local function version_report_handler(driver, device, command)
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.debug(string.format("%s: mfr=%x, prod=%x, model=%x", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
+      log.debug(string.format("%s: mfr=%04x, prod=%04x, model=%04x", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
       log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
       profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
@@ -584,6 +584,16 @@ local homeseer_switches = {
   NAME = "HomeSeer Z-Wave Switches",
   can_handle = can_handle_homeseer_switches,
   zwave_handlers = {
+    --- Switch
+    [cc.BASIC] = {
+      [Basic.Set] = switch_multilevel_handler
+      [Basic.Report] = switch_multilevel_handler
+    },
+    [cc.SWITCH_MULTILEVEL] = {
+      [SwitchMultilevel.Set] = switch_multilevel_handler,
+      [SwitchMultilevel.Report] = switch_multilevel_handler,
+      [SwitchMultilevel.STOP_LEVEL_CHANGE] = switch_multilevel_stop_level_change_handler
+    },
     --- Button
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = central_scene_notification_handler
