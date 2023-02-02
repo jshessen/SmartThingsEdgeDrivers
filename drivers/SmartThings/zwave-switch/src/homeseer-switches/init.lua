@@ -468,19 +468,18 @@ local function switch_handler(value)
   return function(driver, device, command)
     local get, set
 
-    if device:supports_capability(capabilities.switchLevel, nil) then
-      log.trace(string.format("=====>TRACE: dimmer_event -- level = %d", value))
-      local level = utils.round(tonumber(command.value))
+    if device:supports_capability(capabilities.switch, nil) then
+      set = SwitchBinary:Set({target_value = value, duration = 0})
+      get = SwitchBinary:Get({})
+    elseif device:supports_capability(capabilities.switchLevel, nil) then
+      local level = utils.round(value)
       level = utils.clamp_value(level, 1, 99)
-      log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
 
       set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       get = SwitchMultilevel:Get({})
-    elseif device:supports_capability(capabilities.switch, nil) then
-      set = SwitchBinary:Set({target_value = value, duration = 0})
-      get = SwitchBinary:Get({})
     end
+
     local query_device = function()
       device:send_to_component(get, command.component)
     end
