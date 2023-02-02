@@ -107,7 +107,6 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
       --log.debug(string.format("%s [%s] : %s - model=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.product_id,args.product_id))
 
       log.info(string.format("%s [%s] : %s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
-      ManufacturerSpecific:ReportV1Args()
       return true
     end
   end
@@ -126,36 +125,6 @@ end
 --- ############################################################
 --- Subsection: Switch (Basic/SwitchBinary/SwitchMultilevel)
 ---
---- #######################################################
----
-
---- @function switch_zwave_handler --
---- Handles "dimmer" functionality
---- @param driver (Driver) The driver object
---- @param device (st.zwave.Device) The device object
---- @param command (Command) Input command value
---- @return (nil)
-local function switch_zwave_handler(driver, device, command)
-  local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
-  log.trace(string.format("=====>TRACE: switch_zwave_handler -- level = %s", level))
-  local switch_event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
-  
-  local channel = command.src_channel ~= nil and command.src_channel or device:component_to_endpoint(command.component)[1]
-  log.debug(string.format("=====>DEBUG: switch_zwave_handler -- src_channel = %s", channel))
-  --- Switch/Dimmer functionality
-  if channel == 0 then
-    device:emit_event_for_endpoint(channel, switch_event)
-    level = utils.clamp_value(level, 0, 100)
-    local dimmer_event = level >= 99 and capabilities.switchLevel.level(100) or capabilities.switchLevel.level(level)
-    device:emit_event_for_endpoint(channel, dimmer_event)
-  --- LED Switch functionality
-  else
-    device:emit_event_for_endpoint(channel, switch_event)
-  end
-end
----
---- #######################################################
-
 --- #######################################################
 ---
 
@@ -340,7 +309,7 @@ local map_key_attribute_to_capability = {
 --- @return nil
 local function central_scene_notification_handler(driver, device, command)
   -- Check if the key attribute is released, if so, log an error and return as it is not supported by SmartThings
-  if (command.args.key_attributes == 0x01) then
+  if (command.args.key_attributes == CentralScene.key_attributes.KEY_RELEASED) then
     log.error("Button Value 'released' is not supported by SmartThings")
     return
   end
@@ -350,9 +319,11 @@ local function central_scene_notification_handler(driver, device, command)
     device:set_field(LAST_SEQ_NUMBER, command.args.sequence_number)
     local event_map = map_key_attribute_to_capability[command.args.key_attributes]
     local event = event_map and event_map[command.args.scene_number]
+    log.debug(string.format("%s [%s] : Button Event Map - %s", device.id, device.device_network_id, event.toString()))
     -- loop through the events array
     for _, e in ipairs(event) do
       if e ~= nil then
+        log.debug(string.format("%s [%s] : Button Event - %s", device.id, device.device_network_id, e))
         -- emit the event for the endpoint
         device:emit_event_for_endpoint(command.src_channel, e)
       end
