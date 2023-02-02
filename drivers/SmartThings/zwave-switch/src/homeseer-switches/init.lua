@@ -163,10 +163,10 @@ local function switch_binary_handler(value)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    device:send_to_component(SwitchBinary:Set({target_value = value, duration = 0}), command.component)
+    device:send_to_component(Basic:Set({target_value = value, duration = 0}), command.component)
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY+3,
       function(d)
-        device:send_to_component(SwitchBinary:Get({}))
+        device:send_to_component(Basic:Get({}))
       end
     )
   end
