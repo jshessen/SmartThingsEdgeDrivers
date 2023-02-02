@@ -175,7 +175,7 @@ local function switch_binary_handler(value)
   --- @return (nil)
   return function(driver, device, command)
     device:send_to_component(Basic:Set({value = value}), command.component)
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY+3,
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY,
       function(d)
         device:send_to_component(SwitchBinary:Get({}))
       end
@@ -208,7 +208,7 @@ local function switch_multilevel_handler(driver, device, command)
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
       device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
     end
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY+3,
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY,
       function(d)
         device:send_to_component(SwitchMultilevel:Get({}))
       end
