@@ -228,25 +228,25 @@ end
 --- #######################################################
 ---
 
---- @function dimmer_event --
+--- @function switch_zwave_handler --
 --- Handles "dimmer" functionality
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
-local function dimmer_event(driver, device, command)
+local function switch_zwave_handler(driver, device, command)
   local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
-  log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
+  log.trace(string.format("=====>TRACE: switch_zwave_handler -- level = %s", level))
   local switch_event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
 
   local channel = command.src_channel ~= nil and command.src_channel or device:component_to_endpoint(command.component)[1]
-  log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", channel))
+  log.debug(string.format("=====>DEBUG: switch_zwave_handler -- src_channel = %s", channel))
   --- Switch/Dimmer functionality
   if channel == 0 then
     device:emit_event_for_endpoint(channel, switch_event)
     level = utils.clamp_value(level, 0, 100)
-    local dimmer_event = level >= 99 and capabilities.switchLevel.level(100) or capabilities.switchLevel.level(level)
-    device:emit_event_for_endpoint(channel, dimmer_event)
+    local switch_zwave_handler = level >= 99 and capabilities.switchLevel.level(100) or capabilities.switchLevel.level(level)
+    device:emit_event_for_endpoint(channel, switch_zwave_handler)
   --- LED Switch functionality
   else
     device:emit_event_for_endpoint(channel, switch_event)
@@ -450,11 +450,11 @@ end
 --- #######################################################
 ---
 
---- @function switch_handler --
+--- @function switch_binary_handler --
 --- Handles "on/off" functionality
 --- @param value (number)
---- @return (nil)
-local function switch_handler(value)
+--- @return (function)
+local function switch_binary_handler(value)
   local level
 
   --- Handles "on/off" functionality
@@ -463,31 +463,37 @@ local function switch_handler(value)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    local get, set
+    device:send_to_component(SwitchBinary:Set({target_value = value, duration = 0}), command.component)
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, device:refresh())
+  end
+end
+---
+--- #######################################################
 
-    if command.args.level ~= nil then
-      level = utils.round(command.args.level)
-      level = utils.clamp_value(level, 0, 99)
-  
-      device:emit_event(level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off())
-    end
+--- #######################################################
+---
 
+--- @function switch_level_handler --
+--- Handles "dimmer/level" functionality
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @return (function)
+local function switch_level_handler(driver, device, command)
+  local level
+
+  if command.args.level ~= nil then
+    level = utils.round(command.args.level)
+    level = utils.clamp_value(level, 0, 99)
+
+    device:emit_event(level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off())
+  end
+  return function(driver, device, command)
     if device:supports_capability(capabilities.switchLevel, nil) then
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
-
-      set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
-      get = SwitchMultilevel:Get({})
-    elseif device:supports_capability(capabilities.switch, nil) then
-      set = SwitchBinary:Set({target_value = value, duration = 0})
-      get = SwitchBinary:Get({})
+      device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
     end
-
-    local query_device = function()
-      device:send_to_component(get, command.component)
-    end
-
-    device:send_to_component(set, command.component)
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, device:refresh())
   end
 end
 ---
@@ -640,17 +646,17 @@ local homeseer_switches = {
   zwave_handlers = {
     --- Switch
     [cc.BASIC] = {
-      [Basic.SET] = dimmer_event,
-      [Basic.REPORT] = dimmer_event
+      [Basic.SET] = switch_zwave_handler,
+      [Basic.REPORT] = switch_zwave_handler
     },
     [cc.SWITCH_BINARY] = {
-      [SwitchBinary.SET] = dimmer_event,
-      [SwitchBinary.REPORT] = dimmer_event
+      [SwitchBinary.SET] = switch_zwave_handler,
+      [SwitchBinary.REPORT] = switch_zwave_handler
     },
     --- Dimmer
     [cc.SWITCH_MULTILEVEL] = {
-      [SwitchMultilevel.SET] = dimmer_event,
-      [SwitchMultilevel.REPORT] = dimmer_event,
+      [SwitchMultilevel.SET] = switch_zwave_handler,
+      [SwitchMultilevel.REPORT] = switch_zwave_handler,
       [SwitchMultilevel.STOP_LEVEL_CHANGE] = switch_multilevel_stop_level_change_handler
     },
     --- Button
@@ -667,11 +673,11 @@ local homeseer_switches = {
       [capabilities.refresh.commands.refresh.NAME] = do_refresh
     },
     [capabilities.switch.ID] = {
-      [capabilities.switch.switch.on.NAME] = switch_handler(SwitchBinary.value.ON_ENABLE),
-      [capabilities.switch.switch.off.NAME] = switch_handler(SwitchBinary.value.OFF_DISABLE)
+      [capabilities.switch.switch.on.NAME] = switch_binary_handler(SwitchBinary.value.ON_ENABLE),
+      [capabilities.switch.switch.off.NAME] = switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
     },
     [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = switch_handler
+      [capabilities.switchLevel.commands.setLevel.NAME] = switch_level_handler
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
