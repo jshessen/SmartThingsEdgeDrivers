@@ -100,16 +100,14 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       local args = {}
       args.manufacturer_id = device.zwave_manufacturer_id or 0
-      log.debug(string.format("%s [%s] : %s - mfr=0x%04x=%d",
-          device.id, device.device_network_id, fingerprint.id,args.manufacturer_id,args.manufacturer_id))
+      --log.debug(string.format("%s [%s] : %s - mfr=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.manufacturer_id,args.manufacturer_id))
       args.product_type_id = device.zwave_product_type or 0
-      log.debug(string.format("%s [%s] : %s - prod=0x%04x=%d",
-          device.id, device.device_network_id, fingerprint.id,args.product_type_id,args.product_type_id))
+      --log.debug(string.format("%s [%s] : %s - prod=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.product_type_id,args.product_type_id))
       args.product_id = device.zwave_product_id or 0
-      log.debug(string.format("%s [%s] : %s - model=0x%04x=%d",
-          device.id, device.device_network_id, fingerprint.id,args.product_id,args.product_id))
+      --log.debug(string.format("%s [%s] : %s - model=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.product_id,args.product_id))
 
       log.info(string.format("%s [%s] : %s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
+      ManufacturerSpecific:ReportV1Args()
       return true
     end
   end
@@ -382,24 +380,27 @@ end
 local function version_report_handler(driver, device, command)
 
   local operatingMode = device.preferences.operatingMode == true and '-status' or ''
+  local firmware_version
+  local firmware_sub_version
   local profile
 
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.debug(string.format("%s: mfr=%04x, prod=%04x, model=%04x", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
-      log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
+      firmware_version = command.args.firmware_0_version
+      firmware_sub_version = command.args.firmware_0_sub_version
+      log.info(string.format("%s [%s] : %s - Firmware: %d", device.id, device.device_network_id, fingerprint.id, tonumber(firmware_version .. "." .. firmware_sub_version)))
       profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
 
       if fingerprint.id == "HomeSeer/Dimmer/WD200" then
         -- Check if the firmware version and sub-version match certain values
-        if (command.args.application_version == 5 and (command.args.application_sub_version > 11 and command.args.application_sub_version < 14)) then
+        if (firmware_version == 5 and (firmware_sub_version > 11 and firmware_sub_version < 14)) then
           -- Update the device's profile and set a field to indicate that the update has occurred
-          profile = profile .. '-' .. command.args.application_version .. '.' .. command.args.application_sub_version
+          profile = profile .. '-' .. firmware_version .. '.' .. firmware_sub_version
           break
           -- Check if the firmware version and sub-version match certain values
-        elseif (command.args.application_version == 5 and command.args.application_sub_version >= 14) then
+        elseif (firmware_version == 5 and firmware_sub_version >= 14) then
           -- Update the device's profile and set a field to indicate that the update has occurred
           profile = profile .. '-' .. 'latest'
           break
@@ -407,7 +408,7 @@ local function version_report_handler(driver, device, command)
       -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
       elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" then
         -- Check if the firmware version is greater than 1.12
-        if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
+        if (firmware_version == 1 and firmware_sub_version > 12) then
           -- Set the new profile for the device
           profile = profile .. '-' .. 'latest'
           break
@@ -415,7 +416,7 @@ local function version_report_handler(driver, device, command)
       -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
       elseif fingerprint.id == "HomeSeer/Dimmer/WX300D" then
         -- Check if the firmware version is greater than 1.12
-        if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
+        if (firmware_version == 1 and firmware_sub_version > 12) then
           -- Set the new profile for the device
           profile = profile .. '-' .. 'latest'
           break
@@ -425,7 +426,7 @@ local function version_report_handler(driver, device, command)
   end
   if profile ~= nil then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
-    log.warn(string.format("Setting profile: %s", profile))
+    log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
   end
 end
 ---
