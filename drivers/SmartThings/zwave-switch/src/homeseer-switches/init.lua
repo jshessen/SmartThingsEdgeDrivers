@@ -99,9 +99,6 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       local args = {}
-      -- Set Log Level
-      --log.set_log_level({log.LOG_LEVEL_DEBUG})
-      log.set_log_level({log.LOG_LEVEL_WARN})
       args.manufacturer_id = device.zwave_manufacturer_id or 0
       log.debug(string.format("%s [%s] : $s - mfr=0x%04x=%d",
           device.id, device.device_network_id, fingerprint.id,args.manufacturer_id,args.manufacturer_id))
