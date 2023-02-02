@@ -455,7 +455,6 @@ end
 --- @param value (number)
 --- @return (nil)
 local function switch_handler(value)
-  log.trace(string.format("=====>TRACE: switch_handler -- value = %d", value))
   local level
 
   --- Handles "on/off" functionality
