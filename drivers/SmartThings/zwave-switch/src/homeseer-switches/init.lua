@@ -460,7 +460,7 @@ end
 --- @param value (number)
 --- @return (function)
 local function switch_handler(value)
-  log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
+  log.trace(string.format("=====>TRACE: switch_handler -- value = %d", value))
 
   --- Handles "on/off" functionality
   --- @param driver (Driver) The driver object
@@ -672,9 +672,9 @@ local homeseer_switches = {
       [capabilities.switch.switch.on.NAME] = switch_handler(SwitchBinary.value.ON_ENABLE),
       [capabilities.switch.switch.off.NAME] = switch_handler(SwitchBinary.value.OFF_DISABLE)
     },
-    [capabilities.switchLevel.ID] = {
+--[[     [capabilities.switchLevel.ID] = {
       [capabilities.switchLevel.commands.setLevel.NAME] = switch_handler
-    },
+    }, ]]
     --- Placeholder
     [capabilities.firmwareUpdate] = {
       [capabilities.firmwareUpdate.commands.checkForFirmwareUpdate] = checkForFirmwareUpdate_handler,
