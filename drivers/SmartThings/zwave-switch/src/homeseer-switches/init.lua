@@ -458,24 +458,25 @@ end
 --- @function switch_handler --
 --- Handles "on/off" functionality
 --- @param value (number)
---- @return (nil)
+--- @return (function)
 local function switch_handler(value)
+  log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
+
   --- Handles "on/off" functionality
   --- @param driver (Driver) The driver object
   --- @param device (st.zwave.Device) The device object
+  --- @param value (number)
   --- @param command (Command) Input command value
   --- @return (nil)
-
-  log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
-  return function(driver, device, command)
+  return function(driver, device, value, command)
     local get, set
     log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
-    
+
     if device:supports_capability(capabilities.switch, nil) then
       set = SwitchBinary:Set({target_value = value, duration = 0})
       get = SwitchBinary:Get({})
     elseif device:supports_capability(capabilities.switchLevel, nil) then
-      local level = utils.round(value)
+      local level = utils.round(command.args.level)
       log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
       level = utils.clamp_value(level, 1, 99)
       log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
