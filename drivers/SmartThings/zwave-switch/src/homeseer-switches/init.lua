@@ -473,7 +473,9 @@ local function switch_handler(value)
       get = SwitchBinary:Get({})
     elseif device:supports_capability(capabilities.switchLevel, nil) then
       local level = utils.round(value)
+      log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
       level = utils.clamp_value(level, 1, 99)
+      log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
 
       set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
@@ -485,7 +487,6 @@ local function switch_handler(value)
     end
 
     device:send_to_component(set, command.component)
-    log.debug(string.format("=====>DEBUG: switch_handler -- command.component = %s", command.component))
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
   end
 end
@@ -669,7 +670,7 @@ local homeseer_switches = {
       [capabilities.switch.switch.off.NAME] = switch_handler(SwitchBinary.value.OFF_DISABLE)
     },
     [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = dimmer_event
+      [capabilities.switchLevel.commands.setLevel.NAME] = switch_handler
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
