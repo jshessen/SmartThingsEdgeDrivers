@@ -401,12 +401,13 @@ local function do_refresh(driver, device, command)
         --- Send Get command to the switch level component
         device:send_to_component(SwitchMultilevel:Get({}), component)
         --- Send Get command to the Version component
-        device:send(Version:Get({}))
+        --device:send(Version:Get({}))
     --- Check if the device supports switch capability
     elseif device:supports_capability(capabilities.switch, component) then
         --- Send Get command to the switch component
         device:send_to_component(SwitchBinary:Get({}), component)
     end
+    self.lifecycle_handlers.refresh(self, device, event, args)
 end
 ---
 --- #######################################################
@@ -464,7 +465,10 @@ local function switch_binary_handler(value)
   --- @return (nil)
   return function(driver, device, command)
     device:send_to_component(SwitchBinary:Set({target_value = value, duration = 0}), command.component)
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function(d) device:refresh() end)
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY,
+    function(d)
+      device:send_to_component(SwitchBinary:Get({}))
+    end)
   end
 end
 ---
@@ -493,7 +497,10 @@ local function switch_level_handler(driver, device, command)
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
       device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
     end
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function(d) device:refresh() end)
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY,
+      function(d)
+        device:send_to_component(SwitchMultilevel:Get({}))
+      end)
   end
 end
 ---
