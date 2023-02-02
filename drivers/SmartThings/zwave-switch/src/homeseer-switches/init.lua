@@ -100,16 +100,16 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       local args = {}
       args.manufacturer_id = device.zwave_manufacturer_id or 0
-      log.debug(string.format("%s [%s] : $s - mfr=0x%04x=%d",
+      log.debug(string.format("%s [%s] : %s - mfr=0x%04x=%d",
           device.id, device.device_network_id, fingerprint.id,args.manufacturer_id,args.manufacturer_id))
       args.product_type_id = device.zwave_product_type or 0
-      log.debug(string.format("%s [%s] : $s - prod=0x%04x=%d",
+      log.debug(string.format("%s [%s] : %s - prod=0x%04x=%d",
           device.id, device.device_network_id, fingerprint.id,args.product_type_id,args.product_type_id))
       args.product_id = device.zwave_product_id or 0
-      log.debug(string.format("%s [%s] : $s - model=0x%04x=%d",
+      log.debug(string.format("%s [%s] : %s - model=0x%04x=%d",
           device.id, device.device_network_id, fingerprint.id,args.product_id,args.product_id))
 
-      log.info(string.format("%s [%s] : $s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
+      log.info(string.format("%s [%s] : %s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
       return true
     end
   end
