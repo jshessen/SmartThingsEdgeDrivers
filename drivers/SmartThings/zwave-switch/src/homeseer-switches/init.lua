@@ -455,13 +455,11 @@ end
 --- #######################################################
 ---
 
---- @function switch_set_on_off_handler --
+--- @function switch_handler --
 --- Handles "on/off" functionality
---- @param driver (Driver) The driver object
---- @param device (st.zwave.Device) The device object
---- @param command (Command) Input command value
+--- @param value (number)
 --- @return (nil)
-local function switch_set_on_off_handler(driver, device, command)
+local function switch_handler(value)
   --- Handles "on/off" functionality
   --- @param driver (Driver) The driver object
   --- @param device (st.zwave.Device) The device object
@@ -472,14 +470,15 @@ local function switch_set_on_off_handler(driver, device, command)
 
     if device:supports_capability(capabilities.switchLevel, nil) then
       local level = utils.round(command.args.value)
+      log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
+      log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", command.args.value))
       level = utils.clamp_value(level, 1, 99)
+      log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
 
       set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       get = SwitchMultilevel:Get({})
     elseif device:supports_capability(capabilities.switch, nil) then
-      local value = command.args.command == "on" and SwitchBinary.value.ON_ENABLE or SwitchBinary.value.OFF_DISABLE
-
       set = SwitchBinary:Set({target_value = value, duration = 0})
       get = SwitchBinary:Get({})
     end
@@ -488,7 +487,7 @@ local function switch_set_on_off_handler(driver, device, command)
     end
 
     device:send_to_component(set, command.component)
-    log.debug(string.format("=====>DEBUG: switch_set_on_off_handler -- command.component = %s", command.component))
+    log.debug(string.format("=====>DEBUG: switch_handler -- command.component = %s", command.component))
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
   end
 end
@@ -668,8 +667,8 @@ local homeseer_switches = {
       [capabilities.refresh.commands.refresh.NAME] = do_refresh
     },
     [capabilities.switch.ID] = {
-      [capabilities.switch.switch.on.NAME] = switch_set_on_off_handler,
-      [capabilities.switch.switch.off.NAME] = switch_set_on_off_handler
+      [capabilities.switch.switch.on.NAME] = switch_handler(SwitchBinary.value.ON_ENABLE),
+      [capabilities.switch.switch.off.NAME] = switch_handler(SwitchBinary.value.OFF_DISABLE)
     },
     [capabilities.switchLevel.ID] = {
       [capabilities.switchLevel.commands.setLevel.NAME] = dimmer_event
