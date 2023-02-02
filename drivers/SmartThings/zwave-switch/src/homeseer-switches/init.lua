@@ -49,10 +49,10 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 --- Button
 --- @type CentralScene
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
---- @type Configuration
-local configsMap = require "configurations"
 
 --- Misc
+--- @type ManufacturerSpecific
+local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecific")({ version = 2 })
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 2})
 ---
@@ -98,7 +98,15 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
 local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(device.zwave_manufacturer_id)
+      local args = {}
+      args.manufacturer_id = device.zwave_manufacturer_id or 0
+      log.debug(string.format("%s: mfr=%04x=%d", fingerprint.id,args.manufacturer_id,args.manufacturer_id))
+      args.product_type_id = device.zwave_product_type_id or 0
+      log.debug(string.format("%s: prod=%04x=%d", fingerprint.id,args.product_type_id,args.product_type_id))
+      args.product_id = device.zwave_product_id or 0
+      log.debug(string.format("%s: model=%04x=%d", fingerprint.id,args.product_id,args.product_id))
+
+      log.info(string.format("%s: mfr=%04x, prod=%04x, model=%04x", fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_id, device.zwave_product_type))
       return true
     end
   end
@@ -586,7 +594,7 @@ local homeseer_switches = {
   zwave_handlers = {
     --- Switch
     [cc.BASIC] = {
-      [Basic.Set] = switch_multilevel_handler
+      [Basic.Set] = switch_multilevel_handler,
       [Basic.Report] = switch_multilevel_handler
     },
     [cc.SWITCH_MULTILEVEL] = {
@@ -597,6 +605,10 @@ local homeseer_switches = {
     --- Button
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = central_scene_notification_handler
+    },
+    --- Manufaturer Report
+    [cc.MANUFACTURER_SPECIFIC] = {
+      [ManufacturerSpecific.Report] = can_handle_homeseer_switches
     },
     --- Return firmware version
     [cc.VERSION] = {
