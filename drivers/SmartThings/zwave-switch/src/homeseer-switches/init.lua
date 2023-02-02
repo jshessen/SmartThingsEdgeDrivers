@@ -465,10 +465,9 @@ local function switch_handler(value)
   --- Handles "on/off" functionality
   --- @param driver (Driver) The driver object
   --- @param device (st.zwave.Device) The device object
-  --- @param value (number)
   --- @param command (Command) Input command value
-  --- @return (nil)
-  return function(driver, device, value, command)
+  --- @return (function)
+  return function(driver, device, command)
     local get, set
     log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
 
@@ -480,7 +479,7 @@ local function switch_handler(value)
       log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
       level = utils.clamp_value(level, 1, 99)
       log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
-      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
+      local dimmingDuration = constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
 
       set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       get = SwitchMultilevel:Get({})
