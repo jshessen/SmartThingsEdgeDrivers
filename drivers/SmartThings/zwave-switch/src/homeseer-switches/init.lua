@@ -237,24 +237,19 @@ end
 local function dimmer_event(driver, device, command)
   local level = command.args.value and command.args.value or (command.args.target_value and command.args.target.value or command.args.level)
   log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", level))
-  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+  local switch_event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
 
   local channel = command.src_channel ~= nil and command.src_channel or device:component_to_endpoint(command.component)[1]
   log.debug(string.format("=====>DEBUG: dimmer_event -- src_channel = %s", channel))
-
   --- Switch/Dimmer functionality
   if channel == 0 then
-    device:emit_event_for_endpoint(channel, event)
-
+    device:emit_event_for_endpoint(channel, switch_event)
     level = utils.clamp_value(level, 0, 100)
-    if level >= 99 then
-      device:emit_event_for_endpoint(channel, capabilities.switchLevel.level(100))
-    else
-      device:emit_event_for_endpoint(channel, capabilities.switchLevel.level(level))
-    end
+    local dimmer_event = level >= 99 and capabilities.switchLevel.level(100) or capabilities.switchLevel.level(level)
+    device:emit_event_for_endpoint(channel, dimmer_event)
   --- LED Switch functionality
   else
-      device:emit_event_for_endpoint(channel, event)
+    device:emit_event_for_endpoint(channel, switch_event)
   end
 end
 ---
@@ -458,31 +453,34 @@ end
 --- @function switch_handler --
 --- Handles "on/off" functionality
 --- @param value (number)
---- @return (function)
+--- @return (nil)
 local function switch_handler(value)
   log.trace(string.format("=====>TRACE: switch_handler -- value = %d", value))
+  local level
 
   --- Handles "on/off" functionality
   --- @param driver (Driver) The driver object
   --- @param device (st.zwave.Device) The device object
   --- @param command (Command) Input command value
-  --- @return (function)
+  --- @return (nil)
   return function(driver, device, command)
     local get, set
-    log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
 
-    if device:supports_capability(capabilities.switch, nil) then
-      set = SwitchBinary:Set({target_value = value, duration = 0})
-      get = SwitchBinary:Get({})
-    elseif device:supports_capability(capabilities.switchLevel, nil) then
-      local level = utils.round(command.args.level)
-      log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
-      level = utils.clamp_value(level, 1, 99)
-      log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
-      local dimmingDuration = constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
+    if command.args.level ~= nil then
+      level = utils.round(command.args.level)
+      level = utils.clamp_value(level, 0, 99)
+  
+      device:emit_event(level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off())
+    end
+
+    if device:supports_capability(capabilities.switchLevel, nil) then
+      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
 
       set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       get = SwitchMultilevel:Get({})
+    elseif device:supports_capability(capabilities.switch, nil) then
+      set = SwitchBinary:Set({target_value = value, duration = 0})
+      get = SwitchBinary:Get({})
     end
 
     local query_device = function()
@@ -672,6 +670,9 @@ local homeseer_switches = {
     [capabilities.switch.ID] = {
       [capabilities.switch.switch.on.NAME] = switch_handler(SwitchBinary.value.ON_ENABLE),
       [capabilities.switch.switch.off.NAME] = switch_handler(SwitchBinary.value.OFF_DISABLE)
+    },
+    [capabilities.switchLevel.ID] = {
+      [capabilities.switchLevel.commands.setLevel.NAME] = switch_handler
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
