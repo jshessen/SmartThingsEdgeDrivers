@@ -99,14 +99,20 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       local args = {}
+      -- Set Log Level
+      --log.set_log_level(log.LOG_LEVEL_DEBUG)
+      log.set_log_level(log.LOG_LEVEL_WARN)
       args.manufacturer_id = device.zwave_manufacturer_id or 0
-      log.debug(string.format("%s: mfr=%04x=%d", fingerprint.id,args.manufacturer_id,args.manufacturer_id))
-      args.product_type_id = device.zwave_product_type_id or 0
-      log.debug(string.format("%s: prod=%04x=%d", fingerprint.id,args.product_type_id,args.product_type_id))
+      log.debug(string.format("%s [%s] : $s - mfr=0x%04x=%d",
+          device.id, device.device_network_id, fingerprint.id,args.manufacturer_id,args.manufacturer_id))
+      args.product_type_id = device.zwave_product_type or 0
+      log.debug(string.format("%s [%s] : $s - prod=0x%04x=%d",
+          device.id, device.device_network_id, fingerprint.id,args.product_type_id,args.product_type_id))
       args.product_id = device.zwave_product_id or 0
-      log.debug(string.format("%s: model=%04x=%d", fingerprint.id,args.product_id,args.product_id))
+      log.debug(string.format("%s [%s] : $s - model=0x%04x=%d",
+          device.id, device.device_network_id, fingerprint.id,args.product_id,args.product_id))
 
-      log.info(string.format("%s: mfr=%04x, prod=%04x, model=%04x", fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_id, device.zwave_product_type))
+      log.info(string.format("%s [%s] : $s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
       return true
     end
   end
@@ -174,7 +180,7 @@ local function switch_binary_handler(value)
     device:send_to_component(Basic:Set({value = value}), command.component)
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY+3,
       function(d)
-        device:send_to_component(Basic:Get({}))
+        device:send_to_component(SwitchBinary:Get({}))
       end
     )
   end
