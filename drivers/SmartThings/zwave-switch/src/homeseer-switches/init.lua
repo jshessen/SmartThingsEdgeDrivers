@@ -672,7 +672,7 @@ local homeseer_switches = {
       [capabilities.switch.switch.off.NAME] = switch_set_on_off_handler
     },
     [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = switch_set_on_off_handler
+      [capabilities.switchLevel.commands.setLevel.NAME] = dimmer_event
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
