@@ -245,8 +245,8 @@ local function switch_zwave_handler(driver, device, command)
   if channel == 0 then
     device:emit_event_for_endpoint(channel, switch_event)
     level = utils.clamp_value(level, 0, 100)
-    local switch_zwave_handler = level >= 99 and capabilities.switchLevel.level(100) or capabilities.switchLevel.level(level)
-    device:emit_event_for_endpoint(channel, switch_zwave_handler)
+    local dimmer_event = level >= 99 and capabilities.switchLevel.level(100) or capabilities.switchLevel.level(level)
+    device:emit_event_for_endpoint(channel, dimmer_event)
   --- LED Switch functionality
   else
     device:emit_event_for_endpoint(channel, switch_event)
@@ -400,14 +400,11 @@ local function do_refresh(driver, device, command)
     if (device:supports_capability(capabilities.switchLevel, component)) then
         --- Send Get command to the switch level component
         device:send_to_component(SwitchMultilevel:Get({}), component)
-        --- Send Get command to the Version component
-        --device:send(Version:Get({}))
     --- Check if the device supports switch capability
     elseif device:supports_capability(capabilities.switch, component) then
         --- Send Get command to the switch component
         device:send_to_component(SwitchBinary:Get({}), component)
     end
-    self.lifecycle_handlers.refresh(self, device, event, args)
 end
 ---
 --- #######################################################
@@ -466,9 +463,10 @@ local function switch_binary_handler(value)
   return function(driver, device, command)
     device:send_to_component(SwitchBinary:Set({target_value = value, duration = 0}), command.component)
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY+3,
-    function(d)
-      device:send_to_component(SwitchBinary:Get({}))
-    end)
+      function(d)
+        device:send_to_component(SwitchBinary:Get({}))
+      end
+    )
   end
 end
 ---
@@ -500,7 +498,8 @@ local function switch_level_handler(driver, device, command)
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY+3,
       function(d)
         device:send_to_component(SwitchMultilevel:Get({}))
-      end)
+      end
+    )
   end
 end
 ---
@@ -550,53 +549,6 @@ end
 --- #######################################################
 ---
 
---- @function added_handler --
---- @param self (Driver) Reference to the current object
---- @param device (st.zwave.Device) Device object that is added
-local function added_handler(self, device)
-  log.info(device.id .. ": " .. device.device_network_id .. " > DEVICE_ADDED")
-
-  -- Refresh the device
-  device:refresh()
-  -- Get the device parameters from configsMap
---[[   local configs = configsMap.get_device_parameters(device)
-  -- Check if configs are available
-  if configs then
-    -- Loop through the device components
-    for _, comp in pairs(device.profile.components) do
-      -- Check if the device supports the button capability by id
-      if device:supports_capability_by_id(capabilities.button.ID, comp.id) then
-        -- Assign number_of_buttons based on comp.id
-        local number_of_buttons = comp.id == "main" and configs.number_of_buttons or 1
-        -- Emit an event for the numberOfButtons capability with the value and visibility set
-        device:emit_component_event(comp, capabilities.button.numberOfButtons({ value=number_of_buttons }, { visibility = { displayed = false } }))
-        -- Emit an event for the supportedButtonValues capability with the configs.supported_button_values and visibility set
-        device:emit_component_event(comp, capabilities.button.supportedButtonValues(BUTTON_VALUES, { visibility = { displayed = false } }))
-      end
-    end
-  end ]]
-end
----
---- #######################################################
-
---- #######################################################
-
---- @function do_configure --
---- @param self (Driver) Reference to the current object
---- @param device (st.zwave.Device) Device object that is added
---- @param event (Event)
---- @param args (any)
-local function do_configure(self, device, event, args)
-  log.info(device.id .. ": " .. device.device_network_id .. " > DO_CONFIGURE")
-  device:refresh()
-  device:configure()
-end
----
---- #######################################################
-
---- #######################################################
----
-
 --- @function info_changed --
 --- @param self (Driver) Reference to the current object
 --- @param device (st.zwave.Device) Device object that is added
@@ -609,30 +561,6 @@ local function info_changed(self, device, event, args)
     device:send(Version:Get({}))
   end
   self.lifecycle_handlers.infoChanged(self, device, event, args)
-end
----
---- #######################################################
-
---- #######################################################
----
-
---- @function driver_switched --
---- @param self (Driver) Reference to the current object
---- @param device (st.zwave.Device) Device object that is added
-local function driver_switched(self, device)
-  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED")
-end
----
---- #######################################################
-
---- #######################################################
----
-
---- @function removed --
---- @param self (Driver) Reference to the current object
---- @param device (st.zwave.Device) Device object that is added
-local function removed(self, device)
-  log.info(device.pretty_print(self) .. ": " .. device.id .. ": " .. device.device_network_id .. " > DRIVER_REMOVED")
 end
 ---
 --- #######################################################
@@ -654,16 +582,10 @@ local homeseer_switches = {
     --- Switch
     [cc.BASIC] = {
       [Basic.SET] = switch_zwave_handler,
-      [Basic.REPORT] = switch_zwave_handler
-    },
-    [cc.SWITCH_BINARY] = {
-      [SwitchBinary.SET] = switch_zwave_handler,
-      [SwitchBinary.REPORT] = switch_zwave_handler
     },
     --- Dimmer
     [cc.SWITCH_MULTILEVEL] = {
       [SwitchMultilevel.SET] = switch_zwave_handler,
-      [SwitchMultilevel.REPORT] = switch_zwave_handler,
       [SwitchMultilevel.STOP_LEVEL_CHANGE] = switch_multilevel_stop_level_change_handler
     },
     --- Button
@@ -695,10 +617,10 @@ local homeseer_switches = {
   lifecycle_handlers = {
     init = device_init,
     --added = added_handler,
-    doConfigure = do_configure,
+    --doConfigure = do_configure,
     infoChanged = info_changed,
-    driverSwitched = driver_switched,
-    removed = removed
+    --driverSwitched = driver_switched,
+    --removed = removed
   }
 }
 ---
