@@ -63,11 +63,11 @@ local Version = (require "st.zwave.CommandClass.Version")({version = 2})
 --- Variables/Constants
 ---
 
---- @local
+--[[ --- @local
 local custom_capabilities = {}
 custom_capabilities.firmwareVersion = {}
 custom_capabilities.firmwareVersion.name = "firmwareVersion"
-custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name]
+custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name] ]]
 
 --- @local (string)
 local LAST_SEQ_NUMBER = "last_sequence_number"
@@ -464,7 +464,7 @@ local function switch_binary_handler(value)
   --- @return (nil)
   return function(driver, device, command)
     device:send_to_component(SwitchBinary:Set({target_value = value, duration = 0}), command.component)
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, device:refresh())
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function(d) device:refresh() end)
   end
 end
 ---
@@ -493,7 +493,7 @@ local function switch_level_handler(driver, device, command)
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION -- dimming duration in seconds
       device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
     end
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, device:refresh())
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function(d) device:refresh() end)
   end
 end
 ---
