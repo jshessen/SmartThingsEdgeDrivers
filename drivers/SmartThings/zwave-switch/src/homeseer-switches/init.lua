@@ -469,7 +469,7 @@ local function switch_handler(value)
     local get, set
 
     if device:supports_capability(capabilities.switchLevel, nil) then
-      local level = utils.round(command.args.value)
+      local level = utils.round(tonumber(command.args.value))
       log.trace(string.format("=====>TRACE: switch_handler -- level = %s", level))
       log.trace(string.format("=====>TRACE: dimmer_event -- level = %s", command.args.value))
       level = utils.clamp_value(level, 1, 99)
