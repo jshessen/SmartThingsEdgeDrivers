@@ -465,9 +465,12 @@ local function switch_handler(value)
   --- @param device (st.zwave.Device) The device object
   --- @param command (Command) Input command value
   --- @return (nil)
+
+  log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
   return function(driver, device, command)
     local get, set
-
+    log.trace(string.format("=====>TRACE: switch_handler -- value = %s", value))
+    
     if device:supports_capability(capabilities.switch, nil) then
       set = SwitchBinary:Set({target_value = value, duration = 0})
       get = SwitchBinary:Get({})
