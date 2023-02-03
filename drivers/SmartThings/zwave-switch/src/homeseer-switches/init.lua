@@ -51,6 +51,8 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
 
 --- Misc
+--- @type table
+local preferencesMap = require "preferences"
 --- @type ManufacturerSpecific
 local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecific")({ version = 2 })
 --- @type Version
