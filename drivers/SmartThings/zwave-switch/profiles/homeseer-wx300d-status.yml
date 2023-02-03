@@ -251,7 +251,7 @@ preferences:
         1: "Control load instantly, - Multi-Tap"
       default: 0
   - name: "wireMode"
-    title: "Sets the Wire mode / no Neutral mode of the switch"
+    title: "Sets the Wire mode (+/- Neutral)"
     description: "No Neutral Wire (aka 2 wire mode = Line & Load only"
     required: true
     preferenceType: enumeration
