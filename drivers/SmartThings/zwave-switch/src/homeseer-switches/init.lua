@@ -364,10 +364,12 @@ end
 --- @return (nil)
 local function version_report_handler(driver, device, command)
   log.debug(string.format("%s [%s] : operatingMode: %s", device.id, device.device_network_id, device.preferences.operatingMode))
-  local operatingMode = device.preferences.operatingMode == 1 and '-status' or ''
+  local operatingMode = tonumber(device.preferences.operatingMode) == 1 and '-status' or ''
   local firmware_version = command.args.firmware_0_version
   local firmware_sub_version = command.args.firmware_0_sub_version
   local profile
+
+  tobool()
 
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
