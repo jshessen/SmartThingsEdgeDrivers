@@ -370,7 +370,7 @@ local function version_report_handler(driver, device, command)
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(string.format("%s [%s] : %s - Firmware: %d", device.id, device.device_network_id, fingerprint.id, tonumber(firmware_version .. "." .. firmware_sub_version)))
+      log.info(string.format("%s [%s] : %s - Firmware: %s.%s", device.id, device.device_network_id, fingerprint.id, firmware_version, firmware_sub_version))
       profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
 
