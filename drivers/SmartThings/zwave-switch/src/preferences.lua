@@ -153,11 +153,11 @@ local devices = {
     }
   },
   -- https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
-  HOMESEER_WX300 = {
+  HOMESEER_WX300D = {
     MATCHING_MATRIX = {
-      mfrs = {0x000C, 0x0315},
+      mfrs = 0x000C,
       product_types = 0x4447,
-      product_ids = {0x3036,0x3037}
+      product_ids = 0x3036
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1},
@@ -180,6 +180,74 @@ local devices = {
       rampRate = {parameter_number = 12, size = 1},
       -- Possible values: 0-90
       -- 0=No delay (instant ON), 1=1 second (DEFAULT=3)
+      operatingMode = {parameter_number = 13, size = 1},
+      -- Set mode of operation
+      -- 0=Normal mode (load status) (DEFAULT)
+      -- 1=Status mode (custom status)
+      ledNormalColor = {parameter_number = 14, size = 1},
+      -- Possible values: 0-6
+      -- 0=White (DEFAULT)
+      -- 1=Red, 2=Green, 3=Blue, 4=Magenta, 5=Yellow, 6-Cyan
+      ledStatusColor1 = {parameter_number = 21, size = 1},
+      -- Sets the Status mode LED 1 (bottom) color
+      -- Possible values: 0-7
+      -- 0=Off (DEFAULT)
+      -- 1=Red, 2=Green, 3=Blue, 4=Magenta, 5=Yellow, 6=Cyan, 7=White
+      ledStatusColor2 = {parameter_number = 22, size = 1},
+      ledStatusColor3 = {parameter_number = 23, size = 1},
+      ledStatusColor4 = {parameter_number = 24, size = 1},
+      ledStatusColor5 = {parameter_number = 25, size = 1},
+      ledStatusColor6 = {parameter_number = 26, size = 1},
+      ledStatusColor7 = {parameter_number = 27, size = 1},
+      ledBlinkFrequency = {parameter_number = 30, size = 1},
+      -- Sets the dimmer Blink frequency for All LEDs in Status mode
+      -- Possible values: 0, 1-255
+      -- 0=No blink (DEFAULT), 1=100ms ON then 100ms OFF
+      --ledBlinkControl = {parameter_number = 31, size = 1},
+      -- Sets LED(s) 1-7 to Blink in Status mode
+      -- Bitmask defines specific LEDs to enable for blinking:
+      -- Note: this decimal value is derived from a hex code calculation based on the following:
+      -- Bit 0 = led 1, Bit 1 = led 2, Bit 2 = led 3, Bit 3 = led 4, Bit 4 = led 5, Bit 5 = led 6, Bit 6 = led 7
+      -- IE: value of 1 = first LED, 64 = led 7
+      wireMode = {parameter_number = 32, size = 1},
+      -- Sets the wire mode/no netural mode of the switch
+      -- 0 = 3 wire mode (Neutral, Line, & Load)
+      -- 1 = 2 wire mode (Line & Load)
+      startupMode = {parameter_number = 33, size = 1},
+      -- 0 = LEDs do not flash on startup (Added in firmware v1.13)
+      -- 1 = LEDs flash on startup to indicate switch or dimmer operation
+      ledBrightness = {parameter_number = 34, size = 1},
+      -- Sets relative LED indicator brightness (Added in firmware v1.13)
+      -- 0=Lowest intensity, 6=Highest intensity
+      toggleMode = {parameter_number = 35, size = 1},
+      -- 0 = Top=Load On; Bottom=Load Off (Added in firmware v1.13)
+      -- 1 = Either paddle turns load on/off
+      dimOnLevel = {parameter_number = 36, size = 1},
+      -- Sets Default Dim Value when turned On (0-99) (Added in firmware v1.13)
+      -- 0 = LAST dim level; 1-99 = dim level
+      relayLoadControl = {parameter_number = 37, size = 1}
+      -- 0 = Load is controlled with paddle (Added in firmware v1.13)
+      -- 1 = Load is not controlled with paddle      
+    }
+  },
+  -- https://docs.homeseer.com/products/lighting/hs-wx300/hs-wx300-user-guide
+  HOMESEER_WX300S = {
+    MATCHING_MATRIX = {
+      mfrs = 0x000C,
+      product_types = 0x4447,
+      product_ids = 0x3037
+    },
+    PARAMETERS = {
+      ledIndicator = {parameter_number = 3, size = 1},
+      -- 0 = Indicator ON when load is OFF
+      -- 1 = Indicator OFF when load is OFF (DEFAULT)
+      reverse = {parameter_number = 4, size = 1},
+      -- 0 = Top of Paddle turns load ON (DEFAULT)
+      -- 1 = Bottom of Paddle turns load ON
+      centralSceneConrol = {parameter = 6, size = 1},
+      -- Enables/Disables Central Scene (Added in firmware 5.12)
+      -- 0 = Central Scene Enabled, controls load with delay. Enables Multi-tap and press and hold (DEFAULT)
+      -- 1 = Central Scene Disabled, controls load instantly. Disables multi-tap, central scene, press and hold
       operatingMode = {parameter_number = 13, size = 1},
       -- Set mode of operation
       -- 0=Normal mode (load status) (DEFAULT)

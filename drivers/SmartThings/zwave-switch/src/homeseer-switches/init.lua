@@ -23,8 +23,8 @@
 
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
---- @type st.Device
-local st_device = require "st.device"
+--- @type st.zwave.Device
+local st_device = require "st.zwave.device"
 -- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 
@@ -34,7 +34,6 @@ local constants = require "st.zwave.constants"
 local utils = require "st.utils"
 -- @type log
 local log = require "log"
-
 
 
 --- Switch
@@ -50,51 +49,28 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 --- Button
 --- @type CentralScene
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
---- @type Configuration
-local configsMap = require "configurations"
 
 --- Misc
+--- @type table
+local preferencesMap = require "preferences"
+--- @type ManufacturerSpecific
+local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecific")({ version = 2 })
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 2})
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
---- ?????????????????????????????????????????????????????????????????
+
+
+--- #################################################################
+--- Section: Can Handle
+---
+--- ???????????????????????????????????????????????????????
 --- Variables/Constants
 ---
 
---- @local
-local custom_capabilities = {}
-custom_capabilities.firmwareVersion = {}
-custom_capabilities.firmwareVersion.name = "firmwareVersion"
-custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name]
-
---- @local
-local LAST_SEQ_NUMBER = "last_sequence_number"
-
---- @local
-local BUTTON_VALUES = {
-  "up_hold",
-  "down_hold",
-  "held",
-  "up",
-  "up_2x",
-  "up_3x",
-  "up_4x",
-  "up_5x",
-  "down",
-  "down_2x",
-  "down_3x",
-  "down_4x",
-  "down_5x",
-  "pushed",
-  "pushed_2x",
-  "pushed_3x",
-  "pushed_4x",
-  "pushed_5x",
-  "double"
-}
 --- Map HomeSeer Fingerprints
+--- @local (table)
 local HOMESEER_SWITCH_FINGERPRINTS = {
   {id = "HomeSeer/Switch/WS100",  mfr = 0x000C, prod = 0x4447, model = 0x3033}, -- HomeSeer WS100 Switch
   {id = "HomeSeer/Dimmer/WD100",  mfr = 0x000C, prod = 0x4447, model = 0x3034}, -- HomeSeer WD100 Dimmer
@@ -105,7 +81,169 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
   {id = "ZLink/Switch/WS100",     mfr = 0x0315, prod = 0x4447, model = 0x3033}, -- ZLink ZL-WS-100 Switch - ZWaveProducts.com
   {id = "ZLink/Dimmer/WD100",     mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- ZLink ZL-WD-100 Dimmer - ZWaveProducts.com
 }
+---
+--- ???????????????????????????????????????????????????????
+
+--- #######################################################
+---
+
+--- @function can_handle_homeseer_switches --
+--- Determine whether the passed device is a HomeSeer switch.
+--- Iterates over the fingerprints in `HOMESEER_SWITCH_FINGERPRINTS` and
+--- checks if the device's id matches the fingerprint's manufacturer, product, and model id.
+--- If a match is found, the function returns true, else it returns false.
+--- @param opts (table)
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @vararg ... any
+--- @return (boolean)
+local function can_handle_homeseer_switches(opts, driver, device, ...)
+  for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
+    if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
+      local args = {}
+      args.manufacturer_id = device.zwave_manufacturer_id or 0
+      --log.debug(string.format("%s [%s] : %s - mfr=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.manufacturer_id,args.manufacturer_id))
+      args.product_type_id = device.zwave_product_type or 0
+      --log.debug(string.format("%s [%s] : %s - prod=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.product_type_id,args.product_type_id))
+      args.product_id = device.zwave_product_id or 0
+      --log.debug(string.format("%s [%s] : %s - model=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.product_id,args.product_id))
+
+      log.info(string.format("%s [%s] : %s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
+      return true
+    end
+  end
+  return false
+end
+---
+--- #######################################################
+---
+--- #################################################################
+
+
+
+--- #################################################################
+--- Section: Handlers (Z-Wave and Capability)
+---
+--- ############################################################
+--- Subsection: Switch (Basic/SwitchBinary/SwitchMultilevel)
+---
+--- #######################################################
+---
+
+--- @function switch_binary_handler --
+--- Handles "on/off" functionality
+--- @param value (number)
+--- @return (function)
+local function switch_binary_handler(value)
+  --- Handles "on/off" functionality
+  --- @param driver (Driver) The driver object
+  --- @param device (st.zwave.Device) The device object
+  --- @param command (Command) Input command value
+  --- @return (nil)
+  return function(driver, device, command)
+    device:send_to_component(Basic:Set({value = value}), command.component)
+    
+    --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function(d)
+      --- Sends the `SwitchBinary:Get` command to the device's component
+      device:send_to_component(SwitchBinary:Get({}))
+    end)
+  end
+end
+
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function switch_multilevel_handler --
+--- Handles "dimmer/level" functionality
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @return (function)
+local function switch_multilevel_handler(driver, device, command)
+  local level
+
+  --- Checks if the level argument in the input command is set
+  if command.args.level then
+    --- Rounds the level value to the nearest integer
+    --- Clamps the level value between 0 and 99
+    level = utils.clamp_value(utils.round(command.args.level), 0, 99)
+
+    --- Emits a switch `on` or `off` event depending on the value of level
+    device:emit_event(level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off())
+  end
+  
+  --- Handles "on/off" and "brightness level" functionality for Z-Wave devices
+  --- @param driver (Driver) The driver object
+  --- @param device (st.zwave.Device) The device object
+  --- @param command (Command) Input command value
+  --- @return (nil)
+  return function(driver, device, command)
+    --- Checks if the device supports the `switchLevel` capability
+    if device:supports_capability(capabilities.switchLevel, nil) then
+      --- Gets the dimming duration from the input command, or uses the default value
+      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
+
+      --- Sends the `SwitchMultilevel:Set` command to the device's component with the given level and dimming duration
+      device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
+    end
+    
+    --- Calls the function `device:send_to_component(SwitchMultilevel:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY,
+      function()
+        --- Sends the `SwitchMultilevel:Get` command to the device's component
+        device:send_to_component(SwitchMultilevel:Get({}))
+      end
+    )
+  end
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function switch_multilevel_stop_level_change_handler --
+--- Handles the stopping of a switch level change on Z-Wave devices
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @return (nil)
+local function switch_multilevel_stop_level_change_handler(driver, device, command)
+  --- Emits an event with the switch capability "on"
+  device:emit_event(capabilities.switch.switch.on())
+  
+  --- Sends a `SwitchMultilevel:Get` command to the device
+  device:send(SwitchMultilevel:Get({}))
+end
+---
+--- #######################################################
+---
+--- ############################################################
+
+
+--- ############################################################
+--- Subsection: Button (Central Scene)
+---
+--- ???????????????????????????????????????????????????????
+--- Variables/Constants
+---
+
+--- @local (string)
+local LAST_SEQ_NUMBER = "last_sequence_number"
+
+--- @local (table)
+local BUTTON_VALUES = {
+  "up","up_2x","up_3x","up_4x","up_5x","up_hold",
+  "down","down_2x","down_3x","down_4x","down_5x","down_hold",
+  "pushed","pushed_2x","pushed_3x","pushed_4x","pushed_5x","held",  
+  "double"
+}
 --- Map Attributes to Capabilities
+--- @local (table)
 local map_key_attribute_to_capability = {
   [CentralScene.key_attributes.KEY_PRESSED_1_TIME] = {
     [0x01] = {
@@ -177,111 +315,20 @@ local map_key_attribute_to_capability = {
   }
 }
 ---
---- ?????????????????????????????????????????????????????????????????
+--- ???????????????????????????????????????????????????????
 
---- #################################################################
---- Section: Can Handle
----
---- #######################################################
----
-
---- @function can_handle_homeseer_switches --
---- Determine whether the passed device is a HomeSeer switch.
---- Iterates over the fingerprints in `HOMESEER_SWITCH_FINGERPRINTS` and
---- checks if the device's id matches the fingerprint's manufacturer, product, and model id.
---- If a match is found, the function returns true, else it returns false.
---- @param opts (table)
---- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
---- @vararg ... any
---- @return (boolean)
-local function can_handle_homeseer_switches(opts, driver, device, ...)
-  for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
-    if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(device.zwave_manufacturer_id)
-      return true
-    end
-  end
-  return false
-end
----
---- #######################################################
----
---- #################################################################
-
-
-
---- #################################################################
---- Section: Z-Wave Handlers
----
---- ############################################################
---- Subsection: Switch MultiLevel
----
---- #######################################################
----
-
---- @function dimmer_event --
---- Handles "dimmer" functionality
---- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
---- @param command (Command) Input command value
---- @return (nil)
-local function dimmer_event(driver, device, command)
-  local level = command.args.value and command.args.value or command.args.target_value
-  local event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
-  --- Switch/Dimmer functionality
-  if command.src_channel == 0 then
-    device:emit_event_for_endpoint(command.src_channel, event)
-
-    level = utils.clamp_value(level, 0, 100)
-    if level >= 99 then
-      device:emit_event_for_endpoint(command.src_channel, capabilities.switchLevel.level(100))
-    else
-      device:emit_event_for_endpoint(command.src_channel, capabilities.switchLevel.level(level))
-    end
-  --- LED Switch functionality
-  else
-      device:emit_event_for_endpoint(command.src_channel, event)
-  end
-end
----
---- #######################################################
-
---- #######################################################
----
-
---- @function switch_multilevel_stop_level_change_handler --
---- Handles "on/off" functionality
---- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
---- @param command (Command) Input command value
---- @return (nil)
-local function switch_multilevel_stop_level_change_handler(driver, device, command)
-  -- Emit an event with the switch capability "on"
-  device:emit_event(capabilities.switch.switch.on())
-  -- Send a SwitchMultilevel:Get command
-  device:send(SwitchMultilevel:Get({}))
-end
----
---- #######################################################
----
---- ############################################################
-
---- ############################################################
---- Subsection: Central Scene
----
 --- #######################################################
 ---
 
 --- @function central_scene_notification_handler --
 --- Handles "Scene" functionality
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return nil
 local function central_scene_notification_handler(driver, device, command)
   -- Check if the key attribute is released, if so, log an error and return as it is not supported by SmartThings
-  if (command.args.key_attributes == 0x01) then
+  if (command.args.key_attributes == CentralScene.key_attributes.KEY_RELEASED) then
     log.error("Button Value 'released' is not supported by SmartThings")
     return
   end
@@ -289,14 +336,11 @@ local function central_scene_notification_handler(driver, device, command)
   -- Check if the last sequence number is not the same as the current one, if not continue 
   if device:get_field(LAST_SEQ_NUMBER) ~= command.args.sequence_number then
     device:set_field(LAST_SEQ_NUMBER, command.args.sequence_number)
-    local event_map = map_key_attribute_to_capability[command.args.key_attributes]
-    local event = event_map and event_map[command.args.scene_number]
-    -- loop through the events array
+    local event = map_key_attribute_to_capability[command.args.key_attributes][command.args.scene_number]
+    -- Loop through the events array
     for _, e in ipairs(event) do
-      if e ~= nil then
-        -- emit the event for the endpoint
-        device:emit_event_for_endpoint(command.src_channel, e)
-      end
+      -- Emit the event for the endpoint
+      device:emit_event_for_endpoint(command.src_channel, e)
     end
   end
 end
@@ -305,8 +349,9 @@ end
 ---
 --- ############################################################
 
+
 --- ############################################################
---- Subsection: Version
+--- Subsection: Dynamic Profiles (Version)
 ---
 --- #######################################################
 ---
@@ -314,46 +359,39 @@ end
 --- @function version_report_handler --
 --- Adjust profile definition based upon reported firmware version
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function version_report_handler(driver, device, command)
-
-  local operatingMode = device.preferences.operatingMode == true and '-status' or ''
+  log.debug(string.format("%s [%s] : operatingMode: %s", device.id, device.device_network_id, device.preferences.operatingMode))
+  local operatingMode = tonumber(device.preferences.operatingMode) == 1 and '-status' or ''
+  local firmware_version = command.args.firmware_0_version
+  local firmware_sub_version = command.args.firmware_0_sub_version
   local profile
 
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.debug(string.format("%s: mfr=%s, prod=%s, model=%s", fingerprint.id, fingerprint.mfr, fingerprint.prod, fingerprint.model))
-      log.debug(string.format("Current Firmware: %s.%s", command.args.application_version, command.args.application_sub_version))
+      log.info(string.format("%s [%s] : %s - Firmware: %s.%s", device.id, device.device_network_id, fingerprint.id, firmware_version, firmware_sub_version))
       profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
 
       if fingerprint.id == "HomeSeer/Dimmer/WD200" then
         -- Check if the firmware version and sub-version match certain values
-        if (command.args.application_version == 5 and (command.args.application_sub_version > 11 and command.args.application_sub_version < 14)) then
+        if firmware_version == 5 and (firmware_sub_version > 11 and firmware_sub_version < 14) then
           -- Update the device's profile and set a field to indicate that the update has occurred
-          profile = profile .. '-' .. command.args.application_version .. '.' .. command.args.application_sub_version
+          profile = profile .. '-' .. firmware_version .. '.' .. firmware_sub_version
           break
           -- Check if the firmware version and sub-version match certain values
-        elseif (command.args.application_version == 5 and command.args.application_sub_version >= 14) then
+        elseif firmware_version == 5 and firmware_sub_version >= 14 then
           -- Update the device's profile and set a field to indicate that the update has occurred
           profile = profile .. '-' .. 'latest'
           break
         end
-      -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S"
-      elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" then
+      -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S or WX300D"
+      elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" or fingerprint.id == "HomeSeer/Dimmer/WX300D" then
         -- Check if the firmware version is greater than 1.12
-        if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
-          -- Set the new profile for the device
-          profile = profile .. '-' .. 'latest'
-          break
-        end
-      -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300D"
-      elseif fingerprint.id == "HomeSeer/Dimmer/WX300D" then
-        -- Check if the firmware version is greater than 1.12
-        if (command.args.application_version == 1 and command.args.application_sub_version > 12) then
+        if (firmware_version == 1 and firmware_sub_version > 12) then
           -- Set the new profile for the device
           profile = profile .. '-' .. 'latest'
           break
@@ -361,47 +399,27 @@ local function version_report_handler(driver, device, command)
       end
     end
   end
-  if profile ~= nil then
+  if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
-    log.warn(string.format("Setting profile: %s", profile))
+    log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
   end
 end
 ---
 --- #######################################################
 ---
 --- ############################################################
+--- Subsection: Firmware Upgrades
 ---
---- #################################################################
-
---- #################################################################
---- Section: Capability Handlers
----
---- #######################################################
+--- ???????????????????????????????????????????????????????
 ---
 
---- @function: do_referesh --
---- Refresh Device
---- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
---- @param command (Command) Input command value
---- @return (nil)
-local function do_refresh(driver, device, command)
-    --- Determine the component for the command
-    local component = command and command.component and command.component or "main"
-    --- Check if the device supports switch level capability
-    if (device:supports_capability(capabilities.switchLevel, component)) then
-        --- Send Get command to the switch level component
-        device:send_to_component(SwitchMultilevel:Get({}), component)
-        --- Send Get command to the Version component
-        device:send(Version:Get({}))
-    --- Check if the device supports switch capability
-    elseif device:supports_capability(capabilities.switch, component) then
-        --- Send Get command to the switch component
-        device:send_to_component(SwitchBinary:Get({}), component)
-    end
-end
+--[[ --- @local
+local custom_capabilities = {}
+custom_capabilities.firmwareVersion = {}
+custom_capabilities.firmwareVersion.name = "firmwareVersion"
+custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name] ]]
 ---
---- #######################################################
+--- ???????????????????????????????????????????????????????
 
 --- #######################################################
 ---
@@ -409,7 +427,7 @@ end
 --- @function: checkForFirmwareUpdate_handler --
 --- Check to see if there is a firmware update available for the device
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function checkForFirmwareUpdate_handler(driver, device, command)
@@ -427,7 +445,7 @@ end
 --- @function: updateFirmware_handler --
 --- Check to see if there is a firmware update available for the device
 --- @param driver (Driver) The driver object
---- @param device (st.Device) The device object
+--- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
 local function updateFirmware_handler(driver, device, command)
@@ -438,53 +456,88 @@ local function updateFirmware_handler(driver, device, command)
 end
 ---
 --- #######################################################
+---
+--- ############################################################
+---
+--- #################################################################
 
+
+
+--- #################################################################
+--- Section: Helpers/Utilities
+---
+--- @local (table)
+local ENDPOINTS = {
+  main = 0,
+  led = { 1, 2, 3, 4, 5, 6, 7 }
+}
 --- #######################################################
 ---
 
---- @function switch_set_on_off_handler --
---- Handles "on/off" functionality
---- @param value number
---- @return function
-local function switch_set_on_off_handler(value)
-  --- Handles "on/off" functionality
-  --- @param driver (Driver) The driver object
-  --- @param device (st.Device) The device object
-  --- @param command (Command) Input command value
-  --- @return (nil)
-  return function(driver, device, command)
-    local get, set
+--- @function component_to_endpoint --
+--- Map component to end_points (channels)
+--- @param device (st.zwave.Device)
+--- @param component_id (string) ID
+--- @return table dst_channels destination channels e.g. {2} for Z-Wave channel 2 or {} for unencapsulated
+local function component_to_endpoint(device, component_id)
+  local ep_num = component_id == "main" and 0 or tonumber(component_id:match("LED-(%d)"))
+  return { ep_num }
+end
+---
+--- #######################################################
 
-    if device:supports_capability(capabilities.switchLevel, nil) then
-      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
-      set = SwitchMultilevel:Set({value = value, duration = dimmingDuration })
-      get = SwitchMultilevel:Get({})
-    elseif device:supports_capability(capabilities.switch, nil) then
-      set = SwitchBinary:Set({target_value = value, duration = 0})
-      get = SwitchBinary:Get({})
-    end
-
-    local query_device = function()
-      device:send_to_component(get, command.component)
-    end
-
-    device:send_to_component(set, command.component)
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_device)
+--- #######################################################
+---
+--- @function: do_referesh --
+--- Refresh Device
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @return (nil)
+local function do_refresh(driver, device, command)
+  --- Determine the component for the command
+  local component = command and command.component or "main"
+  local capability = device:supports_capability(capabilities.switch, component) and capabilities.switch or
+                     device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel
+  --- Check if the device supports switch level capability
+  if capability then
+    device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
   end
 end
 ---
 --- #######################################################
 ---
 --- #################################################################
+
+
 
 --- #################################################################
 --- Section: Lifecycle Handlers
 ---
 --- #######################################################
+
+--- #######################################################
 ---
 
-local function device_init(self, device)
-  device:init()
+--- @function device_init --
+--- Initialize device
+--- @param self (Driver) Reference to the current object
+--- @param device (st.zwave.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function device_init(self, device, event, args)
+  --- Check if the network type is not ZWAVE
+  if device.network_type ~= st_device.NETWORK_TYPE_ZWAVE then
+    return end
+
+  --- Log the device init message
+  log.info(string.format("%s: %s > DEVICE INIT", device.id, device.device_network_id))
+  
+  --- Set the component to endpoint function for the device
+  device:set_component_to_endpoint_fn(component_to_endpoint)
+
+  --- Call the init lifecycle handler
+  self.lifecycle_handlers.init(self, device, event, args)
 end
 ---
 --- #######################################################
@@ -492,92 +545,28 @@ end
 --- #######################################################
 ---
 
---- @function added_handler --
+--- @function info_changed
 --- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
-local function added_handler(self, device)
-  log.debug('Device Added')
-
-  -- Refresh the device
-  device:refresh()
-  -- Get the device parameters from configsMap
---[[   local configs = configsMap.get_device_parameters(device)
-  -- Check if configs are available
-  if configs then
-    -- Loop through the device components
-    for _, comp in pairs(device.profile.components) do
-      -- Check if the device supports the button capability by id
-      if device:supports_capability_by_id(capabilities.button.ID, comp.id) then
-        -- Assign number_of_buttons based on comp.id
-        local number_of_buttons = comp.id == "main" and configs.number_of_buttons or 1
-        -- Emit an event for the numberOfButtons capability with the value and visibility set
-        device:emit_component_event(comp, capabilities.button.numberOfButtons({ value=number_of_buttons }, { visibility = { displayed = false } }))
-        -- Emit an event for the supportedButtonValues capability with the configs.supported_button_values and visibility set
-        device:emit_component_event(comp, capabilities.button.supportedButtonValues(BUTTON_VALUES, { visibility = { displayed = false } }))
-      end
-    end
-  end ]]
-end
----
---- #######################################################
-
---- #######################################################
-
---- @function do_configure --
---- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
-local function do_configure(self, device)
-  log.debug('Configure Device')
-  device:refresh()
-  device:configure()
-end
----
---- #######################################################
-
---- #######################################################
----
-
---- @function info_changed --
---- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
+--- @param device (st.zwave.Device) Device object that is added
 --- @param event (Event)
 --- @param args (any)
 local function info_changed(self, device, event, args)
-  log.info(device.pretty_print(self))
-
-  if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
-    device:send(Version:Get({}))
-  end
+  --- Log the device id and network id
+  log.info(string.format("%s: %s > INFO_CHANGED", device.id, device.device_network_id))
+    --- Check if the operating mode has changed
+    if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
+      --- Send a Get command to retrieve the version information
+      device:send(Version:Get({}))
+    end
+  --- Call the lifecycle handler's infoChanged function
   self.lifecycle_handlers.infoChanged(self, device, event, args)
-end
----
---- #######################################################
-
---- #######################################################
----
-
---- @function driver_switched --
---- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
-local function driver_switched(self, device)
-  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_SWITCHED")
-end
----
---- #######################################################
-
---- #######################################################
----
-
---- @function removed --
---- @param self (Driver) Reference to the current object
---- @param device (st.Device) Device object that is added
-local function removed(self, device)
-  log.info(device.id .. ": " .. device.device_network_id .. " > DRIVER_REMOVED")
 end
 ---
 --- #######################################################
 ---
 --- #################################################################
+
+
 
 --- /////////////////////////////////////////////////////////////////
 ---  Section: Driver
@@ -591,18 +580,21 @@ local homeseer_switches = {
   zwave_handlers = {
     --- Switch
     [cc.BASIC] = {
-      [Basic.SET] = dimmer_event,
-      [Basic.REPORT] = dimmer_event
+      [Basic.Set] = switch_multilevel_handler,
+      [Basic.Report] = switch_multilevel_handler
     },
-    --- Dimmer
     [cc.SWITCH_MULTILEVEL] = {
-      [SwitchMultilevel.SET] = dimmer_event,
-      [SwitchMultilevel.REPORT] = dimmer_event,
+      [SwitchMultilevel.Set] = switch_multilevel_handler,
+      [SwitchMultilevel.Report] = switch_multilevel_handler,
       [SwitchMultilevel.STOP_LEVEL_CHANGE] = switch_multilevel_stop_level_change_handler
     },
     --- Button
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = central_scene_notification_handler
+    },
+    --- Manufaturer Report
+    [cc.MANUFACTURER_SPECIFIC] = {
+      [ManufacturerSpecific.Report] = can_handle_homeseer_switches
     },
     --- Return firmware version
     [cc.VERSION] = {
@@ -614,11 +606,8 @@ local homeseer_switches = {
       [capabilities.refresh.commands.refresh.NAME] = do_refresh
     },
     [capabilities.switch.ID] = {
-      [capabilities.switch.switch.on.NAME] = switch_set_on_off_handler(SwitchBinary.value.ON_ENABLE),
-      [capabilities.switch.switch.off.NAME] = switch_set_on_off_handler(SwitchBinary.value.OFF_DISABLE)
-    },
-    [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = dimmer_event
+      [capabilities.switch.switch.on.NAME] = switch_binary_handler(SwitchBinary.value.ON_ENABLE),
+      [capabilities.switch.switch.off.NAME] = switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
@@ -628,11 +617,11 @@ local homeseer_switches = {
   },
   lifecycle_handlers = {
     init = device_init,
-    added = added_handler,
-    doConfigure = do_configure,
+    --added = added_handler,
+    --doConfigure = do_configure,
     infoChanged = info_changed,
-    driverSwitched = driver_switched,
-    removed = removed
+    --driverSwitched = driver_switched,
+    --removed = removed
   }
 }
 ---
