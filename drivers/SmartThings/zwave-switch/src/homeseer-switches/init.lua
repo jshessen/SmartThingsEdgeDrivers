@@ -369,8 +369,6 @@ local function version_report_handler(driver, device, command)
   local firmware_sub_version = command.args.firmware_0_sub_version
   local profile
 
-  tobool()
-
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
