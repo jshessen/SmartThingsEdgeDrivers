@@ -52,8 +52,6 @@ jobs:
   modify-config:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    strategy:
-      fail-fast: false
     steps:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
@@ -92,8 +90,6 @@ jobs:
     needs: modify-config
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    strategy:
-      fail-fast: false
     steps:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
