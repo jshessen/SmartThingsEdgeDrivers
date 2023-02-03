@@ -362,7 +362,7 @@ end
 --- @return (nil)
 local function version_report_handler(driver, device, command)
 
-  local operatingMode = device.preferences.operatingMode == true and '-status' or ''
+  local operatingMode = device.preferences.operatingMode == 1 and '-status' or ''
   local firmware_version = command.args.firmware_0_version
   local firmware_sub_version = command.args.firmware_0_sub_version
   local profile
@@ -387,7 +387,7 @@ local function version_report_handler(driver, device, command)
           break
         end
       -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S or WX300D"
-      elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" or fingerprint.id == "HomeSeer/Dimmer/WX300D"then
+      elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" or fingerprint.id == "HomeSeer/Dimmer/WX300D" then
         -- Check if the firmware version is greater than 1.12
         if (firmware_version == 1 and firmware_sub_version > 12) then
           -- Set the new profile for the device
