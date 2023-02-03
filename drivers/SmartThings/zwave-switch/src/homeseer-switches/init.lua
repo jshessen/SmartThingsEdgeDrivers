@@ -322,7 +322,6 @@ local function central_scene_notification_handler(driver, device, command)
     -- loop through the events array
     for _, e in ipairs(event) do
       if e ~= nil then
-        log.debug(string.format("%s [%s] : Button Event - '%s'", device.id, device.device_network_id, e.value))
         -- emit the event for the endpoint
         device:emit_event_for_endpoint(command.src_channel, e)
       end
