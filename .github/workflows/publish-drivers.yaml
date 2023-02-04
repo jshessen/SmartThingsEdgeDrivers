@@ -45,7 +45,7 @@ jobs:
 
   matrix-prep:
     if: needs.parse-changes.outputs.drivers != '[]'
-    name: "Read/Parse Strategy Matrix"
+    name: "Create Strategy Matrix"
     needs: parse-changes
     runs-on: ubuntu-latest
     outputs:
