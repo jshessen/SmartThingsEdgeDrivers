@@ -65,7 +65,18 @@ jobs:
     needs: matrix-prep
     strategy:
       matrix: ${{ fromJson(needs.matrix-prep.outputs.matrix) }}
-    uses: ./.github/workflows/publish-smartthings-driver.yml
+    uses: ./.github/workflows/publish-smartthings-driver.yaml
+    with:
+      driver: ${{ matrix.driver }}
+      path: ${{ matrix.path }}
+      label: ${{ matrix.label }}
+      pkgkey: ${{ matrix.pkgkey }}
+      environment: ${{ github.base_ref || github.ref_name }}
+    secrets: inherit
+
+  release:
+    needs: publish-drivers
+    uses: ./.github/workflows/release.yaml
     with:
       driver: ${{ matrix.driver }}
       path: ${{ matrix.path }}
