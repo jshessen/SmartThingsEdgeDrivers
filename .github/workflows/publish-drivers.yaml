@@ -78,9 +78,5 @@ jobs:
     needs: publish-drivers
     uses: ./.github/workflows/release.yaml
     with:
-      driver: ${{ matrix.driver }}
-      path: ${{ matrix.path }}
-      label: ${{ matrix.label }}
-      pkgkey: ${{ matrix.pkgkey }}
       environment: ${{ github.base_ref || github.ref_name }}
     secrets: inherit
