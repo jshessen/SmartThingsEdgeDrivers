@@ -12,11 +12,11 @@ on:
         required: true
         type: string
       label:
-        description: "name in config.yml"
+        description: "name in config.yaml"
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yml
+        description: packageKey in config.yaml
         required: true
         type: string
       environment:
@@ -35,11 +35,11 @@ on:
         required: true
         type: string
       label:
-        description: "name in config.yml"
+        description: "name in config.yaml"
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yml
+        description: packageKey in config.yaml
         required: true
         type: string
       environment:
@@ -68,19 +68,19 @@ jobs:
           echo "LABEL=${{ inputs.label }} (beta)" >> $GITHUB_ENV  
           echo "PKG_KEY=${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
 
-      - name: "Load config.yml from Cache"
+      - name: "Load config.yaml from Cache"
         id: cache-config
         uses: actions/cache@v3
         with:
-          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
+          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yaml"
           key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
           
-      - name: "Generate config.yml using Handlebars Template"
+      - name: "Generate config.yaml using Handlebars Template"
         if: steps.cache-config.outputs.cache-hit != 'true'
         uses: pedrolamas/handlebars-action@v2.1.0
         with:
-          files: './.github/workflows/templates/config.yml.template'
-          output-filename: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
+          files: './.github/workflows/templates/config.yaml.template'
+          output-filename: "${{ inputs.path }}/${{ inputs.driver }}/config.yaml"
         env:
           GITHUB: "${{ github.server_url }}/${{ github.repository }}"
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-for-homeseer-devices/"
@@ -94,11 +94,11 @@ jobs:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
         
-      - name: "Load config.yml from Cache"
+      - name: "Load config.yaml from Cache"
         id: cache-config
         uses: actions/cache@v3
         with:
-          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
+          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yaml"
           key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
 
       - name: "Load smartthings-cli From Cache"
