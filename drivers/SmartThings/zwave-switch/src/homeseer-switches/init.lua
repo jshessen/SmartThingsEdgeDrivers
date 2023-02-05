@@ -620,7 +620,7 @@ local function info_changed(self, device, event, args)
         -- We may need to update our device profile
         local report = Version.Report
         log.debug(string.format("%s [%s] : dump=", device.id, device.device_network_id))
-        log.deubt(dump(report))
+        log.debug(dump(report))
       update_device_profile(self, device, report)
     end
   -- Call the topmost 'infoChanged' lifecycle hander to do any default work
