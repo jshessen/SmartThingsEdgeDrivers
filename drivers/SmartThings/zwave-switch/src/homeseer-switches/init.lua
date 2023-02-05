@@ -353,20 +353,34 @@ end
 --- ############################################################
 --- Subsection: Dynamic Profiles (Version)
 ---
+
 --- #######################################################
 ---
 
 --- @function version_report_handler --
---- Adjust profile definition based upon reported firmware version
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
---- @return (nil)
 local function version_report_handler(driver, device, command)
+  return command.args.firmware_targets
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function update_device_profile --
+--- Adjust profile definition based upon reported firmware version
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param args (any)
+--- @return (nil)
+local function update_device_profile(driver, device, args)
   log.debug(string.format("%s [%s] : operatingMode: %s", device.id, device.device_network_id, device.preferences.operatingMode))
   local operatingMode = tonumber(device.preferences.operatingMode) == 1 and '-status' or ''
-  local firmware_version = command.args.firmware_0_version
-  local firmware_sub_version = command.args.firmware_0_sub_version
+  local firmware_version = args.firmware_targets.firmware_version
+  local firmware_sub_version = args.firmware_targets.firm.firmware_sub_version
   local profile
 
   -- Iterate through the list of HomeSeer switch fingerprints
@@ -488,6 +502,7 @@ end
 
 --- #######################################################
 ---
+
 --- @function: do_referesh --
 --- Refresh Device
 --- @param driver (Driver) The driver object
@@ -498,10 +513,31 @@ local function do_refresh(driver, device, command)
   --- Determine the component for the command
   local component = command and command.component or "main"
   local capability = device:supports_capability(capabilities.switch, component) and capabilities.switch or
-                     device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel
+                      device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel
   --- Check if the device supports switch level capability
   if capability then
     device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
+  end
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function call_parent_handler --
+--- Invoke handlers for a specific event
+--- @param handlers (function|table) Function or tables of functions to call as event handlers.
+--- @param self (Driver) Reference to the current object
+--- @param device (st.zwave.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function call_parent_handler(handlers, self, device, event, args)
+  -- check if `handlers` is not a table; if true wrap as table
+  local handlers_table = type(handlers) == "function" and { handlers } or handlers
+  -- Invoke each function in the handlers table and pass the provided arguments.
+  for _, func in ipairs( handlers_table or {} ) do
+      func(self, device, event, args)
   end
 end
 ---
@@ -555,11 +591,11 @@ local function info_changed(self, device, event, args)
   log.info(string.format("%s: %s > INFO_CHANGED", device.id, device.device_network_id))
     --- Check if the operating mode has changed
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
-      --- Send a Get command to retrieve the version information
-      device:send(Version:Get({}))
+        -- We may need to update our device profile
+      update_device_profile(self, device, Version.Report)
     end
-  --- Call the lifecycle handler's infoChanged function
-  self.lifecycle_handlers.infoChanged(self, device, event, args)
+  -- Call the topmost 'infoChanged' lifecycle hander to do any default work
+  call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
 end
 ---
 --- #######################################################

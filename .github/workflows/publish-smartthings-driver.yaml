@@ -50,12 +50,13 @@ on:
 
 jobs:
   modify-config:
+    name: "Modify Driver Config"
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
-       
+      
       - name: "Define 'main' Branch Environment Variables"
         if: ${{ inputs.environment == 'main' }}
         run: |
@@ -67,7 +68,7 @@ jobs:
         run: |
           echo "LABEL=${{ inputs.label }} (beta)" >> $GITHUB_ENV  
           echo "PKG_KEY=${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
-
+          
       - name: "Load config.yml from Cache"
         id: cache-config
         uses: actions/cache@v3
@@ -84,7 +85,7 @@ jobs:
         env:
           GITHUB: "${{ github.server_url }}/${{ github.repository }}"
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-for-homeseer-devices/"
-
+          
   publish:
     name: "Publish Driver"
     needs: modify-config
@@ -96,22 +97,22 @@ jobs:
         
       - name: "Load config.yml from Cache"
         id: cache-config
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v3
         with:
           path: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
           key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
-
+          fail-on-cache-miss: true
       - name: "Load smartthings-cli From Cache"
         id: stcli
         uses: actions/cache@v3        
         with:
           path: smartthings
           key: stcli-latest
-
+          
       - name: "Download smartthings-cli"
         if: steps.stcli.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
-
+        
       - name: "Publish - edge:drivers:package"
         run: ./smartthings edge:drivers:package ${{ inputs.path }}/${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
         env:

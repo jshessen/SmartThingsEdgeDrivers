@@ -37,15 +37,15 @@ jobs:
         uses: dorny/paths-filter@v2
         id: filter
         with:
+          base: ${{ github.base_ref || github.ref_name }}
           filters: |
-            base: ${{ github.base_ref || github.ref_name }}
             zwave-switch: 'drivers/**/zwave-switch/**'
             zwave-fan: 'drivers/**/zwave-fan/**'
             zwave-sensor: 'drivers/**/zwave-sensor/**'
 
   matrix-prep:
     if: needs.parse-changes.outputs.drivers != '[]'
-    name: "Read/Parse Strategy Matrix"
+    name: "Create Strategy Matrix"
     needs: parse-changes
     runs-on: ubuntu-latest
     outputs:
@@ -65,11 +65,16 @@ jobs:
     needs: matrix-prep
     strategy:
       matrix: ${{ fromJson(needs.matrix-prep.outputs.matrix) }}
-    uses: ./.github/workflows/publish-smartthings-driver.yml
+    uses: ./.github/workflows/publish-smartthings-driver.yaml
     with:
       driver: ${{ matrix.driver }}
       path: ${{ matrix.path }}
       label: ${{ matrix.label }}
       pkgkey: ${{ matrix.pkgkey }}
       environment: ${{ github.base_ref || github.ref_name }}
+    secrets: inherit
+
+  release:
+    needs: publish-drivers
+    uses: ./.github/workflows/release.yaml
     secrets: inherit

@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  workflow_call:
+
+jobs:
+  release:
+    name: "Release"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        id: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get event_name
+        run: echo "Event name ${{ github.event_name }}"
+      - name: "Semantic Release"
+        id: release-semantic
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          extra_plugins: |
+            @semantic-release/changelog@6.0.0
+            conventional-changelog-conventionalcommits@latest
+            @semantic-release/git@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
