@@ -1,5 +1,24 @@
 # Change Log
 
+## [0.2.2](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.2.1...v0.2.2) (2023-02-05)
+
+
+### :octocat: CI/CD
+
+* **publish:** conditional rule update ([007c42c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/007c42c055925a6eab1e67f6412059d71769f6cc))
+* **publish:** conditional rule update ([7bf9253](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/7bf925364e2c975b5978e645cc43c1f054ae9a3e))
+* **publish:** conditional rule update ([8dd5fb5](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/8dd5fb5e64595990516f5be989fd737a9d3c38f4))
+* **publish:** Define rule to limit double publish on PR to main ([aa19a0a](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/aa19a0afc82721b7c6bc5b4be75e25e1d566a46a))
+* **publish:** rule test ([0e6d277](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/0e6d27738132c688582230672fcbf06d0c813364))
+* **publish:** rule test ([e68d6a9](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/e68d6a9b37672923b720af1cd8de18dcf9eb18ed))
+* **publish:** rule test ([8c03507](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/8c03507dea0c9dab12e5c5f95db65cb589a8c94e))
+* **publish:** Updated publish trigger rules ([e91b015](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/e91b01557b06e6f6e6d45a6d360f17765acfba2a))
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **profile:** Reference the v1/2 version arguments ([a11cb6e](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/a11cb6ef4c8c45ed993c214d17d6beedd2193597))
+
 ## [0.2.2-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.2.1...v0.2.2-beta.1) (2023-02-05)
 
 
