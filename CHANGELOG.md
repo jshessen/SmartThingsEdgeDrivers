@@ -1,5 +1,18 @@
 # Change Log
 
+## [0.2.2-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.2.1...v0.2.2-beta.1) (2023-02-05)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **profile:** Reference the v1/2 version arguments ([a11cb6e](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/a11cb6ef4c8c45ed993c214d17d6beedd2193597))
+
+
+### :octocat: CI/CD
+
+* **publish:** Define rule to limit double publish on PR to main ([aa19a0a](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/aa19a0afc82721b7c6bc5b4be75e25e1d566a46a))
+* **publish:** Updated publish trigger rules ([e91b015](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/e91b01557b06e6f6e6d45a6d360f17765acfba2a))
+
 ## [0.2.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.2.0...v0.2.1) (2023-02-05)
 
 

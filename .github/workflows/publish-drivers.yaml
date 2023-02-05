@@ -3,8 +3,8 @@ name: publish-drivers
 on:
   push:
     branches:
-      - main
-      - beta
+      - "beta"
+      - "!main"
     paths:
       - "drivers/**.yaml"
       - "drivers/**.yml"
@@ -13,6 +13,7 @@ on:
     branches:
       - main
       - beta
+    types: [opened, synchronize, closed]
     paths:
       - "drivers/**.yaml"
       - "drivers/**.yml"
@@ -61,7 +62,7 @@ jobs:
           filter: 'drivers[?contains(`${{ needs.parse-changes.outputs.drivers }}`, driver)]'
 
   publish-drivers:
-    if: needs.matrix-prep.outputs.matrix != '[]'
+    if: needs.matrix-prep.outputs.matrix != '[]' && (!((!contains(github.base_ref, 'main') && github.event.action == 'closed' && github.event.pull_request.merged != true)))
     needs: matrix-prep
     strategy:
       matrix: ${{ fromJson(needs.matrix-prep.outputs.matrix) }}

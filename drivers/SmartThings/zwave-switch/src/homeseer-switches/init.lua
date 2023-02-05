@@ -56,7 +56,7 @@ local preferencesMap = require "preferences"
 --- @type ManufacturerSpecific
 local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecific")({ version = 2 })
 --- @type Version
-local Version = (require "st.zwave.CommandClass.Version")({version = 2})
+local Version = (require "st.zwave.CommandClass.Version")({version = 3})
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -353,20 +353,6 @@ end
 --- ############################################################
 --- Subsection: Dynamic Profiles (Version)
 ---
-
---- #######################################################
----
-
---- @function version_report_handler --
---- @param driver (Driver) The driver object
---- @param device (st.zwave.Device) The device object
---- @param command (Command) Input command value
-local function version_report_handler(driver, device, command)
-  return command.args.firmware_targets
-end
----
---- #######################################################
-
 --- #######################################################
 ---
 
@@ -374,13 +360,13 @@ end
 --- Adjust profile definition based upon reported firmware version
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
---- @param args (any)
+--- @param args (table)
 --- @return (nil)
 local function update_device_profile(driver, device, args)
   log.debug(string.format("%s [%s] : operatingMode: %s", device.id, device.device_network_id, device.preferences.operatingMode))
   local operatingMode = tonumber(device.preferences.operatingMode) == 1 and '-status' or ''
-  local firmware_version = args.firmware_targets.firmware_version
-  local firmware_sub_version = args.firmware_targets.firm.firmware_sub_version
+  local firmware_version = args.firmware_0_version
+  local firmware_sub_version = args.firmware_0_sub_version
   local profile
 
   -- Iterate through the list of HomeSeer switch fingerprints
@@ -417,6 +403,19 @@ local function update_device_profile(driver, device, args)
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
     log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
   end
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function version_report_handler --
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+local function version_report_handler(driver, device, command)
+  update_device_profile(driver, device, command.args)
 end
 ---
 --- #######################################################
@@ -564,7 +563,8 @@ end
 local function device_init(self, device, event, args)
   --- Check if the network type is not ZWAVE
   if device.network_type ~= st_device.NETWORK_TYPE_ZWAVE then
-    return end
+    return
+  end
 
   --- Log the device init message
   log.info(string.format("%s: %s > DEVICE INIT", device.id, device.device_network_id))
@@ -573,7 +573,7 @@ local function device_init(self, device, event, args)
   device:set_component_to_endpoint_fn(component_to_endpoint)
 
   --- Call the init lifecycle handler
-  self.lifecycle_handlers.init(self, device, event, args)
+  call_parent_handler(self.lifecycle_handlers.init, self, device, event, args)
 end
 ---
 --- #######################################################
@@ -592,7 +592,7 @@ local function info_changed(self, device, event, args)
     --- Check if the operating mode has changed
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
         -- We may need to update our device profile
-      update_device_profile(self, device, Version.Report)
+        device:send(Version:Get({}))
     end
   -- Call the topmost 'infoChanged' lifecycle hander to do any default work
   call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
