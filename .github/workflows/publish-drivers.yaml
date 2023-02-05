@@ -62,7 +62,7 @@ jobs:
           filter: 'drivers[?contains(`${{ needs.parse-changes.outputs.drivers }}`, driver)]'
 
   publish-drivers:
-    if: needs.matrix-prep.outputs.matrix != '[]' && (!((!contains(github.base_ref, 'main') && github.event.action == 'closed' && github.event.pull_request.merged != true)))
+    if: needs.matrix-prep.outputs.matrix != '[]' && (!((contains(github.base_ref, 'main') && github.event.action == 'closed' && github.event.pull_request.merged != true))
     needs: matrix-prep
     strategy:
       matrix: ${{ fromJson(needs.matrix-prep.outputs.matrix) }}
