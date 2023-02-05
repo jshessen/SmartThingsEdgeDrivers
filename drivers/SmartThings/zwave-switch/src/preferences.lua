@@ -157,7 +157,7 @@ local devices = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
       product_types = 0x4447,
-      product_ids = 0x3036
+      product_ids = 0x4036
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1},
@@ -235,7 +235,7 @@ local devices = {
     MATCHING_MATRIX = {
       mfrs = 0x000C,
       product_types = 0x4447,
-      product_ids = 0x3037
+      product_ids = 0x4037
     },
     PARAMETERS = {
       ledIndicator = {parameter_number = 3, size = 1},
