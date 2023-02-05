@@ -150,8 +150,12 @@ local function set_status_led(device,id, value, color)
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
-      device:set_field(id, false, {persist = false})
-      device:send(Configuration:Get({parameter_number = preferences[id].parameter_number}))
+      ---device:set_field(id, false, {persist = false})
+      --- Calls the function `device:send(Configuration:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
+      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
+        --- Sends the `Configuration:Get` command to device
+        device:send(Configuration:Get({parameter_number = preferences[id].parameter_number}))
+      end)
     end
   end
 end
