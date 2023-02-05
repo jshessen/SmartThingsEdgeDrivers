@@ -143,10 +143,7 @@ local function set_status_led(device,component_id, state, color)
 -- 7=White SwitchColor.color_component_id.COLD_WHITE=1
   local preferences = preferencesMap.get_device_parameters(device)
   for id, value in pairs(device.preferences) do
-    -- LED-# => ledStatusColor#
-    local led_num = "ledStatusColor" .. string.sub(component_id,string.find(component_id,"-"))
-
-    if preferences and preferences[id] == led_num then
+    if preferences and preferences[id] == component_id then
       if state == SwitchBinary.value.OFF_DISABLE then
         device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
       else
@@ -178,6 +175,7 @@ local function switch_binary_handler(value)
     if command.component == "main" then
       device:send_to_component(Basic:Set({value = value}), command.component)
     else
+      -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
       set_status_led(device,id,value,value)
     end
