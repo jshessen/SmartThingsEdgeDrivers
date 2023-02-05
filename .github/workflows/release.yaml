@@ -2,37 +2,6 @@ name: Release
 
 on:
   workflow_call:
-  workflow_dispatch:
-    inputs:
-      semantic_version:
-        description: "Specify specifying version range for semantic-release."
-        required: false
-        type: string
-      branches:
-        description: "The branches on which releases should happen. Support for semantic-release above v16."
-        required: false
-        type: string
-      branch:
-        description: "The branch on which releases should happen. Only support for semantic-release older than v16."
-        required: false
-        type: string
-      extra_plugins:
-        description: "Extra plugins for pre-install."
-        required: false
-        type: string
-      dry_run:
-        description: "Whether to run semantic release in dry-run mode."
-        required: false
-        type: boolean
-        default: false
-      extends:
-        description: "Use a sharable configuration"
-        required: false
-        type: string
-      working_directory:
-        description: "Use another working directory for semantic release"
-        required: false
-        type: string
 
 jobs:
   release:
@@ -47,7 +16,6 @@ jobs:
       - name: Get event_name
         run: echo "Event name ${{ github.event_name }}"
       - name: "Semantic Release"
-        if: ${{ github.event_name == 'workflow_call' }}
         id: release-semantic
         uses: cycjimmy/semantic-release-action@v3
         with:
@@ -55,23 +23,5 @@ jobs:
             @semantic-release/changelog@6.0.0
             conventional-changelog-conventionalcommits@latest
             @semantic-release/git@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Semantic Release - Manual Call"
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        id: release-semantic-manual
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          semantic-version: ${{ inputs.semantic_version }}
-          branches: ${{ inputs.branches }}
-          branch: ${{ inputs.branch }}
-          extra_plugins: |
-            @semantic-release/changelog@6.0.0
-            conventional-changelog-conventionalcommits@latest
-            @semantic-release/git@latest
-            ${{ inputs.extra_plugins }}
-          dry_run: ${{ inputs.dry_run }}
-          extends: ${{ inputs.extends }}
-          working_directory: ${{ inputs.working_directory }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
