@@ -67,45 +67,60 @@ generateNotes:
   - path: '@semantic-release/release-notes-generator'
     writerOpts:
       groupBy: 'type'
-      commitGroupsSort: 'title'
+      commitGroupsSort:
+        - "feat"
+        - "fix"
+        - "perf"
+        - "refactor"
+        - "revert"
+        - "docs"
+        - "example"
+        - "chore"
+        - "style"
+        - "ci"
+        - "build"
+        - "test"
       commitsSort: 'header'
     linkCompare: true
     linkReferences: true
     presetConfig:
       types:  # looks like it only works with 'conventionalcommits' preset
-        - type: 'build'
-          section: ':octocat: CI/CD'
+        - type: 'feat'
+          section: ':rocket: Feature/Improvement'
           hidden: false
-        - type: 'chore'
-          section: ':broom: Other'
+        - type: 'fix'
+          section: ':hammer_and_wrench: Bug Fixes'
           hidden: false
-        - type: 'ci'
-          section: ':octocat: CI/CD'
+        - type: 'perf'
+          section: ':fast_forward: Performance Improvements'
+          hidden: false
+        - type: 'revert'
+          section: ':back: Reverts'
+          hidden: false
+        - type: 'refactor'
+          section: ':scissors: Code Refactoring'
           hidden: false
         - type: 'docs'
-          section: ':page_facing_up: Docs'
+          section: ':page_facing_up: Documentation'
           hidden: false
         - type: 'example'
           section: ':memo: Examples'
           hidden: false
-        - type: 'feat'
-          section: ':rocket: Features'
+        - type: 'chore'
+          section: ':broom: Miscellaneous Chores'
           hidden: false
-        - type: 'fix'
-          section: ':hammer_and_wrench: Fixes'
-          hidden: false
-        - type: 'perf'
-          section: ':fast_forward: Performance'
-        - type: 'refactor'
-          section: ':scissors: Refactor'
-          hidden: false
-        - type: 'revert'
-          section: ':back: Reverts'
         - type: 'style'
-          section: ':barber: Style'
+          section: ':barber: Styles'
+          hidden: true
+        - type: 'ci'
+          section: ':octocat: CI/CD'
+          hidden: false
+        - type: 'build'
+          section: ':octocat: CI/CD'
+          hidden: false
         - type: 'test'
           section: ':test_tube: Tests'
-          hidden: false
+          hidden: true
 
 # Responsible for preparing the release, for example creating or updating files
 # such as package.json, CHANGELOG.md, documentation or compiled assets
