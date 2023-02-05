@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "beta"
-      - "!main"
+      - "main"
     paths:
       - "drivers/**.yaml"
       - "drivers/**.yml"
