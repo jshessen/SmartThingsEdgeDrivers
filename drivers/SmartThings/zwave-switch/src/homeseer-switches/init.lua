@@ -143,7 +143,8 @@ local function set_status_led(device,component_id, state, color)
 -- 7=White SwitchColor.color_component_id.COLD_WHITE=1
   local preferences = preferencesMap.get_device_parameters(device)
   for id, value in pairs(device.preferences) do
-    log.debug(string.format("%s [%s] : preference_id=%s", device.id, device.device_network_id, component_id))
+    log.debug(string.format("%s [%s] : id=%s", device.id, device.device_network_id, id))
+    log.debug(string.format("%s [%s] : %s=%s", device.id, device.device_network_id, preferences[id], component_id))
     if preferences and preferences[id] == component_id then
       log.debug(string.format("%s [%s] : state=%s", device.id, device.device_network_id, state))
       if state == SwitchBinary.value.OFF_DISABLE then
