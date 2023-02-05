@@ -128,6 +128,7 @@ generateNotes:
 prepare:
   - path: '@semantic-release/changelog'
     # Create or update the changelog file in the local project repository
+    changelogTitle: "# Change Log"
   - path: '@semantic-release/git'
     # Push a release commit and tag, including configurable files
     message: 'RELEASE: ${nextRelease.version}'
