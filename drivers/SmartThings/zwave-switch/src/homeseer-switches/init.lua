@@ -362,7 +362,7 @@ end
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 local function version_report_handler(driver, device, command)
-  return command.args.firmware_targets
+  ---return command.args
 end
 ---
 --- #######################################################
@@ -590,7 +590,8 @@ end
 local function device_init(self, device, event, args)
   --- Check if the network type is not ZWAVE
   if device.network_type ~= st_device.NETWORK_TYPE_ZWAVE then
-    return end
+    return
+  end
 
   --- Log the device init message
   log.info(string.format("%s: %s > DEVICE INIT", device.id, device.device_network_id))
@@ -599,7 +600,7 @@ local function device_init(self, device, event, args)
   device:set_component_to_endpoint_fn(component_to_endpoint)
 
   --- Call the init lifecycle handler
-  self.lifecycle_handlers.init(self, device, event, args)
+  call_parent_handler(self.lifecycle_handlers.init, self, device, event, args)
 end
 ---
 --- #######################################################
@@ -618,7 +619,7 @@ local function info_changed(self, device, event, args)
     --- Check if the operating mode has changed
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
         -- We may need to update our device profile
-        local report = Version.Report
+        local report = Version:Report({})
         log.debug(string.format("%s [%s] : dump=", device.id, device.device_network_id))
         log.debug(dump(report))
       update_device_profile(self, device, report)
