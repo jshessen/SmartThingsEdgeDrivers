@@ -182,13 +182,16 @@ local function switch_multilevel_handler(driver, device, command)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    --- Checks if the device supports the `switchLevel` capability
-    if device:supports_capability(capabilities.switchLevel, nil) then
-      --- Gets the dimming duration from the input command, or uses the default value
-      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
+    log.debug(string.format("%s [%s] : src_channel=%s", device.id, device.device_network_id, command.src_channel))
+    if command.src_channel == 0 then
+      --- Checks if the device supports the `switchLevel` capability
+      if device:supports_capability(capabilities.switchLevel, nil) then
+        --- Gets the dimming duration from the input command, or uses the default value
+        local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
 
-      --- Sends the `SwitchMultilevel:Set` command to the device's component with the given level and dimming duration
-      device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
+        --- Sends the `SwitchMultilevel:Set` command to the device's component with the given level and dimming duration
+        device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
+      end
     end
     
     --- Calls the function `device:send_to_component(SwitchMultilevel:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
@@ -363,7 +366,7 @@ end
 --- @param args (table)
 --- @return (nil)
 local function update_device_profile(driver, device, args)
-  log.debug(string.format("%s [%s] : operatingMode: %s", device.id, device.device_network_id, device.preferences.operatingMode))
+  log.debug(string.format("%s [%s] : operatingMode=%s", device.id, device.device_network_id, device.preferences.operatingMode))
   local operatingMode = tonumber(device.preferences.operatingMode) == 1 and '-status' or ''
   local firmware_version = args.firmware_0_version
   local firmware_sub_version = args.firmware_0_sub_version
