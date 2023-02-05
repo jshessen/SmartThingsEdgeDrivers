@@ -56,7 +56,7 @@ local preferencesMap = require "preferences"
 --- @type ManufacturerSpecific
 local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecific")({ version = 2 })
 --- @type Version
-local Version = (require "st.zwave.CommandClass.Version")({version = 2})
+local Version = (require "st.zwave.CommandClass.Version")({version = 3})
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
