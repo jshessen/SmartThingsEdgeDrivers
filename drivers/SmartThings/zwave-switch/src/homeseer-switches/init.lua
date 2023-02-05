@@ -620,7 +620,7 @@ local function info_changed(self, device, event, args)
     --- Check if the operating mode has changed
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
         -- We may need to update our device profile
-        local report = Version:Report({})
+        local report = Version:Get({})
         log.debug(string.format("%s [%s] : dump=", device.id, device.device_network_id))
         log.debug(dump(report))
       update_device_profile(self, device, report)
