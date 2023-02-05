@@ -1,8 +1,8 @@
 name: Release
 
 on:
-  workflow_dispatch:
   workflow_call:
+  workflow_dispatch:
     inputs:
       semantic_version:
         description: "Specify specifying version range for semantic-release."
@@ -45,7 +45,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: "Semantic Release"
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+        if: github.event_name == 'workflow_call'
         id: release-semantic
         uses: cycjimmy/semantic-release-action@v3
         with:
@@ -56,7 +56,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Semantic Release - Manual Call"
-        if: ${{ github.event_name == 'workflow_call' }}
+        if: github.event_name == 'workflow_dispatch'
         id: release-semantic-manual
         uses: cycjimmy/semantic-release-action@v3
         with:
