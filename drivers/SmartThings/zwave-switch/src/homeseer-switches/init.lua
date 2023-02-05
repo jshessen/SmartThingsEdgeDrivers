@@ -362,7 +362,8 @@ end
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 local function version_report_handler(driver, device, command)
-  ---return command.args
+  log.debug(dump(command))
+  log.debug(dump(command.args))
 end
 ---
 --- #######################################################
@@ -619,7 +620,7 @@ local function info_changed(self, device, event, args)
     --- Check if the operating mode has changed
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
         -- We may need to update our device profile
-        local report = Version:Get({})
+        local report = Version:Report({})
         log.debug(string.format("%s [%s] : dump=", device.id, device.device_network_id))
         log.debug(dump(report))
       update_device_profile(self, device, report)
