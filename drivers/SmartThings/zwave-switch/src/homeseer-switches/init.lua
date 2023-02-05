@@ -132,7 +132,7 @@ end
 
 --- @function set_status_led --
 --- Handles LED Status functionality
-local function set_status_led(device,component_id, state, color)
+local function set_status_led(device,id, value, color)
 -- 0=Off (DEFAULT)
 -- 1=Red SwitchColor.color_component_id.RED=2
 -- 2=Green SwitchColor.color_component_id.GREEN=3
@@ -142,17 +142,14 @@ local function set_status_led(device,component_id, state, color)
 -- 6=Cyan SwitchColor.color_component_id.CYAN=6
 -- 7=White SwitchColor.color_component_id.COLD_WHITE=1
   local preferences = preferencesMap.get_device_parameters(device)
-  for id, value in pairs(device.preferences) do
-    log.debug(string.format("%s [%s] : %s=%s", device.id, device.device_network_id, id, component_id))
-    if preferences and preferences[id] and (preferences[id] == component_id) then
-      log.debug(string.format("%s [%s] : state=%s", device.id, device.device_network_id, state))
-      if state == SwitchBinary.value.OFF_DISABLE then
-        device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
-      else
-        device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
-        device:set_field(id, false, {persist = false})
-        device:send(cc.Configuration:Get({parameter_number = preferences[id].parameter_number}))
-      end
+  if preferences and preferences[id] then
+    log.debug(string.format("%s [%s] : state=%s", device.id, device.device_network_id, value))
+    if value == SwitchBinary.value.OFF_DISABLE then
+      device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
+    else
+      device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
+      device:set_field(id, false, {persist = false})
+      device:send(cc.Configuration:Get({parameter_number = preferences[id].parameter_number}))
     end
   end
 end
