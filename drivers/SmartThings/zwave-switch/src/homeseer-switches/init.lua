@@ -353,21 +353,6 @@ end
 --- ############################################################
 --- Subsection: Dynamic Profiles (Version)
 ---
-
---- #######################################################
----
-
---- @function version_report_handler --
---- @param driver (Driver) The driver object
---- @param device (st.zwave.Device) The device object
---- @param command (Command) Input command value
-local function version_report_handler(driver, device, command)
-  log.debug(dump(command))
-  log.debug(dump(command.args))
-end
----
---- #######################################################
-
 --- #######################################################
 ---
 
@@ -375,7 +360,7 @@ end
 --- Adjust profile definition based upon reported firmware version
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
---- @param args (any)
+--- @param args (table)
 --- @return (nil)
 local function update_device_profile(driver, device, args)
   log.debug(string.format("%s [%s] : operatingMode: %s", device.id, device.device_network_id, device.preferences.operatingMode))
@@ -418,6 +403,19 @@ local function update_device_profile(driver, device, args)
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
     log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
   end
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function version_report_handler --
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+local function version_report_handler(driver, device, command)
+  update_device_profile(driver, device, command.args)
 end
 ---
 --- #######################################################
@@ -543,32 +541,6 @@ local function call_parent_handler(handlers, self, device, event, args)
 end
 ---
 --- #######################################################
-
---- #######################################################
----
-
-function dump(t, indent, done)
-  done = done or {}
-  indent = indent or 0
-
-  done[t] = true
-
-  for key, value in pairs(t) do
-      print(string.rep("\t", indent))
-
-      if type(value) == "table" and not done[value] then
-          done[value] = true
-          print(key, ":\n")
-
-          dump(value, indent + 2, done)
-          done[value] = nil
-      else
-          print(key, "\t=\t", value, "\n")
-      end
-  end
-end
----
---- #######################################################
 ---
 --- #################################################################
 
@@ -620,10 +592,7 @@ local function info_changed(self, device, event, args)
     --- Check if the operating mode has changed
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
         -- We may need to update our device profile
-        local report = device:send(Version:Get({}))
-        log.debug(string.format("%s [%s] : dump=", device.id, device.device_network_id))
-        log.debug(dump(report))
-      update_device_profile(self, device, report)
+        device:send(Version:Get({}))
     end
   -- Call the topmost 'infoChanged' lifecycle hander to do any default work
   call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
