@@ -593,7 +593,7 @@ local function info_changed(self, device, event, args)
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
         -- We may need to update our device profile
         local report = Version.Report
-        log.debug(string.format("%s [%s] : firmware_sub_version=%s", device.id, device.device_network_id, report.args.firmware_0_sub_version))
+        log.debug(string.format("%s [%s] : firmware_sub_version=%s", device.id, device.device_network_id, report))
       update_device_profile(self, device, report)
     end
   -- Call the topmost 'infoChanged' lifecycle hander to do any default work
