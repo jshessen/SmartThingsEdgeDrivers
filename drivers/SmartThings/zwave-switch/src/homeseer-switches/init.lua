@@ -28,7 +28,7 @@ local st_device = require "st.zwave.device"
 -- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 --- @type st.zwave.CommandClass.Configuration
-local Configuration = require "st.zwave.CommandClass.Configuration"
+local Configuration = (require "st.zwave.CommandClass.Configuration")({ version = 2 })
 
 -- @type st.zwave.constants
 local constants = require "st.zwave.constants"
