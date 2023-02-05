@@ -147,7 +147,7 @@ local function set_status_led(device,component_id, state, color)
     local led_num = "ledStatusColor" .. string.sub(component_id,string.find(component_id,"-"))
 
     if preferences and preferences[id] == led_num then
-      if !state then
+      if state == SwitchBinary.value.OFF_DISABLE then
         device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
       else
         device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
