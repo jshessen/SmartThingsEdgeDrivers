@@ -141,12 +141,13 @@ local function switch_binary_handler(value)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
+    log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
     device:send_to_component(Basic:Set({value = value}), command.component)
-    
+
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function(d)
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
       --- Sends the `SwitchBinary:Get` command to the device's component
-      device:send_to_component(SwitchBinary:Get({}))
+      device:send_to_component(SwitchBinary:Get({}), command.component)
     end)
   end
 end
@@ -182,16 +183,13 @@ local function switch_multilevel_handler(driver, device, command)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    log.debug(string.format("%s [%s] : src_channel=%s", device.id, device.device_network_id, command.src_channel))
-    if command.src_channel == 0 then
-      --- Checks if the device supports the `switchLevel` capability
-      if device:supports_capability(capabilities.switchLevel, nil) then
-        --- Gets the dimming duration from the input command, or uses the default value
-        local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
+    --- Checks if the device supports the `switchLevel` capability
+    if device:supports_capability(capabilities.switchLevel, nil) then
+      --- Gets the dimming duration from the input command, or uses the default value
+      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
 
-        --- Sends the `SwitchMultilevel:Set` command to the device's component with the given level and dimming duration
-        device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
-      end
+      --- Sends the `SwitchMultilevel:Set` command to the device's component with the given level and dimming duration
+      device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
     end
     
     --- Calls the function `device:send_to_component(SwitchMultilevel:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
