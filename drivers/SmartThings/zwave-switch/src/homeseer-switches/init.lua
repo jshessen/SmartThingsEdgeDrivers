@@ -130,6 +130,39 @@ end
 --- #######################################################
 ---
 
+--- @function set_status_led --
+--- Handles LED Status functionality
+local function set_status_led(device,component_id, state, color)
+-- 0=Off (DEFAULT)
+-- 1=Red SwitchColor.color_component_id.RED=2
+-- 2=Green SwitchColor.color_component_id.GREEN=3
+-- 3=Blue SwitchColor.color_component_id.BLUE=4
+-- 4=Magenta SwitchColor.color_component_id.PURPLE=7
+-- 5=Yellow SwitchColor.color_component_id.AMBER=5
+-- 6=Cyan SwitchColor.color_component_id.CYAN=6
+-- 7=White SwitchColor.color_component_id.COLD_WHITE=1
+  local preferences = preferencesMap.get_device_parameters(device)
+  for id, value in pairs(device.preferences) do
+    -- LED-# => ledStatusColor#
+    local led_num = "ledStatusColor" .. string.sub(component_id,string.find(component_id,"-"))
+
+    if preferences and preferences[id] == led_num then
+      if !state then
+        device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
+      else
+        device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
+        device:set_field(id, false, {persist = false})
+        device:send(cc.Configuration:Get({parameter_number = preferences[id].parameter_number}))
+      end
+    end
+  end
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
 --- @function switch_binary_handler --
 --- Handles "on/off" functionality
 --- @param value (number)
@@ -142,7 +175,12 @@ local function switch_binary_handler(value)
   --- @return (nil)
   return function(driver, device, command)
     log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
-    device:send_to_component(Basic:Set({value = value}), command.component)
+    if command.component == "main" then
+      device:send_to_component(Basic:Set({value = value}), command.component)
+    else
+      local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
+      set_status_led(device,id,value,value)
+    end
 
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
     device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
@@ -151,7 +189,6 @@ local function switch_binary_handler(value)
     end)
   end
 end
-
 ---
 --- #######################################################
 
