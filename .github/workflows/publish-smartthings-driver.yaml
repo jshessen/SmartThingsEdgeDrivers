@@ -12,11 +12,11 @@ on:
         required: true
         type: string
       label:
-        description: "name in config.yaml"
+        description: "name in config.yml"
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yaml
+        description: packageKey in config.yml
         required: true
         type: string
       environment:
@@ -35,11 +35,11 @@ on:
         required: true
         type: string
       label:
-        description: "name in config.yaml"
+        description: "name in config.yml"
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yaml
+        description: packageKey in config.yml
         required: true
         type: string
       environment:
@@ -95,13 +95,13 @@ jobs:
       - name: "Fetching Repository Contents"
         uses: actions/checkout@v3
         
-      - name: "Load config.yaml from Cache"
+      - name: "Load config.yml from Cache"
         id: cache-config
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v3
         with:
-          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yaml"
+          path: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
           key: ${{ inputs.pkgkey }}-${{ inputs.environment }}
-          
+          fail-on-cache-miss: true
       - name: "Load smartthings-cli From Cache"
         id: stcli
         uses: actions/cache@v3        
