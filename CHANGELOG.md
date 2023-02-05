@@ -41,7 +41,7 @@
 * **deploy:** Deployment Test ([edf4eb3](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/edf4eb3852660ead941f648d3c9a90ca7815db16))
 * **release:** Test CI ([3eb6ac4](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/3eb6ac428f36f94c2c3d8860a8bbe110a0b5996a))
 
-## What's Changed
+## [0.2.0]
 * Added ZWaveProducts mfr ID, and updated README by @jshessen in https://github.com/jshessen/SmartThingsEdgeDrivers/pull/2
 * Update README.md by @jshessen in https://github.com/jshessen/SmartThingsEdgeDrivers/pull/3
 * Replaced 'number' values with 'integer' values in profile preferences by @jshessen in https://github.com/jshessen/SmartThingsEdgeDrivers/pull/4
