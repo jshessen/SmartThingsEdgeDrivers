@@ -365,8 +365,8 @@ end
 local function update_device_profile(driver, device, args)
   log.debug(string.format("%s [%s] : operatingMode: %s", device.id, device.device_network_id, device.preferences.operatingMode))
   local operatingMode = tonumber(device.preferences.operatingMode) == 1 and '-status' or ''
-  local firmware_version = args.firmware_targets.firmware_version
-  local firmware_sub_version = args.firmware_targets.firm.firmware_sub_version
+  local firmware_version = args.firmware_0_version
+  local firmware_sub_version = args.firmware_0_sub_version
   local profile
 
   -- Iterate through the list of HomeSeer switch fingerprints
