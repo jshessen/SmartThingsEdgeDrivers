@@ -27,6 +27,8 @@ local capabilities = require "st.capabilities"
 local st_device = require "st.zwave.device"
 -- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
+--- @type st.zwave.CommandClass.Configuration
+local Configuration = require "st.zwave.CommandClass.Configuration"
 
 -- @type st.zwave.constants
 local constants = require "st.zwave.constants"
@@ -145,11 +147,11 @@ local function set_status_led(device,id, value, color)
   if preferences and preferences[id] then
     log.debug(string.format("%s [%s] : state=%s", device.id, device.device_network_id, value))
     if value == SwitchBinary.value.OFF_DISABLE then
-      device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
+      device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
-      device:send(cc.Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
+      device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
       device:set_field(id, false, {persist = false})
-      device:send(cc.Configuration:Get({parameter_number = preferences[id].parameter_number}))
+      device:send(Configuration:Get({parameter_number = preferences[id].parameter_number}))
     end
   end
 end
