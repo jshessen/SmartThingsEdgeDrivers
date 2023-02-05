@@ -37,8 +37,8 @@ jobs:
         uses: dorny/paths-filter@v2
         id: filter
         with:
+          base: ${{ github.base_ref || github.ref_name }}
           filters: |
-            base: ${{ github.base_ref || github.ref_name }}
             zwave-switch: 'drivers/**/zwave-switch/**'
             zwave-fan: 'drivers/**/zwave-fan/**'
             zwave-sensor: 'drivers/**/zwave-sensor/**'
