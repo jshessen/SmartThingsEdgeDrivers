@@ -175,6 +175,7 @@ local function set_status_led(device, id, value, color)
   -- Set default color to WHITE (aka 7) if it's currently set to OFF (aka 0)
   color = color == 0 and 7 or color
 
+  log.debug(string.format("%s [%s] : id=%s", device.id, device.device_network_id, id))
   -- If preferences and preference for device ID exists
   if preferences and preferences[id] then
     if value == SwitchBinary.value.OFF_DISABLE then
