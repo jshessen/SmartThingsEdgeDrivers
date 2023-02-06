@@ -57,12 +57,12 @@ local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 2, 
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
 
 --- Misc
---- @type table
-local preferencesMap = require "preferences"
 --- @type ManufacturerSpecific
 local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecific")({ version = 2 })
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 3})
+--- @type table
+local preferencesMap = require "zwave-switch.src.preferences"
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
