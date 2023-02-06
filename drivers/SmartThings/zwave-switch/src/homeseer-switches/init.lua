@@ -28,7 +28,7 @@ local st_device = require "st.zwave.device"
 -- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 --- @type st.zwave.CommandClass.Configuration
-local Configuration = (require "st.zwave.CommandClass.Configuration")({ version = 4 })
+local Configuration = (require "st.zwave.CommandClass.Configuration")({ version = 2 })
 
 -- @type st.zwave.constants
 local constants = require "st.zwave.constants"
@@ -52,7 +52,7 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 
 --- Button
 --- @type CentralScene
-local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 3})
+local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
 
 --- Misc
 --- @type table
@@ -209,12 +209,7 @@ local function switch_binary_handler(value)
     else
       -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
-      log.debug(string.format("%s [%s] : id=%s", device.id, device.device_network_id, id))
-      for id, value in pairs(device.preferences) do
-        log.debug(string.format("%s [%s] : %s=%s", device.id, device.device_network_id, id,value))
-      end
       local color = preferencesMap.to_numeric_value(device.preferences[id])
-      log.debug(string.format("%s [%s] : value=%d", device.id, device.device_network_id, color))
       -- Fetch current preference value
       set_status_led(device, id, value, color)
     end
