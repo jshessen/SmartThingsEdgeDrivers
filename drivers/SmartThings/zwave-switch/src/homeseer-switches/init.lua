@@ -144,8 +144,11 @@ local function set_status_led(device,id, value, color)
 -- 6=Cyan SwitchColor.color_component_id.CYAN=6
 -- 7=White SwitchColor.color_component_id.COLD_WHITE=1
   local preferences = preferencesMap.get_device_parameters(device)
+  log.debug(string.format("%s [%s] : LED id=%s", device.id, device.device_network_id, id))
+  log.debug(string.format("%s [%s] : value=%s", device.id, device.device_network_id, value))
+  log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
+  local color = 2
   if preferences and preferences[id] then
-    log.debug(string.format("%s [%s] : state=%s", device.id, device.device_network_id, value))
     if value == SwitchBinary.value.OFF_DISABLE then
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
