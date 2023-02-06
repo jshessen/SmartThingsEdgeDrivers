@@ -170,13 +170,7 @@ local function status_led_handler(device, component, value, color)
       --- If color is not defined, check the device.preferences, if neither is defined set to White=7
       color = color or tonumber(device.preferences[component]) or 7
       --log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
-      
       device:send(Configuration:Set({parameter_number = preferences[component].parameter_number, size = preferences[component].size, configuration_value = color}))
-      --- Calls the function `device:send(Configuration:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
-      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
-        --- Sends the `Configuration:Get` command to device
-        device:send(Configuration:Get({parameter_number = preferences[component].parameter_number}))
-      end)
     end
   end
 end
