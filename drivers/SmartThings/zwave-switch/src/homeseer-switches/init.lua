@@ -48,6 +48,10 @@ local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 2
 --- @type SwitchMultilevel
 local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({version = 4})
 
+--- Color
+--- @type SwitchColor
+local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 2, strict = true})
+
 --- Button
 --- @type CentralScene
 local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
@@ -129,19 +133,30 @@ end
 --- ############################################################
 --- Subsection: Switch (Basic/SwitchBinary/SwitchMultilevel)
 ---
+-- ???????????????????????????????????????????????????????
+--- Variables/Constants
+---
+
+--- Map HomeSeer Colors to SmartThings Constants
+--- @local (table)
+local HOMESEER_COLOR_MAP = {
+  {label = "Off", value = 0, constant = 0},
+  {label = "Red", value = 1, constant = SwitchColor.color_component_id.RED}, -- RED=2
+  {label = "Green", value = 2, constant = SwitchColor.color_component_id.GREEN}, -- GREEN=3
+  {label = "Blue", value = 3, constant = SwitchColor.color_component_id.BLUE}, -- BLUE=4
+  {label = "Magenta", value = 4, constant = SwitchColor.color_component_id.PURPLE}, -- PURPLE=7
+  {label = "Yellow", value = 5, constant = SwitchColor.color_component_id.AMBER}, -- AMBER=5
+  {label = "Cyan", value = 6, constant = SwitchColor.color_component_id.CYAN}, -- CYAN=6
+  {label = "White", value = 7, constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
+}
+---
+--- ???????????????????????????????????????????????????????
+
 --- #######################################################
 ---
 
 --- @function set_status_led --
 --- Handles LED Status functionality
--- 0=Off (DEFAULT)
--- 1=Red SwitchColor.color_component_id.RED=2
--- 2=Green SwitchColor.color_component_id.GREEN=3
--- 3=Blue SwitchColor.color_component_id.BLUE=4
--- 4=Magenta SwitchColor.color_component_id.PURPLE=7
--- 5=Yellow SwitchColor.color_component_id.AMBER=5
--- 6=Cyan SwitchColor.color_component_id.CYAN=6
--- 7=White SwitchColor.color_component_id.COLD_WHITE=1
 local function set_status_led(device,id, value, color)
   local preferences = preferencesMap.get_device_parameters(device)
   local color = color == 0 and 7 or color
