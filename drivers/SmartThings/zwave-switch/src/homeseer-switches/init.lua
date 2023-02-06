@@ -62,7 +62,7 @@ local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecifi
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 3})
 --- @type table
-local preferencesMap = require "zwave-switch.src.preferences"
+local preferencesMap = require "preferences"
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
