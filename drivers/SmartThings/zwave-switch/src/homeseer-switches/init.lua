@@ -159,13 +159,10 @@ local HOMESEER_SWITCH_COLORS = {
 --- @param id (string) The id of the device component
 --- @param value (SwitchBinary.value.ON_ENABLE | SwitchBinary.value.OFF_DISABLE)
 --- @param color (number) The preference color reference
---- @return (nil)
 local function set_status_led(device, id, value, color)
+  log.debug(string.format("%s [%s] : BEFORE GET DEVICE CALL", device.id, device.device_network_id))
   -- Get device parameters from "preferencesMap"
   local preferences = preferencesMap:get_device_parameters(device)
-
-  -- Set default color to WHITE (aka 7) if it's currently set to OFF (aka 0)
-  color = color == 0 and 7 or color
 
   log.debug(string.format("%s [%s] : id=%s", device.id, device.device_network_id, id))
   -- If preferences and preference for device ID exists
@@ -174,6 +171,8 @@ local function set_status_led(device, id, value, color)
       -- Send Configuration:Set with 'value' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
+      -- Set default color to WHITE (aka 7) if it's currently set to OFF (aka 0)
+      color = color == 0 and 7 or color
       -- Send Configuration:Set with 'color' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
 
