@@ -134,7 +134,6 @@ end
 
 --- @function set_status_led --
 --- Handles LED Status functionality
-local function set_status_led(device,id, value, color)
 -- 0=Off (DEFAULT)
 -- 1=Red SwitchColor.color_component_id.RED=2
 -- 2=Green SwitchColor.color_component_id.GREEN=3
@@ -143,16 +142,9 @@ local function set_status_led(device,id, value, color)
 -- 5=Yellow SwitchColor.color_component_id.AMBER=5
 -- 6=Cyan SwitchColor.color_component_id.CYAN=6
 -- 7=White SwitchColor.color_component_id.COLD_WHITE=1
+local function set_status_led(device,id, value, color)
   local preferences = preferencesMap.get_device_parameters(device)
   local color = color == 0 and 7 or color
-  log.debug(string.format("%s [%s] : LED id=%s", device.id, device.device_network_id, id))
-  log.debug(string.format("%s [%s] : value=%s", device.id, device.device_network_id, value))
-  log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
-  for id, value in pairs(device.preferences) do
-    log.debug(string.format("%s [%s] : %s='%s'", device.id, device.device_network_id, id, value))
-  end
-  local new_color = preferencesMap.to_numeric_value(device.preferences[id])
-  log.debug(string.format("%s [%s] : get_field(%s)=%s", device.id, device.device_network_id, id, new_color))
 
   if preferences and preferences[id] then
     if value == SwitchBinary.value.OFF_DISABLE then
@@ -184,13 +176,14 @@ local function switch_binary_handler(value)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
+    --log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
     if command.component == "main" then
       device:send_to_component(Basic:Set({value = value}), command.component)
     else
       -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
-      set_status_led(device,id,value,device:get_field(id))
+      -- Fetch current preference value
+      set_status_led(device, id, value, preferencesMap.to_numeric_value(device.preferences[id]))
     end
 
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
