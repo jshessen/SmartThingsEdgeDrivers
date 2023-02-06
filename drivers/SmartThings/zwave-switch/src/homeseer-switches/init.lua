@@ -147,13 +147,11 @@ local function set_status_led(device,id, value, color)
   log.debug(string.format("%s [%s] : LED id=%s", device.id, device.device_network_id, id))
   log.debug(string.format("%s [%s] : value=%s", device.id, device.device_network_id, value))
   log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
-  local color = 2
   if preferences and preferences[id] then
     if value == SwitchBinary.value.OFF_DISABLE then
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
-      ---device:set_field(id, false, {persist = false})
       --- Calls the function `device:send(Configuration:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
         --- Sends the `Configuration:Get` command to device
@@ -185,7 +183,7 @@ local function switch_binary_handler(value)
     else
       -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
-      set_status_led(device,id,value,value)
+      set_status_led(device,id,value,device:get_field(id))
     end
 
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
