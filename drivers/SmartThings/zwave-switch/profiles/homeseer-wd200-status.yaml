@@ -98,7 +98,7 @@ preferences:
         1: "When On"
       default: 0
   - name: "ledStatusColor1"
-    title: "Status Mode - LED Color"
+    title: "Status Mode - LED-1 Color"
     description: "Set LED-1 (bottom) Color"
     required: false
     preferenceType: enumeration
