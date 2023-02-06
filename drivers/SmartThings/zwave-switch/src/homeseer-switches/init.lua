@@ -194,17 +194,16 @@ local function switch_binary_handler(value)
     --log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
     if command.component == "main" then
       device:send_to_component(Basic:Set({value = value}), command.component)
+      --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
+      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
+        --- Sends the `SwitchBinary:Get` command to the device's component
+        device:send_to_component(SwitchBinary:Get({}), command.component)
+      end)
     else
       -- LED-# => ledStatusColor#
       local component = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
       status_led_handler(device, component, value)
     end
-
-    --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
-      --- Sends the `SwitchBinary:Get` command to the device's component
-      device:send_to_component(SwitchBinary:Get({}), command.component)
-    end)
   end
 end
 ---
