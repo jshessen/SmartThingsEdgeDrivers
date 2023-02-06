@@ -158,13 +158,10 @@ local HOMESEER_COLOR_MAP = {
 --- @param device (st.zwave.Device) The device object
 --- @param id (string)
 --- @param value (SwitchBinary.value)
---- @param color (string)
+--- @param color (integer)
 local function set_status_led(device, id, value, color)
   -- Get device parameters from "preferencesMap"
   local preferences = preferencesMap:get_device_parameters(device)
-  local set_color = preferencesMap:to_numeric_value(device.preferences[id])
-  -- Set default color to 7 if it's 0
-  set_color = set_color == 0 and 7 or set_color
 
   -- If preferences and preference for device ID exists
   if preferences and preferences[id] then
@@ -172,6 +169,8 @@ local function set_status_led(device, id, value, color)
       -- Send Configuration:Set with 'value' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
+      -- Set color to White=7 if it's LED is set to "Off=0"
+      local set_color = color and color or 7
       -- Send Configuration:Set with 'color' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = set_color}))
 
@@ -207,7 +206,7 @@ local function switch_binary_handler(value)
       -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
       -- Send Configuration:Set with value and color from device fields
-      set_status_led(device,id,value,device:get_field(id))
+      set_status_led(device,id,value,tonumber(device:get_field(id)))
     end
 
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
