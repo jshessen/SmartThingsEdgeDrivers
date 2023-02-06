@@ -151,7 +151,7 @@ local function set_status_led(device,id, value, color)
   for id, value in pairs(device.preferences) do
     log.debug(string.format("%s [%s] : %s=%s", device.id, device.device_network_id, id, value))
   end
-  local new_color = device:get_field(id)
+  local new_color = device:get_field(string.format("%s",id))
   log.debug(string.format("%s [%s] : get_field(%s)=%s", device.id, device.device_network_id, id, new_color))
 
   if preferences and preferences[id] then
