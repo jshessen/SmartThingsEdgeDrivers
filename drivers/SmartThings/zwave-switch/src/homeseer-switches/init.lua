@@ -158,9 +158,9 @@ local HOMESEER_COLOR_MAP = {
 --- @param color? (integer) Color value
 --- @return (nil)
 local function status_led_handler(device, component, value, color)
-      log.debug(string.format("%s [%s] : mfr=0x%04x=%d", device.id, device.device_network_id, device.zwave_manufacturer_id, device.zwave_manufacturer_id))
-      log.debug(string.format("%s [%s] : prod=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_type, device.zwave_product_type))
-      log.debug(string.format("%s [%s] : model=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_id, device.zwave_product_id))
+  --log.debug(string.format("%s [%s] : mfr=0x%04x=%d", device.id, device.device_network_id, device.zwave_manufacturer_id, device.zwave_manufacturer_id))
+  --log.debug(string.format("%s [%s] : prod=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_type, device.zwave_product_type))
+  --log.debug(string.format("%s [%s] : model=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_id, device.zwave_product_id))
   local preferences = preferencesMap.get_device_parameters(device)
 
   if preferences and preferences[component] then
@@ -169,7 +169,7 @@ local function status_led_handler(device, component, value, color)
     else
       --- If color is not defined, check the device.preferences, if neither is defined set to White=7
       color = color or tonumber(device.preferences[component]) or 7
-      log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
+      --log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
       
       device:send(Configuration:Set({parameter_number = preferences[component].parameter_number, size = preferences[component].size, configuration_value = color}))
       --- Calls the function `device:send(Configuration:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
@@ -197,14 +197,12 @@ local function switch_binary_handler(value)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
+    --log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
     if command.component == "main" then
       device:send_to_component(Basic:Set({value = value}), command.component)
     else
       -- LED-# => ledStatusColor#
       local component = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
-      -- Fetch current preference value
-      --status_led_handler(device, component, value, preferencesMap.to_numeric_value(device.preferences[component]))
       status_led_handler(device, component, value)
     end
 
