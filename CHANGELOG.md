@@ -1,5 +1,39 @@
 # Change Log
 
+## [0.3.0](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.2.2...v0.3.0) (2023-02-06)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **led:** Move SwitchBinary:Get into if "main" ([3f57c9e](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/3f57c9ee109b87622b1f1e4818507707b7dccc92))
+* **led:** Remove unnecessary Configuration:Get ([28d5560](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/28d5560dadab23e9cf8f6e443a5971c9817af400))
+
+
+### :broom: Miscellaneous Chores
+
+* **led:** Disable log.debug ([6afffae](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/6afffaebf23ceb9c98ec37febb6edf23a69234f9))
+
+
+### :scissors: Code Refactoring
+
+* **led:** Aligned color names to st.zwave ([ce3f195](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/ce3f195828f254fbcb7c51ccc5eee4c8a6fb1978))
+* **profiles:** ledStatusColor to ...Color1 ([1b14c6c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/1b14c6c265c963098832e71211c8c713433ed7d4))
+
+
+### :rocket: Feature/Improvement
+
+* **led:** status_led_handler ([75c4034](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/75c403402b71e2760f8e49a01123c8aeb2f0da6f))
+
+
+### :back: Reverts
+
+* **preferences:** Incorrect path ([dc0a08a](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/dc0a08a656afd18211efca185d6e72ba04740707))
+
+
+### :page_facing_up: Documentation
+
+* **led:** Created color map ([b8f2032](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/b8f2032e6cdb142f9181a70360ad2c8af3f0799e))
+
 ## [0.3.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.2.2...v0.3.0-beta.1) (2023-02-06)
 
 

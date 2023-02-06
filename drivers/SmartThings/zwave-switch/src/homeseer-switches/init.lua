@@ -29,6 +29,8 @@ local st_device = require "st.zwave.device"
 local cc = require "st.zwave.CommandClass"
 --- @type st.zwave.CommandClass.Configuration
 local Configuration = (require "st.zwave.CommandClass.Configuration")({ version = 2 })
+--- @type st.zwave.defaults.colorControl
+local colorControl = (require "st.zwave.defaults.colorControl")
 
 -- @type st.zwave.constants
 local constants = require "st.zwave.constants"
@@ -50,7 +52,7 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 
 --- Color
 --- @type SwitchColor
-local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 2, strict = true})
+local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 3, strict = true})
 
 --- Button
 --- @type CentralScene
@@ -135,14 +137,14 @@ end
 --- Map HomeSeer Colors to SmartThings Constants
 --- @local (table)
 local HOMESEER_COLOR_MAP = {
-  {label = "Off", value = 0, constant = 0},
-  {label = "Red", value = 1, constant = SwitchColor.color_component_id.RED}, -- RED=2
-  {label = "Green", value = 2, constant = SwitchColor.color_component_id.GREEN}, -- GREEN=3
-  {label = "Blue", value = 3, constant = SwitchColor.color_component_id.BLUE}, -- BLUE=4
-  {label = "Magenta", value = 4, constant = SwitchColor.color_component_id.PURPLE}, -- PURPLE=7
-  {label = "Yellow", value = 5, constant = SwitchColor.color_component_id.AMBER}, -- AMBER=5
-  {label = "Cyan", value = 6, constant = SwitchColor.color_component_id.CYAN}, -- CYAN=6
-  {label = "White", value = 7, constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
+  {label = "Off", value = 0, hex = nil, constant = 0},
+  {label = "Red", value = 1, hex = "FFOOOO", constant = SwitchColor.color_component_id.RED}, -- RED=2
+  {label = "Green", value = 2, hex = "OOFFOO", constant = SwitchColor.color_component_id.GREEN}, -- GREEN=3
+  {label = "Blue", value = 3, hex = "OOOOFF", constant = SwitchColor.color_component_id.BLUE}, -- BLUE=4
+  {label = "Magenta", value = 4, hex = "FFOOFF", constant = SwitchColor.color_component_id.PURPLE}, -- PURPLE=7
+  {label = "Yellow", value = 5, hex = "FFFFOO", constant = SwitchColor.color_component_id.AMBER}, -- AMBER=5
+  {label = "Cyan", value = 6, hex = "OOFFFF", constant = SwitchColor.color_component_id.CYAN}, -- CYAN=6
+  {label = "White", value = 7, hex = "FFFFFF", constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
 }
 ---
 --- ???????????????????????????????????????????????????????
@@ -177,6 +179,90 @@ end
 --- #######################################################
 ---
 
+--- @function hex_to_rgb --
+--- Function that converts hexadecimal color code to RGB color
+--- @param hex (string)
+--- @return number, number, number equivalent red, green, blue with each color in range [0,1]
+function hex_to_rgb(hex)
+  -- Remove the "#" symbol from the hexadecimal string
+  hex = hex:gsub("#", "")
+
+  local r, g, b
+  -- Check if the hexadecimal string is 3 characters long
+  if #hex == 3 then
+    -- Convert each character to its corresponding value in decimal
+    -- and scale it to a value between 0 and 1
+    r = (tonumber(hex:sub(1, 1), 16) * 17) / 255
+    g = (tonumber(hex:sub(2, 2), 16) * 17) / 255
+    b = (tonumber(hex:sub(3, 3), 16) * 17) / 255
+  else
+    -- If the hexadecimal string is 6 characters long
+    -- Convert each pair of characters to its corresponding value in decimal
+    -- and scale it to a value between 0 and 1
+    r = tonumber(hex:sub(1, 2), 16) / 255
+    g = tonumber(hex:sub(3, 4), 16) / 255
+    b = tonumber(hex:sub(5, 6), 16) / 255
+  end
+
+  -- Return the RGB values as a tuple
+  return r, g, b
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+local function switch_color_handler(driver, device, command)
+  log.debug(string.format("%s [%s] : Color Handler!", device.id, device.device_network_id))
+  
+  -- Set the closest color in the device
+  local color = find_closest_color(command.args.hue, command.args.saturation, command.args.lightness)
+  local r, g, b = hex_to_rgb(color.hex)
+  local hue, saturation, lightness = utils.rgb_to_hsl(r,g,b)
+
+  command.args.color.hue = hue
+  command.args.color.saturation = saturation
+  command.args.color.lightness = lightness
+  device:set_field("st.capabilities." .. capabilities.colorControl.ID, command)
+
+  local set = SwitchColor:Set({
+    color_components = {
+      { color_component_id=SwitchColor.color_component_id.RED, value=r },
+      { color_component_id=SwitchColor.color_component_id.GREEN, value=g },
+      { color_component_id=SwitchColor.color_component_id.BLUE, value=b },
+    }
+  })
+end
+
+-- Function to find the closest color in HOMESEER_COLOR_MAP to the specified hue and saturation
+function find_closest_color(hue, saturation, lightness)
+  -- Convert the given hue and saturation to RGB color
+  local r, g, b = utils.hsl_to_rgb(hue, saturation, lightness)
+
+  -- Initialize the closest color to White (index 7 in HOMESEER_COLOR_MAP)
+  -- and the distance to the farthest possible value (255 * sqrt(3))
+  local closest_color = HOMESEER_COLOR_MAP[8]
+  local closest_dist = 255 * math.sqrt(3.0)
+
+  -- Iterate through HOMESEER_COLOR_MAP and find the closest color
+  for _, color in ipairs(HOMESEER_COLOR_MAP) do
+    local r1, g1, b1 = hex_to_rgb(color.hex)
+    local newdist = math.sqrt((r - r1)^2 + (g - g1)^2 + (b - b1)^2)
+    if newdist < closest_dist then
+      closest_dist = newdist
+      closest_color = color
+    end
+  end
+  -- Return the closest color
+  return closest_color
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
 --- @function switch_binary_handler --
 --- Handles "on/off" functionality
 --- @param value (number)
@@ -188,19 +274,26 @@ local function switch_binary_handler(value)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    --log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
+    log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
+    local set
     if command.component == "main" then
-      device:send_to_component(Basic:Set({value = value}), command.component)
-      --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
-      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
-        --- Sends the `SwitchBinary:Get` command to the device's component
-        device:send_to_component(SwitchBinary:Get({}), command.component)
-      end)
+      set = device:send_to_component(Basic:Set({value = value}), command.component)
     else
       -- LED-# => ledStatusColor#
       local component = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
+      if device:supports_capability(capabilities.colorControl, nil) then
+        --device:send_to_component(SwitchColor.Report({value =
+        log.debug(string.format("%s [%s] : I can do Color!", device.id, device.device_network_id))
+      end
       status_led_handler(device, component, value)
     end
+    
+    device:send_to_component(set, command.component)
+    local get = function()
+      --- Sends the `SwitchBinary:Get` command to the device's component
+      device:send_to_component(SwitchBinary:Get({}), command.component)
+    end
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
   end
 end
 ---
@@ -234,22 +327,23 @@ local function switch_multilevel_handler(driver, device, command)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
+    local set
+
     --- Checks if the device supports the `switchLevel` capability
     if device:supports_capability(capabilities.switchLevel, nil) then
       --- Gets the dimming duration from the input command, or uses the default value
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
 
       --- Sends the `SwitchMultilevel:Set` command to the device's component with the given level and dimming duration
-      device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
+      set = device:send_to_component(SwitchMultilevel:Set({value = level, duration = dimmingDuration }),command.component)
     end
     
-    --- Calls the function `device:send_to_component(SwitchMultilevel:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY,
-      function()
-        --- Sends the `SwitchMultilevel:Get` command to the device's component
-        device:send_to_component(SwitchMultilevel:Get({}))
-      end
-    )
+    device:send_to_component(set, command.component)
+    local get = function()
+      --- Sends the `SwitchBinary:Get` command to the device's component
+      device:send_to_component(SwitchBinary:Get({}), command.component)
+    end
+    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
   end
 end
 ---
@@ -671,10 +765,17 @@ local homeseer_switches = {
       [Basic.Set] = switch_multilevel_handler,
       [Basic.Report] = switch_multilevel_handler
     },
+    [cc.SWITCH_BINARY] = {
+      [SwitchBinary.Set] = switch_multilevel_handler,
+      [SwitchBinary.Report] = switch_multilevel_handler
+    },
     [cc.SWITCH_MULTILEVEL] = {
       [SwitchMultilevel.Set] = switch_multilevel_handler,
       [SwitchMultilevel.Report] = switch_multilevel_handler,
       [SwitchMultilevel.STOP_LEVEL_CHANGE] = switch_multilevel_stop_level_change_handler
+    },
+    [cc.SWITCH_COLOR] = {
+      [SwitchColor.Report] = switch_color_handler
     },
     --- Button
     [cc.CENTRAL_SCENE] = {
@@ -696,6 +797,9 @@ local homeseer_switches = {
     [capabilities.switch.ID] = {
       [capabilities.switch.switch.on.NAME] = switch_binary_handler(SwitchBinary.value.ON_ENABLE),
       [capabilities.switch.switch.off.NAME] = switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
+    },
+    [capabilities.colorControl.ID] = {
+      [capabilities.colorControl.commands.setColor.NAME] = set_color
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
