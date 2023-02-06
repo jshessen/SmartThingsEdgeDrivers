@@ -206,7 +206,7 @@ local function switch_binary_handler(value)
       -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
       -- Send Configuration:Set with value and color from device fields
-      set_status_led(device,id,value,tonumber(device:get_field(id)))
+      set_status_led(device,id,value,tonumber(device.preferences[id]))
     end
 
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
