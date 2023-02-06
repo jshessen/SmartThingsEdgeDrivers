@@ -160,6 +160,9 @@ local HOMESEER_COLOR_MAP = {
 --- @param value (SwitchBinary.value)
 --- @param color (integer)
 local function set_status_led(device, id, value, color)
+  for id, value in pairs(device.preferences) do
+    log.debug(string.format("%s [%s] : %s=%s", device.id, device.device_network_id, id, value))
+  end
   -- Get device parameters from "preferencesMap"
   local preferences = preferencesMap:get_device_parameters(device)
 
