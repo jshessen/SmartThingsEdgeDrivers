@@ -160,7 +160,14 @@ local HOMESEER_SWITCH_COLORS = {
 --- @param value (SwitchBinary.value.ON_ENABLE | SwitchBinary.value.OFF_DISABLE)
 --- @param color (number) The preference color reference
 local function set_status_led(device, id, value, color)
-  log.debug(string.format("%s [%s] : BEFORE GET DEVICE CALL", device.id, device.device_network_id))
+  local args = {}
+  args.manufacturer_id = device.zwave_manufacturer_id or 0
+  log.debug(string.format("%s [%s] : mfr=0x%04x=%d", device.id, device.device_network_id, args.manufacturer_id,args.manufacturer_id))
+  args.product_type_id = device.zwave_product_type or 0
+  log.debug(string.format("%s [%s] : prod=0x%04x=%d", device.id, device.device_network_id, args.product_type_id,args.product_type_id))
+  args.product_id = device.zwave_product_id or 0
+  log.debug(string.format("%s [%s] : model=0x%04x=%d", device.id, device.device_network_id, args.product_id,args.product_id))
+
   -- Get device parameters from "preferencesMap"
   local preferences = preferencesMap:get_device_parameters(device)
 
