@@ -14,47 +14,29 @@ components:
     categories:
       - name: Switch
   - id: LED-1
-    capabilities:
+    capabilities: &led_cap
     - id: switch
       version: 1
-    categories:
+    categories: &led_cat
       - name: Switch
   - id: LED-2
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
+    capabilities: *led_cap
+    categories: *led_cat
   - id: LED-3
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
+    capabilities: *led_cap
+    categories: *led_cat
   - id: LED-4
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
+    capabilities: *led_cap
+    categories: *led_cat
   - id: LED-5
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
+    capabilities: *led_cap
+    categories: *led_cat
   - id: LED-6
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
+    capabilities: *led_cap
+    categories: *led_cat
   - id: LED-7
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
+    capabilities: *led_cap
+    categories: *led_cat
 preferences:
   - name: "reverse"
     title: "Invert Switch"
@@ -98,113 +80,53 @@ preferences:
     description: "Set LED-1 (bottom) Color"
     required: false
     preferenceType: enumeration
-    definition:
-      options: &led_color_options
+    definition: &led_color_options
+      options:
         0: "Off"
         7: "White"
         1: "Red"
         2: "Green"
         3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
+        5: "Amber"
         6: "Cyan"
+        4: "Purple"
       default: 0
   - name: "ledStatusColor2"
     title: "Status Mode - LED-2 Color"
     description: "Set LED-2 Color"
     required: false
     preferenceType: enumeration
-    definition:
-      options:
-        0: "Off"
-        7: "White"
-        1: "Red"
-        2: "Green"
-        3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
-        6: "Cyan"
-      default: 0
+    <<: *led_color_options
   - name: "ledStatusColor3"
     title: "Status Mode - LED-3 Color"
     description: "Set LED-3 Color"
     required: false
     preferenceType: enumeration
-    definition:
-      options:
-        0: "Off"
-        7: "White"
-        1: "Red"
-        2: "Green"
-        3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
-        6: "Cyan"
-      default: 0
+    <<: *led_color_options
   - name: "ledStatusColor4"
     title: "Status Mode - LED-4 Color"
     description: "Set LED-4 Color"
     required: false
     preferenceType: enumeration
-    definition:
-      options:
-        0: "Off"
-        7: "White"
-        1: "Red"
-        2: "Green"
-        3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
-        6: "Cyan"
-      default: 0
+    <<: *led_color_options
   - name: "ledStatusColor5"
     title: "Status Mode - LED-5 Color"
     description: "Set LED-5 Color"
     required: false
     preferenceType: enumeration
-    definition:
-      options:
-        0: "Off"
-        7: "White"
-        1: "Red"
-        2: "Green"
-        3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
-        6: "Cyan"
-      default: 0
+    <<: *led_color_options
   - name: "ledStatusColor6"
     title: "Status Mode - LED-6 Color"
     description: "Set LED-6 Color"
     required: false
     preferenceType: enumeration
-    definition:
-      options:
-        0: "Off"
-        7: "White"
-        1: "Red"
-        2: "Green"
-        3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
-        6: "Cyan"
-      default: 0
+    <<: *led_color_options
   - name: "ledStatusColor7"
     title: "Status Mode - LED-7 (top) Color"
     description: "Set LED-7 Color"
     required: false
     preferenceType: enumeration
-    definition:
-      options:
-        0: "Off"
-        7: "White"
-        1: "Red"
-        2: "Green"
-        3: "Blue"
-        4: "Magenta"
-        5: "Yellow"
-        6: "Cyan"
-      default: 0
+    <<: *led_color_options
   - name: "ledBlinkFrequency"
     title: "LED Status Blink Frequency"
     description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
