@@ -134,11 +134,6 @@ end
 
 --- @function set_status_led --
 --- Handles LED Status functionality
----comment
---- @param device (st.zwave.Device) The device object
---- @param id (string) String representation of component
---- @param value (SwitchBinary.Value.OFF_DISABLE | SwitchBinary.Value.ON_ENABLE)
---- @param color (number)
 -- 0=Off (DEFAULT)
 -- 1=Red SwitchColor.color_component_id.RED=2
 -- 2=Green SwitchColor.color_component_id.GREEN=3
@@ -147,31 +142,23 @@ end
 -- 5=Yellow SwitchColor.color_component_id.AMBER=5
 -- 6=Cyan SwitchColor.color_component_id.CYAN=6
 -- 7=White SwitchColor.color_component_id.COLD_WHITE=1
-local function set_status_led(device, id, value, color)
-  -- Get device parameters from "preferencesMap"
-  local preferences = preferencesMap:get_device_parameters(device)
+local function set_status_led(device,id, value, color)
+  local preferences = preferencesMap.get_device_parameters(device)
+  local color = color == 0 and 7 or color
 
-  -- Set default color to 7 if it's 0
-  color = color == 0 and 7 or color
-
-  -- If preferences and preference for device ID exists
   if preferences and preferences[id] then
     if value == SwitchBinary.value.OFF_DISABLE then
-      -- Send Configuration:Set with 'value' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
-      -- Send Configuration:Set with 'color' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
-
-      -- Calls the function `device:send(Configuration:Get({}))` after a delay
+      --- Calls the function `device:send(Configuration:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
-        -- Sends the `Configuration:Get` command to device
+        --- Sends the `Configuration:Get` command to device
         device:send(Configuration:Get({parameter_number = preferences[id].parameter_number}))
       end)
     end
   end
 end
-
 ---
 --- #######################################################
 
