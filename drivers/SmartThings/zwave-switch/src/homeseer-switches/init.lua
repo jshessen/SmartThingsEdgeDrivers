@@ -42,7 +42,7 @@ local log = require "log"
 --- @type Basic
 local Basic = (require "st.zwave.CommandClass.Basic")({version = 2, strict = true})
 --- @type SwitchBinary
-local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 3, strict = true})
+local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 2, strict = true})
 --- @type SwitchColor
 local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 2, strict = true})
 
