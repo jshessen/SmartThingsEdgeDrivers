@@ -152,14 +152,6 @@ local HOMESEER_SWITCH_COLORS = {
 
 --- #######################################################
 ---
--- 0=Off (DEFAULT)
--- 1=Red SwitchColor.color_component_id.RED=2
--- 2=Green SwitchColor.color_component_id.GREEN=3
--- 3=Blue SwitchColor.color_component_id.BLUE=4
--- 4=Magenta SwitchColor.color_component_id.PURPLE=7
--- 5=Yellow SwitchColor.color_component_id.AMBER=5
--- 6=Cyan SwitchColor.color_component_id.CYAN=6
--- 7=White SwitchColor.color_component_id.COLD_WHITE=1
 
 --- @function set_status_led --
 --- Handles LED Status (On/Off) functionality
@@ -217,6 +209,7 @@ local function switch_binary_handler(value)
     else
       -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
+      log.debug(string.format("%s [%s] : id=%s", device.id, device.device_network_id, id))
       -- Fetch current preference value
       set_status_led(device, id, value, preferencesMap.to_numeric_value(device.preferences[id]))
     end
