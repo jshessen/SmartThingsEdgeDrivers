@@ -158,9 +158,6 @@ local HOMESEER_COLOR_MAP = {
 --- @param color? (integer) Color value
 --- @return (nil)
 local function status_led_handler(device, component, value, color)
-  --log.debug(string.format("%s [%s] : mfr=0x%04x=%d", device.id, device.device_network_id, device.zwave_manufacturer_id, device.zwave_manufacturer_id))
-  --log.debug(string.format("%s [%s] : prod=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_type, device.zwave_product_type))
-  --log.debug(string.format("%s [%s] : model=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_id, device.zwave_product_id))
   local preferences = preferencesMap.get_device_parameters(device)
 
   if preferences and preferences[component] then
@@ -168,7 +165,7 @@ local function status_led_handler(device, component, value, color)
       device:send(Configuration:Set({parameter_number = preferences[component].parameter_number, size = preferences[component].size, configuration_value = value}))
     else
       --- If color is not defined, check the device.preferences, if neither is defined set to White=7
-      color = color or tonumber(device.preferences[component]) or 7
+      color = color or (tonumber(device.preferences[component]) or 7)
       --log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
       device:send(Configuration:Set({parameter_number = preferences[component].parameter_number, size = preferences[component].size, configuration_value = color}))
     end
