@@ -28,7 +28,7 @@ local st_device = require "st.zwave.device"
 -- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
 --- @type st.zwave.CommandClass.Configuration
-local Configuration = (require "st.zwave.CommandClass.Configuration")({ version = 2 })
+local Configuration = (require "st.zwave.CommandClass.Configuration")({ version = 4 })
 
 -- @type st.zwave.constants
 local constants = require "st.zwave.constants"
@@ -42,7 +42,9 @@ local log = require "log"
 --- @type Basic
 local Basic = (require "st.zwave.CommandClass.Basic")({version = 2, strict = true})
 --- @type SwitchBinary
-local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 2, strict = true})
+local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 3, strict = true})
+--- @type SwitchColor
+local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 2, strict = true})
 
 --- Dimmer
 --- @type SwitchMultilevel
@@ -50,7 +52,7 @@ local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ver
 
 --- Button
 --- @type CentralScene
-local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
+local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 3})
 
 --- Misc
 --- @type table
@@ -129,11 +131,27 @@ end
 --- ############################################################
 --- Subsection: Switch (Basic/SwitchBinary/SwitchMultilevel)
 ---
---- #######################################################
+--- ???????????????????????????????????????????????????????
+--- Variables/Constants
 ---
 
---- @function set_status_led --
---- Handles LED Status functionality
+--- Map HomeSeer Colors to SmartThings Constants
+--- @local (table)
+local HOMESEER_SWITCH_COLORS = {
+  {label = "Off", value = 0, constant = 0},
+  {label = "Red", value = 1, constant = SwitchColor.color_component_id.RED}, -- RED=2
+  {label = "Green", value = 2, constant = SwitchColor.color_component_id.GREEN}, -- GREEN=3
+  {label = "Blue", value = 3, constant = SwitchColor.color_component_id.BLUE}, -- BLUE=4
+  {label = "Magenta", value = 4, constant = SwitchColor.color_component_id.PURPLE}, -- PURPLE=7
+  {label = "Yellow", value = 5, constant = SwitchColor.color_component_id.AMBER}, -- AMBER=5
+  {label = "Cyan", value = 6, constant = SwitchColor.color_component_id.CYAN}, -- CYAN=6
+  {label = "White", value = 7, constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
+}
+---
+--- ???????????????????????????????????????????????????????
+
+--- #######################################################
+---
 -- 0=Off (DEFAULT)
 -- 1=Red SwitchColor.color_component_id.RED=2
 -- 2=Green SwitchColor.color_component_id.GREEN=3
@@ -142,23 +160,39 @@ end
 -- 5=Yellow SwitchColor.color_component_id.AMBER=5
 -- 6=Cyan SwitchColor.color_component_id.CYAN=6
 -- 7=White SwitchColor.color_component_id.COLD_WHITE=1
-local function set_status_led(device,id, value, color)
-  local preferences = preferencesMap.get_device_parameters(device)
-  local color = color == 0 and 7 or color
 
+--- @function set_status_led --
+--- Handles LED Status (On/Off) functionality
+--- @param device (st.zwave.Device) The device object
+--- @param id (string) The id of the device component
+--- @param value (SwitchBinary.value.ON_ENABLE | SwitchBinary.value.OFF_DISABLE)
+--- @param color (number) The preference color reference
+--- @return (nil)
+local function set_status_led(device, id, value, color)
+  -- Get device parameters from "preferencesMap"
+  local preferences = preferencesMap:get_device_parameters(device)
+
+  -- Set default color to WHITE (aka 7) if it's currently set to OFF (aka 0)
+  color = color == 0 and 7 or color
+
+  -- If preferences and preference for device ID exists
   if preferences and preferences[id] then
     if value == SwitchBinary.value.OFF_DISABLE then
+      -- Send Configuration:Set with 'value' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
     else
+      -- Send Configuration:Set with 'color' as the configuration value
       device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
-      --- Calls the function `device:send(Configuration:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
+
+      -- Calls the function `device:send(Configuration:Get({}))` after a delay
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
-        --- Sends the `Configuration:Get` command to device
+        -- Sends the `Configuration:Get` command to device
         device:send(Configuration:Get({parameter_number = preferences[id].parameter_number}))
       end)
     end
   end
 end
+
 ---
 --- #######################################################
 
