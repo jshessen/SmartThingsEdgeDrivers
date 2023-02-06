@@ -210,8 +210,13 @@ local function switch_binary_handler(value)
       -- LED-# => ledStatusColor#
       local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
       log.debug(string.format("%s [%s] : id=%s", device.id, device.device_network_id, id))
+      for id, value in pairs(device.preferences) do
+        log.debug(string.format("%s [%s] : %s=%s", device.id, device.device_network_id, id,value))
+      end
+      local color = preferencesMap.to_numeric_value(device.preferences[id])
+      log.debug(string.format("%s [%s] : value=%d", device.id, device.device_network_id, color))
       -- Fetch current preference value
-      set_status_led(device, id, value, preferencesMap.to_numeric_value(device.preferences[id]))
+      set_status_led(device, id, value, color)
     end
 
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
