@@ -46,7 +46,7 @@ local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 2
 
 --- Dimmer
 --- @type SwitchMultilevel
-local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({version = 2})
+local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({version = 4})
 
 --- Button
 --- @type CentralScene
@@ -58,7 +58,7 @@ local preferencesMap = require "preferences"
 --- @type ManufacturerSpecific
 local ManufacturerSpecific = (require "st.zwave.CommandClass.ManufacturerSpecific")({ version = 2 })
 --- @type Version
-local Version = (require "st.zwave.CommandClass.Version")({version = 2})
+local Version = (require "st.zwave.CommandClass.Version")({version = 3})
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -152,7 +152,7 @@ local function set_status_led(device, id, value, color)
   local preferences = preferencesMap:get_device_parameters(device)
 
   -- Set default color to 7 if it's 0
-  local color = color == 0 and 7 or color
+  color = color == 0 and 7 or color
 
   -- If preferences and preference for device ID exists
   if preferences and preferences[id] then
