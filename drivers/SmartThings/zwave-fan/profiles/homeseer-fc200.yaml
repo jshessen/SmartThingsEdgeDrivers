@@ -66,9 +66,9 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
-  - name: "ledStatusColor"
-    title: "Status Mode - LED Color"
-    description: "Set LED Color"
+  - name: "ledStatusColor1"
+    title: "Status Mode - LED-1 Color"
+    description: "Set LED-1 Color"
     required: false
     preferenceType: enumeration
     definition:
