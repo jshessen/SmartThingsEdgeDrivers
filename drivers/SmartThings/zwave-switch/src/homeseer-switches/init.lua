@@ -106,14 +106,9 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
 local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      local args = {}
-      args.manufacturer_id = device.zwave_manufacturer_id or 0
-      --log.debug(string.format("%s [%s] : %s - mfr=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.manufacturer_id,args.manufacturer_id))
-      args.product_type_id = device.zwave_product_type or 0
-      --log.debug(string.format("%s [%s] : %s - prod=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.product_type_id,args.product_type_id))
-      args.product_id = device.zwave_product_id or 0
-      --log.debug(string.format("%s [%s] : %s - model=0x%04x=%d", device.id, device.device_network_id, fingerprint.id,args.product_id,args.product_id))
-
+      --log.debug(string.format("%s [%s] : %s - mfr=0x%04x=%d", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_manufacturer_id))
+      --log.debug(string.format("%s [%s] : %s - prod=0x%04x=%d", device.id, device.device_network_id, fingerprint.id, device.zwave_product_type, device.zwave_product_type))
+      --log.debug(string.format("%s [%s] : %s - model=0x%04x=%d", device.id, device.device_network_id, fingerprint.id, device.zwave_product_id, device.zwave_product_id))
       log.info(string.format("%s [%s] : %s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
       return true
     end
@@ -155,21 +150,32 @@ local HOMESEER_COLOR_MAP = {
 --- #######################################################
 ---
 
---- @function set_status_led --
---- Handles LED Status functionality
-local function set_status_led(device,id, value, color)
+--- @function status_led_handler --
+--- Handles Status LED functionality
+--- @param device (st.zwave.Device) The device object
+--- @param component (string) String 'name' of the component
+--- @param value (SwitchBinary.value) On/Off constant value
+--- @param color? (integer) Color value
+--- @return (nil)
+local function status_led_handler(device, component, value, color)
+      log.debug(string.format("%s [%s] : mfr=0x%04x=%d", device.id, device.device_network_id, device.zwave_manufacturer_id, device.zwave_manufacturer_id))
+      log.debug(string.format("%s [%s] : prod=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_type, device.zwave_product_type))
+      log.debug(string.format("%s [%s] : model=0x%04x=%d", device.id, device.device_network_id, device.zwave_product_id, device.zwave_product_id))
   local preferences = preferencesMap.get_device_parameters(device)
-  local color = color == 0 and 7 or color
 
-  if preferences and preferences[id] then
+  if preferences and preferences[component] then
     if value == SwitchBinary.value.OFF_DISABLE then
-      device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = value}))
+      device:send(Configuration:Set({parameter_number = preferences[component].parameter_number, size = preferences[component].size, configuration_value = value}))
     else
-      device:send(Configuration:Set({parameter_number = preferences[id].parameter_number, size = preferences[id].size, configuration_value = color}))
+      --- If color is not defined, check the device.preferences, if neither is defined set to White=7
+      color = color or tonumber(device.preferences[component]) or 7
+      log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
+      
+      device:send(Configuration:Set({parameter_number = preferences[component].parameter_number, size = preferences[component].size, configuration_value = color}))
       --- Calls the function `device:send(Configuration:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
         --- Sends the `Configuration:Get` command to device
-        device:send(Configuration:Get({parameter_number = preferences[id].parameter_number}))
+        device:send(Configuration:Get({parameter_number = preferences[component].parameter_number}))
       end)
     end
   end
@@ -191,14 +197,15 @@ local function switch_binary_handler(value)
   --- @param command (Command) Input command value
   --- @return (nil)
   return function(driver, device, command)
-    --log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
+    log.debug(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
     if command.component == "main" then
       device:send_to_component(Basic:Set({value = value}), command.component)
     else
       -- LED-# => ledStatusColor#
-      local id = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
+      local component = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
       -- Fetch current preference value
-      set_status_led(device, id, value, preferencesMap.to_numeric_value(device.preferences[id]))
+      --status_led_handler(device, component, value, preferencesMap.to_numeric_value(device.preferences[component]))
+      status_led_handler(device, component, value)
     end
 
     --- Calls the function `device:send_to_component(SwitchBinary:Get({}))` with a delay of `constants.DEFAULT_GET_STATUS_DELAY`
@@ -386,7 +393,7 @@ local map_key_attribute_to_capability = {
 local function central_scene_notification_handler(driver, device, command)
   -- Check if the key attribute is released, if so, log an error and return as it is not supported by SmartThings
   if (command.args.key_attributes == CentralScene.key_attributes.KEY_RELEASED) then
-    log.error("Button Value 'released' is not supported by SmartThings")
+    log.error("Button Value \"released\" is not supported by SmartThings")
     return
   end
 
@@ -421,7 +428,7 @@ end
 --- @return (nil)
 local function update_device_profile(driver, device, args)
   log.debug(string.format("%s [%s] : operatingMode=%s", device.id, device.device_network_id, device.preferences.operatingMode))
-  local operatingMode = tonumber(device.preferences.operatingMode) == 1 and '-status' or ''
+  local operatingMode = tonumber(device.preferences.operatingMode) == 1 and "-status" or ""
   local firmware_version = args.firmware_0_version
   local firmware_sub_version = args.firmware_0_sub_version
   local profile
@@ -430,19 +437,19 @@ local function update_device_profile(driver, device, args)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       log.info(string.format("%s [%s] : %s - Firmware: %s.%s", device.id, device.device_network_id, fingerprint.id, firmware_version, firmware_sub_version))
-      profile = 'homeseer-' .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
+      profile = "homeseer-" .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
 
       if fingerprint.id == "HomeSeer/Dimmer/WD200" then
         -- Check if the firmware version and sub-version match certain values
         if firmware_version == 5 and (firmware_sub_version > 11 and firmware_sub_version < 14) then
           -- Update the device's profile and set a field to indicate that the update has occurred
-          profile = profile .. '-' .. firmware_version .. '.' .. firmware_sub_version
+          profile = profile .. "-" .. firmware_version .. "." .. firmware_sub_version
           break
           -- Check if the firmware version and sub-version match certain values
         elseif firmware_version == 5 and firmware_sub_version >= 14 then
           -- Update the device's profile and set a field to indicate that the update has occurred
-          profile = profile .. '-' .. 'latest'
+          profile = profile .. "-" .. "latest"
           break
         end
       -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S or WX300D"
@@ -450,7 +457,7 @@ local function update_device_profile(driver, device, args)
         -- Check if the firmware version is greater than 1.12
         if (firmware_version == 1 and firmware_sub_version > 12) then
           -- Set the new profile for the device
-          profile = profile .. '-' .. 'latest'
+          profile = profile .. "-" .. "latest"
           break
         end
       end
@@ -651,7 +658,7 @@ local function info_changed(self, device, event, args)
         -- We may need to update our device profile
         device:send(Version:Get({}))
     end
-  -- Call the topmost 'infoChanged' lifecycle hander to do any default work
+  -- Call the topmost "infoChanged" lifecycle hander to do any default work
   call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
 end
 ---
