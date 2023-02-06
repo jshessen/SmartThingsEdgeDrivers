@@ -153,12 +153,12 @@ local HOMESEER_COLOR_MAP = {
 --- #######################################################
 ---
 
---- @function set_status_led --
+-- @function set_status_led --
 --- Handles LED Status on/off functionality
---- @param device (st.zwave.Device) The device object
---- @param id (string)
---- @param value (SwitchBinary.value)
---- @param color (integer)
+-- @param device (st.zwave.Device) The device object
+-- @param id (string)
+-- @param value (SwitchBinary.value)
+-- @param color (integer)
 local function set_status_led(device, id, value, color)
   for id, value in pairs(device.preferences) do
     log.debug(string.format("%s [%s] : %s=%s", device.id, device.device_network_id, id, value))
