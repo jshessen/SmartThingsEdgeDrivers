@@ -106,7 +106,6 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
 local function can_handle_homeseer_switches(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_SWITCH_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(string.format("%s [%s] : %s - mfr=0x%04x, prod=0x%04x, model=0x%04x", device.id, device.device_network_id, fingerprint.id, device.zwave_manufacturer_id, device.zwave_product_type, device.zwave_product_id))
       return true
     end
   end
@@ -164,10 +163,8 @@ local function status_led_handler(device, component, value, color)
 
   if preferences and preferences[component] then
     -- If color is not defined, check the device.preferences, if neither is defined set to White=7
-    log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
     local pref_color = tonumber(device.preferences[component])
     local color = color or (pref_color ~= 0 and pref_color) or 7
-    log.debug(string.format("%s [%s] : color=%s", device.id, device.device_network_id, color))
 
     -- If value is OFF_DISABLE, use value; otherwise use color
     value = value == SwitchBinary.value.OFF_DISABLE and value or color
@@ -190,7 +187,6 @@ end
 local function hex_to_rgb(hex)
   -- Remove the "#" symbol from the hexadecimal string
   hex = hex:gsub("#", "")
-  log.debug(string.format("hex=%s", hex))
   
   local r_,g_,b_
   local r, g, b
@@ -207,7 +203,6 @@ local function hex_to_rgb(hex)
     g = tonumber(hex:sub(3, 4), 16) or 0
     b = tonumber(hex:sub(5, 6), 16) or 0
   end
-  log.debug(string.format("r=%s, g=%s, b=%s", r,g,b))
   -- Return the RGB values as a tuple
   return r, g, b
 end
@@ -234,17 +229,13 @@ local function find_closest_color(hue, saturation, lightness)
 
   -- Iterate through HOMESEER_COLOR_MAP and find the closest color
   for _, color in ipairs(HOMESEER_COLOR_MAP) do
-    log.debug(string.format("find_closest_color - name=%s color=%s", color.name,color.value))
     local r1, g1, b1 = hex_to_rgb(color.hex)
     local newdist = math.sqrt((r - r1)^2 + (g - g1)^2 + (b - b1)^2)
-    log.debug(string.format("newdist-%s < closest_dis-%s", newdist,closest_dist))
     if newdist < closest_dist then
       closest_dist = newdist
       closest_color = color
     end
-    log.debug(string.format("find_closest_color - closest_color=%s", closest_color.value))
   end
-  log.debug(string.format("find_closest_color - closest_color=%s", closest_color.value))
   -- Return the closest color
   return closest_color
 end
@@ -261,11 +252,9 @@ end
 --- @param command (table) Input command value
 --- @return (nil)
 local function switch_color_handler(driver, device, command)
-  log.debug(string.format("%s [%s] : switch_color_handler", device.id, device.device_network_id))
   local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
   -- Find the closest color to the command's hue, saturation, and lightness values
   local color = find_closest_color(command.args.color.hue, command.args.color.saturation, command.args.color.lightness)
-  log.debug(string.format("%s [%s] : switch_color_handler - color=%s", device.id, device.device_network_id, color.value))
   -- Convert the color from hex to RGB and then to HSL
   local r, g, b = hex_to_rgb(color.hex)
   local hue, saturation, lightness = utils.rgb_to_hsl(r,g,b)
@@ -322,8 +311,7 @@ local function switch_binary_handler(value)
       -- LED-# => ledStatusColor#
       local component = "ledStatusColor" .. string.sub(command.component,string.find(command.component,"-")+1)
       if device:supports_capability(capabilities.colorControl,nil) then
-        --device:send_to_component(SwitchColor.Report({value =
-        log.debug(string.format("%s [%s] : I can do Color!", device.id, device.device_network_id))
+        -- If needed?
       end
       status_led_handler(device, component, value)
     end
