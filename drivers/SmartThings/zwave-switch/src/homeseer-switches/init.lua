@@ -187,7 +187,6 @@ end
 --- Function that converts hexadecimal color code to RGB color
 --- @param hex (string)
 --- @return number, number, number equivalent red, green, blue with each color in range [0,1]
-
 local function hex_to_rgb(hex)
   -- Remove the "#" symbol from the hexadecimal string
   hex = hex:gsub("#", "")
