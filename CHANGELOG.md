@@ -1,5 +1,18 @@
 # Change Log
 
+## [0.4.0](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.3.0...v0.4.0) (2023-02-09)
+
+
+### :rocket: Feature/Improvement
+
+* **led:** Add colorControl for LEDs ([ffd4481](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/ffd4481e73bbd7e150a74cbad36db9bd81fc7eb7))
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **led:** force led "on" if pref is set to "off" ([934d4e0](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/934d4e0e245920f19d8aa1085180693f530a5dde))
+* **upstream:** Resolve upstream args defs ([df85374](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/df85374ca58f32f9190beef9a759f49812f58880))
+
 ## [0.4.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.3.0...v0.4.0-beta.1) (2023-02-09)
 
 
