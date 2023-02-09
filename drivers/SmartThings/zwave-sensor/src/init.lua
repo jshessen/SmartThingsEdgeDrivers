@@ -27,10 +27,10 @@ local configurations = require "configurations"
 
 --- Handle preference changes
 ---
---- @param driver st.zwave.Driver
+--- @param self st.zwave.Driver
 --- @param device st.zwave.Device
 --- @param event table
---- @param args
+--- @param args table
 local function info_changed(self, device, event, args)
   if not device:is_cc_supported(cc.WAKE_UP) then
     preferences.update_preferences(self, device, args)

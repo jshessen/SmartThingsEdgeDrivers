@@ -48,9 +48,9 @@ preferences:
         1: "Red"
         2: "Green"
         3: "Blue"
-        5: "Amber"
+        4: "Magenta"
+        5: "Yellow"
         6: "Cyan"
-        4: "Purple"
       default: 0
   - name: "rampRate"
     title: "Ramp Rate (local)"
