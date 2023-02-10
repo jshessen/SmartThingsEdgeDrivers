@@ -3,16 +3,48 @@ name: homeseer-fc200
 components:
   - id: main
     capabilities:
+      - id: fanSpeed
+        version: 1
       - id: switch
         version: 1
-      - id: switchLevel
-        version: 1
-      - id: fanSpeed
+      - id: button
         version: 1
       - id: refresh
         version: 1
     categories:
       - name: Fan
+  - id: LED-1
+    capabilities:
+    - id: switch
+      version: 1
+    - id: colorControl
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-2
+    capabilities:
+    - id: switch
+      version: 1
+    - id: colorControl
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-3
+    capabilities:
+    - id: switch
+      version: 1
+    - id: colorControl
+      version: 1
+    categories:
+      - name: Switch
+  - id: LED-4
+    capabilities:
+    - id: switch
+      version: 1
+    - id: colorControl
+      version: 1
+    categories:
+      - name: Switch
 preferences:
   - name: "operatingMode"
     title: "Operating Mode"
