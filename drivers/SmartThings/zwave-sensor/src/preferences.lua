@@ -16,44 +16,151 @@
 local Configuration = (require "st.zwave.CommandClass.Configuration")({ version=4 })
 
 local devices = {
-  -- https://docs.homeseer.com/products/sensors/hs-fls100+/hs-fls100+-user-guide
-  HOMESEER_FLOODLIGHT_SENSOR = {
+  EVERSPRING_PIR = {
     MATCHING_MATRIX = {
-      mfrs = 0x000C,
-      product_types = {0x0201},
-      product_ids = 0x000B
+      mfrs = 0x0060,
+      product_types = 0x0001,
+      product_ids = 0x0004
     },
     PARAMETERS = {
-      onTime = {parameter_number = 1, size = 2},
-      -- Determines how long floodlights stay on after motion sensed	8-720 (seconds) (DEFAULT=180)
-      luxThreshold = {parameter_number = 2, size = 2},
-      -- Values under this setting will allow motion to control load range 10-900	(DEFAULT=50)
-      sensorReportInterval = {parameter_number = 3, size = 2},
-      -- Determines how frequently Lux and Temperature values are reported	1-1440 (minutes) (DEFAULT=10)
-      notificationReport = {parameter_number = 4, configuration_value = 1, size = 1},
-      -- 0 : Disable alert
-      -- 1 : Enable alert
-      loadControlSensors = {parameter_number = 5, configuration_value = 1, size = 1},
-      -- 0 : Load controlled by Z-Wave Only
-      -- 1 : Load controlled by Z-Wave and Sensors
-      loadControlSensorsMotion = {parameter_number = 6, configuration_value = 0, size = 1},
-      -- 0 : Load controlled by Lux and Motion
-      -- 1 : Load controlled by Lux Only
-      temperatureOffset = {parameter_number = 7, configuration_value = 0x00, size = 1},
-      -- 0x9C - 0x64
-      -- (offset range : -10.0°C ~ +10.0°C)
-      motionSensitivityLevel = {parameter_number = 8, configuration_value = 0, size = 1}
-      -- 0: low level, approx. 6m distance (DEFAULT)
-      -- 1: mid level, approx. 10m distance
-      -- 2: high level, approx. 20m distance
+      tempAndHumidityReport = {parameter_number = 1, size = 2},
+      retriggerIntervalSetting = {parameter_number = 2, size = 2}
+    }
+  },
+  EVERSPRING_SP817 = {
+    MATCHING_MATRIX = {
+      mfrs = 0x0060,
+      product_types = 0x0001,
+      product_ids = 0x0006
     },
-    ASSOCIATION = {
-      {grouping_identifier = 1},
-      {grouping_identifier = 2}
+    PARAMETERS = {
+      retriggerIntervalSetting = {parameter_number = 4, size = 2}
+    }
+  },
+  FIBARO_FLOOD_SENSOR_ZW5 = {
+    MATCHING_MATRIX = {
+      mfrs = 0x010F,
+      product_types = 0x0B01,
+      product_ids = {0x1002, 0x1003, 0x2002}
     },
-    NOTIFICATION = {
-      -- disable notification-style motion events
-      -- {notification_type = 7, notification_status = 0}
+    PARAMETERS = {
+      alarmCancellationDelay = {parameter_number = 1, size = 2},
+      acousticVisualSignals = {parameter_number = 2, size = 1},
+      tempMeasurementInterval = {parameter_number = 10, size = 4},
+      floodSensorTurnedOnOff = {parameter_number = 77, size = 1}
+    }
+  },
+  FIBARO_DOOR_WINDOW_SENSOR_WITH_TEMPERATURE = {
+    MATCHING_MATRIX = {
+      mfrs = 0x010F,
+      product_types = 0x0701,
+      product_ids = 0x2001
+    },
+    PARAMETERS = {
+      alarmStatus = {parameter_number = 2, size = 1},
+      visualLedIndications = {parameter_number = 3, size = 1},
+      delayOfTamperAlarmCancel = {parameter_number = 30, size = 2},
+      reportTamperAlarmCancel = {parameter_number = 31, size = 1},
+      tempMeasurementInterval = {parameter_number = 50, size = 2},
+      tempReportsThreshold = {parameter_number = 51, size = 2},
+      intervalOfTempReports = {parameter_number = 52, size = 2},
+      temperatureOffset = {parameter_number = 53, size = 4},
+      temperatureAlarmReports = {parameter_number = 54, size = 1},
+      highTempThreshold = {parameter_number = 55, size = 2},
+      lowTempThreshold = {parameter_number = 56, size = 2}
+    }
+  },
+  EZMULTIPLI = {
+    MATCHING_MATRIX = {
+        mfrs = 0x001E,
+        product_types = 0x0004,
+        product_ids = 0x0001
+    },
+    PARAMETERS = {
+      onTime = {parameter_number = 1, size = 1},
+      onLevel = {parameter_number = 2, size = 1},
+      liteMin = {parameter_number = 3, size = 1},
+      tempMin = {parameter_number = 4, size = 1},
+      tempAdj = {parameter_number = 5, size = 1}
+    }
+  },
+  HOMESEER_HSM200 = {
+    MATCHING_MATRIX = {
+        mfrs = 0x0004,
+        product_types = 0x0004,
+        product_ids = 0x0001
+    },
+    PARAMETERS = {
+      onTime = {parameter_number = 1, size = 1},
+      onLevel = {parameter_number = 2, size = 1},
+      liteMin = {parameter_number = 3, size = 1},
+      tempMin = {parameter_number = 4, size = 1},
+      tempAdj = {parameter_number = 5, size = 1}
+    }
+  },
+  FIBARO_DOOR_WINDOW_SENSOR_2 = {
+    MATCHING_MATRIX = {
+      mfrs = 0x010F,
+      product_types = 0x0702,
+      product_ids = {0x1000, 0x2000, 0x3000}
+    },
+    PARAMETERS = {
+      doorWindowState = {parameter_number = 1, size = 1},
+      visualLedIndications = {parameter_number = 2, size = 1},
+      tamperCancelDelay = {parameter_number = 30, size = 2},
+      cancelTamperReport = {parameter_number = 31, size = 1},
+      tempMeasurementInterval = {parameter_number = 50, size = 2},
+      tempReportsThreshold = {parameter_number = 51, size = 2},
+      temperatureAlarmReports = {parameter_number = 54, size = 1},
+      highTempThreshold = {parameter_number = 55, size = 2},
+      lowTempThreshold = {parameter_number = 56, size = 2}
+    }
+  },
+  AEOTEC_MULTISENSOR_6 = {
+    MATCHING_MATRIX = {
+      mfrs = 0x0086,
+      product_types = {0x0002, 0x0102, 0x0202},
+      product_ids = 0x0064
+    },
+    PARAMETERS = {
+      motionDelayTime = {parameter_number = 3, size = 2},
+      motionSensitivity = {parameter_number = 4, size = 1},
+      reportInterval = {parameter_number = 111, size = 4}
+    }
+  },
+  AEOTEC_MULTISENSOR_7 = {
+    MATCHING_MATRIX = {
+      mfrs = 0x0371,
+      product_types = {0x0002, 0x0102, 0x0202},
+      product_ids = 0x0018
+    },
+    PARAMETERS = {
+      motionDelayTime = {parameter_number = 3, size = 2},
+      motionSensitivity = {parameter_number = 4, size = 1},
+      reportInterval = {parameter_number = 111, size = 2}
+    }
+  },
+  FIBARO_MOTION_SENSOR = {
+    MATCHING_MATRIX = {
+      mfrs = 0x010F,
+      product_types = 0x0801,
+      product_ids = {0x1001, 0x1002, 0x2001, 0x2002}
+    },
+    PARAMETERS = {
+      motionSensitivityLevel = {parameter_number = 1, size = 2},
+      motionBlindTime = {parameter_number = 2, size = 1},
+      motionCancelationDelay = {parameter_number = 6, size = 2},
+      motionOperatingMode = {parameter_number = 8, size = 1},
+      motionNightDay = {parameter_number = 9, size = 2},
+      tamperCancelationDelay = {parameter_number = 22, size = 2},
+      tamperOperatingMode = {parameter_number = 24, size = 1},
+      illuminanceThreshold = {parameter_number = 40, size = 2},
+      illuminanceInterval = {parameter_number = 42, size = 2},
+      temperatureThreshold = {parameter_number = 60, size = 2},
+      ledMode = {parameter_number = 80, size = 1},
+      ledBrightness = {parameter_number = 81, size = 1},
+      ledLowBrightness = {parameter_number = 82, size = 2},
+      ledHighBrightness = {parameter_number = 83, size = 2}
     }
   }
 }

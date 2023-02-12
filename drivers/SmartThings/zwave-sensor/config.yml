@@ -1,5 +1,5 @@
-name: "HomeSeer Z-Wave Floodlight Sensor"
-packageKey: "homeseer-zwave-sensor"
+name: "HomeSeer Z-Wave Sensors"
+packageKey: "homeseer-zwave-sensors"
 description: "This driver extends the basic zwave functionality to include additional vendor specific parameters"
 vendorSupportInformation: >-
    'This driver requires a documented device to work properly.<br /><br />
