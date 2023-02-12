@@ -15,7 +15,7 @@
 	{
         "driver": "zwave-sensor",
         "path": "drivers/SmartThings",
-        "label":"HomeSeer Z-Wave Floodlight Sensor",
-        "pkgkey":"homeseer-floodlight-sensor"
+        "label":"HomeSeer Z-Wave Sensors",
+        "pkgkey":"homeseer-zwave-sensors"
     }]
 }
