@@ -13,7 +13,7 @@
 -- limitations under the License.
 
 local capabilities = require "st.capabilities"
--- @type st.utils
+--- @type st.utils
 local utils = require "st.utils"
 --- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
@@ -61,7 +61,7 @@ local function set_color(driver, device, command)
   local saturation = command.args.color.saturation
 
   local duration = constants.DEFAULT_DIMMING_DURATION
-  local r, g, b = utils.hsl_to_rgb(hue, saturation, nil)
+  local r, g, b = utils.hsl_to_rgb(hue, saturation)
 
   r = (r >= 191) and 255 or 0
   g = (g >= 191) and 255 or 0
