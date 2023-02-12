@@ -1,13 +1,7 @@
 zwaveManufacturer:
-  - id: "HomeSeer/Sensor/FLS100"
-    deviceLabel: HomeSeer FLS100+ Floodlight Sensor
+  - id: "homeseer/multi/hsm200"
+    deviceLabel: Homeseer Multi Sensor HSM200
     manufacturerId: 0x000C
-    productType: 0x0201
-    productId: 0x000B
-    deviceProfileName: homeseer-floodlight-sensor
-  - id: "HomeSeer/Sensor/FLS100-G2"
-    deviceLabel: HomeSeer FLS100+ G2 Floodlight Sensor
-    manufacturerId: 0x000C
-    productType: 0x0201
-    productId: 0x000C
-    deviceProfileName: homeseer-floodlight-sensor
+    productType: 0x0004
+    productId: 0x0001
+    deviceProfileName: motion-switch-color-illuminance-temperature
