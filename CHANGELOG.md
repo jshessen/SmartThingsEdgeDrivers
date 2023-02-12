@@ -1,5 +1,24 @@
 # Change Log
 
+## [0.5.0](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.4.0...v0.5.0) (2023-02-12)
+
+
+### :octocat: CI/CD
+
+* **matrix:** Renamed to generic zwave-sensor ([1bf9a74](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/1bf9a7409c38dc6a5bee4d6e925dd57490d0a12b))
+
+
+### :rocket: Feature/Improvement
+
+* **hsm200:** Extend ezmultipli to include HSM200 ([a3085e6](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/a3085e67fe9ac1a171ff94d08f95e560a954ab1b))
+
+
+### :broom: Miscellaneous Chores
+
+* **.gitignore:** Ignore ST API reference library ([5e157c9](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/5e157c99c1abb6bf64d9e19f35484c6f45d92195))
+* **debug:** removed log.debug ([fd68b4d](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/fd68b4d1ac5049bdcc68437dd1b58be8fe81604b))
+* **format:** Remove newline ([be61858](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/be6185872224cfaa4f94cbbcb034cd7cacdeb195))
+
 ## [0.5.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.4.0...v0.5.0-beta.1) (2023-02-12)
 
 
