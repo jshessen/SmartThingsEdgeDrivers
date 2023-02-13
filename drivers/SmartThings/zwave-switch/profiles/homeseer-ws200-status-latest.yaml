@@ -19,48 +19,6 @@ components:
       version: 1
     categories:
       - name: Switch
-  - id: LED-1
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
-  - id: LED-2
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
-  - id: LED-3
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
-  - id: LED-4
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
-  - id: LED-5
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
-  - id: LED-6
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
-  - id: LED-7
-    capabilities:
-    - id: switch
-      version: 1
-    categories:
-      - name: Switch
 preferences:
   - name: "reverse"
     title: "Invert Switch"
@@ -79,7 +37,7 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
-  - name: "ledStatusColor"
+  - name: "ledStatusColor1"
     title: "Status Mode - LED Color"
     description: "Set LED Color"
     required: false
