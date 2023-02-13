@@ -387,7 +387,7 @@ local devices = {
       -- Possible values: 0-6
       -- 0=White (DEFAULT)
       -- 1=Red, 2=Green, 3=Blue, 4=Magenta, 5=Yellow, 6-Cyan
-      ledStatusColor = {parameter_number = 21, size = 1},
+      ledStatusColor1 = {parameter_number = 21, size = 1},
       -- Sets the Status mode LED 1 (bottom) color
       -- Possible values: 0-7
       -- 0=Off (DEFAULT)
@@ -435,7 +435,7 @@ local devices = {
       -- Possible values: 0-6
       -- 0=White (DEFAULT)
       -- 1=Red, 2=Green, 3=Blue, 4=Magenta, 5=Yellow, 6-Cyan
-      ledStatusColor = {parameter_number = 21, size = 1},
+      ledStatusColor1 = {parameter_number = 21, size = 1},
       -- Sets the Status mode LED 1 (bottom) color
       -- Possible values: 0-7
       -- 0=Off (DEFAULT)

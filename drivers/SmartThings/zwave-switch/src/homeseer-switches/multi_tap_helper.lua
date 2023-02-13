@@ -130,34 +130,7 @@ multi_tap.map_key_attribute_to_capability = map_key_attribute_to_capability
 --- ???????????????????????????????????????????????????????
 
 --- #######################################################
-
---- @function multi_tap.update_device_profile() --
---- Adjust profile definition based upon operatingMode
---- @param driver (Driver) The driver object
---- @param device (st.zwave.Device) The device object
---- @param args (table)
---- @return (nil)
-function multi_tap.update_device_profile(driver, device, args)
-  log.debug(string.format("%s [%s] : operatingMode=%s", device.id, device.device_network_id, device.preferences.operatingMode))
-  local operatingMode = tonumber(device.preferences.operatingMode) == 1 and "-status" or ""
-  local firmware_version = args.firmware_0_version
-  local firmware_sub_version = args.firmware_0_sub_version
-  local profile
-
-  -- Iterate through the list of HomeSeer switch fingerprints
-  for _, fingerprint in ipairs(args.fingerprints) do
-    if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(string.format("%s [%s] : %s - Firmware: %s.%s", device.id, device.device_network_id, fingerprint.id, firmware_version, firmware_sub_version))
-      profile = "homeseer-" .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
-    end
-  end
-  if profile then
-    assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
-    log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
-  end
-end
 ---
---- #######################################################
 
 --- @function multi_tap.emit_central_scene_events() --
 --- Handles "Scene" functionality
@@ -194,6 +167,9 @@ end
 --- Return
 ---
 
+return multi_tap
+---
+--- /////////////////////////////////////////////////////////////////
 return multi_tap
 ---
 --- /////////////////////////////////////////////////////////////////

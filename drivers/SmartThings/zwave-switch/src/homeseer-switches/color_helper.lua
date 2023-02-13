@@ -25,6 +25,7 @@
 local utils = require "st.utils"
 --- @type SwitchColor
 local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 3, strict = true})
+local log = (require "log")
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -104,12 +105,12 @@ function color.find_closest_color(hue, saturation, lightness)
   local closest_dist = 255 * math.sqrt(3.0)
 
   -- Iterate through HOMESEER_COLOR_MAP and find the closest color
-  for _, color in ipairs(color.map) do
-    local r1, g1, b1 = color.hex_to_rgb(color.hex)
+  for _, clr in ipairs(color.map) do
+    local r1, g1, b1 = color.hex_to_rgb(clr.hex)
     local newdist = math.sqrt((r - r1)^2 + (g - g1)^2 + (b - b1)^2)
     if newdist < closest_dist then
       closest_dist = newdist
-      closest_color = color
+      closest_color = clr
     end
   end
   -- Return the closest color

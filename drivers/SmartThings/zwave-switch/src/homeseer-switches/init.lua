@@ -11,6 +11,19 @@
 -- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
+-- Copyright 2022 SmartThings
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
 
 -- @type st.capabilities
 local capabilities = require "st.capabilities"
@@ -50,10 +63,10 @@ local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1
 local Version = (require "st.zwave.CommandClass.Version")({version = 3})
 --- @type table
 local helpers = {}
-helpers.color = (require "color_helper")
-helpers.multi_tap = (require "multi_tap_helper")
-helpers.profile = (require "profile_helper")
-helpers.led = (require "led_helper")
+helpers.color = (require "homeseer-switches.color_helper")
+helpers.multi_tap = (require "homeseer-switches.multi_tap_helper")
+helpers.profile = (require "homeseer-switches.profile_helper")
+helpers.led = (require "homeseer-switches.led_helper")
 
 --- @local (table)
 local HOMESEER_SWITCH_FINGERPRINTS = {
@@ -67,6 +80,7 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
   {id = "ZLink/Dimmer/WD100",     mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- ZLink ZL-WD-100 Dimmer - ZWaveProducts.com
 }
 
+--- @function can_handle_homeseer_switches() --
 --- @function can_handle_homeseer_switches() --
 --- Determine whether the passed device is a HomeSeer switch.
 --- @param opts (table)
@@ -91,11 +105,18 @@ local zwave_handlers = {}
 local capability_handlers = {}
 
 --- @function zwave_handlers.switch_multilevel_handler() --
+--- @local table
+local zwave_handlers = {}
+--- @local table
+local capability_handlers = {}
+
+--- @function zwave_handlers.switch_multilevel_handler() --
 --- Handles "dimmer/level" functionality
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
+function zwave_handlers.switch_multilevel_handler(driver, device, command)
 function zwave_handlers.switch_multilevel_handler(driver, device, command)
   -- Declare local variables 'level' and 'dimmingDuration'
   local level = command.args.level and utils.clamp_value(math.floor(command.args.level + 0.5), 0, 99)
@@ -116,11 +137,13 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
 end
 
 --- @function zwave_handlers.switch_multilevel_stop_level_change_handler() --
+--- @function zwave_handlers.switch_multilevel_stop_level_change_handler() --
 --- Handles the stopping of a switch level change on Z-Wave devices
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
+function zwave_handlers.switch_multilevel_stop_level_change_handler(driver, device, command)
 function zwave_handlers.switch_multilevel_stop_level_change_handler(driver, device, command)
   --- Emits an event with the switch capability "on"
   device:emit_event(capabilities.switch.switch.on())
@@ -130,10 +153,15 @@ function zwave_handlers.switch_multilevel_stop_level_change_handler(driver, devi
 end
 
 --- @function zwave_handlers.emit_central_scene_events() --
+--- @function zwave_handlers.emit_central_scene_events() --
 --- Handles "Scene" functionality
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
+--- @return (nil)
+function zwave_handlers.emit_central_scene_events(driver,device,command)
+  helpers.multi_tap.emit_central_scene_events(device,command)
+end
 --- @return (nil)
 function zwave_handlers.emit_central_scene_events(driver,device,command)
   helpers.multi_tap.emit_central_scene_events(device,command)
@@ -146,22 +174,28 @@ end
 --- @param command (table) Input command value
 --- @return (nil)
 function zwave_handlers.switch_color_handler(driver, device, command)
-  helpers.led.set_led_color(device, command)
+  command.args.value = SwitchBinary.value.ON_ENABLE
+  helpers.led.set_status_color(device, command)
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
+capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
 
+--- @function zwave_handlers.version_report_handler() --
 --- @function zwave_handlers.version_report_handler() --
 --- Adjust profile definition based upon reported firmware version
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 function zwave_handlers.version_report_handler(driver, device, command)
+  command.args.fingerprints = HOMESEER_SWITCH_FINGERPRINTS
   local profile = helpers.profile.get_device_profile(device,command.args)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
     log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
   end
 end
+
+
 
 
 
@@ -187,16 +221,29 @@ function capability_handlers.switch_binary_handler(value)
       if device:supports_capability(capabilities.colorControl,nil) then
         -- If needed?
       end
-      helpers.led.set_led_color(device, command)
+      command.args.value = value
+      helpers.led.set_status_color(device, command)
     end
   end
 end
 
 --- @function capability_handlers.do_refresh() --
 --- Refresh Device
+--- @function capability_handlers.do_refresh() --
+--- Refresh Device
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
+--- @return (nil)
+function capability_handlers.do_refresh(driver, device, command)
+  --- Determine the component for the command
+  local component = command and command.component or "main"
+  local capability = device:supports_capability(capabilities.switch, component) and capabilities.switch or
+                      device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel
+  --- Check if the device supports switch level capability
+  if capability then
+    device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
+  end
 --- @return (nil)
 function capability_handlers.do_refresh(driver, device, command)
   --- Determine the component for the command
@@ -216,11 +263,13 @@ custom_capabilities.firmwareVersion.name = "firmwareVersion"
 custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilities.firmwareVersion.name]
 
 --- @function capability_handlers.checkForFirmwareUpdate_handler() --
+--- @function capability_handlers.checkForFirmwareUpdate_handler() --
 --- Check to see if there is a firmware update available for the device
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
+function capability_handlers.checkForFirmwareUpdate_handler(driver, device, command)
 function capability_handlers.checkForFirmwareUpdate_handler(driver, device, command)
     --- Check if the device supports Firmware capability
     if (device:supports_capability(capabilities.firmwareUpdate, nil)) then
@@ -229,11 +278,13 @@ function capability_handlers.checkForFirmwareUpdate_handler(driver, device, comm
 end
 
 --- @function capability_handlers.updateFirmware_handler() --
+--- @function capability_handlers.updateFirmware_handler() --
 --- Check to see if there is a firmware update available for the device
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 --- @return (nil)
+function capability_handlers.updateFirmware_handler(driver, device, command)
 function capability_handlers.updateFirmware_handler(driver, device, command)
     --- Check if the device supports Firmware capability
     if (device:supports_capability(capabilities.firmwareUpdate, nil)) then
@@ -243,6 +294,7 @@ end
 
 
 
+--- @function call_parent_handler() --
 --- @function call_parent_handler() --
 --- Invoke handlers for a specific event
 --- @param handlers (function|table) Function or tables of functions to call as event handlers.
@@ -268,7 +320,17 @@ local function component_to_endpoint(device, component_id)
   local ep_num = component_id == "main" and 0 or tonumber(component_id:match("LED-(%d)"))
   return { ep_num }
 end
+--- @function component_to_endpoint() --
+--- Map component to end_points (channels)
+--- @param device (st.zwave.Device)
+--- @param component_id (string) ID
+--- @return table dst_channels destination channels e.g. {2} for Z-Wave channel 2 or {} for unencapsulated
+local function component_to_endpoint(device, component_id)
+  local ep_num = component_id == "main" and 0 or tonumber(component_id:match("LED-(%d)"))
+  return { ep_num }
+end
 
+--- @function device_init() --
 --- @function device_init() --
 --- Initialize device
 --- @param self (Driver) Reference to the current object
@@ -291,6 +353,7 @@ local function device_init(self, device, event, args)
   call_parent_handler(self.lifecycle_handlers.init, self, device, event, args)
 end
 
+--- @function info_changed()
 --- @function info_changed()
 --- @param self (Driver) Reference to the current object
 --- @param device (st.zwave.Device) Device object that is added
@@ -318,8 +381,12 @@ local homeseer_switches = {
     [cc.BASIC] = {
       [Basic.Set] = zwave_handlers.switch_multilevel_handler,
       [Basic.Report] = zwave_handlers.switch_multilevel_handler
+      [Basic.Set] = zwave_handlers.switch_multilevel_handler,
+      [Basic.Report] = zwave_handlers.switch_multilevel_handler
     },
     [cc.SWITCH_BINARY] = {
+      [SwitchBinary.Set] = zwave_handlers.switch_multilevel_handler,
+      [SwitchBinary.Report] = zwave_handlers.switch_multilevel_handler
       [SwitchBinary.Set] = zwave_handlers.switch_multilevel_handler,
       [SwitchBinary.Report] = zwave_handlers.switch_multilevel_handler
     },
@@ -327,32 +394,44 @@ local homeseer_switches = {
       [SwitchMultilevel.Set] = zwave_handlers.switch_multilevel_handler,
       [SwitchMultilevel.Report] = zwave_handlers.switch_multilevel_handler,
       [SwitchMultilevel.STOP_LEVEL_CHANGE] = zwave_handlers.witch_multilevel_stop_level_change_handler
+      [SwitchMultilevel.Set] = zwave_handlers.switch_multilevel_handler,
+      [SwitchMultilevel.Report] = zwave_handlers.switch_multilevel_handler,
+      [SwitchMultilevel.STOP_LEVEL_CHANGE] = zwave_handlers.witch_multilevel_stop_level_change_handler
     },
     [cc.SWITCH_COLOR] = {
+      [SwitchColor.Report] = zwave_handlers.switch_color_handler
       [SwitchColor.Report] = zwave_handlers.switch_color_handler
     },
     --- Button
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = zwave_handlers.emit_central_scene_events
+      [CentralScene.NOTIFICATION] = zwave_handlers.emit_central_scene_events
     },
     --- Return firmware version
     [cc.VERSION] = {
+      [Version.REPORT] = zwave_handlers.version_report_handler
       [Version.REPORT] = zwave_handlers.version_report_handler
     }
   },
   capability_handlers = {
     [capabilities.refresh.ID] = {
       [capabilities.refresh.commands.refresh.NAME] = capability_handlers.do_refresh
+      [capabilities.refresh.commands.refresh.NAME] = capability_handlers.do_refresh
     },
     [capabilities.switch.ID] = {
+      [capabilities.switch.switch.on.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.ON_ENABLE),
+      [capabilities.switch.switch.off.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
       [capabilities.switch.switch.on.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.ON_ENABLE),
       [capabilities.switch.switch.off.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
     },
     [capabilities.colorControl.ID] = {
       [capabilities.colorControl.commands.setColor.NAME] = capability_handlers.switch_color_handler --- alias to zwave_handlers.switch_color_handler
+      [capabilities.colorControl.commands.setColor.NAME] = capability_handlers.switch_color_handler --- alias to zwave_handlers.switch_color_handler
     },
     --- Placeholder
     [capabilities.firmwareUpdate] = {
+      [capabilities.firmwareUpdate.commands.checkForFirmwareUpdate] = capability_handlers.checkForFirmwareUpdate_handler,
+      [capabilities.firmwareUpdate.commands.updateFirmware] = capability_handlers.updateFirmware_handler
       [capabilities.firmwareUpdate.commands.checkForFirmwareUpdate] = capability_handlers.checkForFirmwareUpdate_handler,
       [capabilities.firmwareUpdate.commands.updateFirmware] = capability_handlers.updateFirmware_handler
     }

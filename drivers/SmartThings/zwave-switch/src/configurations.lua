@@ -233,7 +233,7 @@ local devices = {
       centralSceneConrol = {parameter = 6, size = 1, configuration_value = 0},
       operatingMode = {parameter_number = 13, size = 1, configuration_value = 0},
       ledNormalColor = {parameter_number = 14, size = 1, configuration_value = 0},
-      ledStatusColor = {parameter_number = 21, size = 1, configuration_value = 0},
+      ledStatusColor1 = {parameter_number = 21, size = 1, configuration_value = 0},
       ledBlinkFrequency = {parameter_number = 31, size = 1, configuration_value = 0},
     }
   },
@@ -252,7 +252,7 @@ local devices = {
       rampRate = {parameter_number = 12, size = 1, configuration_value = 3},
       operatingMode = {parameter_number = 13, size = 1, configuration_value = 0},
       ledNormalColor = {parameter_number = 14, size = 1, configuration_value = 0},
-      ledStatusColor = {parameter_number = 21, size = 1, configuration_value = 0},
+      ledStatusColor1 = {parameter_number = 21, size = 1, configuration_value = 0},
       ledStatusColor2 = {parameter_number = 22, size = 1, configuration_value = 0},
       ledStatusColor3 = {parameter_number = 23, size = 1, configuration_value = 0},
       ledStatusColor4 = {parameter_number = 24, size = 1, configuration_value = 0},
