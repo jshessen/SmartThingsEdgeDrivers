@@ -1,6 +1,6 @@
 # Change Log
 
-## [0.5.1-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.5.0...v0.5.1-beta.1) (2023-02-14)
+## [0.5.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.5.0...v0.5.1) (2023-02-14)
 
 
 ### :hammer_and_wrench: Bug Fixes
