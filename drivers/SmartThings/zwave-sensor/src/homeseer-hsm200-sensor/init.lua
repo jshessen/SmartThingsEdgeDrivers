@@ -25,16 +25,18 @@ local Basic = (require "st.zwave.CommandClass.Basic")({version=1,strict=true})
 local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version=3,strict=true})
 --- @type st.zwave.CommandClass.SwitchBinary
 local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version=2,strict=true})
+--- @type st.zwave.CommandClass.Notification
+local Notification = (require "st.zwave.CommandClass.Notification")({version=4})
 
 local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
 
-local EZMULTIPLI_MULTIPURPOSE_SENSOR_FINGERPRINTS = {
-  { manufacturerId = 0x001E, productType = 0x0004, productId = 0x0001 },
+local HOMESEER_MULTIPURPOSE_SENSOR_FINGERPRINTS = {
+  { manufacturerId = 0x001E, productType = 0x0004, productId = 0x0001 }, -- EZmultiPli
   { manufacturerId = 0x0004, productType = 0x0004, productId = 0x0001 } -- HomeSeer HSM200
 }
 
-local function can_handle_ezmultipli_multipurpose_sensor(opts, driver, device, ...)
-  for _, fingerprint in ipairs(EZMULTIPLI_MULTIPURPOSE_SENSOR_FINGERPRINTS) do
+local function can_handle_homeseer_multipurpose_sensor(opts, driver, device, ...)
+  for _, fingerprint in ipairs(HOMESEER_MULTIPURPOSE_SENSOR_FINGERPRINTS) do
     if device:id_match(fingerprint.manufacturerId, fingerprint.productType, fingerprint.productId) then
       return true
     end
@@ -54,6 +56,32 @@ local function basic_report_handler(driver, device, cmd)
   end
 
   device:emit_event_for_endpoint(cmd.src_channel, event)
+end
+
+local TIMER = "timed_clear"
+local function notification_report_handler(self, device, cmd)
+  local event
+  if cmd.args.notification_type == Notification.notification_type.HOME_SECURITY then
+    if cmd.args.event == Notification.event.home_security.MOTION_DETECTION then
+      event = capabilities.home_security.motion.active()
+      local timer = device:get_field(TIMER)
+      local delay = device:get_field("motionDelayTime")
+      if timer ~= nil then --received a new event before the clear fired
+        device.thread:cancel_timer(timer)
+      end
+      timer = device.thread:call_with_delay(delay, function(d)
+        device:emit_event(capabilities.home_security.motion.inactive())
+        device:set_field(TIMER, nil)
+      end)
+      device:set_field(TIMER, timer)
+    elseif cmd.args.event == Notification.event.home_security.STATE_IDLE then
+      event = capabilities.motionSensor.motion.inactive()
+    end
+  end
+
+  if event ~= nil then
+    device:emit_event(event)
+  end
 end
 
 local function set_color(driver, device, command)
@@ -96,19 +124,22 @@ local function set_color(driver, device, command)
   device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_color)
 end
 
-local ezmultipli_multipurpose_sensor = {
-  NAME = "EZmultiPli Multipurpose Sensor",
+local homeseer_multipurpose_sensor = {
+  NAME = "HomeSeer Multipurpose Sensor",
   zwave_handlers = {
     [cc.BASIC] = {
       [Basic.REPORT] = basic_report_handler
     },
+    [cc.NOTIFICATIONS] = {
+      [Notification.REPORT] = notification_report_handler
+    }
   },
   capability_handlers = {
     [capabilities.colorControl.ID] = {
       [capabilities.colorControl.commands.setColor.NAME] = set_color
     }
   },
-  can_handle = can_handle_ezmultipli_multipurpose_sensor
+  can_handle = can_handle_homeseer_multipurpose_sensor
 }
 
-return ezmultipli_multipurpose_sensor
+return homeseer_multipurpose_sensor
