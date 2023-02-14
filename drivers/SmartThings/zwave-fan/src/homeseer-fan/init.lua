@@ -1,6 +1,3 @@
---&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
--- Author: Jeff Hessenflow (jshessen)
---
 -- Copyright 2022 SmartThings
 --
 -- Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,51 +11,65 @@
 -- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
--- 
---&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-
-
---%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
--- Required Libraries
---
+-- @type st.capabilities
 local capabilities = require "st.capabilities"
---- @type st.Device
-local st_device = require "st.device"
+--- @type st.zwave.Device
+local st_device = require "st.zwave.device"
+-- @type st.zwave.CommandClass
+local cc = require "st.zwave.CommandClass"
+
+-- @type log
 local log = require "log"
 
-local cc = require "st.zwave.CommandClass"
--- Switch
-local Basic = (require "st.zwave.CommandClass.Basic")({ version=1 })
-local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ version=4 })
--- Helpers
+
+
+--- Switch
+--- @type st.zwave.CommandClass.Basic
+local Basic = (require "st.zwave.CommandClass.Basic")({ version = 2 })
+--- @type SwitchBinary
+local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 2, strict = true})
+
+--- Dimmer
+--- @type st.zwave.CommandClass.SwitchMultilevel
+local SwitchMultilevel = (require "st.zwave.CommandClass.SwitchMultilevel")({ version = 4 })
+
+--- Color
+--- @type SwitchColor
+local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 3, strict = true})
+
+--- Button
+--- @type CentralScene
+local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1})
+
+--- Misc
+--- @type Version
+local Version = (require "st.zwave.CommandClass.Version")({version = 3})
+
+--- Helpers
 local fan_speed_helper = (require "zwave_fan_helpers")
+local zwave_fan_3_speed = (require "zwave-fan-3-speed")
+local zwave_fan_4_speed = (require "zwave-fan-4-speed")
+local helpers = {}
+helpers.color = (require "homeseer-switches.color_helper")
+helpers.multi_tap = (require "homeseer-switches.multi_tap_helper")
+helpers.profile = (require "homeseer-switches.profile_helper")
+helpers.led = (require "homeseer-switches.led_helper")
 
---
---%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
---?????????????????????????????????????????????????????????????????
--- Variables/Constants
---
---- Map HomeSeer Fingerprints
+--- @local (table)
 local HOMESEER_FAN_FINGERPRINTS = {
   {mfr = 0x000C, prod = 0x0203, model = 0x0001}, -- HomeSeer FC200 Fan Controller
 }
---
---?????????????????????????????????????????????????????????????????
 
-
-
---#################################################################
--- Section: Functions
---
---#######################################################
---- Function: can_handle_homeseer_switches()
---- Determine whether the passed device is HomeSeer device
---
-local function can_handle_homeseer_switches(opts, driver, device, ...)
+--- @function can_handle_homeseer_fan_controller --
+--- Determine whether the passed device is a HomeSeer Fan Contorller.
+--- If a match is found, the function returns true, else it returns false.
+--- @param opts (table)
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @vararg ... any
+--- @return (boolean)
+local function can_handle_homeseer_fan_controller(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_FAN_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       return true
@@ -66,122 +77,139 @@ local function can_handle_homeseer_switches(opts, driver, device, ...)
   end
   return false
 end
---
---#######################################################
 
---#######################################################
---- Function: do_referesh()
---- Map Speed to Switch Level
--- 
-local function map_fan_4_speed_to_switch_level (speed)
-  if speed == fan_speed_helper.fan_speed.OFF then
-    return fan_speed_helper.levels_for_4_speed.OFF -- 0
-  elseif speed == fan_speed_helper.fan_speed.LOW then
-    return fan_speed_helper.levels_for_4_speed.LOW -- 25
-  elseif speed == fan_speed_helper.fan_speed.MEDIUM then
-    return fan_speed_helper.levels_for_4_speed.MEDIUM -- 50
-  elseif speed == fan_speed_helper.fan_speed.HIGH then
-    return fan_speed_helper.levels_for_4_speed.HIGH -- 75
-  elseif speed == fan_speed_helper.fan_speed.MAX then
-    return fan_speed_helper.levels_for_4_speed.MAX -- 99
-  else
-    log.error (string.format("4 speed fan driver: invalid fan speed: %d", speed))
-  end
-end
 
-local function map_switch_level_to_fan_4_speed (level)
-  if (level == 0) then
-    return fan_speed_helper.fan_speed.OFF
-  elseif (fan_speed_helper.levels_for_4_speed.OFF < level and level <= fan_speed_helper.levels_for_4_speed.LOW) then
-    return fan_speed_helper.fan_speed.LOW
-  elseif (fan_speed_helper.levels_for_4_speed.LOW < level and level <= fan_speed_helper.levels_for_4_speed.MEDIUM) then
-    return fan_speed_helper.fan_speed.MEDIUM
-  elseif (fan_speed_helper.levels_for_4_speed.MEDIUM < level and level <= fan_speed_helper.levels_for_4_speed.HIGH) then
-    return fan_speed_helper.fan_speed.HIGH
-  elseif (fan_speed_helper.levels_for_4_speed.HIGH < level and level <= fan_speed_helper.levels_for_4_speed.MAX) then
-    return fan_speed_helper.fan_speed.MAX
-  else
-    log.error (string.format("4 speed fan driver: invalid level: %d", level))
-  end
-end
---
---#######################################################
 
---#######################################################
---- Function: capability_handlers()
---- 
--- 
-
-local capability_handlers = {}
---
---#######################################################
-
---#######################################################
-
---- Function: capability_handlers.fan_speed_set()
---- Issue a level-set command to the specified device.
----
---- @param driver Driver
---- @param device st.Device
---- @param command table ST level capability command
-function capability_handlers.fan_speed_set(driver, device, command)
-  fan_speed_helper.capability_handlers.fan_speed_set(driver, device, command, map_fan_4_speed_to_switch_level)
-end
---
---#######################################################
-
---#######################################################
---- Function: zwave_handlers()
----
---
-
+--- @local table
 local zwave_handlers = {}
---
---#######################################################
+--- @local table
+local capability_handlers = {}
 
---#######################################################
 
---- Function: zwave_handlers.fan_multilevel_report()
+--- @function zwave_handlers.fan_multilevel_reporhandlerfan_multilevel_handler
 --- Convert `SwitchMultilevel` level {0 - 99}
 --- into `FanSpeed` speed { 0, 1, 2, 3, 4}
----
---- @param driver Driver
---- @param device st.Device
---- @param cmd st.zwave.CommandClass.SwitchMultilevel.Report
-function zwave_handlers.fan_multilevel_report(driver, device, cmd)
-  fan_speed_helper.zwave_handlers.fan_multilevel_report(driver, device, cmd, map_switch_level_to_fan_4_speed)
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (st.zwave.CommandClass.SwitchMultilevel.Report)
+--- @return (nil)
+function zwave_handlers.fan_multilevel_handler(driver, device, command)
+  if device.preferences.fanType then
+    fan_speed_helper.capability_handlers.fan_speed_set(driver, device, command, zwave_fan_4_speed.map_switch_level_to_fan_4_speed)
+  else
+    fan_speed_helper.capability_handlers.fan_speed_set(driver, device, command, zwave_fan_3_speed.map_switch_level_to_fan_3_speed)
+  end
 end
---
---#######################################################
---
---#################################################################
+
+--- @function zwave_handlers.emit_central_scene_events() --
+--- Handles "Scene" functionality
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @return (nil)
+function zwave_handlers.emit_central_scene_events(driver,device,command)
+  helpers.multi_tap.emit_central_scene_events(device,command)
+end
+
+--- @function zwave_handlers.switch_color_handler() --
+--- Sets component color to closes supported color match
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (table) Input command value
+--- @return (nil)
+function zwave_handlers.switch_color_handler(driver, device, command)
+  command.args.value = SwitchBinary.value.ON_ENABLE
+  helpers.led.set_status_color(device, command)
+end
+capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
+
+--- @function zwave_handlers.version_report_handler() --
+--- Adjust profile definition based upon reported firmware version
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+function zwave_handlers.version_report_handler(driver, device, command)
+  command.args.fingerprints = HOMESEER_FAN_FINGERPRINTS
+  local profile = helpers.profile.get_device_profile(device,command.args)
+  if profile then
+    assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
+    log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
+  end
+end
 
 
 
---/////////////////////////////////////////////////////////////////
--- Section: Driver
---
---///////////////////////////////////////////////////////
-local homeseer_fans = {
+--- @function capability_handlers.fan_speed_set() --
+--- Issue a level-set command to the specified device.
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @param command (table) ST level capability command
+--- @return (nil)
+function capability_handlers.fan_speed_set(driver, device, command)
+  local operatingMode = tonumber(device.preferences.fanType)
+  if device.preferences.fanType then
+    fan_speed_helper.capability_handlers.fan_speed_set(driver, device, command, zwave_fan_4_speed.map_fan_4_speed_to_switch_level)
+  else
+    fan_speed_helper.capability_handlers.fan_speed_set(driver, device, command, zwave_fan_3_speed.map_fan_3_speed_to_switch_level)
+  end
+end
+
+
+--- @function info_changed() --
+--- @param self (Driver) Reference to the current object
+--- @param device (st.zwave.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function info_changed(self, device, event, args)
+  --- Check if the operating mode has changed
+  if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
+      -- We may need to update our device profile
+      device:send(Version:Get({}))
+  end
+  self.lifecycle_handlers.infoChanged(self, device, event, args)
+end
+
+
+
+local homeseer_fan_controller = {
+  NAME = "HomeSeer Z-Wave Fan Controller",
+  zwave_handlers = {
+    --- Switch
+    [cc.BASIC] = {
+      [Basic.REPORT] = zwave_handlers.fan_multilevel_handler
+    },
+    [cc.SWITCH_MULTILEVEL] = {
+      [SwitchMultilevel.REPORT] = zwave_handlers.fan_multilevel_handler
+    },
+    [cc.SWITCH_COLOR] = {
+      [SwitchColor.Report] = zwave_handlers.switch_color_handler
+    },
+    --- Button
+    [cc.CENTRAL_SCENE] = {
+      [CentralScene.NOTIFICATION] = zwave_handlers.emit_central_scene_events
+    },
+    --- Return firmware version
+    [cc.VERSION] = {
+      [Version.REPORT] = zwave_handlers.version_report_handler
+    }    
+  },
   capability_handlers = {
     [capabilities.fanSpeed.ID] = {
       [capabilities.fanSpeed.commands.setFanSpeed.NAME] = capability_handlers.fan_speed_set
-    }
-  },
-  zwave_handlers = {
-    [cc.SWITCH_MULTILEVEL] = {
-      [SwitchMultilevel.REPORT] = zwave_handlers.fan_multilevel_report
     },
-    [cc.BASIC] = {
-      [Basic.REPORT] = zwave_handlers.fan_multilevel_report
+    [capabilities.colorControl.ID] = {
+      [capabilities.colorControl.commands.setColor.NAME] = capability_handlers.switch_color_handler --- alias to zwave_handlers.switch_color_handler
     }
   },
-  NAME = "Z-Wave fan 4 speed",
-  can_handle = can_handle_homeseer_switches,
+  lifecycle_handlers = {
+    --init = device_init,
+    --added = added_handler,
+    --doConfigure = do_configure,
+    infoChanged = info_changed,
+    --driverSwitched = driver_switched,
+    --removed = removed
+  },
+  can_handle = can_handle_homeseer_fan_controller,
 }
---
---///////////////////////////////////////////////////////
 
-return homeseer_fans
---
---/////////////////////////////////////////////////////////////////
+return homeseer_fan_controller
