@@ -13,7 +13,7 @@ components:
         version: 1
     categories:
       - name: Switch
-  - id: LED
+  - id: LED-1
     capabilities:
     - id: switch
       version: 1
@@ -37,7 +37,7 @@ preferences:
         0: "When Off"
         1: "When On"
       default: 0
-  - name: "ledStatusColor"
+  - name: "ledStatusColor1"
     title: "Status Mode - LED Color"
     description: "Set LED Color"
     required: false

@@ -1,6 +1,6 @@
 name: "HomeSeer Z-Wave Switches"
 packageKey: "homeseer-zwave-switches"
-description: "This driver extends the basic zwave functionality to include additional vendor specific parameters"
+description: "Supports: HomeSeer-WS/WD100+, WS/WD200+, WX300 and ZLink-WS/WD-100\nThis driver extends the basic zwave functionality to include additional vendor specific parameters"
 vendorSupportInformation: >-
    'This driver requires a documented device to work properly.<br /><br />
     <a href="https://community.smartthings.com/t/beta-edge-drivers-z-wave-for-homeseer-wd-ws100/250313/last">SmartThings Community discussion</a><br /><br />
