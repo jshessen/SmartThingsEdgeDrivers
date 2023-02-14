@@ -1,5 +1,5 @@
 #https://homeseer.com/wp-content/uploads/2020/09/HS-FC200-Manual-4.pdf
-name: homeseer-fc200
+name: homeseer-fc200-status
 components:
   - id: main
     capabilities:
