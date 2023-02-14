@@ -1,5 +1,46 @@
 # Change Log
 
+## [0.6.0](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.5.1...v0.6.0) (2023-02-14)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **led:** Included colorControl across profiles ([2503749](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/2503749fd295c11714412f759e3e3073a94c1ffb))
+* **profile:** corrected status name ([0a90034](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/0a900347df4ee77ffc245b11f0ba0b58bf800555))
+
+
+### :scissors: Code Refactoring
+
+* **helpers:** Separated helpers out of init ([b216680](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/b216680db45cc87cc394cbc2b1213e9f0d16f319))
+* **helpers:** Separated helpers out of init ([7bbe931](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/7bbe931cf00f7886f5ff474aeb7661a70a7d0d53))
+* **helpers:** Separated helpers out of init ([3ebb006](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/3ebb006f7a308cc214b2af26aff16d1f04a2864b))
+* **helpers:** Separated helpers out of init ([9d1ca57](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/9d1ca57616db8ad50fd42cb8e6e45e7d6859faba))
+* **helpers:** Separated helpers out of init ([737232c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/737232c1d334315fe0b81257e6c7be919355404c))
+* **zwave-fan:** Pull upstream definitions ([2e61c16](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/2e61c161b9442721fa5d92226c9158ff14da1bcd))
+* **zwave-switch:** Pull upstream definitions ([8c4ec69](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/8c4ec69fe425b5a43dbd0ac6d0d987e8bb15cdcb))
+
+
+### :rocket: Feature/Improvement
+
+* **hsm200:** Extend ezmultipli to include HSM200 ([6216a4d](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/6216a4d05ccda89a16d439b2f3f1b04fe8117bfb))
+* **hsm200:** Extend ezmultipli to include HSM200 ([1c23f62](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/1c23f6203ec9722f418586ad734a4bba32165f6c))
+* **led:** Linked Fan to Switches ([37dde0e](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/37dde0e2ec8a481a6bbf5e34df4210e1af37eaf7))
+
+
+### :page_facing_up: Documentation
+
+* **config:** Added supported version ([4480ee4](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/4480ee44734f5c919f2d380e6af690d0dcd56dc3))
+
+
+### :octocat: CI/CD
+
+* **matrix:** Renamed to generic zwave-sensor ([9e08719](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/9e08719e8fa8b9391e6b1bcb44997426edb76824))
+
+
+### :broom: Miscellaneous Chores
+
+* **.gitignore:** Ignore ST API reference library ([f0b5a07](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/f0b5a07a416ccfff2c7546bd52177d30a6b89de8))
+
 ## [0.6.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.5.1-beta.1...v0.6.0-beta.1) (2023-02-14)
 
 
