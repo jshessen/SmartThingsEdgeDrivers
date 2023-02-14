@@ -135,7 +135,7 @@ end
 --- #######################################################
 ---
 
---- @function: do_referesh --
+--- @function do_referesh() --
 --- Refresh Device
 --- @param driver (Driver) The driver object
 --- @param device (st.Device) The device object
