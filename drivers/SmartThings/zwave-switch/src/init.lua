@@ -130,7 +130,8 @@ local driver_template = {
     }
   },
   sub_drivers = {
-    require("eaton-accessory-dimmer"),
+--[[     require("eaton-accessory-dimmer"),
+--[[     require("eaton-accessory-dimmer"),
     require("inovelli-LED"),
     require("dawon-smart-plug"),
     require("inovelli-2-channel-smart-plug"),
@@ -147,7 +148,8 @@ local driver_template = {
     require("ecolink-switch"),
     require("multi-metering-switch"),
     require("zooz-zen-30-dimmer-relay"),
-    require("multichannel-device")
+    require("multichannel-device") ]]
+    require("homeseer-switches")
   },
   lifecycle_handlers = {
     init = device_init,
