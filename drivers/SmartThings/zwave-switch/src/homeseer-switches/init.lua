@@ -159,10 +159,6 @@ capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
 function zwave_handlers.version_report_handler(driver, device, command)
   command.args.fingerprints = HOMESEER_SWITCH_FINGERPRINTS
   local profile = helpers.profile.get_device_profile(device,command.args)
---- @param command (Command) Input command value
-function zwave_handlers.version_report_handler(driver, device, command)
-  command.args.fingerprints = HOMESEER_SWITCH_FINGERPRINTS
-  local profile = helpers.profile.get_device_profile(device,command.args)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
     log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
@@ -171,33 +167,6 @@ end
 
 
 
---- @function capability_handlers.switch_binary_handler() --
---- Handles "on/off" functionality
---- @param value (st.zwave.CommandClass.SwitchBinary.value)
---- @return (function)
-function capability_handlers.switch_binary_handler(value)
-  --- Handles "on/off" functionality
-  --- @param driver (Driver) The driver object
-  --- @param device (st.zwave.Device) The device object
-  --- @param command (Command) Input command value
-  --- @return (nil)
-  return function(driver, device, command)
-    if command.component == "main" then
-      local set = Basic:Set({value = value})
-      device:send_to_component(set, command.component)
-      local get = function()
-        device:send_to_component(SwitchBinary:Get({}), command.component)
-      end
-      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
-    else
-      if device:supports_capability(capabilities.colorControl,nil) then
-        -- If needed?
-      end
-      command.args.value = value
-      helpers.led.set_status_color(device, command)
-    end
-  end
-end
 --- @function capability_handlers.switch_binary_handler() --
 --- Handles "on/off" functionality
 --- @param value (st.zwave.CommandClass.SwitchBinary.value)
