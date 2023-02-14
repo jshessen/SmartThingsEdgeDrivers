@@ -23,11 +23,15 @@ components:
     capabilities:
     - id: switch
       version: 1
+    - id: colorControl
+      version: 1
     categories:
       - name: Switch
   - id: LED-2
     capabilities:
     - id: switch
+      version: 1
+    - id: colorControl
       version: 1
     categories:
       - name: Switch
@@ -35,11 +39,15 @@ components:
     capabilities:
     - id: switch
       version: 1
+    - id: colorControl
+      version: 1
     categories:
       - name: Switch
   - id: LED-4
     capabilities:
     - id: switch
+      version: 1
+    - id: colorControl
       version: 1
     categories:
       - name: Switch
@@ -47,17 +55,23 @@ components:
     capabilities:
     - id: switch
       version: 1
+    - id: colorControl
+      version: 1
     categories:
       - name: Switch
   - id: LED-6
     capabilities:
     - id: switch
       version: 1
+    - id: colorControl
+      version: 1
     categories:
       - name: Switch
   - id: LED-7
     capabilities:
     - id: switch
+      version: 1
+    - id: colorControl
       version: 1
     categories:
       - name: Switch

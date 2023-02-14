@@ -13,7 +13,7 @@ components:
         version: 1
     categories:
       - name: Switch
-  - id: LED
+  - id: LED-1
     capabilities:
     - id: switch
       version: 1
