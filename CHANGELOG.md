@@ -1,5 +1,22 @@
 # Change Log
 
+## [0.5.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.5.0...v0.5.1) (2023-02-14)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **led:** Included colorControl across profiles ([ea47227](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/ea472272159ada7e88d78c2bc79e57ed186d6a3c))
+
+
+### :scissors: Code Refactoring
+
+* **helpers:** Separated helpers out of init ([7539b54](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/7539b54e8a2026d428f95460d1a524618d247929))
+
+
+### :page_facing_up: Documentation
+
+* **config:** Added supported version ([85d80ee](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/85d80ee1d2e42b66ee0b4927b86410943f46ec70))
+
 ## [0.5.0](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.4.0...v0.5.0) (2023-02-12)
 
 
