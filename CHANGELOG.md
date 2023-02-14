@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.6.0-beta.2](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.0-beta.1...v0.6.0-beta.2) (2023-02-14)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **submodule:** Resolved submodule conflict ([98d0dc4](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/98d0dc455084718494d75572f06dc477e02fd04f))
+
 ## [0.6.0](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.5.1...v0.6.0) (2023-02-14)
 
 
