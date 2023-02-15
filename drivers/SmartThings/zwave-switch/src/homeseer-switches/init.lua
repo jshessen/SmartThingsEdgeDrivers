@@ -102,6 +102,10 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
   local level = command.args.level and utils.clamp_value(math.floor(command.args.level + 0.5), 0, 99)
   local event = (level and level > 0 or value == SwitchBinary.value.ON_ENABLE) and capabilities.switch.switch.on() or capabilities.switch.switch.off()
   local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
+  log.debug("------")
+  log.debug("------")
+  log.debug("------")
+  log.debug(string.format("%s: command.component: %s", device:pretty_print(), command.component))
 
   if command.component == "main" then -- "main" = command.src_channel = endpoint = 0
     -- Emit switch on or off event depending on the value of 'level'
@@ -114,7 +118,7 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
       local get = function()
         device:send_to_component(SwitchBinary:Get({}), command.component)
       end
-      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
+      --device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
     end
   else
     if device:supports_capability(capabilities.colorControl,nil) then
