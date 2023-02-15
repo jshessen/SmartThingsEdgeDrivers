@@ -13,7 +13,7 @@
 -- limitations under the License.
 
 local capabilities = require "st.capabilities"
---- @type st.utils
+-- @type st.utils
 local utils = require "st.utils"
 --- @type st.zwave.CommandClass
 local cc = require "st.zwave.CommandClass"
