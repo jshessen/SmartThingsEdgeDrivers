@@ -97,21 +97,31 @@ local capability_handlers = {}
 --- @param command (Command) Input command value
 --- @return (nil)
 function zwave_handlers.switch_multilevel_handler(driver, device, command)
-  -- Declare local variables 'level' and 'dimmingDuration'
+  -- Declare local variables 'value', 'level' and 'dimmingDuration'
+  local value = command.args.value and command.args.value or command.args.target_value
   local level = command.args.level and utils.clamp_value(math.floor(command.args.level + 0.5), 0, 99)
+  local event = (level and level > 0 or value == SwitchBinary.value.ON_ENABLE) and capabilities.switch.switch.on() or capabilities.switch.switch.off()
   local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
-  
-  -- Emit switch on or off event depending on the value of 'level'
-  device:emit_event(level and level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off())
 
-  -- If the device supports switch level capability
-  if device:supports_capability(capabilities.switchLevel, nil) then
-    local set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
-    device:send_to_component(set, command.component)
-    local get = function()
-      device:send_to_component(SwitchBinary:Get({}), command.component)
+  if command.component == "main" then -- "main" = command.src_channel = endpoint = 0
+    -- Emit switch on or off event depending on the value of 'level'
+    device:emit_event_for_endpoint(command.src_channel,event)
+
+    -- If the device supports switch level capability
+    if device:supports_capability(capabilities.switchLevel, nil) then
+      local set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
+      device:send_to_component(set, command.component)
+      local get = function()
+        device:send_to_component(SwitchBinary:Get({}), command.component)
+      end
+      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
     end
-    device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
+  else
+    if device:supports_capability(capabilities.colorControl,nil) then
+      -- If needed?
+    end
+    command.args.value = event
+    helpers.led.set_status_color(device, command)
   end
 end
 
@@ -162,36 +172,6 @@ function zwave_handlers.version_report_handler(driver, device, command)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
     log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
-  end
-end
-
-
-
---- @function capability_handlers.switch_binary_handler() --
---- Handles "on/off" functionality
---- @param value (st.zwave.CommandClass.SwitchBinary.value)
---- @return (function)
-function capability_handlers.switch_binary_handler(value)
-  --- Handles "on/off" functionality
-  --- @param driver (Driver) The driver object
-  --- @param device (st.zwave.Device) The device object
-  --- @param command (Command) Input command value
-  --- @return (nil)
-  return function(driver, device, command)
-    if command.component == "main" then
-      local set = Basic:Set({value = value})
-      device:send_to_component(set, command.component)
-      local get = function()
-        device:send_to_component(SwitchBinary:Get({}), command.component)
-      end
-      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
-    else
-      if device:supports_capability(capabilities.colorControl,nil) then
-        -- If needed?
-      end
-      command.args.value = value
-      helpers.led.set_status_color(device, command)
-    end
   end
 end
 
@@ -268,8 +248,26 @@ end
 --- @param component_id (string) ID
 --- @return table dst_channels destination channels e.g. {2} for Z-Wave channel 2 or {} for unencapsulated
 local function component_to_endpoint(device, component_id)
-  local ep_num = component_id == "main" and 0 or tonumber(component_id:match("LED-(%d)"))
-  return { ep_num }
+  if component_id == "main" then
+    return { 0 }
+  else
+    local ep_num = component_id:match("LED-(%d)")
+    return { ep_num and tonumber(ep_num) }
+  end
+end
+
+--- @function component_to_endpoint() --
+--- Map component to end_points (channels)
+--- @param device (st.zwave.Device)
+--- @param ep (number)
+--- @return (string) component_id
+local function endpoint_to_component(device, ep)
+  local led_comp = string.format("LED-%d", ep)
+  if device.profile.components[led_comp] ~= nil then
+    return led_comp
+  else
+    return "main"
+  end
 end
 
 --- @function device_init() --
@@ -287,8 +285,8 @@ local function device_init(self, device, event, args)
   --- Log the device init message
   log.info(string.format("%s: %s > DEVICE INIT", device.id, device.device_network_id))
   
-  --- Set the component to endpoint function for the device
   device:set_component_to_endpoint_fn(component_to_endpoint)
+  device:set_endpoint_to_component_fn(endpoint_to_component)
 
   --- Call the init lifecycle handler
   call_parent_handler(self.lifecycle_handlers.init, self, device, event, args)
@@ -329,7 +327,7 @@ local homeseer_switches = {
     [cc.SWITCH_MULTILEVEL] = {
       [SwitchMultilevel.Set] = zwave_handlers.switch_multilevel_handler,
       [SwitchMultilevel.Report] = zwave_handlers.switch_multilevel_handler,
-      [SwitchMultilevel.STOP_LEVEL_CHANGE] = zwave_handlers.witch_multilevel_stop_level_change_handler
+      [SwitchMultilevel.STOP_LEVEL_CHANGE] = zwave_handlers.switch_multilevel_stop_level_change_handler
     },
     [cc.SWITCH_COLOR] = {
       [SwitchColor.Report] = zwave_handlers.switch_color_handler
@@ -346,10 +344,6 @@ local homeseer_switches = {
   capability_handlers = {
     [capabilities.refresh.ID] = {
       [capabilities.refresh.commands.refresh.NAME] = capability_handlers.do_refresh
-    },
-    [capabilities.switch.ID] = {
-      [capabilities.switch.switch.on.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.ON_ENABLE),
-      [capabilities.switch.switch.off.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
     },
     [capabilities.colorControl.ID] = {
       [capabilities.colorControl.commands.setColor.NAME] = capability_handlers.switch_color_handler --- alias to zwave_handlers.switch_color_handler
