@@ -83,8 +83,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        0: Normal mode (load status)
-        1: Status mode (custom status)
+        0: "Normal mode (load status)"
+        1: "Status mode (custom status)"
       default: 0
   - name: "reverse"
     title: "Invert Switch"
@@ -136,14 +136,14 @@ preferences:
       default: 3
   - name: "ledIndicator"
     title: "LED Indicator"
-    description: "Turn LED indicator on..."
+    description: "Turn Bottom LED indicator..."
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "When Off"
-        1: "When On"
-      default: 0
+        0: "OFF if load is OFF"
+        1: "ON if load is OFF"
+      default: 1
   - name: "ledStatusColor1"
     title: "Status Mode - LED Color"
     description: "Set LED-1 (bottom) Color"

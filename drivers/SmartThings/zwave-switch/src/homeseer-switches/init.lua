@@ -102,10 +102,10 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
   local level = command.args.level and utils.clamp_value(math.floor(command.args.level + 0.5), 0, 99)
   local event = (level and level > 0 or value == SwitchBinary.value.ON_ENABLE) and capabilities.switch.switch.on() or capabilities.switch.switch.off()
   local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
-  log.debug("------")
-  log.debug("------")
-  log.debug("------")
-  log.debug(string.format("%s: command.component: %s", device:pretty_print(), command.component))
+  log.info("------")
+  log.info("------")
+  log.info(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
+  log.info(string.format("%s: command.component: %s", device:pretty_print(), command.component))
 
   if command.component == "main" then -- "main" = command.src_channel = endpoint = 0
     -- Emit switch on or off event depending on the value of 'level'
@@ -176,6 +176,24 @@ function zwave_handlers.version_report_handler(driver, device, command)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
     log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
+  end
+end
+
+
+
+--- @function capability_handlers.switch_binary_handler() --
+--- Handles "on/off" functionality
+--- @param value (st.zwave.CommandClass.SwitchBinary.value)
+--- @return (function)
+function capability_handlers.switch_binary_handler(value)
+    --- Hand off to zwave_handlers.switch_multilevel_handler
+    --- @param driver (Driver) The driver object
+    --- @param device (st.zwave.Device) The device object
+    --- @param command (Command) Input command value
+    --- @return (nil)
+  return function(driver, device, command)
+      command.args.value = value
+      zwave_handlers.switch_multilevel_handler(device,device,command)
   end
 end
 
@@ -348,6 +366,10 @@ local homeseer_switches = {
   capability_handlers = {
     [capabilities.refresh.ID] = {
       [capabilities.refresh.commands.refresh.NAME] = capability_handlers.do_refresh
+    },
+    [capabilities.switch.ID] = {
+      [capabilities.switch.switch.on.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.ON_ENABLE),
+      [capabilities.switch.switch.off.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
     },
     [capabilities.colorControl.ID] = {
       [capabilities.colorControl.commands.setColor.NAME] = capability_handlers.switch_color_handler --- alias to zwave_handlers.switch_color_handler

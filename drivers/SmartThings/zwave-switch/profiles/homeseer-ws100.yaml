@@ -23,12 +23,12 @@ preferences:
       default: false
   - name: "ledIndicator"
     title: "LED Indicator"
-    description: "Turn LED indicator on..."
+    description: "Turn Bottom LED indicator..."
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "When Off"
-        1: "When On"
+        0: "OFF if load is ON"
+        1: "ON if load is ON"
         2: "Never"
       default: 0

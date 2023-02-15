@@ -41,8 +41,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        0: "ON if load is OFF"
-        1: "OFF if load is OFF"
+        0: "OFF if load is OFF"
+        1: "ON if load is OFF"
       default: 1
   - name: "ledNormalColor"
     title: "LED Color"
