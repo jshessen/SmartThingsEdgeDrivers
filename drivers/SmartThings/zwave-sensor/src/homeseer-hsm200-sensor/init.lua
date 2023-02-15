@@ -28,6 +28,9 @@ local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version=2,s
 --- @type st.zwave.CommandClass.Notification
 local Notification = (require "st.zwave.CommandClass.Notification")({version=4})
 
+local helpers = {}
+helpers.color = (require "homeseer-switches.color_helper")
+
 local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
 
 local HOMESEER_MULTIPURPOSE_SENSOR_FINGERPRINTS = {
@@ -102,26 +105,7 @@ local function set_color(driver, device, command)
 
   device:set_field(CAP_CACHE_KEY, command)
 
-  local set = SwitchColor:Set({
-    color_components = {
-      { color_component_id=SwitchColor.color_component_id.RED, value=r },
-      { color_component_id=SwitchColor.color_component_id.GREEN, value=g },
-      { color_component_id=SwitchColor.color_component_id.BLUE, value=b },
-      { color_component_id=SwitchColor.color_component_id.WARM_WHITE, value=0 },
-      { color_component_id=SwitchColor.color_component_id.COLD_WHITE, value=0 },
-    },
-    duration=duration
-  })
-  device:send_to_component(set, command.component)
-  local query_color = function()
-    -- Use a single RGB color key to trigger our callback to emit a color
-    -- control capability update.
-    device:send_to_component(
-      SwitchColor:Get({ color_component_id=SwitchColor.color_component_id.RED }),
-      command.component
-    )
-  end
-  device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, query_color)
+  helpers.color.set_switch_color(device, command, r,g,b)
 end
 
 local homeseer_multipurpose_sensor = {
