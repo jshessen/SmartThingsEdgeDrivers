@@ -1,5 +1,26 @@
 # Change Log
 
+## [0.6.2-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.1...v0.6.2-beta.1) (2023-02-15)
+
+
+### :scissors: Code Refactoring
+
+* **color:** Add color_helper to sensor ([33ba030](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/33ba030f912619d4f077bab9c8e2e9981a04d389))
+* **color:** Add set_switch_color function ([1eabec8](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/1eabec87a1a3d4880ad11fbf66cc8c461db7f194))
+* **sensor:** removed ezmultipli ([c6b4764](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/c6b47640e5d9327df4d6562629a1627736b8f8b3))
+* **switch:** Merge multi-level and binary fn ([24b5146](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/24b5146e06415bf25ad50745effc14346dab037a))
+
+
+### :broom: Miscellaneous Chores
+
+* **warn:** Clear warnings ([13edacc](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/13edaccecb29673be09e5dfbe3ce7280f06a21df))
+* **warn:** Clear warnings ([f19cc5d](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/f19cc5d8e5b3f770841bfd8a9e16f12c9f3657c7))
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **syntax:** Resolve warnings from original code ([303e422](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/303e4229194dbe7eb2868b6640af8d2a06f42541))
+
 ## [0.6.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.0...v0.6.1) (2023-02-14)
 
 
