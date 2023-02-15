@@ -20,6 +20,13 @@ components:
     categories:
       - name: Switch
 preferences:
+  - name: "operatingMode"
+    title: "Enable Status Mode"
+    description: "Set mode of operation"
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "reverse"
     title: "Invert Switch"
     description: "Inverts the switch"
@@ -70,13 +77,6 @@ preferences:
       minimum: 1
       maximum: 255
       default: 3
-  - name: "operatingMode"
-    title: "Enable Status Mode"
-    description: "Set mode of operation"
-    required: true
-    preferenceType: boolean
-    definition:
-      default: false
   - name: "centralSceneControl"
     title: "Central Scene Control"
     description: "Enable/Disable Central Scene"

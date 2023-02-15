@@ -14,6 +14,16 @@ components:
     categories:
       - name: Switch
 preferences:
+  - name: "operatingMode"
+    title: "LED Operating Mode"
+    description: "Set mode of operation"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: Normal mode (load status)
+        1: Status mode (custom status)
+      default: 0
   - name: "reverse"
     title: "Invert Switch"
     description: "Inverts the switch"
@@ -46,16 +56,15 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
-  - name: "operatingMode"
-    title: "LED Operating Mode"
-    description: "Set mode of operation"
-    required: true
-    preferenceType: enumeration
+  - name: "ledBlinkFrequency"
+    title: "LED Status Blink Frequency"
+    description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
+    required: false
+    preferenceType: integer
     definition:
-      options:
-        0: Normal mode (load status)
-        1: Status mode (custom status)
-      default: 0
+      minimum: 0
+      maximum: 255
+      default: 5
   - name: "centralSceneControl"
     title: "Central Scene Control"
     description: "Enable/Disable Central Scene"

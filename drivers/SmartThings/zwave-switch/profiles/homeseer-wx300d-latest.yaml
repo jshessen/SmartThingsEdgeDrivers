@@ -20,6 +20,16 @@ components:
     categories:
       - name: Switch
 preferences:
+  - name: "operatingMode"
+    title: "LED Operating Mode"
+    description: "Set mode of operation"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: Normal mode (load status)
+        1: Status mode (custom status)
+      default: 0
   - name: "reverse"
     title: "Invert Switch"
     description: "Inverts the switch"
@@ -101,16 +111,6 @@ preferences:
         4: "Magenta"
         5: "Yellow"
         6: "Cyan"
-      default: 0
-  - name: "operatingMode"
-    title: "LED Operating Mode"
-    description: "Set mode of operation"
-    required: true
-    preferenceType: enumeration
-    definition:
-      options:
-        0: Normal mode (load status)
-        1: Status mode (custom status)
       default: 0
   - name: "centralSceneControl"
     title: "Central Scene Control"
