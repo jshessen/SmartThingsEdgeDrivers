@@ -25,6 +25,8 @@
 local utils = require "st.utils"
 --- @type SwitchColor
 local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version = 3, strict = true})
+-- @type st.zwave.constants
+local constants = require "st.zwave.constants"
 local log = (require "log")
 ---
 --- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,6 +84,47 @@ function color.hex_to_rgb(hex)
   end
   -- Return the RGB values as a tuple
   return r, g, b
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function color.set_switch_color() --
+--- This function is used to set the RGB switch color for the given device
+--- The `r`, `g`, and `b` parameters are all the respective values for
+--- red, green, and blue. 
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @param r (integer) RGB value
+--- @param g (integer) RGB value
+--- @param b (integer) RGB value
+--- @return (nil)
+function color.set_switch_color(device,command, r,g,b)
+  -- By specifying the color duration in microseconds, we can reduce the
+  -- calculation time to find the most efficient time.
+  local color_microseconds = (constants.DEFAULT_DIMMING_DURATION * 1e6)
+  local set = SwitchColor:Set({
+    color_components = {
+      { color_component_id=SwitchColor.color_component_id.RED, value=r },
+      { color_component_id=SwitchColor.color_component_id.GREEN, value=g },
+      { color_component_id=SwitchColor.color_component_id.BLUE, value=b },
+      { color_component_id=SwitchColor.color_component_id.WARM_WHITE, value=0 },
+      { color_component_id=SwitchColor.color_component_id.COLD_WHITE, value=0 },
+    },
+    duration=color_microseconds
+  })
+  device:send_to_component(set, command.component)
+  local color_check = function()
+    -- Use a single RGB color key to trigger our callback to emit a color
+    -- control capability update.
+    device:send_to_component(
+      SwitchColor:Get({ color_component_id=SwitchColor.color_component_id.RED }),
+      command.component
+    )
+  end
+  device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, color_check)
 end
 ---
 --- #######################################################
