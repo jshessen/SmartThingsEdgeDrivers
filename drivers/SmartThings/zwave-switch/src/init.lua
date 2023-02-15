@@ -131,7 +131,6 @@ local driver_template = {
   },
   sub_drivers = {
 --[[     require("eaton-accessory-dimmer"),
---[[     require("eaton-accessory-dimmer"),
     require("inovelli-LED"),
     require("dawon-smart-plug"),
     require("inovelli-2-channel-smart-plug"),
