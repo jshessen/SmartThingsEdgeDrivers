@@ -4,4 +4,4 @@ zwaveManufacturer:
     manufacturerId: 0x000C
     productType: 0x0004
     productId: 0x0001
-    deviceProfileName: motion-switch-color-illuminance-temperature
+    deviceProfileName: homeseer-hsm200
