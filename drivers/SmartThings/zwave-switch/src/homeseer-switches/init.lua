@@ -102,10 +102,7 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
   local level = command.args.level and utils.clamp_value(math.floor(command.args.level + 0.5), 0, 99)
   local event = (level and level > 0 or value == SwitchBinary.value.ON_ENABLE) and capabilities.switch.switch.on() or capabilities.switch.switch.off()
   local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
-  log.info("------")
-  log.info("------")
-  log.info(string.format("%s [%s] : component=%s", device.id, device.device_network_id, command.component))
-  log.info(string.format("%s: command.component: %s", device:pretty_print(), command.component))
+  log.debug(string.format("%s: command.component=%s", device:pretty_print(), command.component))
 
   if command.component == "main" then -- "main" = command.src_channel = endpoint = 0
     -- Emit switch on or off event depending on the value of 'level'
@@ -118,13 +115,13 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
       local get = function()
         device:send_to_component(SwitchBinary:Get({}), command.component)
       end
-      --device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
+      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
     end
   else
     if device:supports_capability(capabilities.colorControl,nil) then
       -- If needed?
     end
-    command.args.value = event
+    command.args.value = value
     helpers.led.set_status_color(device, command)
   end
 end
@@ -175,7 +172,7 @@ function zwave_handlers.version_report_handler(driver, device, command)
   local profile = helpers.profile.get_device_profile(device,command.args)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
-    log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
+    log.info(string.format("%s: Defined Profile=%s", device:pretty_print(), profile))
   end
 end
 
@@ -305,7 +302,7 @@ local function device_init(self, device, event, args)
   end
 
   --- Log the device init message
-  log.info(string.format("%s: %s > DEVICE INIT", device.id, device.device_network_id))
+  log.info(string.format("%s: > DEVICE INIT", device:pretty_print()))
   
   device:set_component_to_endpoint_fn(component_to_endpoint)
   device:set_endpoint_to_component_fn(endpoint_to_component)
@@ -321,7 +318,7 @@ end
 --- @param args (any)
 local function info_changed(self, device, event, args)
   --- Log the device id and network id
-  log.info(string.format("%s: %s > INFO_CHANGED", device.id, device.device_network_id))
+  log.info(string.format("%s: > INFO_CHANGED", device:pretty_print()))
     --- Check if the operating mode has changed
     if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
         -- We may need to update our device profile

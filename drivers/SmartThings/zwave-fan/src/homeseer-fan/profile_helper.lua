@@ -45,7 +45,7 @@ local profile = {}
 --- @param args (table)
 --- @return (string) The updated profile
 function profile.get_device_profile(device, args)
-  log.debug(string.format("%s [%s] : operatingMode=%s", device.id, device.device_network_id, device.preferences.operatingMode))
+  log.debug(string.format("%s: operatingMode=%s", device:pretty_print(), device.preferences.operatingMode))
   local operatingMode = tonumber(device.preferences.operatingMode) == 1 and "-status" or ""
   local firmware_version = args.firmware_0_version
   local firmware_sub_version = args.firmware_0_sub_version
@@ -54,7 +54,7 @@ function profile.get_device_profile(device, args)
   -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(args.fingerprints) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(string.format("%s [%s] : %s - Firmware: %s.%s", device.id, device.device_network_id, fingerprint.id, firmware_version, firmware_sub_version))
+      log.info(string.format("%s: %s - Firmware=%s.%s", device:pretty_print(), fingerprint.id, firmware_version, firmware_sub_version))
       new_profile = "homeseer-" .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
 
 

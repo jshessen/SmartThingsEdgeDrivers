@@ -133,7 +133,7 @@ function zwave_handlers.version_report_handler(driver, device, command)
   local profile = helpers.profile.get_device_profile(device,command.args)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
-    log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
+    log.info(string.format("%s: Defined Profile=%s", device:pretty_print(), profile))
   end
 end
 
