@@ -15,14 +15,14 @@ components:
       - name: Fan
 preferences:
   - name: "operatingMode"
-    title: "Operating Mode"
-    description: "Set mode of operation"
+    title: "Switch Operating Mode"
+    description: "Default: Normal Mode (Load Status)"
     required: true
     preferenceType: enumeration
     definition:
       options:
-        0: "Normal mode (load status)"
-        1: "Status mode (custom status)"
+        0: "Normal Mode (Load Status)"
+        1: "Status Mode (Custom Status)"
       default: 0
   - name: "fanType"
     title: "Fan Type"
@@ -35,25 +35,25 @@ preferences:
         1: "4-speed"
       default: 0
   - name: "reverse"
-    title: "Invert Switch"
-    description: "Inverts the switch"
+    title: "Reverse Load Orientation"
+    description: "Default: Top of Paddle turns Load ON"
     required: true
     preferenceType: boolean
     definition:
       default: false
   - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn Bottom LED indicator..."
+    title: "LED Behavior"
+    description: "Default: LED ON when Load is OFF"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "OFF if load is OFF"
-        1: "ON if load is OFF"
-      default: 1
+        0: "LED ON if Load is OFF"
+        1: "LED OFF if Load is OFF"
+      default: 0
   - name: "ledNormalColor"
-    title: "Normal Mode: LED Color"
-    description: "Set LED Color"
+    title: "LED Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -66,3 +66,6 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "profileID"
+    title: "homeseer-fc200: All Firmware Versions"
+    required: false
