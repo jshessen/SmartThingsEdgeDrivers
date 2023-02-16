@@ -317,6 +317,16 @@ local function info_changed(self, device, event, args)
   device:info_changed(self, device, event, args)
 end
 
+--- @function driver_switched()
+--- @param self (Driver) Reference to the current object
+--- @param device (st.zwave.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function driver_switched(self, device, event, args)
+  device:send(Version:Get({}))
+  device:refresh()
+end
+
 --- @function do_configure()
 --- @param self (Driver) Reference to the current object
 --- @param device (st.zwave.Device) Device object that is added
@@ -367,7 +377,7 @@ local homeseer_switches = {
     --added = added_handler,
     doConfigure = do_configure,
     infoChanged = info_changed,
-    --driverSwitched = driver_switched,
+    driverSwitched = driver_switched,
     --removed = removed
   }
 }
