@@ -33,6 +33,10 @@ preferences:
         2: "LED is always OFF"
       default: 0
   - name: "profileID"
-    title: "homeseer-ws100"
-    description: "All Firmware Versions"
+    title: "Profile" 
+    description: "homeseer-ws100<br />All Firmware Versions"
     required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""

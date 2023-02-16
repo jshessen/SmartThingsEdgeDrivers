@@ -261,8 +261,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        0: "Enabled: +Multi-Tap, Control Load with Delay"
-        1: "Disabled: -Multi-Tap, Control Load Instantly"
+        0: "Enabled: +Multi-Tap, Load with Delay"
+        1: "Disabled: -Multi-Tap, Load Instantly"
       default: 0
   - name: "wireMode"
     title: "Wire Mode"
@@ -275,6 +275,10 @@ preferences:
         1 : 2-Wire Mode (Line & Load)
       default: 0
   - name: "profileID"
-    title: "homeseer-wx300d-status"
-    description: "Firmware Version: < 1.13"
+    title: "Profile" 
+    description: "homeseer-wx300d-status<br />Firmware Version: < 1.13"
     required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""

@@ -64,6 +64,10 @@ preferences:
       maximum: 255
       default: 3
   - name: "profileID"
-    title: "homeseer-wd100"
-    description: "All Firmware Versions"
+    title: "Profile"
+    description: "homeseer-wd100<br />All Firmware Versions"
     required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""

@@ -81,6 +81,10 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "profileID"
-    "title: "homeseer-wd200" 
-    description: "Firmware Version: <" 5.12"
+    title: "homeseer-wd200" 
+    description: "Firmware Version: < 5.12"
     required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""

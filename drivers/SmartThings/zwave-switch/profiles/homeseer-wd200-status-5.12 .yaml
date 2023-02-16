@@ -249,10 +249,14 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        0: "Enabled: +Multi-Tap, Control Load with Delay"
-        1: "Disabled: -Multi-Tap, Control Load Instantly"
+        0: "Enabled: +Multi-Tap, Load with Delay"
+        1: "Disabled: -Multi-Tap, Load Instantly"
       default: 0
   - name: "profileID"
-    title: "homeseer-wd200-status-5.12"
-    description: "Firmware Version: >= 5.12, and < 5.14"
+    title: "Profile" 
+    description: "homeseer-wd200-status-5.12<br />Firmware Version: >= 5.12, and < 5.14"
     required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""

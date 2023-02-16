@@ -243,6 +243,10 @@ preferences:
       maximum: 255
       default: 0
   - name: "profileID"
-    title: "homeseer-wd200-status" 
-    description: "Firmware Version: < 5.12"
+    title: "Profile" 
+    description: "homeseer-wd200-status<br />Firmware Version: < 5.12"
     required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""
