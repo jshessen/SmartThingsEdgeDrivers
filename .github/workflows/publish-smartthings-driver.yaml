@@ -16,7 +16,11 @@ on:
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yml
+        description: "packageKey in config.yml"
+        required: true
+        type: string
+      supports:
+        description: "supports in config.yml"
         required: true
         type: string
       environment:
@@ -39,7 +43,11 @@ on:
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yml
+        description: "packageKey in config.yml"
+        required: true
+        type: string
+      supports:
+        description: "supports in config.yml"
         required: true
         type: string
       environment:
