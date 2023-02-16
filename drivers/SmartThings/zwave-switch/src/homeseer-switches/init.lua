@@ -25,6 +25,7 @@ local constants = require "st.zwave.constants"
 local utils = require "st.utils"
 -- @type log
 local log = require "log"
+local preferences = require "preferences"
 
 
 --- Switch
@@ -98,10 +99,10 @@ local capability_handlers = {}
 --- @return (nil)
 function zwave_handlers.switch_multilevel_handler(driver, device, command)
   -- Declare local variables 'value', 'level' and 'dimmingDuration'
-  local value = command.args.value and command.args.value or command.args.target_value
-  local level = command.args.level and utils.clamp_value(math.floor(command.args.level + 0.5), 0, 99)
-  local event = (level and level > 0 or value == SwitchBinary.value.ON_ENABLE) and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+  local level = command.args.value and command.args.value or command.args.target_value
+  local event = level and level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
   local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
+  log.debug(string.format("%s: command.component=%s", device:pretty_print(), command.component))
 
   if command.component == "main" then -- "main" = command.src_channel = endpoint = 0
     -- Emit switch on or off event depending on the value of 'level'
@@ -109,6 +110,9 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
 
     -- If the device supports switch level capability
     if device:supports_capability(capabilities.switchLevel, nil) then
+      level = utils.clamp_value(math.floor(level + 0.5), 0, 99)
+      log.debug(string.format("%s: level=%s", device:pretty_print(), level))
+
       local set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       device:send_to_component(set, command.component)
       local get = function()
@@ -117,26 +121,9 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
     end
   else
-    if device:supports_capability(capabilities.colorControl,nil) then
-      -- If needed?
-    end
-    command.args.value = event
+    command.args.value = level > 0 and SwitchBinary.value.ON_ENABLE or SwitchBinary.value.OFF_DISABLE
     helpers.led.set_status_color(device, command)
   end
-end
-
---- @function zwave_handlers.switch_multilevel_stop_level_change_handler() --
---- Handles the stopping of a switch level change on Z-Wave devices
---- @param driver (Driver) The driver object
---- @param device (st.zwave.Device) The device object
---- @param command (Command) Input command value
---- @return (nil)
-function zwave_handlers.switch_multilevel_stop_level_change_handler(driver, device, command)
-  --- Emits an event with the switch capability "on"
-  device:emit_event(capabilities.switch.switch.on())
-  
-  --- Sends a `SwitchMultilevel:Get` command to the device
-  device:send(SwitchMultilevel:Get({}))
 end
 
 --- @function zwave_handlers.emit_central_scene_events() --
@@ -171,7 +158,25 @@ function zwave_handlers.version_report_handler(driver, device, command)
   local profile = helpers.profile.get_device_profile(device,command.args)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")
-    log.info(string.format("%s [%s] : Defined Profile: %s", device.id, device.device_network_id, profile))
+    log.info(string.format("%s: Defined Profile=%s", device:pretty_print(), profile))
+  end
+end
+
+
+
+--- @function capability_handlers.switch_binary_handler() --
+--- Handles "on/off" functionality
+--- @param value (st.zwave.CommandClass.SwitchBinary.value)
+--- @return (function)
+function capability_handlers.switch_binary_handler(value)
+    --- Hand off to zwave_handlers.switch_multilevel_handler
+    --- @param driver (Driver) The driver object
+    --- @param device (st.zwave.Device) The device object
+    --- @param command (Command) Input command value
+    --- @return (nil)
+  return function(driver, device, command)
+      command.args.value = value
+      zwave_handlers.switch_multilevel_handler(device,device,command)
   end
 end
 
@@ -270,6 +275,8 @@ local function endpoint_to_component(device, ep)
   end
 end
 
+
+
 --- @function device_init() --
 --- Initialize device
 --- @param self (Driver) Reference to the current object
@@ -283,13 +290,13 @@ local function device_init(self, device, event, args)
   end
 
   --- Log the device init message
-  log.info(string.format("%s: %s > DEVICE INIT", device.id, device.device_network_id))
+  log.info(string.format("%s: > DEVICE INIT", device:pretty_print()))
   
   device:set_component_to_endpoint_fn(component_to_endpoint)
   device:set_endpoint_to_component_fn(endpoint_to_component)
 
   --- Call the init lifecycle handler
-  call_parent_handler(self.lifecycle_handlers.init, self, device, event, args)
+  device:init(self, device)
 end
 
 --- @function info_changed()
@@ -299,14 +306,25 @@ end
 --- @param args (any)
 local function info_changed(self, device, event, args)
   --- Log the device id and network id
-  log.info(string.format("%s: %s > INFO_CHANGED", device.id, device.device_network_id))
-    --- Check if the operating mode has changed
-    if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
-        -- We may need to update our device profile
-        device:send(Version:Get({}))
-    end
-  -- Call the topmost "infoChanged" lifecycle hander to do any default work
-  call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
+  log.info(string.format("%s: > INFO_CHANGED", device:pretty_print()))
+  --- Check if the operating mode has changed
+  if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
+      -- We may need to update our device profile
+      device:send(Version:Get({}))
+  end
+  --- Call the info_changed lifecycle handler
+  device:refresh()
+  device:info_changed(self, device, event, args)
+end
+
+--- @function do_configure()
+--- @param self (Driver) Reference to the current object
+--- @param device (st.zwave.Device) Device object that is added
+--- @param event (Event)
+--- @param args (any)
+local function do_configure(self, device, event, args)
+  device:refresh()
+  device:do_configure(self,device)
 end
 
 
@@ -315,20 +333,6 @@ local homeseer_switches = {
   NAME = "HomeSeer Z-Wave Switches",
   can_handle = can_handle_homeseer_switches,
   zwave_handlers = {
-    --- Switch
-    [cc.BASIC] = {
-      [Basic.Set] = zwave_handlers.switch_multilevel_handler,
-      [Basic.Report] = zwave_handlers.switch_multilevel_handler
-    },
-    [cc.SWITCH_BINARY] = {
-      [SwitchBinary.Set] = zwave_handlers.switch_multilevel_handler,
-      [SwitchBinary.Report] = zwave_handlers.switch_multilevel_handler
-    },
-    [cc.SWITCH_MULTILEVEL] = {
-      [SwitchMultilevel.Set] = zwave_handlers.switch_multilevel_handler,
-      [SwitchMultilevel.Report] = zwave_handlers.switch_multilevel_handler,
-      [SwitchMultilevel.STOP_LEVEL_CHANGE] = zwave_handlers.switch_multilevel_stop_level_change_handler
-    },
     [cc.SWITCH_COLOR] = {
       [SwitchColor.Report] = zwave_handlers.switch_color_handler
     },
@@ -345,6 +349,10 @@ local homeseer_switches = {
     [capabilities.refresh.ID] = {
       [capabilities.refresh.commands.refresh.NAME] = capability_handlers.do_refresh
     },
+    [capabilities.switch.ID] = {
+      [capabilities.switch.switch.on.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.ON_ENABLE),
+      [capabilities.switch.switch.off.NAME] = capability_handlers.switch_binary_handler(SwitchBinary.value.OFF_DISABLE)
+    },
     [capabilities.colorControl.ID] = {
       [capabilities.colorControl.commands.setColor.NAME] = capability_handlers.switch_color_handler --- alias to zwave_handlers.switch_color_handler
     },
@@ -357,7 +365,7 @@ local homeseer_switches = {
   lifecycle_handlers = {
     init = device_init,
     --added = added_handler,
-    --doConfigure = do_configure,
+    doConfigure = do_configure,
     infoChanged = info_changed,
     --driverSwitched = driver_switched,
     --removed = removed
