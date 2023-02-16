@@ -4,18 +4,21 @@
         "driver": "zwave-switch",
         "path": "drivers/SmartThings",
         "label": "HomeSeer Z-Wave Switches",
-        "pkgkey": "homeseer-zwave-switches"
+        "pkgkey": "homeseer-zwave-switches",
+        "supports": "HS-WS/WD100+, HS-WS/WD200+, HS-WX300"
     },
 	{
         "driver": "zwave-fan",
         "path": "drivers/SmartThings",
         "label":"HomeSeer Z-Wave Fan Controller",
-        "pkgkey":"homeseer-zwave-fan"
+        "pkgkey":"homeseer-zwave-fan",
+        "supports": "HS-FC200+"
     },
 	{
         "driver": "zwave-sensor",
         "path": "drivers/SmartThings",
         "label":"HomeSeer Z-Wave Sensors",
-        "pkgkey":"homeseer-zwave-sensors"
+        "pkgkey":"homeseer-zwave-sensors",
+        "supports": "HSM200"
     }]
 }
