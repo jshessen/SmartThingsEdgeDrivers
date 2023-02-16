@@ -69,26 +69,22 @@ function led.set_status_color(device, command)
   local preferences = preferencesMap.get_device_parameters(device)
   -- Construct the component name by concatenating the string "ledStatusColor" with the number extracted from the command component
   local component = "ledStatusColor" .. string.sub(command.component, string.find(command.component, "-") + 1)
-  local color
+  -- Set default color value to White
+  local color = helpers.color.map[7]
   
   if value == SwitchBinary.value.ON_ENABLE then
-    -- Check if the device parameters exists in the preferences map
-    if preferences and preferences[component] then
+    if device:supports_capability(capabilities.colorControl,nil) then
       -- If the color argument is present in the command
       if command.args.color then
         -- Find the closest color based on hue, saturation, and lightness values
         color = helpers.color.find_closest_color(command.args.color.hue, command.args.color.saturation, command.args.color.lightness)
-      else
-        -- If color is not defined, check the device.preferences, if neither is defined set to White=7
-        local pref_color = tonumber(device.preferences[component]) or 7
-        for _,clr in ipairs(helpers.color.map) do
-          if pref_color == clr.value then
-            color = clr
-            break
-          end
-        end
+        log.debug(string.format("%s: Brought my own color; color.value=%s",device:pretty_print(), color.value))
+
+      -- If color is not defined, check the device.preferences, if neither is defined set to White=7
+      elseif preferences and preferences[component] then
+        color = helpers.color.map[ device.preferences[component] and tonumber(device.preferences[component]) or 7 ]
       end
-      
+        
       -- Convert the color from hex to RGB and then to HSL
       local r, g, b = helpers.color.hex_to_rgb(color.hex)
       local hue, saturation, lightness = utils.rgb_to_hsl(r,g,b)
@@ -101,11 +97,12 @@ function led.set_status_color(device, command)
       device:set_field(CAP_CACHE_KEY, command)
       
       -- Determine the value of the status LED based on hue and saturation values
-      value = hue == 0 and saturation == 0 and SwitchBinary.value.OFF_DISABLE or SwitchBinary.value.ON_ENABLE
+      value = saturation == 0 and lightness == 0 and SwitchBinary.value.OFF_DISABLE or SwitchBinary.value.ON_ENABLE
     end
   end
   -- Set value to OFF_DISABLE, or color value
   value = value == SwitchBinary.value.OFF_DISABLE and value or color.value
+  log.debug(string.format("%s: color value=%s",device:pretty_print(), value))
   
   -- Create the configuration set based on the device parameters and value
   local set = Configuration:Set({

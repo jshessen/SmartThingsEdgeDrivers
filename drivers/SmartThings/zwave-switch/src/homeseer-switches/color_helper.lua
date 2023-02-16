@@ -43,14 +43,14 @@ local color = {}
 --- Map HomeSeer Colors to SmartThings Constants
 --- @local (table)
 HOMESEER_COLOR_MAP = {
-  {name = "Off", value = 0, hex = "000000", constant = 0},
-  {name = "Red", value = 1, hex = "FFOOOO", constant = SwitchColor.color_component_id.RED}, -- RED=2
-  {name = "Green", value = 2, hex = "OOFFOO", constant = SwitchColor.color_component_id.GREEN}, -- GREEN=3
-  {name = "Blue", value = 3, hex = "OOOOFF", constant = SwitchColor.color_component_id.BLUE}, -- BLUE=4
-  {name = "Magenta", value = 4, hex = "FFOOFF", constant = SwitchColor.color_component_id.PURPLE}, -- PURPLE=7
-  {name = "Yellow", value = 5, hex = "FFFFOO", constant = SwitchColor.color_component_id.AMBER}, -- AMBER=5
-  {name = "Cyan", value = 6, hex = "OOFFFF", constant = SwitchColor.color_component_id.CYAN}, -- CYAN=6
-  {name = "White", value = 7, hex = "FFFFFF", constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
+  [0] = {name = "Off",     value = 0, hex = "000000", constant = 0},
+  [1] = {name = "Red",     value = 1, hex = "FFOOOO", constant = SwitchColor.color_component_id.RED},       -- RED=2
+  [2] = {name = "Green",   value = 2, hex = "OOFFOO", constant = SwitchColor.color_component_id.GREEN},     -- GREEN=3
+  [3] = {name = "Blue",    value = 3, hex = "OOOOFF", constant = SwitchColor.color_component_id.BLUE},      -- BLUE=4
+  [4] = {name = "Magenta", value = 4, hex = "FFOOFF", constant = SwitchColor.color_component_id.PURPLE},    -- PURPLE=7
+  [5] = {name = "Yellow",  value = 5, hex = "FFFFOO", constant = SwitchColor.color_component_id.AMBER},     -- AMBER=5
+  [6] = {name = "Cyan",    value = 6, hex = "OOFFFF", constant = SwitchColor.color_component_id.CYAN},      -- CYAN=6
+  [7] = {name = "White",   value = 7, hex = "FFFFFF", constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
 }
 color.map = HOMESEER_COLOR_MAP
 ---
@@ -142,9 +142,9 @@ function color.find_closest_color(hue, saturation, lightness)
   -- Convert the given hue and saturation to RGB color
   local r, g, b = utils.hsl_to_rgb(hue, saturation, lightness)
 
-  -- Initialize the closest color to White (index 8 in color.map)
+  -- Initialize the closest color to White (index 7 in color.map)
   -- and the distance to the farthest possible value (255 * sqrt(3))
-  local closest_color = color.map[8]
+  local closest_color = color.map[7]
   local closest_dist = 255 * math.sqrt(3.0)
 
   -- Iterate through HOMESEER_COLOR_MAP and find the closest color
