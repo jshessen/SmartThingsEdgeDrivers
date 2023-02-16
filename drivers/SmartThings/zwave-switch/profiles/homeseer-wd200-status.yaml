@@ -77,25 +77,25 @@ components:
       - name: Switch
 preferences:
   - name: "operatingMode"
-    title: "LED Operating Mode"
-    description: "Set mode of operation"
+    title: "Switch Operating Mode"
+    description: "Default: Normal Mode (Load Status)"
     required: true
     preferenceType: enumeration
     definition:
       options:
-        0: "Normal mode (load status)"
-        1: "Status mode (custom status)"
+        0: "Normal Mode (Load Status)"
+        1: "Status Mode (Custom Status)"
       default: 0
   - name: "reverse"
-    title: "Invert Switch"
-    description: "Inverts the switch"
+    title: "Reverse Load Orientation"
+    description: "Default: Top of Paddle turns Load ON"
     required: true
     preferenceType: boolean
     definition:
       default: false
   - name: "rampRate"
-    title: "Ramp Rate (local)"
-    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    title: "Dimmer Ramp Rate (Local Control)"
+    description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
     required: true
     preferenceType: integer
     definition:
@@ -103,8 +103,8 @@ preferences:
       maximum: 255
       default: 3
   - name: "rampRateZWave"
-    title: "Ramp Rate Z-Wave (remote)"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    title: "Dimmer Ramp Rate (Remote Control)"
+    description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
     required: true
     preferenceType: integer
     definition:
@@ -112,18 +112,18 @@ preferences:
       maximum: 255
       default: 3
   - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn Bottom LED indicator..."
+    title: "LED Behavior"
+    description: "Default: LED ON when Load is OFF"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "OFF if load is OFF"
-        1: "ON if load is OFF"
-      default: 1
+        0: "LED ON if Load is OFF"
+        1: "LED OFF if Load is OFF"
+      default: 0
   - name: "ledStatusColor1"
-    title: "Status Mode - LED Color"
-    description: "Set LED-1 (bottom) Color"
+    title: "LED-1 (bottom) Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -138,8 +138,8 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor2"
-    title: "Status Mode - LED-2 Color"
-    description: "Set LED-2 Color"
+    title: "LED-2 Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -154,8 +154,8 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor3"
-    title: "Status Mode - LED-3 Color"
-    description: "Set LED-3 Color"
+    title: "LED-3 Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -170,8 +170,8 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor4"
-    title: "Status Mode - LED-4 Color"
-    description: "Set LED-4 Color"
+    title: "LED-4 Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -186,8 +186,8 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor5"
-    title: "Status Mode - LED-5 Color"
-    description: "Set LED-5 Color"
+    title: "LED-5 Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -202,8 +202,8 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor6"
-    title: "Status Mode - LED-6 Color"
-    description: "Set LED-6 Color"
+    title: "LED-6 Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -218,8 +218,8 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor7"
-    title: "Status Mode - LED-7 (top) Color"
-    description: "Set LED-7 Color"
+    title: "LED-7 (top) Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -234,11 +234,14 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledBlinkFrequency"
-    title: "LED Status Blink Frequency"
-    description: "Set LED Blink frequency for All LEDs in Status Mode, 0=No blink, 1=100ms ON then 100ms OFF"
+    title: "LED Status Blink Frequency (All LED)"
+    description: "Default: 0=No Blink, 1=100ms ON then 100ms OFF"
     required: false
     preferenceType: integer
     definition:
       minimum: 0
       maximum: 255
       default: 0
+  - name: "profileID"
+    title: "homeseer-wd200-status: Firmware Version: < 5.12"
+    required: false

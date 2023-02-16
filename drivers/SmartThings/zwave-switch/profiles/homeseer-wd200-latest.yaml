@@ -21,33 +21,36 @@ components:
       - name: Switch
 preferences:
   - name: "operatingMode"
-    title: "Enable Status Mode"
-    description: "Set mode of operation"
+    title: "Switch Operating Mode"
+    description: "Default: Normal Mode (Load Status)"
     required: true
-    preferenceType: boolean
+    preferenceType: enumeration
     definition:
-      default: false
+      options:
+        0: "Normal Mode (Load Status)"
+        1: "Status Mode (Custom Status)"
+      default: 0
   - name: "reverse"
-    title: "Invert Switch"
-    description: "Inverts the switch"
+    title: "Reverse Load Orientation"
+    description: "Default: Top of Paddle turns Load ON"
     required: true
     preferenceType: boolean
     definition:
       default: false
   - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn Bottom LED indicator..."
+    title: "LED Behavior"
+    description: "Default: LED ON when Load is OFF"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "OFF if load is OFF"
-        1: "ON if load is OFF"
-      default: 1
+        0: "LED ON if Load is OFF"
+        1: "LED OFF if Load is OFF"
+      default: 0
   - name: "ledNormalColor"
     title: "LED Color"
-    description: "Set LED Color"
-    required: false
+    description: "Default: LED Color is White"
+    required: true
     preferenceType: enumeration
     definition:
       options:
@@ -83,8 +86,8 @@ preferences:
         14: "20%"
       default: 0
   - name: "rampRate"
-    title: "Ramp Rate (local)"
-    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    title: "Dimmer Ramp Rate (Local Control)"
+    description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
     required: true
     preferenceType: integer
     definition:
@@ -92,8 +95,8 @@ preferences:
       maximum: 255
       default: 3
   - name: "rampRateZWave"
-    title: "Ramp Rate Z-Wave (remote)"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    title: "Dimmer Ramp Rate (Remote Control)"
+    description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
     required: true
     preferenceType: integer
     definition:
@@ -102,11 +105,14 @@ preferences:
       default: 3
   - name: "centralSceneControl"
     title: "Central Scene Control"
-    description: "Enable/Disable Central Scene"
+    description: "Default: = Central Scene Enabled"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "Control load with delay, + Multi-Tap"
-        1: "Control load instantly, - Multi-Tap"
+        0: "Enabled: +Multi-Tap, Control Load with Delay"
+        1: "Disabled: -Multi-Tap, Control Load Instantly"
       default: 0
+  - name: "profileID"
+    title: "homeseer-wd200-latest: Firmware Version: >= 5.14"
+    required: false

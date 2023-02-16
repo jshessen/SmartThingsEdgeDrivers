@@ -15,35 +15,35 @@ components:
       - name: Switch
 preferences:
   - name: "operatingMode"
-    title: "LED Operating Mode"
-    description: "Set mode of operation"
+    title: "Switch Operating Mode"
+    description: "Default: Normal Mode (Load Status)"
     required: true
     preferenceType: enumeration
     definition:
       options:
-        0: "Normal mode (load status)"
-        1: "Status mode (custom status)"
+        0: "Normal Mode (Load Status)"
+        1: "Status Mode (Custom Status)"
       default: 0
   - name: "reverse"
-    title: "Invert Switch"
-    description: "Inverts the switch"
+    title: "Reverse Load Orientation"
+    description: "Default: Top of Paddle turns Load ON"
     required: true
     preferenceType: boolean
     definition:
       default: false
   - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn Bottom LED indicator..."
+    title: "LED Behavior"
+    description: "Default: LED ON when Load is OFF"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "OFF if load is OFF"
-        1: "ON if load is OFF"
-      default: 1
+        0: "LED ON if Load is OFF"
+        1: "LED OFF if Load is OFF"
+      default: 0
   - name: "ledNormalColor"
     title: "LED Color"
-    description: "Set LED color"
+    description: "Default: LED Color is White"
     required: true
     preferenceType: enumeration
     definition:
@@ -58,11 +58,14 @@ preferences:
       default: 0
   - name: "centralSceneControl"
     title: "Central Scene Control"
-    description: "Enables/Disables Central Scene"
+    description: "Default: = Central Scene Enabled"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "Control load with delay, + Multi-Tap"
-        1: "Control load instantly, - Multi-Tap"
+        0: "Enabled: +Multi-Tap, Control Load with Delay"
+        1: "Disabled: -Multi-Tap, Control Load Instantly"
       default: 0
+  - name: "profileID"
+    title: "homeseer-ws200-latest: Firmware Version: >= 5.12"
+    required: false
