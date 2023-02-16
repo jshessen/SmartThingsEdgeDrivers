@@ -15,20 +15,23 @@ components:
       - name: Switch
 preferences:
   - name: "reverse"
-    title: "Invert Switch"
-    description: "Inverts the switch"
+    title: "Reverse Load Orientation"
+    description: "Default: Top of Paddle turns load ON"
     required: true
     preferenceType: boolean
     definition:
       default: false
   - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn Bottom LED indicator..."
+    title: "LED Indicator Behavior"
+    description: "Default: LED Indicator OFF when load is OFF"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "OFF if load is ON"
-        1: "ON if load is ON"
-        2: "Never"
+        0: "LED OFF if load is ON"
+        1: "LED ON if load is ON"
+        2: "LED is always OFF"
       default: 0
+  - name: "profileID"
+    title: "homeseer-ws100: All Firmware Versions"
+    required: false
