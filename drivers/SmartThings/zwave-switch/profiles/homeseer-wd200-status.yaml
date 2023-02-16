@@ -234,7 +234,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledBlinkFrequency"
-    title: "LED Status Blink Frequency (All LED)"
+    title: "LED Blink Frequency (All LED)"
     description: "Default: 0=No Blink, 1=100ms ON then 100ms OFF"
     required: false
     preferenceType: integer
@@ -243,5 +243,6 @@ preferences:
       maximum: 255
       default: 0
   - name: "profileID"
-    title: "homeseer-wd200-status: Firmware Version: < 5.12"
+    title: "homeseer-wd200-status" 
+    description: "Firmware Version: < 5.12"
     required: false

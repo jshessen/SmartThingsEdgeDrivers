@@ -67,5 +67,6 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "profileID"
-    title: "homeseer-fc200: All Firmware Versions"
+    title: "homeseer-fc200"
+    description: "All Firmware Versions"
     required: false

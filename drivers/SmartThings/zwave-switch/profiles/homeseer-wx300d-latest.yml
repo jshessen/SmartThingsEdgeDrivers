@@ -140,5 +140,6 @@ preferences:
     definition:
       default: false
   - name: "profileID"
-    title: "homeseer-wx300d-latest: Firmware Version: >= 1.13"
+    title: "homeseer-wx300d-latest"
+    description: "Firmware Version: >= 1.13"
     required: false

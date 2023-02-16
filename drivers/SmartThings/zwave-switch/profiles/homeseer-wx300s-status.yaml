@@ -210,7 +210,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledBlinkFrequency"
-    title: "LED Status Blink Frequency (All LED)"
+    title: "LED Blink Frequency (All LED)"
     description: "Default: 0=No Blink, 1=100ms ON then 100ms OFF"
     required: false
     preferenceType: integer
@@ -239,5 +239,6 @@ preferences:
         1 : 2-Wire Mode (Line & Load)
       default: 0
   - name: "profileID"
-    title: "homeseer-wx300s-status: Firmware Version: < 1.13"
+    title: "homeseer-wx300s-status"
+    description: "Firmware Version: < 1.13"
     required: false

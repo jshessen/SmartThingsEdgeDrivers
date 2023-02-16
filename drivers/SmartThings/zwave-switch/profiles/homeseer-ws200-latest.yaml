@@ -67,5 +67,6 @@ preferences:
         1: "Disabled: -Multi-Tap, Control Load Instantly"
       default: 0
   - name: "profileID"
-    title: "homeseer-ws200-latest: Firmware Version: >= 5.12"
+    title: "homeseer-ws200-latest"
+    description: "Firmware Version: >= 5.12"
     required: false

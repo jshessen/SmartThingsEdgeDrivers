@@ -28,7 +28,7 @@ preferences:
     definition:
       default: false
   - name: "dimmingSpeedZWave"
-    title: "Dimmer Ramp Rate Step Speed (Remote Control)"
+    title: "Dimmer RampRate Step Speed (Remote)"
     description: "Default: 1=highest resolution (slowest dimming), Range: 1..99"
     required: true
     preferenceType: integer
@@ -37,7 +37,7 @@ preferences:
       maximum: 99
       default: 1
   - name: "rampRateZWave"
-    title: "Dimmer Ramp Rate Step Resolution (Remote Control)"
+    title: "Dimmer RampRate Resolution (Remote)"
     description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
     required: true
     preferenceType: integer
@@ -46,7 +46,7 @@ preferences:
       maximum: 255
       default: 3
   - name: "dimmingSpeed"
-    title: "Dimmer Ramp Rate Step Speed (Local Control)"
+    title: "Dimmer RampRate Step Speed (Local)"
     description: "Default: 1=highest resolution (slowest dimming), Range: 1..99"
     required: true
     preferenceType: integer
@@ -55,7 +55,7 @@ preferences:
       maximum: 99
       default: 1
   - name: "rampRate"
-    title: "Dimmer Ramp Rate Step Resolution (Local Control)"
+    title: "Dimmer RampRate Resolution (Local)"
     description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
     required: true
     preferenceType: integer
@@ -64,5 +64,6 @@ preferences:
       maximum: 255
       default: 3
   - name: "profileID"
-    title: "homeseer-wd100: All Firmware Versions"
+    title: "homeseer-wd100"
+    description: "All Firmware Versions"
     required: false

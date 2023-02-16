@@ -113,5 +113,6 @@ preferences:
         1 : 2-Wire Mode (Line & Load)
       default: 0
   - name: "profileID"
-    title: "homeseer-wx300d: Firmware Version: < 1.13"
+    title: "homeseer-wx300d"
+    description: "Firmware Version: < 1.13"
     required: false
