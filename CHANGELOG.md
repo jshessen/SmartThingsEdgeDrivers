@@ -1,5 +1,35 @@
 # Change Log
 
+## [0.6.3](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.2...v0.6.3) (2023-02-17)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **hsm200:** Disable cc.NOTIFICATIONS ([4cc5386](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/4cc538633ad668f8268cccb581089b72958a1164))
+
+
+### :scissors: Code Refactoring
+
+* **config:** Enable ledBlinkControl param ([e074b97](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/e074b9782301ebf785fd420cd4efc64d3fccb22e))
+* **profile:** Add Profile string ([d27495c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/d27495c613e47d75c18d1659dd2baed31c4bd9a2))
+* **profile:** FC200 Updates ([771e0e4](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/771e0e4eb6460fa79116e2a9e135a432a5b90d33))
+* **profile:** Reduce title to <36 char ([a1aaa91](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/a1aaa9143bb4ba6eabda15afce858573c726c559))
+* **profile:** Reset profile on driver switch ([a2e7495](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/a2e7495c9e29292a08cc1414cd3070fc0f5f9cc5))
+* **profile:** WS/WD100 Updates ([597ff1a](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/597ff1a58590ff4b30322afd6d09904402381577))
+* **profile:** WS/WD200 Updates ([b9773d1](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/b9773d11a4864f250e1e473d126083256d15e793))
+* **profile:** WX300 Updates ([bb9ca6f](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/bb9ca6f79a10cc9ba5c66028877b68606b96267b))
+
+
+### :octocat: CI/CD
+
+* **driver:** Update driver definitions ([df37473](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/df374732b68de86e21caae3796d8864b725b303b))
+* **drivers:** Update config.yml inputs ([881d01c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/881d01c047f27956b92f1b6adec3794e1beb049d))
+
+
+### :page_facing_up: Documentation
+
+* **channel:** Added channel definitions ([43e9554](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/43e95549bca23686eb044572a8f7569971a40bef))
+
 ## [0.6.3-beta.2](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.3-beta.1...v0.6.3-beta.2) (2023-02-17)
 
 
