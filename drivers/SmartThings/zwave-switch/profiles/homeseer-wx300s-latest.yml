@@ -70,15 +70,6 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
-  - name: "ledBlinkFrequency"
-    title: "LED Blink Frequency (All LED)"
-    description: "Default: 5, 0=No Blink, 1=100ms ON then 100ms OFF"
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 5
   - name: "toggleMode"
     title: "Toggle Mode"
     description: "Default: Paddle turns Load ON"
