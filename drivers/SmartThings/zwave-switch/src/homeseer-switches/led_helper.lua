@@ -117,13 +117,7 @@ function led.set_status_color(device, command)
     size = size,
     configuration_value = value
   })
-
-  --- Send the configuration set to the device
-  local success, err = device:send(set)
-  if not success then
-    --- If there was an error sending the configuration set, log an error
-    log.error(string.format("%s: Error sending configuration set: %s", device:pretty_print(), err))
-  end
+  device:send(set)
 end
 ---
 --- #######################################################
@@ -160,11 +154,7 @@ function led.set_blink_bitmask(device)
     size = preferences[blink_ctrl].size,
     configuration_value = bitmask
   })
-
-  local success, err = device:send(set)
-  if not success then
-    log.error(string.format("%s: Error sending configuration set: %s", device:pretty_print(), err))
-  end
+  device:send(set)
 end
 
 ---
