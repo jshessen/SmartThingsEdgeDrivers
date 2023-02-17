@@ -144,9 +144,6 @@ function led.set_blink_bitmask(device)
       bitmask = bitmask | (1 << (id - 1))
     end
     device:set_field(blink_id,blink_enabled)
-
-    log.trace(string.format("%s: %s=%s", device:pretty_print(), blink_id, blink_enabled))
-    log.trace(string.format("%s: bitmask=%s", device:pretty_print(), bitmask))
   end
 
   local set = Configuration:Set({
