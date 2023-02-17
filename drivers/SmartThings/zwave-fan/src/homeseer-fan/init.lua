@@ -50,6 +50,10 @@ local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1
 --- Misc
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 3})
+
+local fan_speed_helper = (require "zwave_fan_helpers")
+local zwave_fan_3_speed = (require "zwave-fan-3-speed")
+local zwave_fan_4_speed = (require "zwave-fan-4-speed")
 --- @type table
 local helpers = {}
 helpers.color = (require "homeseer-switches.color_helper")
@@ -135,7 +139,7 @@ capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 function zwave_handlers.version_report_handler(driver, device, command)
-  command.args.fingerprints = HOMESEER_SWITCH_FINGERPRINTS
+  command.args.fingerprints = HOMESEER_FAN_FINGERPRINTS
   local profile = helpers.profile.get_device_profile(device,command.args)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")

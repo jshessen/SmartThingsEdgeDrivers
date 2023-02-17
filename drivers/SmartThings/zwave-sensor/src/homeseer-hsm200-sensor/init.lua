@@ -12,40 +12,64 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+-- @type st.capabilities
 local capabilities = require "st.capabilities"
+--- @type st.zwave.Device
+local st_device = require "st.zwave.device"
+-- @type st.zwave.CommandClass
+local cc = require "st.zwave.CommandClass"
+
+-- @type st.zwave.constants
+local constants = require "st.zwave.constants"
 -- @type st.utils
 local utils = require "st.utils"
---- @type st.zwave.CommandClass
-local cc = require "st.zwave.CommandClass"
---- @type st.zwave.constants
-local constants = require "st.zwave.constants"
---- @type st.zwave.CommandClass.Basic
-local Basic = (require "st.zwave.CommandClass.Basic")({version=1,strict=true})
---- @type st.zwave.CommandClass.SwitchColor
-local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version=3,strict=true})
---- @type st.zwave.CommandClass.SwitchBinary
-local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version=2,strict=true})
---- @type st.zwave.CommandClass.Notification
-local Notification = (require "st.zwave.CommandClass.Notification")({version=4})
+-- @type log
+local log = require "log"
+local preferences = require "preferences"
 
+
+--- Switch
+--- @type Basic
+local Basic = (require "st.zwave.CommandClass.Basic")({version = 2, strict = true})
+--- @type SwitchBinary
+local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 2, strict = true})
+
+--- Notification
+--- @type SwitchMultilevel
+local Notification = (require "st.zwave.CommandClass.Notification")({version = 3})
+
+--- Misc
+--- @type Version
+local Version = (require "st.zwave.CommandClass.Version")({version = 3})
+--- @type table
 local helpers = {}
 helpers.color = (require "homeseer-switches.color_helper")
+
 
 local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
 
 local HOMESEER_MULTIPURPOSE_SENSOR_FINGERPRINTS = {
-  { manufacturerId = 0x001E, productType = 0x0004, productId = 0x0001 }, -- EZmultiPli
-  { manufacturerId = 0x0004, productType = 0x0004, productId = 0x0001 } -- HomeSeer HSM200
+  { id = "HomeSeer/Sensor/HSM200",  manufacturerId = 0x001E, productType = 0x0004, productId = 0x0001 }, -- EZmultiPli
+  { id = "EZmultiPli/Sensor/EZMP",  manufacturerId = 0x0004, productType = 0x0004, productId = 0x0001 } -- HomeSeer HSM200
 }
 
+--- @function can_handle_homeseer_multipurpose_sensor() --
+--- Determine whether the passed device is a HomeSeer sensor.
+--- @param opts (table)
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @vararg ... any
+--- @return (boolean)
 local function can_handle_homeseer_multipurpose_sensor(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_MULTIPURPOSE_SENSOR_FINGERPRINTS) do
-    if device:id_match(fingerprint.manufacturerId, fingerprint.productType, fingerprint.productId) then
+    if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       return true
     end
   end
   return false
 end
+
+
 
 local function basic_report_handler(driver, device, cmd)
   local event
