@@ -1,5 +1,18 @@
 # Change Log
 
+## [0.7.2](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.1...v0.7.2) (2023-02-17)
+
+
+### :scissors: Code Refactoring
+
+* **hsm200:** Reworked to use updated helper ([6b6829a](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/6b6829ab3a1527802e05a753fa549725b8472b2c))
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **fan:** can_handle function name ([938a712](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/938a712a9ae21b0d69ff663686d8f0b8e178ec9a))
+* **fan:** include local helpers ([c3ee22f](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/c3ee22fce87f6d646edaeddc8172eeae7bdf8253))
+
 ## [0.7.2-beta.2](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.2-beta.1...v0.7.2-beta.2) (2023-02-17)
 
 
