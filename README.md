@@ -8,19 +8,37 @@ The goal of these drivers is to include the unique HomeSeer Z-Wave attributes no
 ## Channel Invite:
 HomeSeer Group = [https://bestow-regional.api.smartthings.com/invite/Kr2z1gQn3ZMA](https://bestow-regional.api.smartthings.com/invite/Kr2z1gQn3ZMA)
 
-At the moment, these drivers are very much in **beta** and additional feature and functionality
+The Switch capabilities are rather feature complete, however, the remaing drivers are very much in **beta** regarding additional feature and functionality
 ## Current Drivers
-### Category: Switch
+### Category: Switches
 - [HS-WS100+ Z-Wave Wall Switch](https://homeseer.com/wp-content/uploads/2020/09/HS-WS100-Manual-v7.pdf)
-- [HS-WD100+ Z-Wave Wall Dimmer](https://homeseer.com/wp-content/uploads/2020/09/HS-WD100-Manual-7.pdf)
-- [HS-WS200+ Z-Wave Wall Switch](https://homeseer.com/wp-content/uploads/2019/11/HS-WS200-Manual-v8a.pdf)
-- [HS-WD200+ Z-Wave Wall Dimmer](https://homeseer.com/wp-content/uploads/2019/11/HS-WD200-Manual-6.pdf)
+- [HS-WD100+ Z-Wave Wall Dimmer](https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd100+)
+- [HS-WS200+ Z-Wave Wall Switch](https://docs.homeseer.com/products/lighting/legacy-lighting/hs-ws200+)
+- [HS-WD200+ Z-Wave Wall Dimmer](https://docs.homeseer.com/products/lighting/legacy-lighting/hs-wd200+)
+- [HS-WX300 Z-Wave Wall Dimmer](https://docs.homeseer.com/products/lighting/hs-wx300/)
 - [ZLink ZL-WS-100 Z-Wave Wall Switch](https://cdn.shopify.com/s/files/1/0067/9814/7669/files/ZL-WS-100_Users_Guide.pdf)
 - [ZLink ZL-WD-100 Z-Wave Wall Dimmer](https://cdn.shopify.com/s/files/1/0067/9814/7669/files/ZL-WD-100_Users_Guide_480fe582-aca4-4693-8ae6-5f1b0ee74072.pdf)
 
-### Category: Fan (not released)
-- [HS-FC200+ Z-Wave Plus Fan Controller](https://homeseer.com/wp-content/uploads/2020/09/HS-FC200-Manual-4.pdf)
+    #### Switch Capabilities
+    The following capabilities are available:
+    - Mult-Tap Functionality (Central Scene)
+    - Multiple Profile Configuration (Driven by device Firmware version and/or Normal vs. Status Operating Mode)
+    - LED Control (Status Mode)
+        - Color Configuration - Although HomeSeer only supports 7 colors (Red/Green/Blue/Yellow/Magenta/Cyan/White), the driver supports HSL definitions and will select the closest color.
+        - Blink Notification
 
+        <span style="color:red">**LED Color Control is best managed via Routines and/or Rules API.  Smart Lighting is not currently working correctly with components**</span>
+
+### Category: Fan Controllers (beta)
+- [HS-FC200+ Z-Wave Plus Fan Controller](https://docs.homeseer.com/products/lighting/legacy-lighting/hs-fc200+)
+    #### Switch Capabilities
+    Eventually this should emulate the functionality of the common year switch models.
+### Category: Sensors (beta)
+- [HSM200 Multi-sensor](https://docs.homeseer.com/products/sensors/hsm200)
+    #### Switch Capabilities
+    Work In Progress
+
+---
 
 ## Post Invite Activities
 
