@@ -62,14 +62,14 @@ local HOMESEER_FAN_FINGERPRINTS = {
   {id = "HomeSeer/Dimmer/WD200",  mfr = 0x000C, prod = 0x0203, model = 0x0001}, -- HomeSeer FC200 Fan Controller
 }
 
---- @function can_handle_homeseer_switches() --
+--- @function can_handle_homeseer_fan_controller() --
 --- Determine whether the passed device is a HomeSeer Fan Controller.
 --- @param opts (table)
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @vararg ... any
 --- @return (boolean)
-local function can_handle_homeseer_switches(opts, driver, device, ...)
+local function can_handle_homeseer_fan_controller(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_FAN_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       return true
