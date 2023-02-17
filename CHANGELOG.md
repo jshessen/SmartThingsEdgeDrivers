@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.7.1-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.0...v0.7.1-beta.1) (2023-02-17)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **fan:** Merge switch functions into init.lua ([2198169](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/2198169094aa916c55d5bfb8735be06dd52c3753))
+
 ## [0.7.0](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.3...v0.7.0) (2023-02-17)
 
 
