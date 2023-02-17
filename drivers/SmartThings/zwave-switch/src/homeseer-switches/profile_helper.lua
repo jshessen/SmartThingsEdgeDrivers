@@ -43,46 +43,43 @@ local profile = {}
 --- Adjust profile definition based upon operatingMode
 --- @param device (st.zwave.Device) The device object
 --- @param args (table)
---- @return (string) The updated profile
+--- @return (string|nil) The updated profile or nil if no profile is found
 function profile.get_device_profile(device, args)
-  log.debug(string.format("%s: operatingMode=%s", device:pretty_print(), device.preferences.operatingMode))
+  if not device then log.error("device is nil") return nil end
+  if not args.firmware_0_version then log.error("firmware_0_version is nil") return nil end
+  if not args.firmware_0_sub_version then log.error("firmware_0_sub_version is nil") return nil end
+  if not args.fingerprints then log.error("fingerprints is nil") return nil end
+
   local operatingMode = tonumber(device.preferences.operatingMode) == 1 and "-status" or ""
   local firmware_version = args.firmware_0_version
   local firmware_sub_version = args.firmware_0_sub_version
-  local new_profile
 
-  -- Iterate through the list of HomeSeer switch fingerprints
   for _, fingerprint in ipairs(args.fingerprints) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
-      log.info(string.format("%s: %s - Firmware=%s.%s", device:pretty_print(), fingerprint.id, firmware_version, firmware_sub_version))
-      new_profile = "homeseer-" .. string.lower(string.sub(fingerprint.id, fingerprint.id:match'^.*()/'+1)) .. operatingMode
+      local id = fingerprint.id
+      local lowercase_id = string.lower(string.sub(id, id:match'^.*()/'+1))
+      local prefix = "homeseer-" .. lowercase_id .. operatingMode
 
-
-      if fingerprint.id == "HomeSeer/Dimmer/WD200" then
-        -- Check if the firmware version and sub-version match certain values
-        if firmware_version == 5 and (firmware_sub_version > 11 and firmware_sub_version < 14) then
-          -- Update the device's new_profile and set a field to indicate that the update has occurred
-          new_profile = new_profile .. "-" .. firmware_version .. "." .. firmware_sub_version
-          break
-          -- Check if the firmware version and sub-version match certain values
-        elseif firmware_version == 5 and firmware_sub_version >= 14 then
-          -- Update the device's new_profile and set a field to indicate that the update has occurred
-          new_profile = new_profile .. "-" .. "latest"
-          break
+      if id == "HomeSeer/Dimmer/WD200" then
+        if firmware_version == 5 then
+          if firmware_sub_version > 11 and firmware_sub_version < 14 then
+            return prefix .. "-" .. firmware_version .. "." .. "12"
+          elseif firmware_sub_version >= 14 then
+            return prefix .. "-" .. "latest"
+          end
         end
-      -- Check if the fingerprint of the device matches "HomeSeer/Dimmer/WX300S or WX300D"
-      elseif fingerprint.id == "HomeSeer/Dimmer/WX300S" or fingerprint.id == "HomeSeer/Dimmer/WX300D" then
-        -- Check if the firmware version is greater than 1.12
-        if (firmware_version == 1 and firmware_sub_version > 12) then
-          -- Set the new_profile for the device
-          new_profile = new_profile .. "-" .. "latest"
-          break
+      elseif id == "HomeSeer/Dimmer/WX300S" or id == "HomeSeer/Dimmer/WX300D" then
+        if firmware_version == 1 and firmware_sub_version > 12 then
+          return prefix .. "-" .. "latest"
         end
       end
     end
   end
-  return new_profile
+
+  -- if no profile is found, return nil
+  return nil
 end
+
 ---
 --- #######################################################
 ---

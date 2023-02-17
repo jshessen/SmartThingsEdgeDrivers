@@ -98,31 +98,56 @@ local capability_handlers = {}
 --- @param command (Command) Input command value
 --- @return (nil)
 function zwave_handlers.switch_multilevel_handler(driver, device, command)
-  -- Declare local variables 'value', 'level' and 'dimmingDuration'
-  local level = command.args.value and command.args.value or command.args.target_value
-  local event = level and level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+  -- Declare local variables 'level','dimmingDuration', and 'event'
+  local level = command.args.value or command.args.target_value -- Simplify if-else statement
   local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
-  log.debug(string.format("%s: command.component=%s", device:pretty_print(), command.component))
+  local event
+  if level and level > 0 then -- If level is set and greater than 0
+    event = capabilities.switch.switch.on()
+  else
+    event = capabilities.switch.switch.off()
+  end
 
   if command.component == "main" then -- "main" = command.src_channel = endpoint = 0
     -- Emit switch on or off event depending on the value of 'level'
-    device:emit_event_for_endpoint(command.src_channel,event)
+    device:emit_event_for_endpoint(command.src_channel, event)
 
     -- If the device supports switch level capability
     if device:supports_capability(capabilities.switchLevel, nil) then
-      level = utils.clamp_value(math.floor(level + 0.5), 0, 99)
-      log.debug(string.format("%s: level=%s", device:pretty_print(), level))
+      level = math.floor(level + 0.5) -- Round off 'level' to the nearest integer
+      level = utils.clamp_value(level, 0, 99) -- Clamp 'level' to the range [0, 99]
 
       local set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
-      device:send_to_component(set, command.component)
+      local success, err = device:send(set) -- Send the 'set' command directly to the device and check for errors
+      if not success then
+        log.error(string.format("%s: Failed to set SwitchMultiLevel value=%s. Error: %s", device:pretty_print(), level, err))
+        return
+      end
+
       local get = function()
-        device:send_to_component(SwitchBinary:Get({}), command.component)
+        local success, err = device:send(SwitchBinary:Get({})) -- Send a 'get' command to the device to get its current status and check for errors
+        if not success then
+          log.error(string.format("%s: Failed to send 'Get' command to device. Error: %s", device:pretty_print(), err))
+          return
+        end
       end
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
     end
   else
     command.args.value = level > 0 and SwitchBinary.value.ON_ENABLE or SwitchBinary.value.OFF_DISABLE
-    helpers.led.set_status_color(device, command)
+    local success, err = helpers.led.set_status_color(device, command) -- Update the LED status and check for errors
+    if not success then
+      log.error(string.format("%s: Failed to set LED status. Error: %s", device:pretty_print(), err))
+      return
+    end
+  end
+
+  -- Emit a switch on or off event for the component
+  local component_event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+  local success, err = device:emit_event_for_endpoint(command.src_channel, component_event) -- Emit the event and check for errors
+  if not success then
+    log.error(string.format("%s: Failed to emit switch event for component. Error: %s", device:pretty_print(), err))
+    return
   end
 end
 
@@ -133,7 +158,7 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 function zwave_handlers.emit_central_scene_events(driver,device,command)
-  helpers.multi_tap.emit_central_scene_events(device,command)
+  helpers.multi_tap.handle_central_scene_functionality(device,command)
 end
 
 --- @function zwave_handlers.switch_color_handler() --
@@ -143,8 +168,14 @@ end
 --- @param command (table) Input command value
 --- @return (nil)
 function zwave_handlers.switch_color_handler(driver, device, command)
-  command.args.value = SwitchBinary.value.ON_ENABLE
-  helpers.led.set_status_color(device, command)
+  local success, err_msg = pcall(function()
+    command.args.value = SwitchBinary.value.ON_ENABLE
+    helpers.led.set_status_color(device, command)
+  end)
+
+  if not success then
+    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err_msg))
+  end
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
 
@@ -187,11 +218,11 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 function capability_handlers.do_refresh(driver, device, command)
-  --- Determine the component for the command
+  -- Determine the component for the command
   local component = command and command.component or "main"
   local capability = device:supports_capability(capabilities.switch, component) and capabilities.switch or
-                      device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel
-  --- Check if the device supports switch level capability
+                      device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel or nil
+  -- Check if the device supports switch level capability
   if capability then
     device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
   end
@@ -210,7 +241,7 @@ custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilitie
 --- @param command (Command) Input command value
 --- @return (nil)
 function capability_handlers.checkForFirmwareUpdate_handler(driver, device, command)
-    --- Check if the device supports Firmware capability
+    -- Check if the device supports Firmware capability
     if (device:supports_capability(capabilities.firmwareUpdate, nil)) then
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
@@ -223,7 +254,7 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 function capability_handlers.updateFirmware_handler(driver, device, command)
-    --- Check if the device supports Firmware capability
+    -- Check if the device supports Firmware capability
     if (device:supports_capability(capabilities.firmwareUpdate, nil)) then
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
@@ -284,19 +315,16 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function device_init(self, device, event, args)
-  --- Check if the network type is not ZWAVE
+  -- Check if the network type is not ZWAVE
   if device.network_type ~= st_device.NETWORK_TYPE_ZWAVE then
     return
   end
 
-  --- Log the device init message
-  log.info(string.format("%s: > DEVICE INIT", device:pretty_print()))
-  
   device:set_component_to_endpoint_fn(component_to_endpoint)
   device:set_endpoint_to_component_fn(endpoint_to_component)
 
-  --- Call the init lifecycle handler
-  device:init(self, device)
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.init, self, device, event, args)
 end
 
 --- @function info_changed()
@@ -305,16 +333,30 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function info_changed(self, device, event, args)
-  --- Log the device id and network id
-  log.info(string.format("%s: > INFO_CHANGED", device:pretty_print()))
-  --- Check if the operating mode has changed
+  -- Check if the operating mode has changed
   if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
-      -- We may need to update our device profile
-      device:send(Version:Get({}))
+    -- We may need to update our device profile
+    device:send(Version:Get({}))
   end
-  --- Call the info_changed lifecycle handler
-  device:refresh()
-  device:info_changed(self, device, event, args)
+
+  -- Handle blink functionality
+  local old_blink_freq = args.old_st_store.preferences.ledBlinkFrequency
+  local new_blink_freq = device.preferences.ledBlinkFrequency
+  if old_blink_freq ~= new_blink_freq then
+    if new_blink_freq == 0 or old_blink_freq == 0 then
+      helpers.led.set_blink_bitmask(device)
+    end
+  end
+
+  for id = 1, device:component_count()-1 do
+    local blink_id = "ledStatusBlink" .. id
+    if args.old_st_store.preferences[blink_id] ~= device.preferences[blink_id] then
+      helpers.led.set_blink_bitmask(device)
+    end
+  end
+
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
 end
 
 --- @function driver_switched()
@@ -325,6 +367,8 @@ end
 local function driver_switched(self, device, event, args)
   device:send(Version:Get({}))
   device:refresh()
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.driverSwitched, self, device, event, args)
 end
 
 --- @function do_configure()
@@ -334,7 +378,8 @@ end
 --- @param args (any)
 local function do_configure(self, device, event, args)
   device:refresh()
-  device:do_configure(self,device)
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.doConfigure, self, device, event, args)
 end
 
 

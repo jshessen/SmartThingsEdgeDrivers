@@ -29,7 +29,7 @@ local devices = {
       ledStatusColor3 = {parameter_number = 23, size = 1, configuration_value = 0},
       ledStatusColor4 = {parameter_number = 24, size = 1, configuration_value = 0},
       ledBlinkFrequency = {parameter_number = 30, size = 1, configuration_value = 0},
-      --ledBlinkControl = {parameter_number = 31, size = 1, configuration_value = 0},
+      ledBlinkControl = {parameter_number = 31, size = 1, configuration_value = 0},
     }
   }
 }

@@ -39,20 +39,18 @@ local log = (require "log")
 ---
 
 --- @local (table)
-local color = {}
---- Map HomeSeer Colors to SmartThings Constants
---- @local (table)
-HOMESEER_COLOR_MAP = {
-  [0] = {name = "Off",     value = 0, hex = "000000", constant = 0},
-  [1] = {name = "Red",     value = 1, hex = "FFOOOO", constant = SwitchColor.color_component_id.RED},       -- RED=2
-  [2] = {name = "Green",   value = 2, hex = "OOFFOO", constant = SwitchColor.color_component_id.GREEN},     -- GREEN=3
-  [3] = {name = "Blue",    value = 3, hex = "OOOOFF", constant = SwitchColor.color_component_id.BLUE},      -- BLUE=4
-  [4] = {name = "Magenta", value = 4, hex = "FFOOFF", constant = SwitchColor.color_component_id.PURPLE},    -- PURPLE=7
-  [5] = {name = "Yellow",  value = 5, hex = "FFFFOO", constant = SwitchColor.color_component_id.AMBER},     -- AMBER=5
-  [6] = {name = "Cyan",    value = 6, hex = "OOFFFF", constant = SwitchColor.color_component_id.CYAN},      -- CYAN=6
-  [7] = {name = "White",   value = 7, hex = "FFFFFF", constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
+local color = {
+  map = {
+    [0] = {name = "Off",     value = 0, hex = "000000", constant = 0},
+    [1] = {name = "Red",     value = 1, hex = "FFOOOO", constant = SwitchColor.color_component_id.RED},       -- RED=2
+    [2] = {name = "Green",   value = 2, hex = "OOFFOO", constant = SwitchColor.color_component_id.GREEN},     -- GREEN=3
+    [3] = {name = "Blue",    value = 3, hex = "OOOOFF", constant = SwitchColor.color_component_id.BLUE},      -- BLUE=4
+    [4] = {name = "Magenta", value = 4, hex = "FFOOFF", constant = SwitchColor.color_component_id.PURPLE},    -- PURPLE=7
+    [5] = {name = "Yellow",  value = 5, hex = "FFFFOO", constant = SwitchColor.color_component_id.AMBER},     -- AMBER=5
+    [6] = {name = "Cyan",    value = 6, hex = "OOFFFF", constant = SwitchColor.color_component_id.CYAN},      -- CYAN=6
+    [7] = {name = "White",   value = 7, hex = "FFFFFF", constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
+  }
 }
-color.map = HOMESEER_COLOR_MAP
 ---
 --- ???????????????????????????????????????????????????????
 
@@ -61,28 +59,31 @@ color.map = HOMESEER_COLOR_MAP
 
 --- @function hex_to_rgb() --
 --- Function that converts hexadecimal color code to RGB color
---- @param hex (string)
---- @return (number), (number), (number) equivalent red, green, blue with each color in range [0,1]
+--- @param hex (string) The hexadecimal string to convert to RGB
+--- @return (number)|(nil) red, (number)? green, (number)? blue RGB values as numbers between 0 and 1, or nil if hex is invalid
 function color.hex_to_rgb(hex)
+  -- Check if the input is a string
+  if type(hex) ~= "string" then
+    log.error("Invalid argument: expected string, got " .. type(hex), 2)
+  end
+  
   -- Remove the "#" symbol from the hexadecimal string
   hex = hex:gsub("#", "")
   
-  local r_,g_,b_
-  local r, g, b
+  -- Check if the hexadecimal string is valid
+  if not hex:match("%x%x%x%x%x%x") then
+    return nil -- Return nil if hex is invalid
+  end
+  
   -- Check if the hexadecimal string is 3 characters long
   if #hex == 3 then
-    r_ = tonumber(hex:sub(1, 1), 16)
-    g_ = tonumber(hex:sub(2, 2), 16)
-    b_ = tonumber(hex:sub(3, 3), 16)
-    r = r_ and (r_ * 17) / 255 or 0
-    g = g_ and (g_ * 17) / 255 or 0
-    b = b_ and (b_ * 17) / 255 or 0
-  else
-    r = tonumber(hex:sub(1, 2), 16) or 0
-    g = tonumber(hex:sub(3, 4), 16) or 0
-    b = tonumber(hex:sub(5, 6), 16) or 0
+    hex = hex:gsub(".", "%1%1")
   end
-  -- Return the RGB values as a tuple
+  
+  local r = tonumber(hex:sub(1, 2), 16) / 255
+  local g = tonumber(hex:sub(3, 4), 16) / 255
+  local b = tonumber(hex:sub(5, 6), 16) / 255
+  
   return r, g, b
 end
 ---
@@ -93,38 +94,51 @@ end
 
 --- @function color.set_switch_color() --
 --- This function is used to set the RGB switch color for the given device
---- The `r`, `g`, and `b` parameters are all the respective values for
---- red, green, and blue. 
---- @param device (st.zwave.Device) The device object
---- @param command (Command) Input command value
---- @param r (integer) RGB value
---- @param g (integer) RGB value
---- @param b (integer) RGB value
---- @return (nil)
-function color.set_switch_color(device,command, r,g,b)
+--- @param device (st.zwave.Device) The device to set the color for
+--- @param command (Command) The command to set the color
+--- @param r (number) The red value (0-255)
+--- @param g (number) The green value (0-255)
+--- @param b (number) The blue value (0-255)
+--- @return (boolean) true if the color was set successfully, false otherwise
+function color.set_switch_color(device, command, r, g, b)
+  if not device or not command or not r or not g or not b then
+    log.error("Invalid input")
+    return false
+  end
+
   -- By specifying the color duration in microseconds, we can reduce the
   -- calculation time to find the most efficient time.
   local color_microseconds = (constants.DEFAULT_DIMMING_DURATION * 1e6)
   local set = SwitchColor:Set({
     color_components = {
-      { color_component_id=SwitchColor.color_component_id.RED, value=r },
-      { color_component_id=SwitchColor.color_component_id.GREEN, value=g },
-      { color_component_id=SwitchColor.color_component_id.BLUE, value=b },
-      { color_component_id=SwitchColor.color_component_id.WARM_WHITE, value=0 },
-      { color_component_id=SwitchColor.color_component_id.COLD_WHITE, value=0 },
+      { color_component_id = SwitchColor.color_component_id.RED, value = r },
+      { color_component_id = SwitchColor.color_component_id.GREEN, value = g },
+      { color_component_id = SwitchColor.color_component_id.BLUE, value = b },
+      { color_component_id = SwitchColor.color_component_id.WARM_WHITE, value = 0 },
+      { color_component_id = SwitchColor.color_component_id.COLD_WHITE, value = 0 },
     },
-    duration=color_microseconds
+    duration = color_microseconds
   })
-  device:send_to_component(set, command.component)
+
+  local result, error_msg = device:send_to_component(set, command.component)
+  if not result then
+    log.error(string.format("Error sending color command: %s", error_msg))
+    return false
+  end
+
   local color_check = function()
     -- Use a single RGB color key to trigger our callback to emit a color
     -- control capability update.
-    device:send_to_component(
-      SwitchColor:Get({ color_component_id=SwitchColor.color_component_id.RED }),
+    local result, error_msg = device:send_to_component(
+      SwitchColor:Get({ color_component_id = SwitchColor.color_component_id.RED }),
       command.component
     )
+    if not result then
+      log.error(string.format("Error checking color: %s", error_msg))
+    end
   end
   device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, color_check)
+  return true
 end
 ---
 --- #######################################################
@@ -147,7 +161,7 @@ function color.find_closest_color(hue, saturation, lightness)
   local closest_color = color.map[7]
   local closest_dist = 255 * math.sqrt(3.0)
 
-  -- Iterate through HOMESEER_COLOR_MAP and find the closest color
+  -- Iterate through color.map and find the closest color
   for _, clr in ipairs(color.map) do
     local r1, g1, b1 = color.hex_to_rgb(clr.hex)
     local newdist = math.sqrt((r - r1)^2 + (g - g1)^2 + (b - b1)^2)
@@ -156,6 +170,12 @@ function color.find_closest_color(hue, saturation, lightness)
       closest_color = clr
     end
   end
+
+  -- Throw an error if the closest color couldn't be found
+  if not closest_color then
+    log.error("Couldn't find closest color")
+  end
+  
   -- Return the closest color
   return closest_color
 end
