@@ -187,11 +187,11 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 function capability_handlers.do_refresh(driver, device, command)
-  --- Determine the component for the command
+  -- Determine the component for the command
   local component = command and command.component or "main"
   local capability = device:supports_capability(capabilities.switch, component) and capabilities.switch or
                       device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel
-  --- Check if the device supports switch level capability
+  -- Check if the device supports switch level capability
   if capability then
     device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
   end
@@ -210,7 +210,7 @@ custom_capabilities.firmwareVersion.capability = capabilities[custom_capabilitie
 --- @param command (Command) Input command value
 --- @return (nil)
 function capability_handlers.checkForFirmwareUpdate_handler(driver, device, command)
-    --- Check if the device supports Firmware capability
+    -- Check if the device supports Firmware capability
     if (device:supports_capability(capabilities.firmwareUpdate, nil)) then
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
@@ -223,7 +223,7 @@ end
 --- @param command (Command) Input command value
 --- @return (nil)
 function capability_handlers.updateFirmware_handler(driver, device, command)
-    --- Check if the device supports Firmware capability
+    -- Check if the device supports Firmware capability
     if (device:supports_capability(capabilities.firmwareUpdate, nil)) then
       log.info_with({hub_logs=true}, string.format("Current Firmware: %s", device.firmware_version))
     end
@@ -284,19 +284,19 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function device_init(self, device, event, args)
-  --- Check if the network type is not ZWAVE
+  -- Check if the network type is not ZWAVE
   if device.network_type ~= st_device.NETWORK_TYPE_ZWAVE then
     return
   end
 
-  --- Log the device init message
+  -- Log the device init message
   log.info(string.format("%s: > DEVICE INIT", device:pretty_print()))
   
   device:set_component_to_endpoint_fn(component_to_endpoint)
   device:set_endpoint_to_component_fn(endpoint_to_component)
 
-  --- Call the init lifecycle handler
-  device:init(self, device)
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.init, self, device, event, args)
 end
 
 --- @function info_changed()
@@ -305,14 +305,13 @@ end
 --- @param event (Event)
 --- @param args (any)
 local function info_changed(self, device, event, args)
-  --- Log the device id and network id
-  log.info(string.format("%s: > INFO_CHANGED", device:pretty_print()))
-  --- Check if the operating mode has changed
+  -- Check if the operating mode has changed
   if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
     -- We may need to update our device profile
     device:send(Version:Get({}))
   end
 
+  -- Handle blink functionality
   for id=1,device:component_count()-1 do
     local blink_id = "ledStatusBlink" .. id
     if args.old_st_store.preferences[blink_id] ~= device.preferences[blink_id] then
@@ -332,6 +331,8 @@ end
 local function driver_switched(self, device, event, args)
   device:send(Version:Get({}))
   device:refresh()
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.driverSwitched, self, device, event, args)
 end
 
 --- @function do_configure()
@@ -341,7 +342,8 @@ end
 --- @param args (any)
 local function do_configure(self, device, event, args)
   device:refresh()
-  device:do_configure(self,device)
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.doConfigure, self, device, event, args)
 end
 
 
