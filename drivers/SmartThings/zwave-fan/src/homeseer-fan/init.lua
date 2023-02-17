@@ -50,6 +50,10 @@ local CentralScene = (require "st.zwave.CommandClass.CentralScene")({version = 1
 --- Misc
 --- @type Version
 local Version = (require "st.zwave.CommandClass.Version")({version = 3})
+
+local fan_speed_helper = (require "zwave_fan_helpers")
+local zwave_fan_3_speed = (require "zwave-fan-3-speed")
+local zwave_fan_4_speed = (require "zwave-fan-4-speed")
 --- @type table
 local helpers = {}
 helpers.color = (require "homeseer-switches.color_helper")
@@ -62,14 +66,14 @@ local HOMESEER_FAN_FINGERPRINTS = {
   {id = "HomeSeer/Dimmer/WD200",  mfr = 0x000C, prod = 0x0203, model = 0x0001}, -- HomeSeer FC200 Fan Controller
 }
 
---- @function can_handle_homeseer_switches() --
+--- @function can_handle_homeseer_fan_controller() --
 --- Determine whether the passed device is a HomeSeer Fan Controller.
 --- @param opts (table)
 --- @param driver (Driver) The driver object
 --- @param device (st.zwave.Device) The device object
 --- @vararg ... any
 --- @return (boolean)
-local function can_handle_homeseer_switches(opts, driver, device, ...)
+local function can_handle_homeseer_fan_controller(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_FAN_FINGERPRINTS) do
     if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       return true
@@ -135,7 +139,7 @@ capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
 function zwave_handlers.version_report_handler(driver, device, command)
-  command.args.fingerprints = HOMESEER_SWITCH_FINGERPRINTS
+  command.args.fingerprints = HOMESEER_FAN_FINGERPRINTS
   local profile = helpers.profile.get_device_profile(device,command.args)
   if profile then
     assert (device:try_update_metadata({profile = profile}), "Failed to change device profile")

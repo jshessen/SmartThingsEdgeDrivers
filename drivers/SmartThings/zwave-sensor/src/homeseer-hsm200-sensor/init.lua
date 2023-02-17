@@ -12,54 +12,97 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+-- @type st.capabilities
 local capabilities = require "st.capabilities"
+--- @type st.zwave.Device
+local st_device = require "st.zwave.device"
+-- @type st.zwave.CommandClass
+local cc = require "st.zwave.CommandClass"
+
+-- @type st.zwave.constants
+local constants = require "st.zwave.constants"
 -- @type st.utils
 local utils = require "st.utils"
---- @type st.zwave.CommandClass
-local cc = require "st.zwave.CommandClass"
---- @type st.zwave.constants
-local constants = require "st.zwave.constants"
---- @type st.zwave.CommandClass.Basic
-local Basic = (require "st.zwave.CommandClass.Basic")({version=1,strict=true})
---- @type st.zwave.CommandClass.SwitchColor
-local SwitchColor = (require "st.zwave.CommandClass.SwitchColor")({version=3,strict=true})
---- @type st.zwave.CommandClass.SwitchBinary
-local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version=2,strict=true})
---- @type st.zwave.CommandClass.Notification
-local Notification = (require "st.zwave.CommandClass.Notification")({version=4})
+-- @type log
+local log = require "log"
+local preferences = require "preferences"
 
+
+--- Switch
+--- @type Basic
+local Basic = (require "st.zwave.CommandClass.Basic")({version = 2, strict = true})
+--- @type SwitchBinary
+local SwitchBinary = (require "st.zwave.CommandClass.SwitchBinary")({version = 2, strict = true})
+
+--- Notification
+--- @type SwitchMultilevel
+local Notification = (require "st.zwave.CommandClass.Notification")({version = 3})
+
+--- Misc
+--- @type Version
+local Version = (require "st.zwave.CommandClass.Version")({version = 3})
+--- @type table
 local helpers = {}
 helpers.color = (require "homeseer-switches.color_helper")
+
 
 local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
 
 local HOMESEER_MULTIPURPOSE_SENSOR_FINGERPRINTS = {
-  { manufacturerId = 0x001E, productType = 0x0004, productId = 0x0001 }, -- EZmultiPli
-  { manufacturerId = 0x0004, productType = 0x0004, productId = 0x0001 } -- HomeSeer HSM200
+  { id = "HomeSeer/Sensor/HSM200",  manufacturerId = 0x001E, productType = 0x0004, productId = 0x0001 }, -- EZmultiPli
+  { id = "EZmultiPli/Sensor/EZMP",  manufacturerId = 0x0004, productType = 0x0004, productId = 0x0001 } -- HomeSeer HSM200
 }
 
+--- @function can_handle_homeseer_multipurpose_sensor() --
+--- Determine whether the passed device is a HomeSeer sensor.
+--- @param opts (table)
+--- @param driver (Driver) The driver object
+--- @param device (st.zwave.Device) The device object
+--- @vararg ... any
+--- @return (boolean)
 local function can_handle_homeseer_multipurpose_sensor(opts, driver, device, ...)
   for _, fingerprint in ipairs(HOMESEER_MULTIPURPOSE_SENSOR_FINGERPRINTS) do
-    if device:id_match(fingerprint.manufacturerId, fingerprint.productType, fingerprint.productId) then
+    if device:id_match(fingerprint.mfr, fingerprint.prod, fingerprint.model) then
       return true
     end
   end
   return false
 end
 
-local function basic_report_handler(driver, device, cmd)
-  local event
-  local value = (cmd.args.target_value ~= nil) and cmd.args.target_value or cmd.args.value
-  if value == SwitchBinary.value.OFF_DISABLE then
-    event = capabilities.switch.switch.off()
-    device:emit_event_for_endpoint(cmd.src_channel, capabilities.colorControl.hue(0))
-    device:emit_event_for_endpoint(cmd.src_channel, capabilities.colorControl.saturation(0))
-  else
-    event = capabilities.switch.switch.on()
-  end
 
-  device:emit_event_for_endpoint(cmd.src_channel, event)
+
+--- @local table
+local zwave_handlers = {}
+--- @local table
+local capability_handlers = {}
+
+--- @function zwave_handlers.basic_report_handler() -- 
+--- Handles basic report commands for a Z-Wave switch device.
+--- @param driver (Driver) The driver instance.
+--- @param device (st.zwave.Device) The device instance.
+--- @param command (Command) The command table.
+function zwave_handlers.basic_report_handler(driver, device, command)
+  local value = command.args.target_value or command.args.value
+  if value == SwitchBinary.value.OFF_DISABLE then
+    local hueEvent = capabilities.colorControl.hue(0)
+    local saturationEvent = capabilities.colorControl.saturation(0)
+    local offEvent = capabilities.switch.switch.off()
+
+    if not device:emit_event_for_endpoint(command.src_channel, offEvent) then
+      log.error(string.format("%s: Failed to emit event for turning off the switch.", device:pretty_print()))
+    end
+    if not device:emit_event_for_endpoint(command.src_channel, hueEvent, saturationEvent) then
+      log.error(string.format("%s: Failed to emit event for setting hue and saturation to 0.", device:pretty_print()))
+    end
+  else
+    local onEvent = capabilities.switch.switch.on()
+    if not device:emit_event_for_endpoint(command.src_channel, onEvent) then
+      log.error(string.format("%s: Failed to emit event for turning on the switch.", device:pretty_print()))
+    end
+  end
 end
+
+
 
 local TIMER = "timed_clear"
 local function notification_report_handler(self, device, cmd)
@@ -87,40 +130,55 @@ local function notification_report_handler(self, device, cmd)
   end
 end
 
-local function set_color(driver, device, command)
-  local hue = command.args.color.hue
-  local saturation = command.args.color.saturation
+--- @function zwave_handlers.switch_color_handler() --
+--- Sets the switch color for a device based on a command.
+--- @param driver (Driver) The driver object.
+--- @param device (st.zwave.Device) The device object.
+--- @param command (table) The input command.
+function zwave_handlers.switch_color_handler(driver, device, command)
+  local value = command.args.value
+  local color
+  if command.args.color then
+    color = helpers.color.find_closest_color(command.args.color.hue, command.args.color.saturation, command.args.color.lightness)
+  else
+    color = helpers.color.map[7]
+  end
 
-  local duration = constants.DEFAULT_DIMMING_DURATION
-  local r, g, b = utils.hsl_to_rgb(hue, saturation, nil)
+  local r, g, b = helpers.color.hex_to_rgb(color.hex)
+  if not r then
+    log.error(string.format("%s: Failed to convert color hex to RGB. color.hex=%s", device:pretty_print(), color.hex))
+    return
+  end
 
-  r = (r >= 191) and 255 or 0
-  g = (g >= 191) and 255 or 0
-  b = (b >= 191) and 255 or 0
-
-  local myhue, mysaturation = utils.rgb_to_hsl(r, g, b)
-
-  command.args.color.hue = myhue
-  command.args.color.saturation = mysaturation
-
+  local hue, saturation, lightness = utils.rgb_to_hsl(r, g, b)
+  command.args.color = {
+    hue = hue,
+    saturation = saturation,
+  }
   device:set_field(CAP_CACHE_KEY, command)
 
-  helpers.color.set_switch_color(device, command, r,g,b)
+  local success, err_msg = pcall(helpers.color.set_switch_color, device, command, r, g, b)
+  if not success then
+    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err_msg))
+  end
 end
+capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
+
+
 
 local homeseer_multipurpose_sensor = {
   NAME = "HomeSeer Multipurpose Sensor",
   zwave_handlers = {
     [cc.BASIC] = {
-      [Basic.REPORT] = basic_report_handler
+      [Basic.REPORT] = zwave_handlers.basic_report_handler
     },
 --[[     [cc.NOTIFICATIONS] = {
-      [Notification.REPORT] = notification_report_handler
+      [Notification.REPORT] = zwave_handlers.notification_report_handler
     } ]]
   },
   capability_handlers = {
     [capabilities.colorControl.ID] = {
-      [capabilities.colorControl.commands.setColor.NAME] = set_color
+      [capabilities.colorControl.commands.setColor.NAME] = capability_handlers.switch_color_handler
     }
   },
   can_handle = can_handle_homeseer_multipurpose_sensor
