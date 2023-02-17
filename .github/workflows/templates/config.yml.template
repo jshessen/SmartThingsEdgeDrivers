@@ -6,9 +6,8 @@ description: >-
   Supports:<br />{{ env.SUPPORTS }}
 vendorSupportInformation: >-
   This driver require a documented device to work properly.<br /><br />
-  The following devices are supported:<br />{{ env.SUPPORTS }}<br /><br />
-  
-  The latest supported devics may be found at the links below:
+    
+  The latest supported devics may be found at the links below:<br />
   <a href="{{ env.GITHUB }}/blob/main/README.md">GitHub Repository</a><br /><br />
   <a href="{{ env.COMMUNITY_LINK }}">SmartThings Community discussion</a>
 permissions:
