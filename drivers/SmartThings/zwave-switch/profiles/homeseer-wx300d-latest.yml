@@ -21,24 +21,25 @@ components:
       - name: Switch
 preferences:
   - name: "operatingMode"
-    title: "LED Operating Mode"
-    description: "Set mode of operation"
+    title: "Switch Operating Mode"
+    description: "Default: Normal Mode (Load Status)"
     required: true
     preferenceType: enumeration
     definition:
       options:
-        0: "Normal mode (load status)"
-        1: "Status mode (custom status)"
+        0: "Normal Mode (Load Status)"
+        1: "Status mode (Custom Status)"
       default: 0
   - name: "reverse"
-    title: "Invert Switch"
-    description: "Inverts the switch"
+    title: "Reverse Load Orientation"
+    description: "Default: Top of Paddle turns load ON"
     required: true
     preferenceType: boolean
     definition:
       default: false
   - name: "toggleMode"
-    title: "Either paddle turns load on/off"
+    title: "Toggle Mode"
+    description: "Default: Paddle turns Load ON"
     required: false
     preferenceType: boolean
     definition:
@@ -56,8 +57,8 @@ preferences:
       #  1: "16%"
       #  14: "25%"
   - name: "rampRate"
-    title: "Ramp Rate (local)"
-    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
+    title: "Dimmer Ramp Rate (Local Control)"
+    description: "Default: 3, 0:No Delay, Range: 0..90 (1=10 milliseconds)"
     required: true
     preferenceType: integer
     definition:
@@ -65,8 +66,8 @@ preferences:
       maximum: 90
       default: 3
   - name: "rampRateZWave"
-    title: "Ramp Rate Z-Wave (remote)"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    title: "Dimmer Ramp Rate (Remote Control)"
+    description: "Default: 3, 0:No Delay, Range: 0..90 (1=10 milliseconds)"
     required: true
     preferenceType: integer
     definition:
@@ -74,15 +75,15 @@ preferences:
       maximum: 90
       default: 3
   - name: "ledIndicator"
-    title: "LED Indicator"
-    description: "Turn Bottom LED indicator..."
+    title: "LED Behavior"
+    description: "Default: LED ON when Load is OFF"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "OFF if load is OFF"
-        1: "ON if load is OFF"
-      default: 1
+        0: "LED ON if Load is OFF"
+        1: "LED OFF if Load is OFF"
+      default: 0
   - name: "startupMode"
     title: "LEDs indicate switch/dimmer on start"
     required: true
@@ -98,8 +99,8 @@ preferences:
       maximum: 6
       default: 3
   - name: "ledNormalColor"
-    title: "Normal Mode: LED Color"
-    description: "Set LED Color"
+    title: "LED Color"
+    description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
     definition:
@@ -114,13 +115,13 @@ preferences:
       default: 0
   - name: "centralSceneControl"
     title: "Central Scene Control"
-    description: "Enable/Disable Central Scene"
+    description: "Default: = Central Scene Enabled"
     required: false
     preferenceType: enumeration
     definition:
       options:
-        0: "Control load with delay, + Multi-Tap"
-        1: "Control load instantly, - Multi-Tap"
+        0: "Enabled: +Multi-Tap, Load with Delay"
+        1: "Disabled: -Multi-Tap, Load Instantly"
       default: 0
   - name: "wireMode"
     title: "Sets the Wire mode (+/- Neutral)"
@@ -138,3 +139,11 @@ preferences:
     preferenceType: boolean
     definition:
       default: false
+  - name: "profileID"
+    title: "Profile" 
+    description: "homeseer-wx300d-latest<br />Firmware Version: >= 1.13"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""
