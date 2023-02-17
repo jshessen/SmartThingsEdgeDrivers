@@ -42,12 +42,12 @@ local log = (require "log")
 local color = {
   map = {
     [0] = {name = "Off",     value = 0, hex = "000000", constant = 0},
-    [1] = {name = "Red",     value = 1, hex = "FFOOOO", constant = SwitchColor.color_component_id.RED},       -- RED=2
-    [2] = {name = "Green",   value = 2, hex = "OOFFOO", constant = SwitchColor.color_component_id.GREEN},     -- GREEN=3
-    [3] = {name = "Blue",    value = 3, hex = "OOOOFF", constant = SwitchColor.color_component_id.BLUE},      -- BLUE=4
-    [4] = {name = "Magenta", value = 4, hex = "FFOOFF", constant = SwitchColor.color_component_id.PURPLE},    -- PURPLE=7
-    [5] = {name = "Yellow",  value = 5, hex = "FFFFOO", constant = SwitchColor.color_component_id.AMBER},     -- AMBER=5
-    [6] = {name = "Cyan",    value = 6, hex = "OOFFFF", constant = SwitchColor.color_component_id.CYAN},      -- CYAN=6
+    [1] = {name = "Red",     value = 1, hex = "FF0000", constant = SwitchColor.color_component_id.RED},       -- RED=2
+    [2] = {name = "Green",   value = 2, hex = "00FF00", constant = SwitchColor.color_component_id.GREEN},     -- GREEN=3
+    [3] = {name = "Blue",    value = 3, hex = "0000FF", constant = SwitchColor.color_component_id.BLUE},      -- BLUE=4
+    [4] = {name = "Magenta", value = 4, hex = "FF00FF", constant = SwitchColor.color_component_id.PURPLE},    -- PURPLE=7
+    [5] = {name = "Yellow",  value = 5, hex = "FFFF00", constant = SwitchColor.color_component_id.AMBER},     -- AMBER=5
+    [6] = {name = "Cyan",    value = 6, hex = "00FFFF", constant = SwitchColor.color_component_id.CYAN},      -- CYAN=6
     [7] = {name = "White",   value = 7, hex = "FFFFFF", constant = SwitchColor.color_component_id.COLD_WHITE} -- COLD_WHITE=1
   }
 }
@@ -60,7 +60,7 @@ local color = {
 --- @function hex_to_rgb() --
 --- Function that converts hexadecimal color code to RGB color
 --- @param hex (string) The hexadecimal string to convert to RGB
---- @return (number)|(nil) red, (number)? green, (number)? blue RGB values as numbers between 0 and 1, or nil if hex is invalid
+--- @return (number)|(nil) red, (number)? green, (number)? blue RGB values as numbers between 0 and 255, or nil if hex is invalid
 function color.hex_to_rgb(hex)
   -- Check if the input is a string
   if type(hex) ~= "string" then
@@ -71,6 +71,7 @@ function color.hex_to_rgb(hex)
   hex = hex:gsub("#", "")
   
   -- Check if the hexadecimal string is valid
+  log.debug(string.format("hexadecimal string = %s",hex))
   if not hex:match("%x%x%x%x%x%x") then
     return nil -- Return nil if hex is invalid
   end
@@ -80,9 +81,9 @@ function color.hex_to_rgb(hex)
     hex = hex:gsub(".", "%1%1")
   end
   
-  local r = tonumber(hex:sub(1, 2), 16) / 255
-  local g = tonumber(hex:sub(3, 4), 16) / 255
-  local b = tonumber(hex:sub(5, 6), 16) / 255
+  local r = tonumber(hex:sub(1, 2), 16)
+  local g = tonumber(hex:sub(3, 4), 16)
+  local b = tonumber(hex:sub(5, 6), 16)
   
   return r, g, b
 end
@@ -135,6 +136,7 @@ function color.set_switch_color(device, command, r, g, b)
     )
     if not result then
       log.error(string.format("Error checking color: %s", error_msg))
+      return false
     end
   end
   device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, color_check)

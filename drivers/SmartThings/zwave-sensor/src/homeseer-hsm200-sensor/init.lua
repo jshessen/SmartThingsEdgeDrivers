@@ -157,9 +157,9 @@ function zwave_handlers.switch_color_handler(driver, device, command)
   }
   device:set_field(CAP_CACHE_KEY, command)
 
-  local success, err_msg = pcall(helpers.color.set_switch_color, device, command, r, g, b)
+  local success, err = pcall(helpers.color.set_switch_color, device, command, r, g, b)
   if not success then
-    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err_msg))
+    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err))
   end
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
