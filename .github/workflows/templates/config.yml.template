@@ -2,7 +2,7 @@
 name: "{{ env.LABEL }}"
 packageKey: "{{ env.PKG_KEY }}"
 description: >-
-  This driver includes additional vendor specific parameters and capabilities that <br .><br />
+  This driver includes additional vendor specific parameters and capabilities that <br /><br />
   Supports:<br />{{ env.SUPPORTS }}
 vendorSupportInformation: >-
   This driver require a documented device to work properly.<br /><br />
