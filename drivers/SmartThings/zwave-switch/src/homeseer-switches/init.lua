@@ -120,14 +120,14 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
       local set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       local success, err = device:send(set) -- Send the 'set' command directly to the device and check for errors
       if not success then
-        log.error(string.format("%s: Failed to send 'set' command to device. Error: %s", device:pretty_print(), err))
+        log.error(string.format("%s: Failed to set SwitchMultiLevel value=%s. Error: %s", device:pretty_print(), level, err))
         return
       end
 
       local get = function()
         local success, err = device:send(SwitchBinary:Get({})) -- Send a 'get' command to the device to get its current status and check for errors
         if not success then
-          log.error(string.format("%s: Failed to send 'get' command to device. Error: %s", device:pretty_print(), err))
+          log.error(string.format("%s: Failed to send 'Get' command to device. Error: %s", device:pretty_print(), err))
           return
         end
       end
