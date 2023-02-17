@@ -3,6 +3,47 @@
 ## [0.7.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.3...v0.7.0-beta.1) (2023-02-17)
 
 
+### :hammer_and_wrench: Bug Fixes
+
+* **led:** Send Config:Set has a nil return ([cc1396c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/cc1396c6c34c3a715e3fe0e1770a3a990cbc6313))
+* **profile:** Removed sync freq from normal mode ([f67c0b5](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/f67c0b59f64fcecc6cb8a2e9dc1e96d4f93eaf5f))
+
+
+### :octocat: CI/CD
+
+* **driver:** Update template ([ea5710c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/ea5710cfc6d687c54f0b6698976c4d54f68b6fce))
+* **driver:** Update template ([f075025](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/f075025966e6551fa033c76ecda1f492323a6c52))
+* **release:** add workflow_dispatch: ([6e3e5fb](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/6e3e5fb0d0ab365d263e50748e78d253c77fbc2e))
+* **release:** add workflow_dispatch: ([790720f](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/790720f1763202b6dfca3813e4442a6ec3d1eb7f))
+* **release:** Moved .releaserc from root ([496a6aa](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/496a6aad4c9a5bff89d04b35b23d7e9528e0aa05))
+* **release:** retain yaml format ([c1ceb86](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/c1ceb8605410efc2dab0f626604a618e1c9d2fd8))
+* **release:** Revert to repo .releaserc ([64dc604](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/64dc604d8af40cf9612f8cec7f43045140f7ce5c))
+* **release:** Update path .releaserc.json ([a0da19d](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/a0da19d0b2090bf050182007171e0cdbb88c8d18))
+
+
+### :scissors: Code Refactoring
+
+* **color:** add error handling ([c2a9f32](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/c2a9f320beb8a4a471ab061b0c8d31692ed53e89))
+* **led:** remove debug log ([fe61dc6](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/fe61dc6f8ca5c52f7b991b363ae284c8337ed2f2))
+* **lifecycle:** Call parent correctly ([3604460](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/360446069087d719e7434fd03af888e828c975a2))
+* **multi_tap:** add error handling ([b5d0e23](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/b5d0e2320313a56b0768503b83612004a82441ff))
+* **profile:** add error handling ([4434aa4](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/4434aa48930a0b35b79a9d41b5774ad81aa7ec76))
+* **profile:** Change LED-1/7 title ([e8ace00](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/e8ace0072530e9c0891ac44faab95d82437dc595))
+* **switches:** add error handling ([2d52b9e](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/2d52b9e85e43e61be0afc82e119fa0e56ac439b4))
+
+
+### :broom: Miscellaneous Chores
+
+* **channel:** Move yaml files to workflow ([dc9172b](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/dc9172ba798dc8a97819f4f93fe40d9fefc93e73))
+
+
+### :rocket: Feature/Improvement
+
+* **led:** Add LED blink handling ([6cf75ed](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/6cf75ed98541e95c515be4467c2f3875156bfef1))
+
+## [0.7.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.3...v0.7.0-beta.1) (2023-02-17)
+
+
 ### :octocat: CI/CD
 
 * **driver:** Update template ([ea5710c](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/ea5710cfc6d687c54f0b6698976c4d54f68b6fce))
