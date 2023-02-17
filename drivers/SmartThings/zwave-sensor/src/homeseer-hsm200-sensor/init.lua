@@ -114,9 +114,9 @@ local homeseer_multipurpose_sensor = {
     [cc.BASIC] = {
       [Basic.REPORT] = basic_report_handler
     },
-    [cc.NOTIFICATIONS] = {
+--[[     [cc.NOTIFICATIONS] = {
       [Notification.REPORT] = notification_report_handler
-    }
+    } ]]
   },
   capability_handlers = {
     [capabilities.colorControl.ID] = {
