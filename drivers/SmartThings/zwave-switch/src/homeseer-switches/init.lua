@@ -309,12 +309,19 @@ local function info_changed(self, device, event, args)
   log.info(string.format("%s: > INFO_CHANGED", device:pretty_print()))
   --- Check if the operating mode has changed
   if args.old_st_store.preferences.operatingMode ~= device.preferences.operatingMode then
-      -- We may need to update our device profile
-      device:send(Version:Get({}))
+    -- We may need to update our device profile
+    device:send(Version:Get({}))
   end
-  --- Call the info_changed lifecycle handler
-  device:refresh()
-  device:info_changed(self, device, event, args)
+
+  for id=1,device:component_count()-1 do
+    local blink_id = "ledStatusBlink" .. id
+    if args.old_st_store.preferences[blink_id] ~= device.preferences[blink_id] then
+      helpers.led.set_blink_bitmask(device)
+    end
+  end
+
+  -- Call the info_changed lifecycle handler
+  call_parent_handler(self.lifecycle_handlers.infoChanged, self, device, event, args)
 end
 
 --- @function driver_switched()

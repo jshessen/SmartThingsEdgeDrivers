@@ -47,6 +47,15 @@ preferences:
         0: "LED ON if Load is OFF"
         1: "LED OFF if Load is OFF"
       default: 0
+  - name: "ledBlinkFrequency"
+    title: "LED Blink Frequency (All LED)"
+    description: "Default: 5, 0=No Blink, 1=100ms ON then 100ms OFF"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
   - name: "ledStatusColor1"
     title: "LED-1 Color (bottom)"
     description: "Default: LED Color is White"
@@ -62,15 +71,6 @@ preferences:
         5: "Yellow"
         6: "Cyan"
         7: "White"
-      default: 0
-  - name: "ledBlinkFrequency"
-    title: "LED Blink Frequency (All LED)"
-    description: "Default: 0=No Blink, 1=100ms ON then 100ms OFF"
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
       default: 0
   - name: "centralSceneControl"
     title: "Central Scene Control"

@@ -1,5 +1,17 @@
 # Change Log
 
+## [0.7.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.3...v0.7.0-beta.1) (2023-02-17)
+
+
+### :rocket: Feature/Improvement
+
+* **led:** Add LED blink handling ([e83bbdc](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/e83bbdc2075c05fabd0bbd0a06c4f9a4c7dd32ce))
+
+
+### :scissors: Code Refactoring
+
+* **profile:** Change LED-1/7 title ([e8ace00](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/e8ace0072530e9c0891ac44faab95d82437dc595))
+
 ## [0.6.3](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.2...v0.6.3) (2023-02-17)
 
 

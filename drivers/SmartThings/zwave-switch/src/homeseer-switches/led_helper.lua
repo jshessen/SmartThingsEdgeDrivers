@@ -115,6 +115,42 @@ function led.set_status_color(device, command)
 end
 ---
 --- #######################################################
+
+--- #######################################################
+---
+
+--- @function led.set_blink_bitmask() --
+--- Sets LED to blink based upon preference settings
+--- @param device (st.zwave.Device) The device object
+--- @return (nil)
+function led.set_blink_bitmask(device)
+  local preferences = preferencesMap.get_device_parameters(device)
+  local blink_ctrl = "ledBlinkControl"
+  local count = device:component_count() - 1
+  local blink_freq = device.preferences["ledBlinkFrequency"] & 0xFF
+  local bitmask = 0
+
+  local blink_enabled
+  for id = 1, count do
+    local blink_id = "ledStatusBlink" .. id
+    blink_enabled = device.preferences[blink_id] and (blink_freq ~= 0)
+    log.debug(string.format("%s: %s=%s", device:pretty_print(), blink_id, blink_enabled))
+    if blink_enabled then
+      bitmask = bitmask | (1 << (id - 1))
+    end
+    device:set_field(blink_id,blink_enabled)
+  end
+  
+  local set = Configuration:Set({
+    parameter_number = preferences[blink_ctrl].parameter_number,
+    size = preferences[blink_ctrl].size,
+    configuration_value = bitmask
+  })
+
+  device:send(set)
+end
+---
+--- #######################################################
 ---
 --- #################################################################
 

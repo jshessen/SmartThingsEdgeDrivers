@@ -112,7 +112,7 @@ preferences:
     definition:
       default: true
   - name: "ledStatusColor1"
-    title: "LED-1 (bottom) Color"
+    title: "LED-1 Color (bottom)"
     description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
@@ -127,6 +127,13 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusBlink1"
+    title: "LED-1 Enable Status Blink"
+    description: "Default: Off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledStatusColor2"
     title: "LED-2 Color"
     description: "Default: LED Color is White"
@@ -143,6 +150,13 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusBlink2"
+    title: "LED-2 Enable Status Blink"
+    description: "Default: Off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledStatusColor3"
     title: "LED-3 Color"
     description: "Default: LED Color is White"
@@ -159,6 +173,13 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusBlink3"
+    title: "LED-3 Enable Status Blink"
+    description: "Default: Off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledStatusColor4"
     title: "LED-4 Color"
     description: "Default: LED Color is White"
@@ -175,6 +196,13 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusBlink4"
+    title: "LED-4 Enable Status Blink"
+    description: "Default: Off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledStatusColor5"
     title: "LED-5 Color"
     description: "Default: LED Color is White"
@@ -191,6 +219,13 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusBlink5"
+    title: "LED-5 Enable Status Blink"
+    description: "Default: Off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledStatusColor6"
     title: "LED-6 Color"
     description: "Default: LED Color is White"
@@ -207,8 +242,15 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusBlink6"
+    title: "LED-6 Enable Status Blink"
+    description: "Default: Off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledStatusColor7"
-    title: "LED-7 (top) Color"
+    title: "LED-7 Color (top)"
     description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
@@ -223,9 +265,16 @@ preferences:
         5: "Yellow"
         6: "Cyan"
       default: 0
+  - name: "ledStatusBlink7"
+    title: "LED-7 Enable Status Blink"
+    description: "Default: Off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
   - name: "ledBlinkFrequency"
     title: "LED Blink Frequency (All LED)"
-    description: "Default: 0=No Blink, 1=100ms ON then 100ms OFF"
+    description: "Default: 5, 0=No Blink, 1=100ms ON then 100ms OFF"
     required: false
     preferenceType: integer
     definition:
