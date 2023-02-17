@@ -134,7 +134,7 @@ preferences:
         1: "LED OFF if Load is OFF"
       default: 0
   - name: "ledStatusColor1"
-    title: "LED-1 (bottom) Color"
+    title: "LED-1 Color (bottom)"
     description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
@@ -230,7 +230,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusColor7"
-    title: "LED-7 (top) Color"
+    title: "LED-7 Color (top)"
     description: "Default: LED Color is White"
     required: false
     preferenceType: enumeration
