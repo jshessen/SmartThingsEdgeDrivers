@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.7.2-beta.2](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.2-beta.1...v0.7.2-beta.2) (2023-02-17)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **fan:** include local helpers ([c3ee22f](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/c3ee22fce87f6d646edaeddc8172eeae7bdf8253))
+
 ## [0.7.2-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.1...v0.7.2-beta.1) (2023-02-17)
 
 
