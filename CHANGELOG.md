@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.6.3-beta.2](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.3-beta.1...v0.6.3-beta.2) (2023-02-17)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **hsm200:** Disable cc.NOTIFICATIONS ([4cc5386](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/4cc538633ad668f8268cccb581089b72958a1164))
+
 ## [0.6.3-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.6.2...v0.6.3-beta.1) (2023-02-17)
 
 
