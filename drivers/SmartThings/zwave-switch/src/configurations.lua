@@ -260,7 +260,7 @@ local devices = {
       ledStatusColor6 = {parameter_number = 26, size = 1, configuration_value = 0},
       ledStatusColor7 = {parameter_number = 27, size = 1, configuration_value = 0},
       ledBlinkFrequency = {parameter_number = 30, size = 1, configuration_value = 0},
-      --ledBlinkControl = {parameter_number = 31, size = 1, configuration_value = 0},
+      ledBlinkControl = {parameter_number = 31, size = 1, configuration_value = 0},
     }
   },
   HOMESEER_WX300D = {
@@ -286,12 +286,7 @@ local devices = {
       ledStatusColor6 = {parameter_number = 26, size = 1, configuration_value = 0},
       ledStatusColor7 = {parameter_number = 27, size = 1, configuration_value = 0},
       ledBlinkFrequency = {parameter_number = 30, size = 1, configuration_value = 5},
-      --ledBlinkControl = {parameter_number = 31, size = 1},
-      -- Sets LED(s) 1-7 to Blink in Status mode
-      -- Bitmask defines specific LEDs to enable for blinking:
-      -- Note: this decimal value is derived from a hex code calculation based on the following:
-      -- Bit 0 = led 1, Bit 1 = led 2, Bit 2 = led 3, Bit 3 = led 4, Bit 4 = led 5, Bit 5 = led 6, Bit 6 = led 7
-      -- IE: value of 1 = first LED, 64 = led 7
+      ledBlinkControl = {parameter_number = 31, size = 1},
       wireMode = {parameter_number = 32, size = 1, configuration_value = 0},
       startupMode = {parameter_number = 33, size = 1, configuration_value = 1},
       ledBrightness = {parameter_number = 34, size = 1, configuration_value = 3},
@@ -320,12 +315,7 @@ local devices = {
       ledStatusColor6 = {parameter_number = 26, size = 1, configuration_value = 0},
       ledStatusColor7 = {parameter_number = 27, size = 1, configuration_value = 0},
       ledBlinkFrequency = {parameter_number = 30, size = 1, configuration_value = 5},
-      --ledBlinkControl = {parameter_number = 31, size = 1},
-      -- Sets LED(s) 1-7 to Blink in Status mode
-      -- Bitmask defines specific LEDs to enable for blinking:
-      -- Note: this decimal value is derived from a hex code calculation based on the following:
-      -- Bit 0 = led 1, Bit 1 = led 2, Bit 2 = led 3, Bit 3 = led 4, Bit 4 = led 5, Bit 5 = led 6, Bit 6 = led 7
-      -- IE: value of 1 = first LED, 64 = led 7
+      ledBlinkControl = {parameter_number = 31, size = 1},
       wireMode = {parameter_number = 32, size = 1, configuration_value = 0},
       startupMode = {parameter_number = 33, size = 1, configuration_value = 1},
       ledBrightness = {parameter_number = 34, size = 1, configuration_value = 3},

@@ -72,6 +72,7 @@ jobs:
       path: ${{ matrix.path }}
       label: ${{ matrix.label }}
       pkgkey: ${{ matrix.pkgkey }}
+      supports: ${{ matrix.supports }}
       environment: ${{ github.base_ref || github.ref_name }}
     secrets: inherit
 

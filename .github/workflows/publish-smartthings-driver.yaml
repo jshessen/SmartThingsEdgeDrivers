@@ -16,7 +16,11 @@ on:
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yml
+        description: "packageKey in config.yml"
+        required: true
+        type: string
+      supports:
+        description: "supports in config.yml"
         required: true
         type: string
       environment:
@@ -39,7 +43,11 @@ on:
         required: true
         type: string
       pkgkey:
-        description: packageKey in config.yml
+        description: "packageKey in config.yml"
+        required: true
+        type: string
+      supports:
+        description: "supports in config.yml"
         required: true
         type: string
       environment:
@@ -60,13 +68,11 @@ jobs:
       - name: "Define 'main' Branch Environment Variables"
         if: ${{ inputs.environment == 'main' }}
         run: |
-          echo "LABEL=${{ inputs.label }}" >> $GITHUB_ENV  
           echo "PKG_KEY=${{ inputs.pkgkey }}" >> $GITHUB_ENV
         
       - name: "Define Branch Environment Variables"
         if: ${{ inputs.environment == 'beta' }}
         run: |
-          echo "LABEL=${{ inputs.label }} (beta)" >> $GITHUB_ENV  
           echo "PKG_KEY=${{ inputs.pkgkey }}-beta" >> $GITHUB_ENV
           
       - name: "Load config.yml from Cache"
@@ -83,6 +89,8 @@ jobs:
           files: './.github/workflows/templates/config.yml.template'
           output-filename: "${{ inputs.path }}/${{ inputs.driver }}/config.yml"
         env:
+          LABEL: "${{ inputs.label }}"
+          SUPPORTS: "${{ inputs.supports }}"
           GITHUB: "${{ github.server_url }}/${{ github.repository }}"
           COMMUNITY_LINK: "https://community.smartthings.com/t/beta-edge-drivers-for-homeseer-devices/"
           

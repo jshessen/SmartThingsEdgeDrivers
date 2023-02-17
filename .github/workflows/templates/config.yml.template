@@ -1,9 +1,15 @@
+---
 name: "{{ env.LABEL }}"
 packageKey: "{{ env.PKG_KEY }}"
-description: "This driver extends the basic zwave functionality to include additional vendor specific parameters"
+description: >-
+  This driver includes additional vendor specific parameters and capabilities that <br .><br />
+  Supports: {{ env.SUPPORTS }}
 vendorSupportInformation: >-
-   'This driver require a documented device to work properly.<br /><br />
-    <a href="{{ env.COMMUNITY_LINK }}">SmartThings Community discussion</a><br /><br />
-    <a href="{{ env.GITHUB }}/blob/main/README.md">GitHub Repository</a>'
+  This driver require a documented device to work properly.<br /><br />
+  The following devices are supportd: {{ env.SUPPORTS }}
+  
+  The latest supported devics may be found at the links below:
+  <a href="{{ env.GITHUB }}/blob/main/README.md">GitHub Repository</a><br /><br />
+  <a href="{{ env.COMMUNITY_LINK }}">SmartThings Community discussion</a>
 permissions:
   zwave: {}

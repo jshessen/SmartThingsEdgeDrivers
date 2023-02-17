@@ -21,33 +21,15 @@ components:
       - name: Switch
 preferences:
   - name: "reverse"
-    title: "Invert Switch"
-    description: "Inverts the switch"
+    title: "Reverse Load Orientation"
+    description: "Default: Top of Paddle turns load ON"
     required: true
     preferenceType: boolean
     definition:
       default: false
-  - name: "dimmingSpeed"
-    title: "Dimming Speed (local)"
-    description: "How fast the light turns on when you hold the switch in seconds. 1=highest resolution (slowest dimming)"
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 1
-      maximum: 99
-      default: 1
-  - name: "rampRate"
-    title: "Ramp Rate (local)"
-    description: "How fast the light turns on when you press the switch 1x, 1=10 milliseconds"
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 1
-      maximum: 255
-      default: 3
   - name: "dimmingSpeedZWave"
-    title: "Dimming Speed Z-Wave (remote)"
-    description: "How fast the light turns on when you adjust the switch remotely. 1=highest resolution (slowest dimming)"
+    title: "Dimmer RampRate Step Speed (Remote)"
+    description: "Default: 1=highest resolution (slowest dimming), Range: 1..99"
     required: true
     preferenceType: integer
     definition:
@@ -55,11 +37,37 @@ preferences:
       maximum: 99
       default: 1
   - name: "rampRateZWave"
-    title: "Ramp Rate Z-Wave (remote)"
-    description: "How fast the light turns on when you turn on the switch remotely, 1=10 milliseconds"
+    title: "Dimmer RampRate Resolution (Remote)"
+    description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
     required: true
     preferenceType: integer
     definition:
       minimum: 1
       maximum: 255
       default: 3
+  - name: "dimmingSpeed"
+    title: "Dimmer RampRate Step Speed (Local)"
+    description: "Default: 1=highest resolution (slowest dimming), Range: 1..99"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 99
+      default: 1
+  - name: "rampRate"
+    title: "Dimmer RampRate Resolution (Local)"
+    description: "Default: 3, 0:No Delay, Range: 1..255 (1=10 milliseconds)"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 3
+  - name: "profileID"
+    title: "Profile"
+    description: "homeseer-wd100<br />All Firmware Versions"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""
