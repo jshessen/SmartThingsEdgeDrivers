@@ -26,8 +26,6 @@ jobs:
         id: release-semantic
         uses: cycjimmy/semantic-release-action@v3
         with:
-          extends: |
-            ./.github/workflows/.releaserc.json
           extra_plugins: |
             @semantic-release/changelog@6.0.0
             conventional-changelog-conventionalcommits@latest
