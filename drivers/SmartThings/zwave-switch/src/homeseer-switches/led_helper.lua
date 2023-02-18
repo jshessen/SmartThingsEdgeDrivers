@@ -63,6 +63,7 @@ local led = {}
 --- @param command (Command) Input command value
 --- @return (nil)
 function led.set_status_color(device, command)
+  local preferences = preferencesMap.get_device_parameters(device)
   ---@type number
   local value = command.args.value
   ---@type string
@@ -95,22 +96,20 @@ function led.set_status_color(device, command)
     --- If the saturation and lightness values are 0, set the value to off
     value = saturation == 0 and lightness == 0 and SwitchBinary.value.OFF_DISABLE or SwitchBinary.value.ON_ENABLE
   end
-
   --- Set the value to off or the color value
   value = value == SwitchBinary.value.OFF_DISABLE and value or color.value
 
   --- Get the parameter number and size from the device preferences
   ---@type number
-  local parameter_number = device.preferences[component] and device.preferences[component].parameter_number
+  local parameter_number = preferences[component] and preferences[component].parameter_number
   ---@type number
-  local size = device.preferences[component] and device.preferences[component].size
+  local size = preferences[component] and preferences[component].size
 
   if not parameter_number or not size then
     --- If the parameter number or size is missing, log an error and return
     log.error(string.format("%s: Missing parameter number or size for component %s", device:pretty_print(), component))
-    return
+    return false
   end
-
   --- Create a configuration set based on the parameter number, size, and value
   local set = Configuration:Set({
     parameter_number = parameter_number,

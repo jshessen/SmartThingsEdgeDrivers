@@ -122,13 +122,13 @@ end
 --- @param command (table) Input command value
 --- @return (nil)
 function zwave_handlers.switch_color_handler(driver, device, command)
-  local success, err_msg = pcall(function()
+  local success, err = pcall(function()
     command.args.value = SwitchBinary.value.ON_ENABLE
     helpers.led.set_status_color(device, command)
   end)
 
   if not success then
-    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err_msg))
+    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err))
   end
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler

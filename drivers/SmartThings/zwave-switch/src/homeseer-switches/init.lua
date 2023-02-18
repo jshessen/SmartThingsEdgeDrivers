@@ -118,37 +118,21 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
       level = utils.clamp_value(level, 0, 99) -- Clamp 'level' to the range [0, 99]
 
       local set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
-      local success, err = device:send(set) -- Send the 'set' command directly to the device and check for errors
-      if not success then
-        log.error(string.format("%s: Failed to set SwitchMultiLevel value=%s. Error: %s", device:pretty_print(), level, err))
-        return
-      end
+      device:send(set) -- Send the 'set' command directly to the device
 
       local get = function()
-        local success, err = device:send(SwitchBinary:Get({})) -- Send a 'get' command to the device to get its current status and check for errors
-        if not success then
-          log.error(string.format("%s: Failed to send 'Get' command to device. Error: %s", device:pretty_print(), err))
-          return
-        end
+        device:send(SwitchBinary:Get({})) -- Send a 'get' command to the device to get its current status
       end
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
     end
   else
     command.args.value = level > 0 and SwitchBinary.value.ON_ENABLE or SwitchBinary.value.OFF_DISABLE
-    local success, err = helpers.led.set_status_color(device, command) -- Update the LED status and check for errors
-    if not success then
-      log.error(string.format("%s: Failed to set LED status. Error: %s", device:pretty_print(), err))
-      return
-    end
+    helpers.led.set_status_color(device, command) -- Update the LED status and check for errors
   end
 
   -- Emit a switch on or off event for the component
   local component_event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
-  local success, err = device:emit_event_for_endpoint(command.src_channel, component_event) -- Emit the event and check for errors
-  if not success then
-    log.error(string.format("%s: Failed to emit switch event for component. Error: %s", device:pretty_print(), err))
-    return
-  end
+  device:emit_event_for_endpoint(command.src_channel, component_event) -- Emit the event
 end
 
 --- @function zwave_handlers.emit_central_scene_events() --
@@ -168,14 +152,8 @@ end
 --- @param command (table) Input command value
 --- @return (nil)
 function zwave_handlers.switch_color_handler(driver, device, command)
-  local success, err_msg = pcall(function()
     command.args.value = SwitchBinary.value.ON_ENABLE
     helpers.led.set_status_color(device, command)
-  end)
-
-  if not success then
-    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err_msg))
-  end
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
 
