@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.7.3](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.2...v0.7.3) (2023-02-18)
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **led:** preferences reference ([9a915cb](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/9a915cbfb1fd0a41b3e934dce7929f5b6e0bdf75))
+
 ## [0.7.3-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.2...v0.7.3-beta.1) (2023-02-18)
 
 
