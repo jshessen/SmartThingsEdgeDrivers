@@ -84,10 +84,14 @@ local capability_handlers = {}
 --- @param command (Command) The command table.
 function zwave_handlers.basic_report_handler(driver, device, command)
   local value = command.args.target_value or command.args.value
+
+  log.trace(string.format("%s: basic_report_handler -- I'm in", device:pretty_print()))
   if value == SwitchBinary.value.OFF_DISABLE then
     local hueEvent = capabilities.colorControl.hue(0)
     local saturationEvent = capabilities.colorControl.saturation(0)
     local offEvent = capabilities.switch.switch.off()
+
+    log.trace(string.format("%s: basic_report_handler -- OFF", device:pretty_print()))
 
     if not device:emit_event_for_endpoint(command.src_channel, offEvent) then
       log.error(string.format("%s: Failed to emit event for turning off the switch.", device:pretty_print()))
@@ -96,6 +100,7 @@ function zwave_handlers.basic_report_handler(driver, device, command)
       log.error(string.format("%s: Failed to emit event for setting hue and saturation to 0.", device:pretty_print()))
     end
   else
+    log.trace(string.format("%s: basic_report_handler -- ON", device:pretty_print()))
     local onEvent = capabilities.switch.switch.on()
     if not device:emit_event_for_endpoint(command.src_channel, onEvent) then
       log.error(string.format("%s: Failed to emit event for turning on the switch.", device:pretty_print()))
@@ -109,22 +114,33 @@ end
 --- @param device (st.zwave.Device) The device object.
 --- @param command (table) The input command.
 function zwave_handlers.switch_color_handler(driver, device, command)
-  local value = command.args.value
+  log.trace(string.format("%s: switch_color_handler -- I'm in", device:pretty_print()))
   local color = helpers.color.map[7]
+  local hue = command.args.color.hue
+  local saturation = command.args.color.saturation
   if command.args.color then
-    color = helpers.color.find_closest_color(command.args.color.hue, command.args.color.saturation, command.args.color.lightness)
+    log.trace(string.format("%s: basic_report_handler -- A color was passed to this function", device:pretty_print()))
+    log.trace(string.format("%s: basic_report_handler -- hue=", device:pretty_print(), hue))
+    log.trace(string.format("%s: basic_report_handler -- saturation=", device:pretty_print(),saturation))
+    
+    --log.trace(string.format("%s: basic_report_handler -- Find the closest supported color", device:pretty_print()))
+    color = helpers.color.find_closest_color(hue, saturation, nil)
   end
+  log.trace(string.format("%s: basic_report_handler -- OFF", device:pretty_print()))
+  --local r, g, b = helpers.color.hex_to_rgb(color.hex)
+  local r, g, b = utils.hsl_to_rgb(hue,saturation,nil)
 
-  local r, g, b = helpers.color.hex_to_rgb(color.hex)
+  log.trace(string.format("%s: basic_report_handler -- r=%s,g=%s,b=%s", device:pretty_print(),r,g,b))
   if not r then
     log.error(string.format("%s: Failed to convert color hex to RGB. color.hex=%s", device:pretty_print(), color.hex))
     return
   end
 
-  local hue, saturation, lightness = utils.rgb_to_hsl(r, g, b)
+  local myhue, mysaturation, mylightness = utils.rgb_to_hsl(r, g, b)
+  log.trace(string.format("%s: basic_report_handler -- myhue=%s,mysat=%s", device:pretty_print(),myhue, mysaturation))
   command.args.color = {
-    hue = hue,
-    saturation = saturation,
+    hue = myhue,
+    saturation = mysaturation,
   }
   device:set_field(CAP_CACHE_KEY, command)
 

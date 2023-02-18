@@ -80,3 +80,11 @@ preferences:
       minimum: -127
       maximum: 128
       default: 0
+  - name: "profileID"
+    title: "Profile" 
+    description: "homeseer-hsm200<br />All Firmware Versions"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: paragraph
+      default: ""

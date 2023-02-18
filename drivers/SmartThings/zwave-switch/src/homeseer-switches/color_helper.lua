@@ -119,6 +119,7 @@ function color.set_switch_color(device, command, r, g, b)
     },
     duration = color_microseconds
   })
+  log.trace(string.format("%s: set_switch_color -- SET", device:pretty_print()))
   device:send_to_component(set, command.component)
 
   local color_check = function()
@@ -129,6 +130,7 @@ function color.set_switch_color(device, command, r, g, b)
       command.component
     )
   end
+  log.trace(string.format("%s: set_switch_color -- GET", device:pretty_print()))
   device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, color_check)
   return true
 end
