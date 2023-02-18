@@ -108,7 +108,7 @@ function color.set_switch_color(device, command, r, g, b)
 
   -- By specifying the color duration in microseconds, we can reduce the
   -- calculation time to find the most efficient time.
-  local color_microseconds = (constants.DEFAULT_DIMMING_DURATION * 1e6)
+  local color_microseconds = (tonumber(constants.DEFAULT_DIMMING_DURATION) * 1e6)
   local set = SwitchColor:Set({
     color_components = {
       { color_component_id = SwitchColor.color_component_id.RED, value = r },

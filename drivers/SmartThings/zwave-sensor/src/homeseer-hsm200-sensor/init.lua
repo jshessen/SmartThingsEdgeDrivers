@@ -120,13 +120,12 @@ function zwave_handlers.switch_color_handler(driver, device, command)
   local saturation = command.args.color.saturation
   if command.args.color then
     log.trace(string.format("%s: basic_report_handler -- A color was passed to this function", device:pretty_print()))
-    log.trace(string.format("%s: basic_report_handler -- hue=", device:pretty_print(), hue))
-    log.trace(string.format("%s: basic_report_handler -- saturation=", device:pretty_print(),saturation))
+    log.trace(string.format("%s: basic_report_handler -- hue=%s", device:pretty_print(), hue))
+    log.trace(string.format("%s: basic_report_handler -- saturation=%s", device:pretty_print(),saturation))
     
     --log.trace(string.format("%s: basic_report_handler -- Find the closest supported color", device:pretty_print()))
     color = helpers.color.find_closest_color(hue, saturation, nil)
   end
-  log.trace(string.format("%s: basic_report_handler -- OFF", device:pretty_print()))
   --local r, g, b = helpers.color.hex_to_rgb(color.hex)
   local r, g, b = utils.hsl_to_rgb(hue,saturation,nil)
 
