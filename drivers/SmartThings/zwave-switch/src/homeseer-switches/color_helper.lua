@@ -71,7 +71,6 @@ function color.hex_to_rgb(hex)
   hex = hex:gsub("#", "")
   
   -- Check if the hexadecimal string is valid
-  log.debug(string.format("hexadecimal string = %s",hex))
   if not hex:match("%x%x%x%x%x%x") then
     return nil -- Return nil if hex is invalid
   end

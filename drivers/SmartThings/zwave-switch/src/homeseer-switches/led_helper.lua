@@ -93,17 +93,11 @@ function led.set_status_color(device, command)
     command.args.color.saturation = saturation
     device:set_field(CAP_CACHE_KEY, command)
 
-    log.debug(string.format("%s: r=%d,g=%d,b=%d", device:pretty_print(), r,g,b))
-    log.debug(string.format("%s: h=%d,s=%d,l=%d", device:pretty_print(), hue,saturation,lightness))
-    log.debug(string.format("%s: value=%s", device:pretty_print(), value))
-
     --- If the saturation and lightness values are 0, set the value to off
     value = saturation == 0 and lightness == 0 and SwitchBinary.value.OFF_DISABLE or SwitchBinary.value.ON_ENABLE
   end
-  log.debug(string.format("%s: value=%s", device:pretty_print(), value))
   --- Set the value to off or the color value
   value = value == SwitchBinary.value.OFF_DISABLE and value or color.value
-  log.debug(string.format("%s: value=%s", device:pretty_print(), value))
 
   --- Get the parameter number and size from the device preferences
   ---@type number
@@ -122,7 +116,6 @@ function led.set_status_color(device, command)
     size = size,
     configuration_value = value
   })
-  log.debug(string.format("%s: Configuration",set))
   device:send(set)
 end
 ---
