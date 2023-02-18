@@ -119,24 +119,15 @@ function color.set_switch_color(device, command, r, g, b)
     },
     duration = color_microseconds
   })
-
-  local result, error_msg = device:send_to_component(set, command.component)
-  if not result then
-    log.error(string.format("Error sending color command: %s", error_msg))
-    return false
-  end
+  device:send_to_component(set, command.component)
 
   local color_check = function()
     -- Use a single RGB color key to trigger our callback to emit a color
     -- control capability update.
-    local result, error_msg = device:send_to_component(
+    device:send_to_component(
       SwitchColor:Get({ color_component_id = SwitchColor.color_component_id.RED }),
       command.component
     )
-    if not result then
-      log.error(string.format("Error checking color: %s", error_msg))
-      return false
-    end
   end
   device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, color_check)
   return true
