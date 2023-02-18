@@ -45,7 +45,7 @@ local Notification = (require "st.zwave.CommandClass.Notification")({version=3})
 local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
 --- @type table
 local helpers = {}
-helpers.color = (require "homeseer-switches.color_helper")
+helpers.color = (require "homeseer-hsm200-sensor.color_helper")
 
 
 
