@@ -21,6 +21,7 @@
 --- Required Libraries
 ---
 
+local capabilities = require "st.capabilities"
 -- @type st.utils
 local utils = require "st.utils"
 --- @type SwitchColor
@@ -37,6 +38,9 @@ local log = (require "log")
 -- ???????????????????????????????????????????????????????
 --- Variables/Constants
 ---
+
+--- @type string
+local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
 
 --- @local (table)
 local color = {
@@ -106,9 +110,15 @@ function color.set_switch_color(device, command, r, g, b)
     return false
   end
 
-  -- By specifying the color duration in microseconds, we can reduce the
-  -- calculation time to find the most efficient time.
-  local color_microseconds = constants.DEFAULT_DIMMING_DURATION
+  local hue, saturation, mylightness = utils.rgb_to_hsl(r, g, b)
+  log.trace(string.format("***** HSM200 Driver *****: myhue=%s,mysat=%s", device:pretty_print(),hue, saturation))
+  command.args.color = {
+    hue = hue,
+    saturation = saturation,
+  }
+  device:set_field(CAP_CACHE_KEY, command)
+
+  local dim_duration = constants.DEFAULT_DIMMING_DURATION
   local set = SwitchColor:Set({
     color_components = {
       { color_component_id = SwitchColor.color_component_id.RED, value = r },
@@ -117,9 +127,8 @@ function color.set_switch_color(device, command, r, g, b)
       { color_component_id = SwitchColor.color_component_id.WARM_WHITE, value = 0 },
       { color_component_id = SwitchColor.color_component_id.COLD_WHITE, value = 0 },
     },
-    duration = color_microseconds
+    duration = dim_duration
   })
-  log.trace(string.format("%s: set_switch_color -- SET", device:pretty_print()))
   device:send_to_component(set, command.component)
 
   local color_check = function()
@@ -130,7 +139,6 @@ function color.set_switch_color(device, command, r, g, b)
       command.component
     )
   end
-  log.trace(string.format("%s: set_switch_color -- GET", device:pretty_print()))
   device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, color_check)
   return true
 end
