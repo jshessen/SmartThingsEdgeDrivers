@@ -24,7 +24,7 @@ components:
   - id: refresh
     version: 1
   categories:
-  - name: MotionSensor
+  - name: MultiFunctionalSensor
 preferences:
   - name: "motionDelayTime"
     title: "Motion Sensor Delay Time"
