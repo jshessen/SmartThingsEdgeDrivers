@@ -111,7 +111,6 @@ function color.set_switch_color(device, command, r, g, b)
   end
 
   local hue, saturation, mylightness = utils.rgb_to_hsl(r, g, b)
-  log.trace(string.format("***** HSM200 Driver *****: myhue=%s,mysat=%s", device:pretty_print(),hue, saturation))
   command.args.color = {
     hue = hue,
     saturation = saturation,
