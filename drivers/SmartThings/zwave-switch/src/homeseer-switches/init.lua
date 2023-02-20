@@ -98,41 +98,36 @@ local capability_handlers = {}
 --- @param command (Command) Input command value
 --- @return (nil)
 function zwave_handlers.switch_multilevel_handler(driver, device, command)
-  -- Declare local variables 'level','dimmingDuration', and 'event'
+  -- Declare local variables 'level' and 'value'
   local level = command.args.value or command.args.target_value -- Simplify if-else statement
-  local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
-  local event
-  if level and level > 0 then -- If level is set and greater than 0
-    event = capabilities.switch.switch.on()
-  else
-    event = capabilities.switch.switch.off()
-  end
+  local value = (level > 0 or level == SwitchBinary.value.ON_ENABLE) and SwitchBinary.value.ON_ENABLE
+                                                                    or SwitchBinary.value.OFF_DISABLE
 
-  if command.component == "main" then -- "main" = command.src_channel = endpoint = 0
-    -- Emit switch on or off event depending on the value of 'level'
-    device:emit_event_for_endpoint(command.src_channel, event)
-
+  if command.component == "main" then
+    local set = Basic:Set({ value=value })
+    device:send(set)
+    if value == SwitchBinary.value.ON_ENABLE then
+      device:emit_event(capabilities.switch.switch.on())
+    else
+      device:emit_event(capabilities.switch.switch.off())
+    end    
     -- If the device supports switch level capability
     if device:supports_capability(capabilities.switchLevel, nil) then
+      local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
       level = math.floor(level + 0.5) -- Round off 'level' to the nearest integer
       level = utils.clamp_value(level, 0, 99) -- Clamp 'level' to the range [0, 99]
 
-      local set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
-      device:send(set) -- Send the 'set' command directly to the device
-
+      set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
+      device:send(set) -- Send the 'set' command directly to the device and check for errors
       local get = function()
-        device:send(SwitchBinary:Get({})) -- Send a 'get' command to the device to get its current status
+        device:send(SwitchBinary:Get({})) -- Send a 'get' command to the device to get its current status and check for errors
       end
       device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
     end
   else
-    command.args.value = level > 0 and SwitchBinary.value.ON_ENABLE or SwitchBinary.value.OFF_DISABLE
-    helpers.led.set_status_color(device, command) -- Update the LED status and check for errors
+    command.args.value = value
+    helpers.led.set_status_color(device, command) -- Update the LED status and check for error
   end
-
-  -- Emit a switch on or off event for the component
-  local component_event = level > 0 and capabilities.switch.switch.on() or capabilities.switch.switch.off()
-  device:emit_event_for_endpoint(command.src_channel, component_event) -- Emit the event
 end
 
 --- @function zwave_handlers.emit_central_scene_events() --
@@ -152,8 +147,14 @@ end
 --- @param command (table) Input command value
 --- @return (nil)
 function zwave_handlers.switch_color_handler(driver, device, command)
+  local success, err_msg = pcall(function()
     command.args.value = SwitchBinary.value.ON_ENABLE
     helpers.led.set_status_color(device, command)
+  end)
+
+  if not success then
+    log.error(string.format("%s: Failed to set color for device. Error: %s", device:pretty_print(), err_msg))
+  end
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
 
@@ -366,16 +367,17 @@ local homeseer_switches = {
   NAME = "HomeSeer Z-Wave Switches",
   can_handle = can_handle_homeseer_switches,
   zwave_handlers = {
-    [cc.SWITCH_COLOR] = {
-      [SwitchColor.Report] = zwave_handlers.switch_color_handler
-    },
-    --- Button
+    -- Button
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = zwave_handlers.emit_central_scene_events
     },
-    --- Return firmware version
+    -- Return firmware version
     [cc.VERSION] = {
       [Version.REPORT] = zwave_handlers.version_report_handler
+    },
+    -- Color
+    [cc.SWITCH_COLOR] = {
+      [SwitchColor.Report] = zwave_handlers.switch_color_handler
     }
   },
   capability_handlers = {
