@@ -121,9 +121,9 @@ local driver_template = {
     require("enerwave-motion-sensor"),
     require("aeotec-multisensor"),
     require("zwave-water-leak-sensor"),
-    require("everspring-motion-light-sensor"),
+    require("everspring-motion-light-sensor"),]]
     require("ezmultipli-multipurpose-sensor"),
-    require("fibaro-motion-sensor") ]]
+    --[[require("fibaro-motion-sensor") ]]
     require("homeseer-hsm200-sensor")
   },
   lifecycle_handlers = {

@@ -1,5 +1,29 @@
 # Change Log
 
+## [0.7.4-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.3...v0.7.4-beta.1) (2023-02-20)
+
+
+### :scissors: Code Refactoring
+
+* **color:** extended set_switch_color ([1033c8a](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/1033c8a6aef27accdd2d681f4be9ec1a2ede1b11))
+* **hsm200:** Change category type ([db9fe7b](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/db9fe7b2241013e7414ef9df26349aa7220dbd77))
+* **hsm200:** ensure parity w/ ezmultipli ([1080f94](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/1080f941f91d22dfe67b66c872f65ef5193193eb))
+* **hsm200:** remove debug/trace statements ([90c8feb](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/90c8febbcecf3d49a9278ac999fab297c093ac84))
+
+
+### :hammer_and_wrench: Bug Fixes
+
+* **helpers:** Fix helper path locations ([f19f475](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/f19f4757735643f4bdc1d743acc231c4a4b1ba30))
+* **hsm200:** Add SwitchMultiLevel.Report handler ([4c99410](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/4c99410b2835b53f9b27f01f0a59f2f8aa463de5))
+* **hsm200:** Convert dim duration to number ([b016488](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/b0164882cc61485e3d8e1e5503a9db000b423055))
+* **hsm200:** eliminate the micro-second math ([b174af3](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/b174af35ee3f5cf23da04676e86fdf9bd80ead7e))
+* **switch:** remote switch response ([5cd854d](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/5cd854da243bf9352a93cf6f10e98312f0043f02))
+
+
+### :broom: Miscellaneous Chores
+
+* **sensor:** add reference ezmultipli lua ([ac3d65a](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/ac3d65a6531efb1cf489919516e29a2d8988bac0))
+
 ## [0.7.3](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.2...v0.7.3) (2023-02-18)
 
 

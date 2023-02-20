@@ -56,10 +56,10 @@ local zwave_fan_3_speed = (require "zwave-fan-3-speed")
 local zwave_fan_4_speed = (require "zwave-fan-4-speed")
 --- @type table
 local helpers = {}
-helpers.color = (require "homeseer-switches.color_helper")
-helpers.multi_tap = (require "homeseer-switches.multi_tap_helper")
-helpers.profile = (require "homeseer-switches.profile_helper")
-helpers.led = (require "homeseer-switches.led_helper")
+helpers.color = (require "homeseer-fan.color_helper")
+helpers.multi_tap = (require "homeseer-fan.multi_tap_helper")
+helpers.profile = (require "homeseer-fan.profile_helper")
+helpers.led = (require "homeseer-fan.led_helper")
 
 --- @local (table)
 local HOMESEER_FAN_FINGERPRINTS = {

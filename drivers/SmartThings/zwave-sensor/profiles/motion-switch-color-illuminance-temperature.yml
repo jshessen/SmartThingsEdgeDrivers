@@ -1,5 +1,4 @@
-# https://docs.homeseer.com/products/sensors/hsm200
-name: homeseer-hsm200
+name: motion-switch-color-illuminance-temperature
 components:
 - id: main
   capabilities:
@@ -24,17 +23,8 @@ components:
   - id: refresh
     version: 1
   categories:
-  - name: MultiFunctionalSensor
+  - name: MotionSensor
 preferences:
-  - name: "motionDelayTime"
-    title: "Motion Sensor Delay Time"
-    description: "N seconds to delay motion detected notification [20-7200]"
-    required: false
-    preferenceType: number
-    definition:
-      minimum: 20
-      maximum: 7200
-      default: 30
   - name: "onTime"
     title: "on time"
     description: "N minutes lights stay on after no motion detected [0, 1-127]"
@@ -44,15 +34,6 @@ preferences:
       minimum: 0
       maximum: 127
       default: 2
-  - name: "onLevel"
-    title: "on level"
-    description: "Dimmer OnLevel for associated node 2 lights [-1, 0, 1-99]"
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: -1
-      maximum: 99
-      default: -1
   - name: "liteMin"
     title: "lite min"
     description: "Luminance report sent every N minutes [0-127]"
@@ -80,9 +61,18 @@ preferences:
       minimum: -127
       maximum: 128
       default: 0
+  - name: "onLevel"
+    title: "on level"
+    description: "Dimmer OnLevel for associated node 2 lights [-1, 0, 1-99]"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: -1
+      maximum: 99
+      default: -1
   - name: "profileID"
     title: "Profile" 
-    description: "homeseer-hsm200<br />All Firmware Versions"
+    description: "motion-switch-color-illuminance-temperature<br />All Firmware Versions"
     required: false
     preferenceType: string
     definition:
