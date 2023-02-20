@@ -126,8 +126,7 @@ function zwave_handlers.switch_color_handler(driver, device, command)
   if command.args.color then
     hue = command.args.color.hue
     saturation = command.args.color.saturation
-    log.trace(string.format("***** HSM200 Driver *****: hue=%s, saturation=%s", hue, saturation))
-    
+
     --log.trace(string.format("%s: basic_report_handler -- Find the closest supported color", device:pretty_print()))
     --color = helpers.color.find_closest_color(hue, saturation, nil)
   end
@@ -138,7 +137,6 @@ function zwave_handlers.switch_color_handler(driver, device, command)
     log.error(string.format("%s: Failed to convert color Hue/Saturation to RGB.", device:pretty_print()))
     return
   end
-  log.trace(string.format("***** HSM200 Driver *****: r=%s,g=%s,b=%s", r,g,b))
   helpers.color.set_switch_color(device, command, r, g, b)
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
@@ -196,12 +194,9 @@ local homeseer_multipurpose_sensor = {
     [cc.BASIC] = {
       [Basic.REPORT] = zwave_handlers.switch_multilevel_handler
     },
-    [cc.SWITCH_MULTILEVEL] = {
-      [SwitchMultilevel.REPORT] = zwave_handlers.switch_multilevel_handler
-    }
---[[     [cc.NOTIFICATIONS] = {
-      [Notification.REPORT] = zwave_handlers.notification_report_handler
-    } ]]
+    --[cc.NOTIFICATIONS] = {
+      --[Notification.REPORT] = zwave_handlers.notification_report_handler
+    --}
   },
   capability_handlers = {
     [capabilities.switch.ID] = {
