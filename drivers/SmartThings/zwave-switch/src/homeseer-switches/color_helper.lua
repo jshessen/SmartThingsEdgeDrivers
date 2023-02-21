@@ -110,7 +110,9 @@ function color.set_switch_color(device, command, r, g, b)
     return false
   end
 
+  log.debug(string.format("***** HSM200 *****: set_switch_color, In function"))
   local hue, saturation, mylightness = utils.rgb_to_hsl(r, g, b)
+  log.debug(string.format("***** HSM200 *****: set_switch_color, RGB to HSL, hue=%s, saturation=%s",hue,saturation))
   command.args.color = {
     hue = hue,
     saturation = saturation,
@@ -128,6 +130,7 @@ function color.set_switch_color(device, command, r, g, b)
     },
     duration = dim_duration
   })
+  log.debug(string.format("***** HSM200 *****: set_switch_color, set=%s",set))
   device:send_to_component(set, command.component)
 
   local color_check = function()

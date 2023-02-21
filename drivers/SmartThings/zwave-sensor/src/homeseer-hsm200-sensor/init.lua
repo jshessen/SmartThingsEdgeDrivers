@@ -82,24 +82,36 @@ local capability_handlers = {}
 --- @param device (st.zwave.Device) The device instance.
 --- @param command (Command) The command table.
 function zwave_handlers.switch_multilevel_handler(driver, device, command)
-  -- Declare local variables 'level' and 'value'
-  local level = command.args.value or command.args.target_value -- Simplify if-else statement
+  -- Declare local variables
+  local event
+  local level = command.args.target_value or command.args.value
   local value = (level > 0 or level == SwitchBinary.value.ON_ENABLE) and SwitchBinary.value.ON_ENABLE
                                                                     or SwitchBinary.value.OFF_DISABLE
-  local event = value == SwitchBinary.value.ON_ENABLE and capabilities.switch.switch.on()
-                                                        or capabilities.switch.switch.off()
+  local endpoint = command.src_channel
+
+  log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, In function"))
   if command.component == "main" then
+    log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, In \"main\" conditional"))
+    if value == SwitchBinary.value.OFF_DISABLE then
+      log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, In \"off\""))
+      event = capabilities.switch.switch.off()
+      log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, emit hue=0"))
+      device:emit_event_for_endpoint(endpoint, capabilities.colorControl.hue(0))
+      log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, emit saturation=0"))
+      device:emit_event_for_endpoint(endpoint, capabilities.colorControl.saturation(0))
+    else
+      log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, In \"on\""))
+      event = capabilities.switch.switch.off()
+    end
     --local set = SwitchBinary:Set({ target_value=value, duration=0 })
+    log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, Basic:Set"))
     local set = Basic:Set({ value=value })
     device:send(set)
-    if value == SwitchBinary.value.ON_ENABLE then
-      device:emit_component_event(event, command.component)
-    else
-      device:emit_component_event(event, command.component)
-      device:emit_component_event(capabilities.colorControl.hue(0), command.component)
-      device:emit_component_event(capabilities.colorControl.saturation(0), command.component)
-    end
+    log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, emit on/off event"))
+    device:emit_event_for_endpoint(endpoint, event)
+
     if device:supports_capability(capabilities.switchLevel, nil) then
+      log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, In switchLevel conditional"))
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
       level = math.floor(level + 0.5) -- Round off 'level' to the nearest integer
       level = utils.clamp_value(level, 0, 99) -- Clamp 'level' to the range [0, 99]
@@ -123,20 +135,26 @@ function zwave_handlers.switch_color_handler(driver, device, command)
   local color = helpers.color.map[7]
   local hue
   local saturation
+
+  log.debug(string.format("***** HSM200 *****: switch_color_handler, In function"))
   if command.args.color then
     hue = command.args.color.hue
+    log.debug(string.format("***** HSM200 *****: switch_color_handler, hue=%s",hue))
     saturation = command.args.color.saturation
+    log.debug(string.format("***** HSM200 *****: switch_color_handler, saturation=%s",saturation))
 
     --log.trace(string.format("%s: basic_report_handler -- Find the closest supported color", device:pretty_print()))
     --color = helpers.color.find_closest_color(hue, saturation, nil)
   end
   --local r, g, b = helpers.color.hex_to_rgb(color.hex)
   local r, g, b = utils.hsl_to_rgb(hue,saturation,nil)
+  log.debug(string.format("***** HSM200 *****: switch_color_handler, HSL to RGB, r=%s,g=%s,b=%s",r,g,b))
   
   if not r then
     log.error(string.format("%s: Failed to convert color Hue/Saturation to RGB.", device:pretty_print()))
     return
   end
+  log.debug(string.format("***** HSM200 *****: switch_color_handler,call set_switch_color"))
   helpers.color.set_switch_color(device, command, r, g, b)
 end
 capability_handlers.switch_color_handler = zwave_handlers.switch_color_handler
@@ -175,13 +193,18 @@ end
 --- @param value (st.zwave.CommandClass.SwitchBinary.value)
 --- @return (function)
 function capability_handlers.switch_binary_handler(value)
-    --- Hand off to zwave_handlers.switch_multilevel_handler
-    --- @param driver (Driver) The driver object
-    --- @param device (st.zwave.Device) The device object
-    --- @param command (Command) Input command value
-    --- @return (nil)
+  --- Hand off to zwave_handlers.switch_multilevel_handler
+  --- @param driver (Driver) The driver object
+  --- @param device (st.zwave.Device) The device object
+  --- @param command (Command) Input command value
+  --- @return (nil)
+
+  log.debug(string.format("***** HSM200 *****: switch_binary_handler, In function"))
+
   return function(driver, device, command)
+    log.debug(string.format("***** HSM200 *****: switch_bianry_handler, value=%s",value))
       command.args.value = value
+      log.debug(string.format("***** HSM200 *****: switch_binary_handler, call switch_multilevel_handler"))
       zwave_handlers.switch_multilevel_handler(device,device,command)
   end
 end
