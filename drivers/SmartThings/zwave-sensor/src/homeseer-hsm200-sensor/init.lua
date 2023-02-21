@@ -86,18 +86,18 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
   local level = command.args.value or command.args.target_value -- Simplify if-else statement
   local value = (level > 0 or level == SwitchBinary.value.ON_ENABLE) and SwitchBinary.value.ON_ENABLE
                                                                     or SwitchBinary.value.OFF_DISABLE
-
+  local event = value == SwitchBinary.value.ON_ENABLE and capabilities.switch.switch.on()
+                                                        or capabilities.switch.switch.off()
   if command.component == "main" then
     --local set = SwitchBinary:Set({ target_value=value, duration=0 })
     local set = Basic:Set({ value=value })
     device:send(set)
     if value == SwitchBinary.value.ON_ENABLE then
-      device:emit_event(capabilities.switch.switch.on())
+      device:emit_component_event(event, command.component)
     else
-      device:emit_event(capabilities.switch.switch.off())
-      local hue=capabilities.colorControl.hue(0)
-      local saturation=capabilities.colorControl.saturation(0)
-      device:emit_event_for_endpoint(command.src_channel,hue,saturation)
+      device:emit_component_event(event, command.component)
+      device:emit_component_event(capabilities.colorControl.hue(0), command.component)
+      device:emit_component_event(capabilities.colorControl.saturation(0), command.component)
     end
     if device:supports_capability(capabilities.switchLevel, nil) then
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
@@ -194,9 +194,9 @@ local homeseer_multipurpose_sensor = {
     [cc.BASIC] = {
       [Basic.REPORT] = zwave_handlers.switch_multilevel_handler
     },
-    --[cc.NOTIFICATIONS] = {
-      --[Notification.REPORT] = zwave_handlers.notification_report_handler
-    --}
+    --[[ [cc.NOTIFICATION] = {
+      [Notification.REPORT] = zwave_handlers.notification_report_handler
+    } ]]
   },
   capability_handlers = {
     [capabilities.switch.ID] = {
