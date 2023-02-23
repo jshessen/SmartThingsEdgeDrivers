@@ -12,69 +12,154 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: Light
   - id: LED-1
     capabilities:
     - id: switch
       version: 1
       config:
-        values:
-          - key: switch.blinkControl.value
-            enabledValues:
-              - on
-              - off
+          - key: blinkControl
+            title: Blink Control
+            description: Blink control for the LED
+            type: enum
+            required: false
+            multiple: false
+            default: 0
+            enumValues:
+              - value: 1
+                label: On
+              - value: 0
+                label: Off
     - id: colorControl
       version: 1
     categories:
-      - name: Switch
+      - name: Light
   - id: LED-2
     capabilities:
     - id: switch
       version: 1
+      config:
+        - key: blinkControl
+          title: Blink Control
+          description: Blink control for the LED
+          type: enum
+          required: false
+          multiple: false
+          default: false
+          enumValues:
+            - value: false
+              label: On
+            - value: true
+              label: Off
     - id: colorControl
       version: 1
     categories:
-      - name: Switch
+      - name: Light
   - id: LED-3
     capabilities:
     - id: switch
       version: 1
+      config:
+        - key: blinkControl
+          title: Blink Control
+          description: Blink control for the LED
+          type: enum
+          required: false
+          multiple: false
+          default: false
+          enumValues:
+            - value: false
+              label: On
+            - value: true
+              label: Off
     - id: colorControl
       version: 1
     categories:
-      - name: Switch
+      - name: Light
   - id: LED-4
     capabilities:
     - id: switch
       version: 1
+      config:
+        - key: blinkControl
+          title: Blink Control
+          description: Blink control for the LED
+          type: enum
+          required: false
+          multiple: false
+          default: false
+          enumValues:
+            - value: false
+              label: On
+            - value: true
+              label: Off
     - id: colorControl
       version: 1
     categories:
-      - name: Switch
+      - name: Light
   - id: LED-5
     capabilities:
     - id: switch
       version: 1
+      config:
+        - key: blinkControl
+          title: Blink Control
+          description: Blink control for the LED
+          type: enum
+          required: false
+          multiple: false
+          default: false
+          enumValues:
+            - value: false
+              label: On
+            - value: true
+              label: Off
     - id: colorControl
       version: 1
     categories:
-      - name: Switch
+      - name: Light
   - id: LED-6
     capabilities:
     - id: switch
       version: 1
+      config:
+        - key: blinkControl
+          title: Blink Control
+          description: Blink control for the LED
+          type: enum
+          required: false
+          multiple: false
+          default: false
+          enumValues:
+            - value: false
+              label: On
+            - value: true
+              label: Off
     - id: colorControl
       version: 1
     categories:
-      - name: Switch
+      - name: Light
   - id: LED-7
     capabilities:
     - id: switch
       version: 1
+      config:
+        - key: blinkControl
+          title: Blink Control
+          description: Blink control for the LED
+          type: enum
+          required: false
+          multiple: false
+          default: false
+          enumValues:
+            - value: false
+              label: On
+            - value: true
+              label: Off
     - id: colorControl
       version: 1
     categories:
-      - name: Switch
+      - name: Light
 preferences:
   - name: "operatingMode"
     title: "Switch Operating Mode"
@@ -134,7 +219,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusBlink1"
-    title: "LED-1 Enable Status Blink"
+    title: "LED-1 Enable Blink Functionality"
     description: "Default: Off"
     required: false
     preferenceType: boolean
@@ -157,7 +242,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusBlink2"
-    title: "LED-2 Enable Status Blink"
+    title: "LED-2 Enable Blink Functionality"
     description: "Default: Off"
     required: false
     preferenceType: boolean
@@ -180,7 +265,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusBlink3"
-    title: "LED-3 Enable Status Blink"
+    title: "LED-3 Enable Blink Functionality"
     description: "Default: Off"
     required: false
     preferenceType: boolean
@@ -203,7 +288,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusBlink4"
-    title: "LED-4 Enable Status Blink"
+    title: "LED-4 Enable Blink Functionality"
     description: "Default: Off"
     required: false
     preferenceType: boolean
@@ -226,7 +311,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusBlink5"
-    title: "LED-5 Enable Status Blink"
+    title: "LED-5 Enable Blink Functionality"
     description: "Default: Off"
     required: false
     preferenceType: boolean
@@ -249,7 +334,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusBlink6"
-    title: "LED-6 Enable Status Blink"
+    title: "LED-6 Enable Blink Functionality"
     description: "Default: Off"
     required: false
     preferenceType: boolean
@@ -272,7 +357,7 @@ preferences:
         6: "Cyan"
       default: 0
   - name: "ledStatusBlink7"
-    title: "LED-7 Enable Status Blink"
+    title: "LED-7 Enable Blink Functionality"
     description: "Default: Off"
     required: false
     preferenceType: boolean
