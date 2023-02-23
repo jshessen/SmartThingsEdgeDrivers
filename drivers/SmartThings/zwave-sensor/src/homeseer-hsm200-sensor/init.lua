@@ -193,19 +193,17 @@ end
 --- @param value (st.zwave.CommandClass.SwitchBinary.value)
 --- @return (function)
 function capability_handlers.switch_binary_handler(value)
+  log.debug(string.format("***** HSM200 *****: switch_binary_handler, In function"))
   --- Hand off to zwave_handlers.switch_multilevel_handler
   --- @param driver (Driver) The driver object
   --- @param device (st.zwave.Device) The device object
   --- @param command (Command) Input command value
   --- @return (nil)
-
-  log.debug(string.format("***** HSM200 *****: switch_binary_handler, In function"))
-
   return function(driver, device, command)
     log.debug(string.format("***** HSM200 *****: switch_bianry_handler, value=%s",value))
       command.args.value = value
       log.debug(string.format("***** HSM200 *****: switch_binary_handler, call switch_multilevel_handler"))
-      zwave_handlers.switch_multilevel_handler(device,device,command)
+      zwave_handlers.switch_multilevel_handler(driver,device,command)
   end
 end
 
