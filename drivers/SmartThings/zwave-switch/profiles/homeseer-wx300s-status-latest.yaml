@@ -19,6 +19,14 @@ components:
       version: 1
     - id: colorControl
       version: 1
+    - id: blinkControl
+      version: 1
+      config:
+        values:
+          - key: blinkControl.value
+            enabledValues:
+              - on
+              - off
     categories:
       - name: Switch
   - id: LED-2
