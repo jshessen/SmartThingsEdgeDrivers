@@ -17,19 +17,6 @@ components:
     capabilities:
     - id: switch
       version: 1
-      config:
-          - key: blinkControl
-            title: Blink Control
-            description: Blink control for the LED
-            type: enum
-            required: false
-            multiple: false
-            default: 0
-            enumValues:
-              - value: 1
-                label: On
-              - value: 0
-                label: Off
     - id: colorControl
       version: 1
     categories:
@@ -38,19 +25,6 @@ components:
     capabilities:
     - id: switch
       version: 1
-      config:
-        - key: blinkControl
-          title: Blink Control
-          description: Blink control for the LED
-          type: enum
-          required: false
-          multiple: false
-          default: false
-          enumValues:
-            - value: false
-              label: On
-            - value: true
-              label: Off
     - id: colorControl
       version: 1
     categories:
@@ -59,19 +33,6 @@ components:
     capabilities:
     - id: switch
       version: 1
-      config:
-        - key: blinkControl
-          title: Blink Control
-          description: Blink control for the LED
-          type: enum
-          required: false
-          multiple: false
-          default: false
-          enumValues:
-            - value: false
-              label: On
-            - value: true
-              label: Off
     - id: colorControl
       version: 1
     categories:
@@ -80,19 +41,6 @@ components:
     capabilities:
     - id: switch
       version: 1
-      config:
-        - key: blinkControl
-          title: Blink Control
-          description: Blink control for the LED
-          type: enum
-          required: false
-          multiple: false
-          default: false
-          enumValues:
-            - value: false
-              label: On
-            - value: true
-              label: Off
     - id: colorControl
       version: 1
     categories:
@@ -101,19 +49,6 @@ components:
     capabilities:
     - id: switch
       version: 1
-      config:
-        - key: blinkControl
-          title: Blink Control
-          description: Blink control for the LED
-          type: enum
-          required: false
-          multiple: false
-          default: false
-          enumValues:
-            - value: false
-              label: On
-            - value: true
-              label: Off
     - id: colorControl
       version: 1
     categories:
@@ -122,19 +57,6 @@ components:
     capabilities:
     - id: switch
       version: 1
-      config:
-        - key: blinkControl
-          title: Blink Control
-          description: Blink control for the LED
-          type: enum
-          required: false
-          multiple: false
-          default: false
-          enumValues:
-            - value: false
-              label: On
-            - value: true
-              label: Off
     - id: colorControl
       version: 1
     categories:
@@ -143,19 +65,6 @@ components:
     capabilities:
     - id: switch
       version: 1
-      config:
-        - key: blinkControl
-          title: Blink Control
-          description: Blink control for the LED
-          type: enum
-          required: false
-          multiple: false
-          default: false
-          enumValues:
-            - value: false
-              label: On
-            - value: true
-              label: Off
     - id: colorControl
       version: 1
     categories:
