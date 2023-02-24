@@ -371,6 +371,9 @@ local homeseer_switches = {
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = zwave_handlers.emit_central_scene_events
     },
+    [cc.BASIC] = {
+      [Basic.Report] = zwave_handlers.switch_multilevel_handler
+    },
     -- Return firmware version
     [cc.VERSION] = {
       [Version.REPORT] = zwave_handlers.version_report_handler
