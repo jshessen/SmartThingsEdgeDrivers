@@ -39,9 +39,6 @@ local log = (require "log")
 --- Variables/Constants
 ---
 
---- @type string
-local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
-
 --- @local (table)
 local color = {
   map = {
@@ -117,6 +114,7 @@ function color.set_switch_color(device, command, r, g, b)
     hue = hue,
     saturation = saturation,
   }
+  local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
   device:set_field(CAP_CACHE_KEY, command)
 
   local dim_duration = constants.DEFAULT_DIMMING_DURATION
