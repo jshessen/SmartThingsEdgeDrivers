@@ -1,5 +1,15 @@
 # SmartThingsEdgeDrivers
+
+Where possible, the recommendation would be to use the HomeSeer Official Driver channel
+
+https://bestow-regional.api.smartthings.com/invite/adMKXx38XR29
+
+![image](https://user-images.githubusercontent.com/19617724/221605901-d74aa04c-2f82-4eab-adf8-f56692d17b17.png)
+![image](https://user-images.githubusercontent.com/19617724/221606047-aba66cc5-7973-4ab6-941e-424822d4c316.png)
+
 ---
+# "UnOfficial" HomeSeer Drivers
+
 An extension of the preliminary edge driver originally established by [ryanjmulder](https://community.smartthings.com/u/ryanjmulder) and forked from [his GitHub repo](https://github.com/ryanjmulder/smartthings-edge-drivers).
 
 The goal of these drivers is to include the unique HomeSeer Z-Wave attributes not currently accounted for in the [SmartThingsCommunity/SmartThingsEdgeDrivers](https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers).
