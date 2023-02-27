@@ -132,11 +132,11 @@ end
 --- @param command (Command) Input command value
 --- @return (number)|(nil) color
 function led.get_status_color(device, command)
-  local preferences = preferencesMap.get_device_parameters(device)
   ---@type string
   local component = "ledStatusColor" .. string.sub(command.component, string.find(command.component, "-") + 1)
   ---@type number
   local color_id = device.preferences[component]
+  log.debug(string.format("***** HomeSeer Switches *****: led.get_status_color- color_id=%s", color_id))
   return color_id
 end
 ---

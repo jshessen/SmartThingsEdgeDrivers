@@ -198,11 +198,11 @@ end
 function capability_handlers.do_refresh(driver, device, command)
   -- Determine the component for the command
   local component = command and command.component or "main"
-  local capability = device:supports_capability(capabilities.switch, component) and capabilities.switch or
-                      device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel or nil
+  local capability = device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel or
+                      device:supports_capability(capabilities.switch, component) and capabilities.switch or nil
   -- Check if the device supports switch level capability
   if capability then
-    if command.component == "main" then
+    if component == "main" then
       log.debug(string.format("***** HomeSeer Switches *****: I'm in the main loop"))
       device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
     else
