@@ -117,7 +117,27 @@ function led.set_status_color(device, command)
     configuration_value = value
   })
   device:send(set)
+  device:update_preferences({component = parameter_number})
   return value
+end
+---
+--- #######################################################
+
+--- #######################################################
+---
+
+--- @function led.get_status_color() --
+--- Gets current component color
+--- @param device (st.zwave.Device) The device object
+--- @param command (Command) Input command value
+--- @return (number)|(nil) color
+function led.get_status_color(device, command)
+  local preferences = preferencesMap.get_device_parameters(device)
+  ---@type string
+  local component = "ledStatusColor" .. string.sub(command.component, string.find(command.component, "-") + 1)
+  ---@type number
+  local color_id = device.preferences[component]
+  return color_id
 end
 ---
 --- #######################################################

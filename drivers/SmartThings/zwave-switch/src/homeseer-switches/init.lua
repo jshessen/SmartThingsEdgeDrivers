@@ -201,7 +201,16 @@ function capability_handlers.do_refresh(driver, device, command)
                       device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel or nil
   -- Check if the device supports switch level capability
   if capability then
-    device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
+    if command.component == "main" then
+      device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
+    else
+      local color_id = helpers.led.get_status_color(device,command)
+      if color_id then
+        device:emit_event_for_endpoint(command.src_channel,capabilities.switch.switch.on())
+      else
+        device:emit_event_for_endpoint(command.src_channel,capabilities.switch.switch.off())
+      end
+    end
   end
 end
 
