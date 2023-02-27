@@ -101,7 +101,7 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
       device:emit_event_for_endpoint(endpoint, capabilities.colorControl.saturation(0))
     else
       log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, In \"on\""))
-      event = capabilities.switch.switch.off()
+      event = capabilities.switch.switch.on()
     end
     --local set = SwitchBinary:Set({ target_value=value, duration=0 })
     log.debug(string.format("***** HSM200 *****: switch_multilevel_handler, Basic:Set"))
