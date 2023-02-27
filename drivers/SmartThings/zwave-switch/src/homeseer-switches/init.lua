@@ -123,6 +123,7 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
   else
     command.args.value = value
     local color = helpers.led.set_status_color(device, command) -- Update the LED status and check for error
+    log.debug(string.format("***** HomeSeer Switches *****: color=%s", color))
     event = color == SwitchBinary.value.OFF_DISABLE and capabilities.switch.switch.off() or capabilities.switch.switch.on()
     device:emit_event_for_endpoint(endpoint, event)
   end
@@ -202,9 +203,12 @@ function capability_handlers.do_refresh(driver, device, command)
   -- Check if the device supports switch level capability
   if capability then
     if command.component == "main" then
+      log.debug(string.format("***** HomeSeer Switches *****: I'm in the main loop"))
       device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
     else
+      log.debug(string.format("***** HomeSeer Switches *****: I'm in the component loop"))
       local color_id = helpers.led.get_status_color(device,command)
+      log.debug(string.format("***** HomeSeer Switches *****: color=%s", color_id))
       if color_id then
         device:emit_event_for_endpoint(command.src_channel,capabilities.switch.switch.on())
       else
