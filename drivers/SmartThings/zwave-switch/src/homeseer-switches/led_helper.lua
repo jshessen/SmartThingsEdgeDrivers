@@ -61,7 +61,7 @@ local led = {}
 --- Sets component color to closest supported color match
 --- @param device (st.zwave.Device) The device object
 --- @param command (Command) Input command value
---- @return (nil)
+--- @return (number)|(nil) color
 function led.set_status_color(device, command)
   local preferences = preferencesMap.get_device_parameters(device)
   ---@type number
@@ -108,7 +108,7 @@ function led.set_status_color(device, command)
   if not parameter_number or not size then
     --- If the parameter number or size is missing, log an error and return
     log.error(string.format("%s: Missing parameter number or size for component %s", device:pretty_print(), component))
-    return false
+    return nil
   end
   --- Create a configuration set based on the parameter number, size, and value
   local set = Configuration:Set({
@@ -117,6 +117,7 @@ function led.set_status_color(device, command)
     configuration_value = value
   })
   device:send(set)
+  return value
 end
 ---
 --- #######################################################

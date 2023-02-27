@@ -122,7 +122,8 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
     end
   else
     command.args.value = value
-    helpers.led.set_status_color(device, command) -- Update the LED status and check for error
+    local color = helpers.led.set_status_color(device, command) -- Update the LED status and check for error
+    event = color == SwitchBinary.value.OFF_DISABLE and capabilities.switch.switch.off() or capabilities.switch.switch.on()
     device:emit_event_for_endpoint(endpoint, event)
   end
 end
