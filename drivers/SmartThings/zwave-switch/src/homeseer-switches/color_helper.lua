@@ -39,9 +39,6 @@ local log = (require "log")
 --- Variables/Constants
 ---
 
---- @type string
-local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
-
 --- @local (table)
 local color = {
   map = {
@@ -110,12 +107,14 @@ function color.set_switch_color(device, command, r, g, b)
     return false
   end
 
+  log.debug(string.format("***** HSM200 *****: set_switch_color, In function"))
   local hue, saturation, mylightness = utils.rgb_to_hsl(r, g, b)
-  log.trace(string.format("***** HSM200 Driver *****: myhue=%s,mysat=%s", device:pretty_print(),hue, saturation))
+  log.debug(string.format("***** HSM200 *****: set_switch_color, RGB to HSL, hue=%s, saturation=%s",hue,saturation))
   command.args.color = {
     hue = hue,
     saturation = saturation,
   }
+  local CAP_CACHE_KEY = "st.capabilities." .. capabilities.colorControl.ID
   device:set_field(CAP_CACHE_KEY, command)
 
   local dim_duration = constants.DEFAULT_DIMMING_DURATION
@@ -129,6 +128,7 @@ function color.set_switch_color(device, command, r, g, b)
     },
     duration = dim_duration
   })
+  log.debug(string.format("***** HSM200 *****: set_switch_color, set=%s",set))
   device:send_to_component(set, command.component)
 
   local color_check = function()
