@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.8.0-beta.1](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.4...v0.8.0-beta.1) (2023-06-27)
+
+
+### :rocket: Feature/Improvement
+
+* **fingerprint:** Add DragonTech for WS/D100 ([ed8d20d](https://github.com/jshessen/SmartThingsEdgeDrivers/commit/ed8d20ddab6ee73cb17cc867e38955c3d69c816a))
+
 ## [0.7.4](https://github.com/jshessen/SmartThingsEdgeDrivers/compare/v0.7.3...v0.7.4) (2023-02-20)
 
 
