@@ -66,6 +66,8 @@ local HOMESEER_SWITCH_FINGERPRINTS = {
   {id = "HomeSeer/Dimmer/WX300S", mfr = 0x000C, prod = 0x4447, model = 0x4037}, -- HomeSeer WX300 Switch
   {id = "ZLink/Switch/WS100",     mfr = 0x0315, prod = 0x4447, model = 0x3033}, -- ZLink ZL-WS-100 Switch - ZWaveProducts.com
   {id = "ZLink/Dimmer/WD100",     mfr = 0x0315, prod = 0x4447, model = 0x3034}, -- ZLink ZL-WD-100 Dimmer - ZWaveProducts.com
+  {id = "DragonTech/Dimmer/WS100",mfr = 0x0184, prod = 0x4447, model = 0x3033}, -- DragonTech WS100 Dimmer
+  {id = "DragonTech/Dimmer/WD100",mfr = 0x0184, prod = 0x4447, model = 0x3034}, -- DragonTech WD100+ Dimmer
 }
 
 --- @function can_handle_homeseer_switches() --

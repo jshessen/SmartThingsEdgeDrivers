@@ -198,7 +198,7 @@ local devices = {
   },
   HOMESEER_WS100 = {
     MATCHING_MATRIX = {
-      mfrs = {0x000C, 0x0315},
+      mfrs = {0x000C, 0x0315, 0x0184},
       product_types = 0x4447,
       product_ids = 0x3033
     },
@@ -209,7 +209,7 @@ local devices = {
   },
   HOMESEER_WD100 = {
     MATCHING_MATRIX = {
-      mfrs = {0x000C, 0x0315},
+      mfrs = {0x000C, 0x0315, 0x0184},
       product_types = 0x4447,
       product_ids = 0x3034
     },
