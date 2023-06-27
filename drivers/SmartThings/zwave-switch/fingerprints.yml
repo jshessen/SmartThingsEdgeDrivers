@@ -47,3 +47,15 @@ zwaveManufacturer:
     productType: 0x4447
     productId: 0x3034
     deviceProfileName: homeseer-wd100
+  - id: "DragonTech/Switch/WS100"
+    deviceLabel: DragonTech WS100 Switch
+    manufacturerId: 0x0184
+    productType: 0x4447
+    productId: 0x3033
+    deviceProfileName: homeseer-ws100
+  - id: "DragonTech/Dimmer/WD100"
+    deviceLabel: DragonTech WD100+ Dimmer
+    manufacturerId: 0x0184
+    productType: 0x4447
+    productId: 0x3034
+    deviceProfileName: homeseer-wd100
