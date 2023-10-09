@@ -100,20 +100,17 @@ local capability_handlers = {}
 --- @param command (Command) Input command value
 --- @return (nil)
 function zwave_handlers.switch_multilevel_handler(driver, device, command)
-  -- Declare local variables 'level' and 'value'
-  local level = command.args.value or command.args.target_value -- Simplify if-else statement
-  local value = (level > 0 or level == SwitchBinary.value.ON_ENABLE) and SwitchBinary.value.ON_ENABLE
-                                                                    or SwitchBinary.value.OFF_DISABLE
+  -- Declare local variables
+  local level = command.args.value or command.args.target_value
+  local value = (level > 0 or level == SwitchBinary.value.ON_ENABLE) and SwitchBinary.value.ON_ENABLE or SwitchBinary.value.OFF_DISABLE
+  local event = value == SwitchBinary.value.ON_ENABLE and capabilities.switch.switch.on() or capabilities.switch.switch.off()
+  local endpoint = command.src_channel
 
   if command.component == "main" then
     local set = Basic:Set({ value=value })
     device:send(set)
-    if value == SwitchBinary.value.ON_ENABLE then
-      device:emit_event(capabilities.switch.switch.on())
-    else
-      device:emit_event(capabilities.switch.switch.off())
-    end    
-    -- If the device supports switch level capability
+    device:emit_event_for_endpoint(endpoint, event)
+
     if device:supports_capability(capabilities.switchLevel, nil) then
       local dimmingDuration = command.args.rate or constants.DEFAULT_DIMMING_DURATION
       level = math.floor(level + 0.5) -- Round off 'level' to the nearest integer
@@ -121,14 +118,16 @@ function zwave_handlers.switch_multilevel_handler(driver, device, command)
 
       set = SwitchMultilevel:Set({value = level, duration = dimmingDuration })
       device:send(set) -- Send the 'set' command directly to the device and check for errors
-      local get = function()
-        device:send(SwitchBinary:Get({})) -- Send a 'get' command to the device to get its current status and check for errors
-      end
-      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, get)
+      device.thread:call_with_delay(constants.DEFAULT_GET_STATUS_DELAY, function()
+        device:send(SwitchBinary:Get({}))
+      end)
     end
   else
     command.args.value = value
-    helpers.led.set_status_color(device, command) -- Update the LED status and check for error
+    local color = helpers.led.set_status_color(device, command) -- Update the LED status and check for error
+    log.debug(string.format("***** HomeSeer Switches *****: color=%s", color))
+    event = color == SwitchBinary.value.OFF_DISABLE and capabilities.switch.switch.off() or capabilities.switch.switch.on()
+    device:emit_event_for_endpoint(endpoint, event)
   end
 end
 
@@ -201,11 +200,23 @@ end
 function capability_handlers.do_refresh(driver, device, command)
   -- Determine the component for the command
   local component = command and command.component or "main"
-  local capability = device:supports_capability(capabilities.switch, component) and capabilities.switch or
-                      device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel or nil
+  local capability = device:supports_capability(capabilities.switchLevel, component) and capabilities.switchLevel or
+                      device:supports_capability(capabilities.switch, component) and capabilities.switch or nil
   -- Check if the device supports switch level capability
   if capability then
-    device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
+    if component == "main" then
+      log.debug(string.format("***** HomeSeer Switches *****: I'm in the main loop"))
+      device:send_to_component(capability == capabilities.switch and SwitchBinary:Get({}) or SwitchMultilevel:Get({}), component)
+    else
+      log.debug(string.format("***** HomeSeer Switches *****: I'm in the component loop"))
+      local color_id = helpers.led.get_status_color(device,command)
+      log.debug(string.format("***** HomeSeer Switches *****: color=%s", color_id))
+      if color_id then
+        device:emit_event_for_endpoint(command.src_channel,capabilities.switch.switch.on())
+      else
+        device:emit_event_for_endpoint(command.src_channel,capabilities.switch.switch.off())
+      end
+    end
   end
 end
 
@@ -372,6 +383,9 @@ local homeseer_switches = {
     -- Button
     [cc.CENTRAL_SCENE] = {
       [CentralScene.NOTIFICATION] = zwave_handlers.emit_central_scene_events
+    },
+    [cc.BASIC] = {
+      [Basic.Report] = zwave_handlers.switch_multilevel_handler
     },
     -- Return firmware version
     [cc.VERSION] = {
